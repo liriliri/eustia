@@ -1,0 +1,4 @@
+_.isBoolean = function ()
+{
+
+};

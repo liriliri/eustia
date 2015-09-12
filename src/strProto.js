@@ -1,0 +1,1 @@
+_.strProto = String.prototype;

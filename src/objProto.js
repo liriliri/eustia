@@ -1,0 +1,1 @@
+_.objProto = Object.prototype;

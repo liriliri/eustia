@@ -1,0 +1,1 @@
+_.arrProto = Array.prototype;
