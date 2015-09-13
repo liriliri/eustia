@@ -1,0 +1,4 @@
+_.isNaN = function ()
+{
+
+};
