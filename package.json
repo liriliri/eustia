@@ -1,0 +1,23 @@
+{
+  "name": "eustia",
+  "version": "0.0.1",
+  "description": "Provides common JavaScript functions to build your own utility library.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liriliri/eustia.git"
+  },
+  "keywords": [
+    "utility",
+    "library",
+    "custom",
+    "javascript",
+    "underscore"
+  ],
+  "author": "redhoodsu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liriliri/eustia/issues"
+  },
+  "homepage": "https://github.com/liriliri/eustia#readme"
+}
