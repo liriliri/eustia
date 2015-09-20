@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/liriliri/eustia/issues"
   },
-  "homepage": "https://github.com/liriliri/eustia#readme"
+  "homepage": "https://github.com/liriliri/eustia#readme",
+  "dependencies": {
+    "nopt": "^3.0.4"
+  }
 }
