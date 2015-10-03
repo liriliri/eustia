@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/liriliri/eustia#readme",
   "dependencies": {
+    "async": "^1.4.2",
     "nopt": "^3.0.4"
   }
 }

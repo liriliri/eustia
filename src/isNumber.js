@@ -1,4 +1,6 @@
-_.isNumber = function (val)
+'toString';
+
+var exports = function (val)
 {
-    return _.toString.call(val) === '[object val]';
+    return toString.call(val) === '[object val]';
 };

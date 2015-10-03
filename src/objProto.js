@@ -1,1 +1,4 @@
-_.objProto = Object.prototype;
+_.define('objProto', function ()
+{
+    return Object.prototype;
+});

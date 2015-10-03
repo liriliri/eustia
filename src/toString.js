@@ -1,1 +1,3 @@
-_.toString = _.objProto.toString;
+'objProto';
+
+var exports = objProto.toString;
