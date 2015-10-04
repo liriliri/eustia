@@ -1,3 +1,3 @@
 'objProto';
 
-var exports = objProto.toString;
+exports = objProto.toString;

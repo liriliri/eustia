@@ -35,41 +35,13 @@
         _[name] = body.apply(_, requires);
 
         requireMarks[name] = true;
+
+        return _[name];
     }
 
-    define('objProto', [], function ()
-    {
-        var exports;
-
-        exports = Object.prototype;
-
-        return exports;
-    });
-
-    define('toString', ['objProto'], function (objProto)
-    {
-        var exports;
-
-        exports = objProto.toString;
-
-        return exports;
-    });
-
-    define('isString', ['toString'], function (toString)
-    {
-        var exports;
-
-        exports = function (val)
-        {
-            return toString.call(val) === '[object String]';
-        };
-
-        return exports;
-    });
+    {{code}}
 
     init([
-        'objProto',
-        'toString',
-        'isString'
+        {{methodList}}
     ]);
 })();

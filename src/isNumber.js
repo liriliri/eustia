@@ -1,6 +1,6 @@
 'toString';
 
-var exports = function (val)
+exports = function (val)
 {
-    return toString.call(val) === '[object val]';
+    return toString.call(val) === '[object Number]';
 };
