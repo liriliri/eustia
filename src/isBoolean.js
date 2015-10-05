@@ -1,6 +1,8 @@
-_.isBoolean = function (val)
+'toString';
+
+exports = function (val)
 {
     return val === true  ||
            val === false ||
-           _.toString.call(val) === '[object Boolean]';
+           toString.call(val) === '[object Boolean]';
 };

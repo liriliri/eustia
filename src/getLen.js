@@ -1,0 +1,3 @@
+'property';
+
+exports = property('length');

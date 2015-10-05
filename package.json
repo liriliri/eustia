@@ -4,7 +4,8 @@
   "description": "Provides common JavaScript functions to build your own utility library.",
   "main": "index.js",
   "scripts": {
-      "genTestUtil": "eustia test/index.html test/index.js -o test/util.js",
+      "genTestUtil": "eustia test/index.html test/index.js -o test/testUtil.js",
+      "genUtil": "eustia lib/ -o test/util.js",
       "test": "node test/index"
   },
   "repository": {

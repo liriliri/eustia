@@ -1,4 +1,6 @@
-_.isFunction = function (val)
+'toString';
+
+exports = function (val)
 {
-    return _.toString.call(val) === '[object Function]';
+    return toString.call(val) === '[object Function]';
 };

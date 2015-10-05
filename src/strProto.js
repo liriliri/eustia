@@ -1,1 +1,1 @@
-_.strProto = String.prototype;
+exports = String.prototype;

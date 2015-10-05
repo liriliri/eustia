@@ -1,4 +1,6 @@
-_.isDate = function (val)
+'toString';
+
+exports = function (val)
 {
-    return _.toString.call(val) === '[object Date]';
+    return toString.call(val) === '[object Date]';
 };

@@ -1,1 +1,1 @@
-_.arrProto = Array.prototype;
+exports = Array.prototype;

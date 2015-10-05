@@ -1,4 +1,4 @@
-_.isNull = function (val)
+exports = function (val)
 {
     return val === null;
 };

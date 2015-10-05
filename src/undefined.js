@@ -1,0 +1,3 @@
+var undefined;
+
+exports = undefined;

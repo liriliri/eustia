@@ -1,4 +1,6 @@
-_.isError = function (val)
+'toString';
+
+exports = function (val)
 {
-    return _.toString.call(val) === '[object Error]';
+    return toString.call(val) === '[object Error]';
 };
