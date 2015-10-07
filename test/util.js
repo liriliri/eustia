@@ -39,12 +39,14 @@
         return _[name];
     }
 
-    define('each', ['isArrLike', 'keys'], function (isArrLike, keys)
+    define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
     {
         var exports;
 
         exports = function (obj, iteratee, ctx)
         {
+            iteratee = optimizeCb(iteratee, ctx);
+
             var i, len;
 
             if (isArrLike(obj))
@@ -121,11 +123,35 @@
         return exports;
     });
 
-    define('getLen', ['property'], function (property)
+    define('optimizeCb', ['undefined'], function (undefined)
     {
         var exports;
 
-        exports = property('length');
+        exports = function (func, ctx, argCount)
+        {
+            if (ctx === undefined) return func;
+
+            switch (argCount === null ? 3 : argCount)
+            {
+                case 1: return function (val)
+                {
+                    return func.call(ctx, val);
+                };
+                case 3: return function (val, idx, collection)
+                {
+                    return func.call(ctx, val, idx, collection);
+                };
+                case 4: return function (accumulator, val, idx, collection)
+                {
+                    return func.call(ctx, accumulator, val, idx, collection);
+                }
+            }
+
+            return function ()
+            {
+                return func.apply(ctx, arguments);
+            };
+        };
 
         return exports;
     });
@@ -138,6 +164,15 @@
         {
             return toString.call(val) === '[object Number]';
         };
+
+        return exports;
+    });
+
+    define('getLen', ['property'], function (property)
+    {
+        var exports;
+
+        exports = property('length');
 
         return exports;
     });
@@ -170,6 +205,26 @@
         return exports;
     });
 
+    define('undefined', [], function ()
+    {
+        var exports;
+
+        var undefined;
+
+        exports = undefined;
+
+        return exports;
+    });
+
+    define('toString', ['objProto'], function (objProto)
+    {
+        var exports;
+
+        exports = objProto.toString;
+
+        return exports;
+    });
+
     define('property', ['undefined'], function (undefined)
     {
         var exports;
@@ -185,15 +240,6 @@
         return exports;
     });
 
-    define('toString', ['objProto'], function (objProto)
-    {
-        var exports;
-
-        exports = objProto.toString;
-
-        return exports;
-    });
-
     define('objProto', [], function ()
     {
         var exports;
@@ -203,29 +249,19 @@
         return exports;
     });
 
-    define('undefined', [], function ()
-    {
-        var exports;
-
-        var undefined;
-
-        exports = undefined;
-
-        return exports;
-    });
-
     init([
         'each',
         'isUndefined',
         'isArrLike',
         'keys',
-        'getLen',
+        'optimizeCb',
         'isNumber',
+        'getLen',
         'isObject',
         'has',
-        'property',
+        'undefined',
         'toString',
-        'objProto',
-        'undefined'
+        'property',
+        'objProto'
     ]);
 })();

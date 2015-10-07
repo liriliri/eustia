@@ -17,3 +17,15 @@ _.test('isString', function (assert)
     var strObj = new String('string');
     assert.ok(_.isString('strObj'), 'A string object is a string');
 });
+
+_.test('extend', function ()
+{
+    var ret = _.extend({}, {b:5});
+    console.log(ret.b);
+});
+
+_.test('clone', function ()
+{
+    var ret = _.clone([1, 2]);
+    console.log(ret);
+});

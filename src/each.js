@@ -1,7 +1,9 @@
-'isArrLike keys';
+'isArrLike keys optimizeCb';
 
 exports = function (obj, iteratee, ctx)
 {
+    iteratee = optimizeCb(iteratee, ctx);
+
     var i, len;
 
     if (isArrLike(obj))
