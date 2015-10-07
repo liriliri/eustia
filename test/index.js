@@ -57,3 +57,18 @@ _.test('deepExtend', function ()
         c: [1, 2, 3]
     }));
 });
+
+_.test('trim', function ()
+{
+    console.log(_.trim('  fdsf+   '));
+});
+
+_.test('ltrim', function ()
+{
+    console.log(_.ltrim('  fdsf+', '+ '));
+});
+
+_.test('rtrim', function ()
+{
+    console.log(_.rtrim('  fdsf+', '+ '));
+});
