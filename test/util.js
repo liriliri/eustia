@@ -42,6 +42,39 @@
         return _[name];
     }
 
+    _define('readPaths', ['expandPaths'], function (expandPaths)
+    {
+        var exports;
+
+        var fs    = require('fs'),
+            async = require('async');
+
+        exports = function (paths, options, callback)
+        {
+            expandPaths(paths, function (err, files)
+            {
+                if (err) return callback(err);
+
+                async.map(files, function (file, callback)
+                {
+                    fs.readFile(file, options.encoding, function (err, data)
+                    {
+                        if (err) return callback(err);
+
+                        callback(null, data);
+                    });
+                }, function (err, results)
+                {
+                    if (err) return callback(err);
+
+                    callback(null, results);
+                });
+            });
+        };
+
+        return exports;
+    });
+
     _define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
     {
         var exports;
@@ -60,47 +93,14 @@
                 }
             } else
             {
-                keys = keys(obj);
-                for (i = 0, len = keys.length; i < len; i++)
+                var _keys = keys(obj);
+                for (i = 0, len = _keys.length; i < len; i++)
                 {
-                    iteratee(obj[keys[i]], keys[i], obj);
+                    iteratee(obj[_keys[i]], _keys[i], obj);
                 }
             }
 
             return obj;
-        };
-
-        return exports;
-    });
-
-    _define('readPaths', ['expandPaths'], function (expandPaths)
-    {
-        var exports;
-
-        var fs    = require('fs'),
-            async = require('async');
-
-        exports = function (paths, callback)
-        {
-            expandPaths(paths, function (err, files)
-            {
-                if (err) return callback(err);
-
-                async.map(files, function (file, callback)
-                {
-                    fs.readFile(file, 'utf-8', function (err, data)
-                    {
-                        if (err) return callback(err);
-
-                        callback(null, data);
-                    });
-                }, function (err, results)
-                {
-                    if (err) return callback(err);
-
-                    callback(null, results);
-                });
-            });
         };
 
         return exports;
@@ -118,75 +118,33 @@
         return exports;
     });
 
-    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
+    _define('deepExtend', ['isPlainObject', 'each', 'deepClone'], function (isPlainObject, each, deepClone)
     {
         var exports;
-
-        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
-
-        exports = function (collection)
-        {
-            var len = getLen(collection);
-
-            return isNumber(len) && len >= 0 && len <= MAX_ARR_IDX;
-        };
-
-        return exports;
-    });
-
-    _define('keys', ['isObject', 'has'], function (isObject, has)
-    {
-        var exports;
-
-        var nativeKeys = Object.keys;
 
         exports = function (obj)
         {
-            if (!isObject(obj)) return [];
+            var i   = 0,
+                ret = obj,
+                len = arguments.length;
 
-            if (nativeKeys) return nativeKeys(obj);
-
-            var keys = [];
-
-            for (var key in obj)
+            while (++i < len)
             {
-                if (has(obj, key)) keys.push(key);
-            }
+                obj = arguments[i];
 
-            return keys;
-        };
-
-        return exports;
-    });
-
-    _define('optimizeCb', ['undefined'], function (undefined)
-    {
-        var exports;
-
-        exports = function (func, ctx, argCount)
-        {
-            if (ctx === undefined) return func;
-
-            switch (argCount === null ? 3 : argCount)
-            {
-                case 1: return function (val)
+                if (isPlainObject(ret) && isPlainObject(obj))
                 {
-                    return func.call(ctx, val);
-                };
-                case 3: return function (val, idx, collection)
+                    each(obj, function (val, key)
+                    {
+                        ret[key] = exports(ret[key], obj[key]);
+                    });
+                } else
                 {
-                    return func.call(ctx, val, idx, collection);
-                };
-                case 4: return function (accumulator, val, idx, collection)
-                {
-                    return func.call(ctx, accumulator, val, idx, collection);
+                    ret = deepClone(obj);
                 }
             }
 
-            return function ()
-            {
-                return func.apply(ctx, arguments);
-            };
+            return ret;
         };
 
         return exports;
@@ -235,6 +193,134 @@
             _.each(paths, function (val) { walker.push(val) });
 
             walker.drain = function () { callback(null, files) };
+        };
+
+        return exports;
+    });
+
+    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
+    {
+        var exports;
+
+        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
+
+        exports = function (collection)
+        {
+            var len = getLen(collection);
+
+            return isNumber(len) && len >= 0 && len <= MAX_ARR_IDX;
+        };
+
+        return exports;
+    });
+
+    _define('keys', ['isObject', 'has'], function (isObject, has)
+    {
+        var exports;
+
+        var nativeKeys = Object.keys;
+
+        exports = function (obj)
+        {
+            if (!isObject(obj)) return [];
+
+            if (nativeKeys) return nativeKeys(obj);
+
+            var keys = [];
+
+            for (var key in obj)
+            {
+                if (has(obj, key)) keys.push(key);
+            }
+
+            return keys;
+        };
+
+        return exports;
+    });
+
+    _define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray)
+    {
+        var exports;
+
+        exports = function (obj)
+        {
+            return isObject(obj) && !isArray(obj);
+        };
+
+        return exports;
+    });
+
+    _define('optimizeCb', ['undefined'], function (undefined)
+    {
+        var exports;
+
+        exports = function (func, ctx, argCount)
+        {
+            if (ctx === undefined) return func;
+
+            switch (argCount === null ? 3 : argCount)
+            {
+                case 1: return function (val)
+                {
+                    return func.call(ctx, val);
+                };
+                case 3: return function (val, idx, collection)
+                {
+                    return func.call(ctx, val, idx, collection);
+                };
+                case 4: return function (accumulator, val, idx, collection)
+                {
+                    return func.call(ctx, accumulator, val, idx, collection);
+                }
+            }
+
+            return function ()
+            {
+                return func.apply(ctx, arguments);
+            };
+        };
+
+        return exports;
+    });
+
+    _define('deepClone', ['keys', 'isObject', 'isFunction', 'isArray', 'each'], function (keys, isObject, isFunction, isArray, each)
+    {
+        var exports;
+
+        function mapObject(obj, iteratee)
+        {
+            var newObj = {};
+
+            each(obj, function (val, key)
+            {
+                var pair = iteratee(key, val);
+
+                newObj[pair[0]] = pair[1];
+            });
+
+            return newObj;
+        }
+
+        exports = function (obj)
+        {
+            if (isArray(obj))
+            {
+                return obj.map(function (val)
+                {
+                    return exports(val);
+                });
+            }
+
+            if (isObject(obj) && !isFunction(obj))
+            {
+                return mapObject(obj, function (key, val)
+                {
+                    return [key, exports(val)];
+                });
+            }
+
+            return obj;
         };
 
         return exports;
@@ -289,6 +375,15 @@
         return exports;
     });
 
+    _define('isArray', [], function ()
+    {
+        var exports;
+
+        exports = Array.isArray;
+
+        return exports;
+    });
+
     _define('undefined', [], function ()
     {
         var exports;
@@ -296,6 +391,18 @@
         var undefined;
 
         exports = undefined;
+
+        return exports;
+    });
+
+    _define('isFunction', ['toString'], function (toString)
+    {
+        var exports;
+
+        exports = function (val)
+        {
+            return toString.call(val) === '[object Function]';
+        };
 
         return exports;
     });
@@ -334,18 +441,23 @@
     });
 
     _init([
-        'each',
         'readPaths',
+        'each',
         'isUndefined',
+        'deepExtend',
+        'expandPaths',
         'isArrLike',
         'keys',
+        'isPlainObject',
         'optimizeCb',
-        'expandPaths',
+        'deepClone',
         'getLen',
         'isNumber',
         'isObject',
         'has',
+        'isArray',
         'undefined',
+        'isFunction',
         'property',
         'toString',
         'objProto'

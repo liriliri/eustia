@@ -3,7 +3,7 @@
 var fs    = require('fs'),
     async = require('async');
 
-exports = function (paths, callback)
+exports = function (paths, options, callback)
 {
     expandPaths(paths, function (err, files)
     {
@@ -11,7 +11,7 @@ exports = function (paths, callback)
 
         async.map(files, function (file, callback)
         {
-            fs.readFile(file, 'utf-8', function (err, data)
+            fs.readFile(file, options.encoding, function (err, data)
             {
                 if (err) return callback(err);
 
