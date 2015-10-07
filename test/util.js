@@ -5,7 +5,7 @@
     typeof module !== 'undefined' && module.exports ? module.exports = _
                                                     : window._ = _;
 
-    function define(name, requires, method)
+    function _define(name, requires, method)
     {
         _[name] = {
             requires: requires,
@@ -13,14 +13,17 @@
         };
     }
 
-    function init(methods)
+    function _init(methods)
     {
-        for (var i = 0, len = methods.length; i < len; i++) require(methods[i]);
+        for (var i = 0, len = methods.length; i < len; i++)
+        {
+            _require(methods[i]);
+        }
     }
 
     var requireMarks = {};
 
-    function require(name)
+    function _require(name)
     {
         if (requireMarks.hasOwnProperty(name)) return _[name];
 
@@ -29,7 +32,7 @@
 
         for (var i = 0, len = requires.length; i < len; i++)
         {
-            requires[i] = require(requires[i]);
+            requires[i] = _require(requires[i]);
         }
 
         _[name] = body.apply(_, requires);
@@ -39,7 +42,7 @@
         return _[name];
     }
 
-    define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
+    _define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
     {
         var exports;
 
@@ -70,7 +73,40 @@
         return exports;
     });
 
-    define('isUndefined', [], function ()
+    _define('readPaths', ['expandPaths'], function (expandPaths)
+    {
+        var exports;
+
+        var fs    = require('fs'),
+            async = require('async');
+
+        exports = function (paths, callback)
+        {
+            expandPaths(paths, function (err, files)
+            {
+                if (err) return callback(err);
+
+                async.map(files, function (file, callback)
+                {
+                    fs.readFile(file, 'utf-8', function (err, data)
+                    {
+                        if (err) return callback(err);
+
+                        callback(null, data);
+                    });
+                }, function (err, results)
+                {
+                    if (err) return callback(err);
+
+                    callback(null, results);
+                });
+            });
+        };
+
+        return exports;
+    });
+
+    _define('isUndefined', [], function ()
     {
         var exports;
 
@@ -82,7 +118,7 @@
         return exports;
     });
 
-    define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
+    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
     {
         var exports;
 
@@ -98,7 +134,7 @@
         return exports;
     });
 
-    define('keys', ['isObject', 'has'], function (isObject, has)
+    _define('keys', ['isObject', 'has'], function (isObject, has)
     {
         var exports;
 
@@ -123,7 +159,7 @@
         return exports;
     });
 
-    define('optimizeCb', ['undefined'], function (undefined)
+    _define('optimizeCb', ['undefined'], function (undefined)
     {
         var exports;
 
@@ -156,7 +192,64 @@
         return exports;
     });
 
-    define('isNumber', ['toString'], function (toString)
+    _define('expandPaths', ['each'], function (each)
+    {
+        var exports;
+
+        var async = require('async'),
+            fs    = require('fs'),
+            path  = require('path');
+
+        var resolve = path.resolve;
+
+        exports = function (paths, callback)
+        {
+            var files = [];
+
+            var walker = async.queue(function (path, callback)
+            {
+                fs.stat(path, function (err, stat)
+                {
+                    if (err) return callback(err);
+
+                    if (stat.isDirectory())
+                    {
+                        fs.readdir(path, function (err, files)
+                        {
+                            if (err) return callback(err);
+
+                            each(files, function (val)
+                            {
+                                walker.push(resolve(path, val));
+                            });
+                            callback();
+                        });
+                        return;
+                    }
+
+                    files.push(path);
+                    callback();
+                });
+            }, 50);
+
+            _.each(paths, function (val) { walker.push(val) });
+
+            walker.drain = function () { callback(null, files) };
+        };
+
+        return exports;
+    });
+
+    _define('getLen', ['property'], function (property)
+    {
+        var exports;
+
+        exports = property('length');
+
+        return exports;
+    });
+
+    _define('isNumber', ['toString'], function (toString)
     {
         var exports;
 
@@ -168,16 +261,7 @@
         return exports;
     });
 
-    define('getLen', ['property'], function (property)
-    {
-        var exports;
-
-        exports = property('length');
-
-        return exports;
-    });
-
-    define('isObject', [], function ()
+    _define('isObject', [], function ()
     {
         var exports;
 
@@ -191,7 +275,7 @@
         return exports;
     });
 
-    define('has', ['objProto'], function (objProto)
+    _define('has', ['objProto'], function (objProto)
     {
         var exports;
 
@@ -205,7 +289,7 @@
         return exports;
     });
 
-    define('undefined', [], function ()
+    _define('undefined', [], function ()
     {
         var exports;
 
@@ -216,16 +300,7 @@
         return exports;
     });
 
-    define('toString', ['objProto'], function (objProto)
-    {
-        var exports;
-
-        exports = objProto.toString;
-
-        return exports;
-    });
-
-    define('property', ['undefined'], function (undefined)
+    _define('property', ['undefined'], function (undefined)
     {
         var exports;
 
@@ -240,7 +315,16 @@
         return exports;
     });
 
-    define('objProto', [], function ()
+    _define('toString', ['objProto'], function (objProto)
+    {
+        var exports;
+
+        exports = objProto.toString;
+
+        return exports;
+    });
+
+    _define('objProto', [], function ()
     {
         var exports;
 
@@ -249,19 +333,21 @@
         return exports;
     });
 
-    init([
+    _init([
         'each',
+        'readPaths',
         'isUndefined',
         'isArrLike',
         'keys',
         'optimizeCb',
-        'isNumber',
+        'expandPaths',
         'getLen',
+        'isNumber',
         'isObject',
         'has',
         'undefined',
-        'toString',
         'property',
+        'toString',
         'objProto'
     ]);
 })();

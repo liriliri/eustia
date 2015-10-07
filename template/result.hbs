@@ -5,7 +5,7 @@
     typeof module !== 'undefined' && module.exports ? module.exports = _
                                                     : window._ = _;
 
-    function define(name, requires, method)
+    function _define(name, requires, method)
     {
         _[name] = {
             requires: requires,
@@ -13,14 +13,17 @@
         };
     }
 
-    function init(methods)
+    function _init(methods)
     {
-        for (var i = 0, len = methods.length; i < len; i++) require(methods[i]);
+        for (var i = 0, len = methods.length; i < len; i++)
+        {
+            _require(methods[i]);
+        }
     }
 
     var requireMarks = {};
 
-    function require(name)
+    function _require(name)
     {
         if (requireMarks.hasOwnProperty(name)) return _[name];
 
@@ -29,7 +32,7 @@
 
         for (var i = 0, len = requires.length; i < len; i++)
         {
-            requires[i] = require(requires[i]);
+            requires[i] = _require(requires[i]);
         }
 
         _[name] = body.apply(_, requires);
@@ -41,7 +44,7 @@
 
     {{code}}
 
-    init([
+    _init([
         {{methodList}}
     ]);
 })();
