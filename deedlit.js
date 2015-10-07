@@ -1,13 +1,4 @@
-module.exports = function (deedlit)
-{
-    deedlit.initConfig({
-        protocol: {
+var deedlit = require('deedlit');
 
-        }
-    });
-
-    deedlit.loadNpmDocs('protocol');
-    deedlit.loadNpmDocs('');
-
-    deedlit.registerDocs();
-};
+deedlit.src('').task('').dest().start();
+deedlit.src('').options({}).task().dest().start();

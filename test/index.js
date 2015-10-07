@@ -29,3 +29,31 @@ _.test('clone', function ()
     var ret = _.clone([1, 2]);
     console.log(ret);
 });
+
+_.test('map', function ()
+{
+    var ret = _.map([1, 2, 3], function (val)
+    {
+        return val * 2;
+    });
+
+    console.log(ret);
+});
+
+_.test('deepClone', function ()
+{
+    console.log(_.deepClone({
+        a: 5,
+        b: [1, 2, 3]
+    }));
+});
+
+_.test('deepExtend', function ()
+{
+    console.log(_.deepExtend({
+        a: 1
+    }, {
+        b: 2,
+        c: [1, 2, 3]
+    }));
+});

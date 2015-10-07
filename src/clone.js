@@ -1,7 +1,3 @@
-/* docco
- *
- */
-
 'isObject isArray extend';
 
 exports = function (obj)

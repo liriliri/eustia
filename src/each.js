@@ -14,10 +14,10 @@ exports = function (obj, iteratee, ctx)
         }
     } else
     {
-        keys = keys(obj);
-        for (i = 0, len = keys.length; i < len; i++)
+        var _keys = keys(obj);
+        for (i = 0, len = _keys.length; i < len; i++)
         {
-            iteratee(obj[keys[i]], keys[i], obj);
+            iteratee(obj[_keys[i]], _keys[i], obj);
         }
     }
 
