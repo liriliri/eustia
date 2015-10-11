@@ -42,28 +42,6 @@
         return _[name];
     }
 
-    _define('test', [], function ()
-    {
-        var exports;
-
-        var assert = {
-            ok: function (result, msg)
-            {
-                msg = (result ? 'Ok' : 'Failed, expected argument to be true') + ': ' + msg;
-
-                console.log(msg);
-            }
-        };
-
-        exports = function (name, callback)
-        {
-            console.log(name + ':');
-            callback(assert);
-        };
-
-        return exports;
-    });
-
     _define('isNumber', ['toString'], function (toString)
     {
         var exports;
@@ -92,44 +70,6 @@
         exports = function (val)
         {
             return toString.call(val) === '[object String]';
-        };
-
-        return exports;
-    });
-
-    _define('clone', ['isObject', 'isArray', 'extend'], function (isObject, isArray, extend)
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            if (!isObject(obj)) return obj;
-
-            return isArray(obj) ? obj.slice() : extend({}, obj);
-        };
-
-        return exports;
-    });
-
-    _define('map', ['cb', 'keys', 'isArrLike'], function (cb, keys, isArrLike)
-    {
-        var exports;
-
-        exports = function (obj, iteratee, ctx)
-        {
-            iteratee = cb(iteratee, ctx);
-
-            var _keys   = !isArrLike(obj) && keys(obj),
-                len     = (_keys || obj).length,
-                results = Array(len);
-
-            for (var i = 0; i < len; i++)
-            {
-                var curKey = _keys ? _keys[i] : i;
-                results[i] = iteratee(obj[curKey], curKey, obj);
-            }
-
-            return results;
         };
 
         return exports;
@@ -251,6 +191,66 @@
         return exports;
     });
 
+    _define('test', [], function ()
+    {
+        var exports;
+
+        var assert = {
+            ok: function (result, msg)
+            {
+                msg = (result ? 'Ok' : 'Failed, expected argument to be true') + ': ' + msg;
+
+                console.log(msg);
+            }
+        };
+
+        exports = function (name, callback)
+        {
+            console.log(name + ':');
+            callback(assert);
+        };
+
+        return exports;
+    });
+
+    _define('map', ['cb', 'keys', 'isArrLike'], function (cb, keys, isArrLike)
+    {
+        var exports;
+
+        exports = function (obj, iteratee, ctx)
+        {
+            iteratee = cb(iteratee, ctx);
+
+            var _keys   = !isArrLike(obj) && keys(obj),
+                len     = (_keys || obj).length,
+                results = Array(len);
+
+            for (var i = 0; i < len; i++)
+            {
+                var curKey = _keys ? _keys[i] : i;
+                results[i] = iteratee(obj[curKey], curKey, obj);
+            }
+
+            return results;
+        };
+
+        return exports;
+    });
+
+    _define('clone', ['isObject', 'isArray', 'extend'], function (isObject, isArray, extend)
+    {
+        var exports;
+
+        exports = function (obj)
+        {
+            if (!isObject(obj)) return obj;
+
+            return isArray(obj) ? obj.slice() : extend({}, obj);
+        };
+
+        return exports;
+    });
+
     _define('ltrim', ['trim'], function (trim)
     {
         var exports;
@@ -275,6 +275,15 @@
         return exports;
     });
 
+    _define('toString', ['objProto'], function (objProto)
+    {
+        var exports;
+
+        exports = objProto.toString;
+
+        return exports;
+    });
+
     _define('createAssigner', ['undefined'], function (undefined)
     {
         var exports;
@@ -287,7 +296,7 @@
 
                 if (defaults) obj = Object(obj);
 
-                if (len < 2 || obj === null) return obj;
+                if (len < 2 || obj == null) return obj;
 
                 for (var i = 1; i < len; i++)
                 {
@@ -309,11 +318,27 @@
         return exports;
     });
 
-    _define('toString', ['objProto'], function (objProto)
+    _define('keys', ['isObject', 'has'], function (isObject, has)
     {
         var exports;
 
-        exports = objProto.toString;
+        var nativeKeys = Object.keys;
+
+        exports = function (obj)
+        {
+            if (!isObject(obj)) return [];
+
+            if (nativeKeys) return nativeKeys(obj);
+
+            var keys = [];
+
+            for (var key in obj)
+            {
+                if (has(obj, key)) keys.push(key);
+            }
+
+            return keys;
+        };
 
         return exports;
     });
@@ -350,26 +375,13 @@
         return exports;
     });
 
-    _define('keys', ['isObject', 'has'], function (isObject, has)
+    _define('isFunction', ['toString'], function (toString)
     {
         var exports;
 
-        var nativeKeys = Object.keys;
-
-        exports = function (obj)
+        exports = function (val)
         {
-            if (!isObject(obj)) return [];
-
-            if (nativeKeys) return nativeKeys(obj);
-
-            var keys = [];
-
-            for (var key in obj)
-            {
-                if (has(obj, key)) keys.push(key);
-            }
-
-            return keys;
+            return toString.call(val) === '[object Function]';
         };
 
         return exports;
@@ -380,52 +392,6 @@
         var exports;
 
         exports = Array.isArray;
-
-        return exports;
-    });
-
-    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
-    {
-        var exports;
-
-        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
-
-        exports = function (collection)
-        {
-            var len = getLen(collection);
-
-            return isNumber(len) && len >= 0 && len <= MAX_ARR_IDX;
-        };
-
-        return exports;
-    });
-
-    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
-    {
-        var exports;
-
-        exports = function (val, ctx, argCount)
-        {
-            if (val === null) return identity;
-
-            if (isFunction(val)) return optimizeCb(val, ctx, argCount);
-
-            if (isObject(val)) return matcher(val);
-
-            return property;
-        };
-
-        return exports;
-    });
-
-    _define('isFunction', ['toString'], function (toString)
-    {
-        var exports;
-
-        exports = function (val)
-        {
-            return toString.call(val) === '[object Function]';
-        };
 
         return exports;
     });
@@ -473,6 +439,40 @@
         return exports;
     });
 
+    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
+    {
+        var exports;
+
+        exports = function (val, ctx, argCount)
+        {
+            if (val == null) return identity;
+
+            if (isFunction(val)) return optimizeCb(val, ctx, argCount);
+
+            if (isObject(val)) return matcher(val);
+
+            return property;
+        };
+
+        return exports;
+    });
+
+    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
+    {
+        var exports;
+
+        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
+
+        exports = function (collection)
+        {
+            var len = getLen(collection);
+
+            return isNumber(len) && len >= 0 && len <= MAX_ARR_IDX;
+        };
+
+        return exports;
+    });
+
     _define('strProto', [], function ()
     {
         var exports;
@@ -491,20 +491,6 @@
         return exports;
     });
 
-    _define('has', ['objProto'], function (objProto)
-    {
-        var exports;
-
-        var hasOwnProperty = objProto.hasOwnProperty;
-
-        exports = function (obj, key)
-        {
-            return obj !== null && hasOwnProperty.call(obj, key);
-        };
-
-        return exports;
-    });
-
     _define('undefined', [], function ()
     {
         var exports;
@@ -516,22 +502,30 @@
         return exports;
     });
 
-    _define('getLen', ['property'], function (property)
+    _define('has', ['objProto'], function (objProto)
     {
         var exports;
 
-        exports = property('length');
+        var hasOwnProperty = objProto.hasOwnProperty;
+
+        exports = function (obj, key)
+        {
+            return obj != null && hasOwnProperty.call(obj, key);
+        };
 
         return exports;
     });
 
-    _define('identity', [], function ()
+    _define('property', ['undefined'], function (undefined)
     {
         var exports;
 
-        exports = function (val)
+        exports = function (key)
         {
-            return val;
+            return function (obj)
+            {
+                return obj == null ? undefined : obj[key];
+            }
         };
 
         return exports;
@@ -545,7 +539,7 @@
         {
             if (ctx === undefined) return func;
 
-            switch (argCount === null ? 3 : argCount)
+            switch (argCount == null ? 3 : argCount)
             {
                 case 1: return function (val)
                 {
@@ -570,6 +564,15 @@
         return exports;
     });
 
+    _define('getLen', ['property'], function (property)
+    {
+        var exports;
+
+        exports = property('length');
+
+        return exports;
+    });
+
     _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
     {
         var exports;
@@ -587,26 +590,14 @@
         return exports;
     });
 
-    _define('property', ['undefined'], function (undefined)
+    _define('identity', [], function ()
     {
         var exports;
 
-        exports = function (key)
+        exports = function (val)
         {
-            return function (obj)
-            {
-                return obj === null ? undefined : obj[key];
-            }
+            return val;
         };
-
-        return exports;
-    });
-
-    _define('extendOwn', ['keys', 'createAssigner'], function (keys, createAssigner)
-    {
-        var exports;
-
-        exports = createAssigner(keys);
 
         return exports;
     });
@@ -620,7 +611,7 @@
             var _keys = keys(attrs),
                 len   = _keys.length;
 
-            if (obj === null) return !len;
+            if (obj == null) return !len;
 
             obj = Object(obj);
 
@@ -636,39 +627,48 @@
         return exports;
     });
 
+    _define('extendOwn', ['keys', 'createAssigner'], function (keys, createAssigner)
+    {
+        var exports;
+
+        exports = createAssigner(keys);
+
+        return exports;
+    });
+
     _init([
-        'test',
         'isNumber',
         'extend',
         'isString',
-        'clone',
-        'map',
         'deepClone',
         'deepExtend',
         'trim',
+        'test',
+        'map',
+        'clone',
         'ltrim',
         'rtrim',
-        'createAssigner',
         'toString',
+        'createAssigner',
+        'keys',
         'allKeys',
         'isObject',
-        'keys',
-        'isArray',
-        'isArrLike',
-        'cb',
         'isFunction',
+        'isArray',
         'each',
         'isPlainObject',
+        'cb',
+        'isArrLike',
         'strProto',
         'objProto',
-        'has',
         'undefined',
-        'getLen',
-        'identity',
-        'optimizeCb',
-        'matcher',
+        'has',
         'property',
-        'extendOwn',
-        'isMatch'
+        'optimizeCb',
+        'getLen',
+        'matcher',
+        'identity',
+        'isMatch',
+        'extendOwn'
     ]);
 })();

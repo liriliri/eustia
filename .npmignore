@@ -1,0 +1,7 @@
+/build/
+/.idea/
+/test/
+/docs/
+deedlit.js
+.gitignore
+README.md
