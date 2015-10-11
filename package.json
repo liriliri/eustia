@@ -4,9 +4,9 @@
   "description": "Provides common JavaScript functions to build your own utility library.",
   "main": "index.js",
   "scripts": {
-      "genTestUtil": "eustia generate test/index.html test/index.js -o test/testUtil.js",
-      "genUtil": "eustia generate index.js lib/ -o build/util.js",
-      "test": "node test/index"
+    "genTestUtil": "eustia generate test/index.html test/index.js -o test/testUtil.js",
+    "genUtil": "eustia generate index.js lib/ -o build/util.js",
+    "test": "node test/index"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   "homepage": "https://github.com/liriliri/eustia#readme",
   "dependencies": {
     "async": "^1.4.2",
+    "chalk": "^1.1.1",
     "handlebars": "^4.0.3",
     "nopt": "^3.0.4"
   }
