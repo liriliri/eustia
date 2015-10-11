@@ -1,4 +1,3 @@
-exports = function ()
-{
+'createEscaper';
 
-};
+exports = createEscaper(0);

@@ -8,7 +8,7 @@ exports = function (keysFunc, defaults)
 
         if (defaults) obj = Object(obj);
 
-        if (len < 2 || obj === null) return obj;
+        if (len < 2 || obj == null) return obj;
 
         for (var i = 1; i < len; i++)
         {

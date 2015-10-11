@@ -2,7 +2,7 @@
 
 exports = function (val, ctx, argCount)
 {
-    if (val === null) return identity;
+    if (val == null) return identity;
 
     if (isFunction(val)) return optimizeCb(val, ctx, argCount);
 

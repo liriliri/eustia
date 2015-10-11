@@ -5,7 +5,7 @@ exports = function (obj, attrs)
     var _keys = keys(attrs),
         len   = _keys.length;
 
-    if (obj === null) return !len;
+    if (obj == null) return !len;
 
     obj = Object(obj);
 

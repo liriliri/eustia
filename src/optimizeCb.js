@@ -4,7 +4,7 @@ exports = function (func, ctx, argCount)
 {
     if (ctx === undefined) return func;
 
-    switch (argCount === null ? 3 : argCount)
+    switch (argCount == null ? 3 : argCount)
     {
         case 1: return function (val)
         {

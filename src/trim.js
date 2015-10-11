@@ -1,4 +1,11 @@
-'strProto escapeRegExp';
+'strProto';
+
+var regEscape = /([.*+?^=!:${}()|[\]\/\\])/g;
+
+function escapeRegExp(str)
+{
+    return str.replace(regEscape, '\\$1');
+}
 
 var nativeTrim      = strProto.trim,
     nativeTrimLeft  = strProto.trimLeft,

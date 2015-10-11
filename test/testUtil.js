@@ -64,18 +64,6 @@
         return exports;
     });
 
-    _define('isString', ['toString'], function (toString)
-    {
-        var exports;
-
-        exports = function (val)
-        {
-            return toString.call(val) === '[object String]';
-        };
-
-        return exports;
-    });
-
     _define('isNumber', ['toString'], function (toString)
     {
         var exports;
@@ -93,6 +81,18 @@
         var exports;
 
         exports = createAssigner(allKeys);
+
+        return exports;
+    });
+
+    _define('isString', ['toString'], function (toString)
+    {
+        var exports;
+
+        exports = function (val)
+        {
+            return toString.call(val) === '[object String]';
+        };
 
         return exports;
     });
@@ -177,41 +177,6 @@
         return exports;
     });
 
-    _define('trim', ['strProto', 'escapeRegExp'], function (strProto, escapeRegExp)
-    {
-        var exports;
-
-        var nativeTrim      = strProto.trim,
-            nativeTrimLeft  = strProto.trimLeft,
-            nativeTrimRight = strProto.trimRight;
-
-        exports = function (str, chars, direction)
-        {
-            direction = direction || '';
-            chars     = chars || '\\s';
-
-            chars = '[' + escapeRegExp(chars) + ']';
-
-            var native   = nativeTrim,
-                regLeft  = '^' + chars + '+',
-                regRight = chars + '+$',
-                regStr   = regLeft + '|' + regRight;
-
-            switch (direction)
-            {
-                case 'l': native = nativeTrimLeft; regStr = regLeft; break;
-                case 'r': native = nativeTrimRight; regStr = regRight; break;
-            }
-
-            if (chars === '\\s' && nativeTrim) return native.call(str);
-
-            return direction === '' ? str.replace(new RegExp(regStr, 'g'), '')
-                                    : str.replace(new RegExp(regStr), '');
-        };
-
-        return exports;
-    });
-
     _define('deepExtend', ['isPlainObject', 'each', 'deepClone'], function (isPlainObject, each, deepClone)
     {
         var exports;
@@ -244,6 +209,48 @@
         return exports;
     });
 
+    _define('trim', ['strProto'], function (strProto)
+    {
+        var exports;
+
+        var regEscape = /([.*+?^=!:${}()|[\]\/\\])/g;
+
+        function escapeRegExp(str)
+        {
+            return str.replace(regEscape, '\\$1');
+        }
+
+        var nativeTrim      = strProto.trim,
+            nativeTrimLeft  = strProto.trimLeft,
+            nativeTrimRight = strProto.trimRight;
+
+        exports = function (str, chars, direction)
+        {
+            direction = direction || '';
+            chars     = chars || '\\s';
+
+            chars = '[' + escapeRegExp(chars) + ']';
+
+            var native   = nativeTrim,
+                regLeft  = '^' + chars + '+',
+                regRight = chars + '+$',
+                regStr   = regLeft + '|' + regRight;
+
+            switch (direction)
+            {
+                case 'l': native = nativeTrimLeft; regStr = regLeft; break;
+                case 'r': native = nativeTrimRight; regStr = regRight; break;
+            }
+
+            if (chars === '\\s' && nativeTrim) return native.call(str);
+
+            return direction === '' ? str.replace(new RegExp(regStr, 'g'), '')
+                                    : str.replace(new RegExp(regStr), '');
+        };
+
+        return exports;
+    });
+
     _define('ltrim', ['trim'], function (trim)
     {
         var exports;
@@ -263,47 +270,6 @@
         exports = function (str, chars)
         {
             return trim(str, chars, 'r');
-        };
-
-        return exports;
-    });
-
-    _define('toString', ['objProto'], function (objProto)
-    {
-        var exports;
-
-        exports = objProto.toString;
-
-        return exports;
-    });
-
-    _define('isObject', [], function ()
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            var type = typeof obj;
-
-            return type === 'function' || type === 'object' && !!obj;
-        };
-
-        return exports;
-    });
-
-    _define('allKeys', ['isObject'], function (isObject)
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            if (!isObject(obj)) return [];
-
-            var keys = [];
-
-            for (var key in obj) keys.push(key);
-
-            return keys;
         };
 
         return exports;
@@ -343,19 +309,42 @@
         return exports;
     });
 
-    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
+    _define('toString', ['objProto'], function (objProto)
     {
         var exports;
 
-        exports = function (val, ctx, argCount)
+        exports = objProto.toString;
+
+        return exports;
+    });
+
+    _define('allKeys', ['isObject'], function (isObject)
+    {
+        var exports;
+
+        exports = function (obj)
         {
-            if (val === null) return identity;
+            if (!isObject(obj)) return [];
 
-            if (isFunction(val)) return optimizeCb(val, ctx, argCount);
+            var keys = [];
 
-            if (isObject(val)) return matcher(val);
+            for (var key in obj) keys.push(key);
 
-            return property;
+            return keys;
+        };
+
+        return exports;
+    });
+
+    _define('isObject', [], function ()
+    {
+        var exports;
+
+        exports = function (obj)
+        {
+            var type = typeof obj;
+
+            return type === 'function' || type === 'object' && !!obj;
         };
 
         return exports;
@@ -411,6 +400,24 @@
         return exports;
     });
 
+    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
+    {
+        var exports;
+
+        exports = function (val, ctx, argCount)
+        {
+            if (val === null) return identity;
+
+            if (isFunction(val)) return optimizeCb(val, ctx, argCount);
+
+            if (isObject(val)) return matcher(val);
+
+            return property;
+        };
+
+        return exports;
+    });
+
     _define('isFunction', ['toString'], function (toString)
     {
         var exports;
@@ -454,15 +461,13 @@
         return exports;
     });
 
-    _define('escapeRegExp', [], function ()
+    _define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray)
     {
         var exports;
 
-        var regEscape = /([.*+?^=!:${}()|[\]\/\\])/g;
-
-        exports = function (str)
+        exports = function (obj)
         {
-            return str.replace(regEscape, '\\$1');
+            return isObject(obj) && !isArray(obj);
         };
 
         return exports;
@@ -477,18 +482,6 @@
         return exports;
     });
 
-    _define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray)
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            return isObject(obj) && !isArray(obj);
-        };
-
-        return exports;
-    });
-
     _define('objProto', [], function ()
     {
         var exports;
@@ -498,13 +491,15 @@
         return exports;
     });
 
-    _define('identity', [], function ()
+    _define('has', ['objProto'], function (objProto)
     {
         var exports;
 
-        exports = function (val)
+        var hasOwnProperty = objProto.hasOwnProperty;
+
+        exports = function (obj, key)
         {
-            return val;
+            return obj !== null && hasOwnProperty.call(obj, key);
         };
 
         return exports;
@@ -517,6 +512,27 @@
         var undefined;
 
         exports = undefined;
+
+        return exports;
+    });
+
+    _define('getLen', ['property'], function (property)
+    {
+        var exports;
+
+        exports = property('length');
+
+        return exports;
+    });
+
+    _define('identity', [], function ()
+    {
+        var exports;
+
+        exports = function (val)
+        {
+            return val;
+        };
 
         return exports;
     });
@@ -586,29 +602,6 @@
         return exports;
     });
 
-    _define('getLen', ['property'], function (property)
-    {
-        var exports;
-
-        exports = property('length');
-
-        return exports;
-    });
-
-    _define('has', ['objProto'], function (objProto)
-    {
-        var exports;
-
-        var hasOwnProperty = objProto.hasOwnProperty;
-
-        exports = function (obj, key)
-        {
-            return obj !== null && hasOwnProperty.call(obj, key);
-        };
-
-        return exports;
-    });
-
     _define('extendOwn', ['keys', 'createAssigner'], function (keys, createAssigner)
     {
         var exports;
@@ -645,37 +638,36 @@
 
     _init([
         'test',
-        'isString',
         'isNumber',
         'extend',
+        'isString',
         'clone',
         'map',
         'deepClone',
-        'trim',
         'deepExtend',
+        'trim',
         'ltrim',
         'rtrim',
-        'toString',
-        'isObject',
-        'allKeys',
         'createAssigner',
-        'cb',
+        'toString',
+        'allKeys',
+        'isObject',
         'keys',
         'isArray',
         'isArrLike',
+        'cb',
         'isFunction',
         'each',
-        'escapeRegExp',
-        'strProto',
         'isPlainObject',
+        'strProto',
         'objProto',
-        'identity',
+        'has',
         'undefined',
+        'getLen',
+        'identity',
         'optimizeCb',
         'matcher',
         'property',
-        'getLen',
-        'has',
         'extendOwn',
         'isMatch'
     ]);
