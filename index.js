@@ -1,6 +1,6 @@
 var nopt = require('nopt'),
     _    = require('./lib/util'),
-    cmd = require('./lib/cmd'),
+    cmd  = require('./lib/cmd'),
     path = require('path');
 
 var defOpts =
@@ -39,7 +39,7 @@ for (var i = 0, len = remain.length; i < len; i++)
     }
 }
 
-if (options.cmd === 'generate')
+if (options.cmd === 'build')
 {
     options.files = remain;
 

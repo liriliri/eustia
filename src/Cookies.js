@@ -1,4 +1,4 @@
-'extend isNumber escape undefined';
+'extend isNumber undefined';
 
 var defOpts = { path: '/' };
 
@@ -58,8 +58,8 @@ exports = {
     set: Cookies,
     remove: function (key, options)
     {
-        Cookies(key, '', extend(options, {
-            expires: -1
-        }));
+        options = options || {};
+        options.expires = -1;
+        Cookies(key, '', options);
     }
 };

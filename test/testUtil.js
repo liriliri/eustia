@@ -42,7 +42,7 @@
         return _[name];
     }
 
-    _define('Cookies', ['extend', 'isNumber', 'escape', 'undefined'], function (extend, isNumber, escape, undefined)
+    _define('Cookies', ['extend', 'isNumber', 'undefined'], function (extend, isNumber, undefined)
     {
         var exports;
 
@@ -147,23 +147,25 @@
         return exports;
     });
 
-    _define('isString', ['toString'], function (toString)
-    {
-        var exports;
-
-        exports = function (val)
-        {
-            return toString.call(val) === '[object String]';
-        };
-
-        return exports;
-    });
-
     _define('extend', ['createAssigner', 'allKeys'], function (createAssigner, allKeys)
     {
         var exports;
 
         exports = createAssigner(allKeys);
+
+        return exports;
+    });
+
+    _define('clone', ['isObject', 'isArray', 'extend'], function (isObject, isArray, extend)
+    {
+        var exports;
+
+        exports = function (obj)
+        {
+            if (!isObject(obj)) return obj;
+
+            return isArray(obj) ? obj.slice() : extend({}, obj);
+        };
 
         return exports;
     });
@@ -187,62 +189,6 @@
             }
 
             return results;
-        };
-
-        return exports;
-    });
-
-    _define('clone', ['isObject', 'isArray', 'extend'], function (isObject, isArray, extend)
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            if (!isObject(obj)) return obj;
-
-            return isArray(obj) ? obj.slice() : extend({}, obj);
-        };
-
-        return exports;
-    });
-
-    _define('deepClone', ['keys', 'isObject', 'isFunction', 'isArray', 'each'], function (keys, isObject, isFunction, isArray, each)
-    {
-        var exports;
-
-        function mapObject(obj, iteratee)
-        {
-            var newObj = {};
-
-            each(obj, function (val, key)
-            {
-                var pair = iteratee(key, val);
-
-                newObj[pair[0]] = pair[1];
-            });
-
-            return newObj;
-        }
-
-        exports = function (obj)
-        {
-            if (isArray(obj))
-            {
-                return obj.map(function (val)
-                {
-                    return exports(val);
-                });
-            }
-
-            if (isObject(obj) && !isFunction(obj))
-            {
-                return mapObject(obj, function (key, val)
-                {
-                    return [key, exports(val)];
-                });
-            }
-
-            return obj;
         };
 
         return exports;
@@ -275,6 +221,30 @@
             }
 
             return ret;
+        };
+
+        return exports;
+    });
+
+    _define('isString', ['toString'], function (toString)
+    {
+        var exports;
+
+        exports = function (val)
+        {
+            return toString.call(val) === '[object String]';
+        };
+
+        return exports;
+    });
+
+    _define('ltrim', ['trim'], function (trim)
+    {
+        var exports;
+
+        exports = function (str, chars)
+        {
+            return trim(str, chars, 'l');
         };
 
         return exports;
@@ -322,18 +292,6 @@
         return exports;
     });
 
-    _define('ltrim', ['trim'], function (trim)
-    {
-        var exports;
-
-        exports = function (str, chars)
-        {
-            return trim(str, chars, 'l');
-        };
-
-        return exports;
-    });
-
     _define('rtrim', ['trim'], function (trim)
     {
         var exports;
@@ -346,91 +304,43 @@
         return exports;
     });
 
-    _define('escape', ['createEscaper'], function (createEscaper)
+    _define('deepClone', ['keys', 'isObject', 'isFunction', 'isArray', 'each'], function (keys, isObject, isFunction, isArray, each)
     {
         var exports;
 
-        exports = createEscaper(0);
-
-        return exports;
-    });
-
-    _define('undefined', [], function ()
-    {
-        var exports;
-
-        var undefined;
-
-        exports = undefined;
-
-        return exports;
-    });
-
-    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
-    {
-        var exports;
-
-        exports = function (val, ctx, argCount)
+        function mapObject(obj, iteratee)
         {
-            if (val == null) return identity;
+            var newObj = {};
 
-            if (isFunction(val)) return optimizeCb(val, ctx, argCount);
-
-            if (isObject(val)) return matcher(val);
-
-            return property;
-        };
-
-        return exports;
-    });
-
-    _define('toString', ['objProto'], function (objProto)
-    {
-        var exports;
-
-        exports = objProto.toString;
-
-        return exports;
-    });
-
-    _define('allKeys', ['isObject'], function (isObject)
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            if (!isObject(obj)) return [];
-
-            var keys = [];
-
-            for (var key in obj) keys.push(key);
-
-            return keys;
-        };
-
-        return exports;
-    });
-
-    _define('keys', ['isObject', 'has'], function (isObject, has)
-    {
-        var exports;
-
-        var nativeKeys = Object.keys;
-
-        exports = function (obj)
-        {
-            if (!isObject(obj)) return [];
-
-            if (nativeKeys) return nativeKeys(obj);
-
-            var keys = [];
-
-            for (var key in obj)
+            each(obj, function (val, key)
             {
-                if (has(obj, key)) keys.push(key);
+                var pair = iteratee(key, val);
+
+                newObj[pair[0]] = pair[1];
+            });
+
+            return newObj;
+        }
+
+        exports = function (obj)
+        {
+            if (isArray(obj))
+            {
+                return obj.map(function (val)
+                {
+                    return exports(val);
+                });
             }
 
-            return keys;
+            if (isObject(obj) && !isFunction(obj))
+            {
+                return mapObject(obj, function (key, val)
+                {
+                    return [key, exports(val)];
+                });
+            }
+
+            return obj;
         };
 
         return exports;
@@ -470,18 +380,38 @@
         return exports;
     });
 
-    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
+    _define('allKeys', ['isObject'], function (isObject)
     {
         var exports;
 
-        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
-
-        exports = function (collection)
+        exports = function (obj)
         {
-            var len = getLen(collection);
+            if (!isObject(obj)) return [];
 
-            return isNumber(len) && len >= 0 && len <= MAX_ARR_IDX;
+            var keys = [];
+
+            for (var key in obj) keys.push(key);
+
+            return keys;
         };
+
+        return exports;
+    });
+
+    _define('isArray', [], function ()
+    {
+        var exports;
+
+        exports = Array.isArray;
+
+        return exports;
+    });
+
+    _define('toString', ['objProto'], function (objProto)
+    {
+        var exports;
+
+        exports = objProto.toString;
 
         return exports;
     });
@@ -500,22 +430,72 @@
         return exports;
     });
 
-    _define('isArray', [], function ()
+    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
     {
         var exports;
 
-        exports = Array.isArray;
+        exports = function (val, ctx, argCount)
+        {
+            if (val == null) return identity;
+
+            if (isFunction(val)) return optimizeCb(val, ctx, argCount);
+
+            if (isObject(val)) return matcher(val);
+
+            return property;
+        };
 
         return exports;
     });
 
-    _define('isFunction', ['toString'], function (toString)
+    _define('keys', ['isObject', 'has'], function (isObject, has)
     {
         var exports;
 
-        exports = function (val)
+        var nativeKeys = Object.keys;
+
+        exports = function (obj)
         {
-            return toString.call(val) === '[object Function]';
+            if (!isObject(obj)) return [];
+
+            if (nativeKeys) return nativeKeys(obj);
+
+            var keys = [];
+
+            for (var key in obj)
+            {
+                if (has(obj, key)) keys.push(key);
+            }
+
+            return keys;
+        };
+
+        return exports;
+    });
+
+    _define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray)
+    {
+        var exports;
+
+        exports = function (obj)
+        {
+            return isObject(obj) && !isArray(obj);
+        };
+
+        return exports;
+    });
+
+    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
+    {
+        var exports;
+
+        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
+
+        exports = function (collection)
+        {
+            var len = getLen(collection);
+
+            return isNumber(len) && len >= 0 && len <= MAX_ARR_IDX;
         };
 
         return exports;
@@ -552,14 +532,13 @@
         return exports;
     });
 
-    _define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray)
+    _define('undefined', [], function ()
     {
         var exports;
 
-        exports = function (obj)
-        {
-            return isObject(obj) && !isArray(obj);
-        };
+        var undefined;
+
+        exports = undefined;
 
         return exports;
     });
@@ -573,43 +552,23 @@
         return exports;
     });
 
-    _define('createEscaper', ['invert', 'keys'], function (invert, keys)
+    _define('isFunction', ['toString'], function (toString)
     {
         var exports;
 
-        var escapeMap = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#x27;',
-            '`': '&#x60;'
-        };
-
-        var unescapeMap = invert(escapeMap);
-
-        exports = function (type)
+        exports = function (val)
         {
-            var map = escapeMap;
-
-            if (type === 1) map = unescapeMap;
-
-            var escaper = function (match)
-            {
-                return map[match];
-            };
-
-            var source        = '(?:' + keys(map).join('|') + ')',
-                testRegexp    = new RegExp(source),
-                replaceRegexp = new RegExp(source, 'g');
-
-            return function(str)
-            {
-                str = str == null ? '' : '' + str;
-
-                return testRegexp.test(str) ? str.replace(replaceRegexp, escaper) : str;
-            };
+            return toString.call(val) === '[object Function]';
         };
+
+        return exports;
+    });
+
+    _define('objProto', [], function ()
+    {
+        var exports;
+
+        exports = Object.prototype;
 
         return exports;
     });
@@ -647,18 +606,13 @@
         return exports;
     });
 
-    _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
+    _define('identity', [], function ()
     {
         var exports;
 
-        exports = function (attrs)
+        exports = function (val)
         {
-            attrs = extendOwn({}, attrs);
-
-            return function (obj)
-            {
-                return isMatch(obj, attrs);
-            };
+            return val;
         };
 
         return exports;
@@ -679,15 +633,6 @@
         return exports;
     });
 
-    _define('objProto', [], function ()
-    {
-        var exports;
-
-        exports = Object.prototype;
-
-        return exports;
-    });
-
     _define('has', ['objProto'], function (objProto)
     {
         var exports;
@@ -702,13 +647,18 @@
         return exports;
     });
 
-    _define('identity', [], function ()
+    _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
     {
         var exports;
 
-        exports = function (val)
+        exports = function (attrs)
         {
-            return val;
+            attrs = extendOwn({}, attrs);
+
+            return function (obj)
+            {
+                return isMatch(obj, attrs);
+            };
         };
 
         return exports;
@@ -719,22 +669,6 @@
         var exports;
 
         exports = property('length');
-
-        return exports;
-    });
-
-    _define('invert', ['keys', 'each'], function (keys, each)
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            var ret = {};
-
-            each(obj, function (val, key) { ret[val] = key });
-
-            return ret;
-        };
 
         return exports;
     });
@@ -777,38 +711,35 @@
         'Cookies',
         'test',
         'isNumber',
-        'isString',
         'extend',
-        'map',
         'clone',
-        'deepClone',
+        'map',
         'deepExtend',
-        'trim',
+        'isString',
         'ltrim',
+        'trim',
         'rtrim',
-        'escape',
-        'undefined',
-        'cb',
-        'toString',
-        'allKeys',
-        'keys',
+        'deepClone',
         'createAssigner',
-        'isArrLike',
-        'isObject',
+        'allKeys',
         'isArray',
-        'isFunction',
-        'each',
+        'toString',
+        'isObject',
+        'cb',
+        'keys',
         'isPlainObject',
+        'isArrLike',
+        'each',
+        'undefined',
         'strProto',
-        'createEscaper',
-        'optimizeCb',
-        'matcher',
-        'property',
+        'isFunction',
         'objProto',
-        'has',
+        'optimizeCb',
         'identity',
+        'property',
+        'has',
+        'matcher',
         'getLen',
-        'invert',
         'extendOwn',
         'isMatch'
     ]);
