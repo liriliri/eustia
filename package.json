@@ -1,6 +1,6 @@
 {
   "name": "eustia",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Provides common JavaScript functions to build your own utility library.",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liriliri/eustia.git"
+  },
+  "bin": {
+    "eustia": "./bin/eustia.js"
   },
   "keywords": [
     "utility",
