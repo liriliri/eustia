@@ -7,8 +7,9 @@
 </head>
 <body>
 <script>
-    _.Cookies.set('eustia', 'liriliri', { expires: 5 });
-    console.log(_.Cookies.get());
+    // _.Cookies.set('eustia', 'liriliri', { expires: 5 });
+    _.Cookies.remove('eustia');
+    console.log(typeof _.Cookies.get('eustia'));
 </script>
 </body>
 </html>
