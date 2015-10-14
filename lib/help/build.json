@@ -1,0 +1,22 @@
+{
+    "command": "build",
+    "description": "Build JavaSript library by scanning files",
+    "usage": [
+        "build [<options>]",
+        "build index.html",
+        "build index.html src/",
+        "build index.html src/ -o lib.js"
+    ],
+    "options": [
+        {
+            "shorthand": "-o",
+            "flag": "--out",
+            "description": "Output path"
+        },
+        {
+            "shorthand": "-e",
+            "flag": "--encoding",
+            "description": "Input file encoding, default to utf-8"
+        }
+    ]
+}

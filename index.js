@@ -9,6 +9,7 @@ var defOpts =
     dirname : __dirname,
     files   : [],
     cmd     : 'help',
+    name    : '',
     packInfo: require('./package.json'),
     encoding: 'utf-8'
 };
@@ -17,12 +18,14 @@ var options = {};
 
 var knowOpts = {
     encoding: String,
-    out     : String
+    out     : String,
+    name    : String
 };
 
 var shortHands = {
     o: '--out',
-    e: '--encoding'
+    e: '--encoding',
+    n: '--name'
 };
 
 options = _.extend(defOpts, nopt(knowOpts, shortHands, process.argv, 2));

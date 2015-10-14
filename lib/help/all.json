@@ -1,0 +1,10 @@
+{
+    "usage": [
+        "<command> [<options>]"
+    ],
+    "commands": {
+        "build": "Build JavaSript library by scanning files",
+        "help": "Display help information",
+        "version": "Display version info"
+    }
+}

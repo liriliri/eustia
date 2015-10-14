@@ -1,1 +1,13 @@
 Usage:
+
+{{#each usage}}
+    {{#cyan}}eustia{{/cyan}} {{.}}
+{{/each}}
+
+Commands:
+
+{{#each commands}}
+    {{#rapd 10}}{{@key}}{{/rapd}} {{.}}
+{{/each}}
+
+See 'eustia help -n <command>' for more information on a specific command.

@@ -1,0 +1,7 @@
+{
+    "command": "version",
+    "description": "Display version info",
+    "usage": [
+        "version"
+    ]
+}
