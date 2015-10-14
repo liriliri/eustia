@@ -1,9 +1,9 @@
 (function ()
 {
-    var {{name}} = {};
+    var util = {};
 
-    typeof module !== 'undefined' && module.exports ? module.exports  = {{name}}
-                                                    : window.{{name}} = {{name}};
+    typeof module !== 'undefined' && module.exports ? module.exports  = util
+                                                    : window.util = util;
 
     function _define(name, requires, method)
     {
@@ -42,9 +42,7 @@
         return _[name];
     }
 
-    {{code}}
-
     _init([
-        {{methodList}}
+
     ]);
 })();

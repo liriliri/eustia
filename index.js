@@ -9,26 +9,22 @@ var defOpts =
     dirname : __dirname,
     files   : [],
     cmd     : 'help',
-    name    : '',
-    packInfo: require('./package.json'),
-    encoding: 'utf-8'
+    packInfo: require('./package.json')
 };
-
-var options = {};
 
 var knowOpts = {
     encoding: String,
-    out     : String,
+    output  : String,
     name    : String
 };
 
 var shortHands = {
-    o: '--out',
+    o: '--output',
     e: '--encoding',
     n: '--name'
 };
 
-options = _.extend(defOpts, nopt(knowOpts, shortHands, process.argv, 2));
+var options = _.extend(defOpts, nopt(knowOpts, shortHands, process.argv, 2));
 
 var remain = options.argv.remain;
 
@@ -42,15 +38,7 @@ for (var i = 0, len = remain.length; i < len; i++)
     }
 }
 
-if (options.cmd === 'build')
-{
-    options.files = remain;
+cmd = cmd[options.cmd];
 
-    _.each(options.files, function (val, idx)
-    {
-        options.files[idx] = path.resolve(options.cwd, val);
-    });
-}
-
-cmd[options.cmd](options);
+cmd(_.extend(cmd.defOpts, options));
 

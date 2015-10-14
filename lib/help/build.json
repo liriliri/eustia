@@ -10,13 +10,18 @@
     "options": [
         {
             "shorthand": "-o",
-            "flag": "--out",
+            "flag": "--output",
             "description": "Output path"
         },
         {
             "shorthand": "-e",
             "flag": "--encoding",
             "description": "Input file encoding, default to utf-8"
+        },
+        {
+            "shorthand": "-n",
+            "flag": "--name",
+            "description": "Namespace of the generated library"
         }
     ]
 }
