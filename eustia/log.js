@@ -19,31 +19,31 @@ each(['yellow', 'green', 'cyan', 'red', 'white', 'magenta'], function (color)
 
 exports = function (msg)
 {
-    console.log(msg);
+    process.stdout.write(msg + '\n');
 };
 
 exports.err = function (msg)
 {
-    console.log(msg);
+    process.stdout.write(msg + '\n');
     process.exit();
 };
 
 var tpl = {};
 
-exports.tpl = function (data, tplPath)
+exports.tpl = function (msg, tplPath)
 {
     if (tpl[tplPath])
     {
-        exports(tpl[tplPath](data));
+        exports(tpl[tplPath](msg));
     } else
     {
-        fs.readFile(tplPath, 'utf-8', function (err, tplData)
+        fs.readFile(tplPath, 'utf-8', function (err, data)
         {
             if (err) return;
 
-            tpl[tplPath] = handlebars.compile(tplData, {noEscape: true});
+            tpl[tplPath] = handlebars.compile(data, {noEscape: true});
 
-            exports(tpl[tplPath](data));
+            exports(tpl[tplPath](msg));
         });
     }
 };

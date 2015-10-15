@@ -2,12 +2,12 @@
 {
     var {{name}} = {};
 
-    typeof module !== 'undefined' && module.exports ? module.exports  = {{name}}
+    typeof module !== 'undefined' && module.exports ? module.exports = {{name}}
                                                     : window.{{name}} = {{name}};
 
     function _define(name, requires, method)
     {
-        _[name] = {
+        {{name}}[name] = {
             requires: requires,
             body    : method
         };
@@ -25,21 +25,21 @@
 
     function _require(name)
     {
-        if (requireMarks.hasOwnProperty(name)) return _[name];
+        if (requireMarks.hasOwnProperty(name)) return {{name}}[name];
 
-        var requires = _[name].requires,
-            body     = _[name].body;
+        var requires = {{name}}[name].requires,
+            body     = {{name}}[name].body;
 
         for (var i = 0, len = requires.length; i < len; i++)
         {
             requires[i] = _require(requires[i]);
         }
 
-        _[name] = body.apply(_, requires);
+        {{name}}[name] = body.apply({{name}}, requires);
 
         requireMarks[name] = true;
 
-        return _[name];
+        return {{name}}[name];
     }
 
     {{code}}

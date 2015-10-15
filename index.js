@@ -15,7 +15,8 @@ var defOpts =
 var knowOpts = {
     encoding: String,
     output  : String,
-    name    : String
+    name    : String,
+    exclude : String
 };
 
 var shortHands = {

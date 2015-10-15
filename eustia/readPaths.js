@@ -5,7 +5,7 @@ var fs    = require('fs'),
 
 exports = function (paths, options, callback)
 {
-    expandPaths(paths, function (err, files)
+    expandPaths(paths, options, function (err, files)
     {
         if (err) return callback(err);
 

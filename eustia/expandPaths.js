@@ -6,7 +6,7 @@ var async = require('async'),
 
 var resolve = path.resolve;
 
-exports = function (paths, callback)
+exports = function (paths, options, callback)
 {
     var files = [];
 
@@ -30,6 +30,8 @@ exports = function (paths, callback)
                 });
                 return;
             }
+
+            if (options.exclude && options.exclude.test(path)) return callback();
 
             files.push(path);
             callback();
