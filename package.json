@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "genTestUtil": "eustia build test/ -o test/testUtil.js --exclude testUtil\\.js",
-    "genUtil": "eustia build index.js lib/ -o build/util.js",
+    "genUtil": "eustia build index.js lib/ -o lib/util.js",
     "test": "node test/index"
   },
   "repository": {

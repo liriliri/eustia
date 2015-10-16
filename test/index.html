@@ -8,8 +8,35 @@
 <body>
 <script>
     // _.Cookies.set('eustia', 'liriliri', { expires: 5 });
-    _.Cookies.remove('eustia');
-    console.log(typeof _.Cookies.get('eustia'));
+    // _.Cookies.remove('eustia');
+    // console.log(typeof _.Cookies.get('eustia'));
+    var Animal = new _.Class({
+        initialize: function (name)
+        {
+            this.name = name;
+        },
+        speak: function (things)
+        {
+            return 'My name is ' + this.name + ' and I like ' + things;
+        }
+    });
+
+    var nemo = new Animal('Nemo');
+    console.log(nemo.speak('swimming'));
+
+    var Dog = Animal.extend({
+        speak: function (stuff)
+        {
+            return this.callSuper('speak', stuff).toUpperCase() + '!';
+        },
+        huntForBones: function (garden)
+        {
+            // ...
+        }
+    });
+
+    var rex = new Dog('Rex');
+    console.log(rex.speak('barking'));
 </script>
 </body>
 </html>

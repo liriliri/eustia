@@ -21,7 +21,11 @@
         {
             "shorthand": "-n",
             "flag": "--name",
-            "description": "Namespace of the generated library"
+            "description": "Namespace of the generated library, default to _"
+        },
+        {
+            "flag": "--exclude",
+            "description": "Exclude file pattern"
         }
     ]
 }

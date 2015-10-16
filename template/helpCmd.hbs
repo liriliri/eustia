@@ -8,7 +8,7 @@ Usage:
 Options:
 
 {{#each options}}
-    {{#yellow}}{{#rapd 18}}{{shorthand}}, {{flag}}{{/rapd}}{{/yellow}}{{description}}
+    {{#yellow}}{{#rapd 18}}{{#if shorthand}}{{shorthand}}, {{else}}    {{/if}}{{flag}}{{/rapd}}{{/yellow}}{{description}}
 {{/each}}
 {{/if}}
 

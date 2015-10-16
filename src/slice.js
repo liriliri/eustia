@@ -1,0 +1,3 @@
+'arrProto';
+
+exports = arrProto.slice;
