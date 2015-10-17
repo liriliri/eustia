@@ -1,6 +1,6 @@
 {
   "name": "eustia",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Provides common JavaScript functions to build your own utility library.",
   "main": "index.js",
   "scripts": {
