@@ -1,4 +1,4 @@
-'each toArray';
+'each toArray inherits';
 
 function makeClass(parent, methods, statics)
 {
@@ -11,8 +11,8 @@ function makeClass(parent, methods, statics)
                : this;
     };
 
-    constructor.prototype = makeBridge(parent);
-    constructor.prototype.superclass = parent;
+    inherits(constructor, parent);
+    constructor.superclass = constructor.prototype.superclass = parent;
 
     each(methods, function (val, key) { constructor.prototype[key] = val });
     each(statics, function (val, key) { constructor[key] = val });
@@ -23,17 +23,6 @@ function makeClass(parent, methods, statics)
     };
 
     return constructor;
-}
-
-var objCreate = Object.create;
-
-function makeBridge(parent)
-{
-    if (objCreate) return objCreate(parent.prototype);
-
-    var bridge = function () {};
-    bridge.prototype = parent.prototype;
-    return new bridge();
 }
 
 var Base = makeClass(Object, {
