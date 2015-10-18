@@ -37,6 +37,15 @@
 
     var rex = new Dog('Rex');
     console.log(rex.speak('barking'));
+
+    _.define('test', function ()
+    {
+        return 'eustia';
+    });
+    _.use(['test'], function (test)
+    {
+        console.log(test);
+    });
 </script>
 </body>
 </html>

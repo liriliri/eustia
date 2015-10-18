@@ -11,14 +11,13 @@
             requires: requires,
             body    : method
         };
+
+        delete requireMarks[name];
     }
 
     function _init(methods)
     {
-        for (var i = 0, len = methods.length; i < len; i++)
-        {
-            _require(methods[i]);
-        }
+        for (var i = 0, len = methods.length; i < len; i++) _require(methods[i]);
     }
 
     var requireMarks = {};
@@ -35,6 +34,8 @@
             requires[i] = _require(requires[i]);
         }
 
+        requires.push(_);
+
         _[name] = body.apply(_, requires);
 
         requireMarks[name] = true;
@@ -42,7 +43,68 @@
         return _[name];
     }
 
-    _define('Cookies', ['extend', 'isNumber', 'undefined'], function (extend, isNumber, undefined)
+    _define('Class', ['each', 'toArray'], function (each, toArray, s)
+    {
+        var exports;
+
+        function makeClass(parent, methods, statics)
+        {
+            statics = statics || {};
+
+            var constructor = function ()
+            {
+                return this.initialize
+                       ? this.initialize.apply(this, arguments) || this
+                       : this;
+            };
+
+            constructor.prototype = makeBridge(parent);
+            constructor.prototype.superclass = parent;
+
+            each(methods, function (val, key) { constructor.prototype[key] = val });
+            each(statics, function (val, key) { constructor[key] = val });
+
+            constructor.extend = function (methods, statics)
+            {
+                return makeClass(constructor, methods, statics);
+            };
+
+            return constructor;
+        }
+
+        var objCreate = Object.create;
+
+        function makeBridge(parent)
+        {
+            if (objCreate) return objCreate(parent.prototype);
+
+            var bridge = function () {};
+            bridge.prototype = parent.prototype;
+            return new bridge();
+        }
+
+        var Base = makeClass(Object, {
+            className: 'Base',
+            callSuper: function (name)
+            {
+                var superMethod = this.superclass.prototype[name];
+
+                if (!superMethod) return;
+
+                return superMethod.apply(this, toArray(arguments).slice(1));
+            },
+            toString: function ()
+            {
+                return this.className;
+            }
+        });
+
+        exports = function (methods, statics) { return Base.extend(methods, statics) };
+
+        return exports;
+    });
+
+    _define('Cookies', ['extend', 'isNumber', 'undefined'], function (extend, isNumber, undefined, s)
     {
         var exports;
 
@@ -113,74 +175,40 @@
         return exports;
     });
 
-    _define('Class', ['each', 'toArray'], function (each, toArray)
+    _define('define', [], function ()
     {
         var exports;
 
-        function makeClass(parent, methods, statics)
+        exports = function (name, requires, method)
         {
-            statics = statics || {};
-
-            var constructor = function ()
+            if (arguments.length === 2)
             {
-                return this.initialize
-                       ? this.initialize.apply(this, arguments) || this
-                       : this;
-            };
-
-            constructor.prototype = makeBridge(parent);
-            constructor.prototype.superclass = parent;
-
-            each(methods, function (val, key) { constructor.prototype[key] = val });
-            each(statics, function (val, key) { constructor[key] = val });
-
-            constructor.extend = function (methods, statics)
-            {
-                return makeClass(constructor, methods, statics);
-            };
-
-            return constructor;
-        }
-
-        var objCreate = Object.create;
-
-        function makeBridge(parent)
-        {
-            if (objCreate) return objCreate(parent.prototype);
-
-            var bridge = function () {};
-            bridge.prototype = parent.prototype;
-            return new bridge();
-        }
-
-        var Base = makeClass(Object, {
-            className: 'Base',
-            callSuper: function (name)
-            {
-                var superMethod = this.superclass.prototype[name];
-
-                if (!superMethod) return;
-
-                return superMethod.apply(this, toArray(arguments).slice(1));
-            },
-            toString: function ()
-            {
-                return this.className;
+                method   = requires;
+                requires = [];
             }
-        });
 
-        exports = function (methods, statics) { return Base.extend(methods, statics) };
+            _define(name, requires, method);
+        };
 
         return exports;
     });
 
-    _define('isNumber', ['toString'], function (toString)
+    _define('use', ['map'], function (map, s)
     {
         var exports;
 
-        exports = function (val)
+        exports = function (requires, method)
         {
-            return toString.call(val) === '[object Number]';
+            if (method == null)
+            {
+                requires = [];
+                method   = requires;
+            }
+
+            requires = map(requires, function (val) { return _require(val) });
+            requires.push(s);
+
+            method.apply(s, requires);
         };
 
         return exports;
@@ -208,7 +236,19 @@
         return exports;
     });
 
-    _define('isString', ['toString'], function (toString)
+    _define('isNumber', ['toString'], function (toString, s)
+    {
+        var exports;
+
+        exports = function (val)
+        {
+            return toString.call(val) === '[object Number]';
+        };
+
+        return exports;
+    });
+
+    _define('isString', ['toString'], function (toString, s)
     {
         var exports;
 
@@ -220,7 +260,21 @@
         return exports;
     });
 
-    _define('extend', ['createAssigner', 'allKeys'], function (createAssigner, allKeys)
+    _define('clone', ['isObject', 'isArray', 'extend'], function (isObject, isArray, extend, s)
+    {
+        var exports;
+
+        exports = function (obj)
+        {
+            if (!isObject(obj)) return obj;
+
+            return isArray(obj) ? obj.slice() : extend({}, obj);
+        };
+
+        return exports;
+    });
+
+    _define('extend', ['createAssigner', 'allKeys'], function (createAssigner, allKeys, s)
     {
         var exports;
 
@@ -229,7 +283,7 @@
         return exports;
     });
 
-    _define('map', ['cb', 'keys', 'isArrLike'], function (cb, keys, isArrLike)
+    _define('map', ['cb', 'keys', 'isArrLike'], function (cb, keys, isArrLike, s)
     {
         var exports;
 
@@ -253,95 +307,7 @@
         return exports;
     });
 
-    _define('clone', ['isObject', 'isArray', 'extend'], function (isObject, isArray, extend)
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            if (!isObject(obj)) return obj;
-
-            return isArray(obj) ? obj.slice() : extend({}, obj);
-        };
-
-        return exports;
-    });
-
-    _define('deepExtend', ['isPlainObject', 'each', 'deepClone'], function (isPlainObject, each, deepClone)
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            var i   = 0,
-                ret = obj,
-                len = arguments.length;
-
-            while (++i < len)
-            {
-                obj = arguments[i];
-
-                if (isPlainObject(ret) && isPlainObject(obj))
-                {
-                    each(obj, function (val, key)
-                    {
-                        ret[key] = exports(ret[key], obj[key]);
-                    });
-                } else
-                {
-                    ret = deepClone(obj);
-                }
-            }
-
-            return ret;
-        };
-
-        return exports;
-    });
-
-    _define('trim', ['strProto'], function (strProto)
-    {
-        var exports;
-
-        var regEscape = /([.*+?^=!:${}()|[\]\/\\])/g;
-
-        function escapeRegExp(str)
-        {
-            return str.replace(regEscape, '\\$1');
-        }
-
-        var nativeTrim      = strProto.trim,
-            nativeTrimLeft  = strProto.trimLeft,
-            nativeTrimRight = strProto.trimRight;
-
-        exports = function (str, chars, direction)
-        {
-            direction = direction || '';
-            chars     = chars || '\\s';
-
-            chars = '[' + escapeRegExp(chars) + ']';
-
-            var native   = nativeTrim,
-                regLeft  = '^' + chars + '+',
-                regRight = chars + '+$',
-                regStr   = regLeft + '|' + regRight;
-
-            switch (direction)
-            {
-                case 'l': native = nativeTrimLeft; regStr = regLeft; break;
-                case 'r': native = nativeTrimRight; regStr = regRight; break;
-            }
-
-            if (chars === '\\s' && nativeTrim) return native.call(str);
-
-            return direction === '' ? str.replace(new RegExp(regStr, 'g'), '')
-                                    : str.replace(new RegExp(regStr), '');
-        };
-
-        return exports;
-    });
-
-    _define('deepClone', ['keys', 'isObject', 'isFunction', 'isArray', 'each'], function (keys, isObject, isFunction, isArray, each)
+    _define('deepClone', ['keys', 'isObject', 'isFunction', 'isArray', 'each'], function (keys, isObject, isFunction, isArray, each, s)
     {
         var exports;
 
@@ -383,19 +349,81 @@
         return exports;
     });
 
-    _define('rtrim', ['trim'], function (trim)
+    _define('deepExtend', ['isPlainObject', 'each', 'deepClone'], function (isPlainObject, each, deepClone, s)
     {
         var exports;
 
-        exports = function (str, chars)
+        exports = function (obj)
         {
-            return trim(str, chars, 'r');
+            var i   = 0,
+                ret = obj,
+                len = arguments.length;
+
+            while (++i < len)
+            {
+                obj = arguments[i];
+
+                if (isPlainObject(ret) && isPlainObject(obj))
+                {
+                    each(obj, function (val, key)
+                    {
+                        ret[key] = exports(ret[key], obj[key]);
+                    });
+                } else
+                {
+                    ret = deepClone(obj);
+                }
+            }
+
+            return ret;
         };
 
         return exports;
     });
 
-    _define('ltrim', ['trim'], function (trim)
+    _define('trim', ['strProto'], function (strProto, s)
+    {
+        var exports;
+
+        var regEscape = /([.*+?^=!:${}()|[\]\/\\])/g;
+
+        function escapeRegExp(str)
+        {
+            return str.replace(regEscape, '\\$1');
+        }
+
+        var nativeTrim      = strProto.trim,
+            nativeTrimLeft  = strProto.trimLeft,
+            nativeTrimRight = strProto.trimRight;
+
+        exports = function (str, chars, direction)
+        {
+            direction = direction || '';
+            chars     = chars || '\\s';
+
+            chars = '[' + escapeRegExp(chars) + ']';
+
+            var native   = nativeTrim,
+                regLeft  = '^' + chars + '+',
+                regRight = chars + '+$',
+                regStr   = regLeft + '|' + regRight;
+
+            switch (direction)
+            {
+                case 'l': native = nativeTrimLeft; regStr = regLeft; break;
+                case 'r': native = nativeTrimRight; regStr = regRight; break;
+            }
+
+            if (chars === '\\s' && nativeTrim) return native.call(str);
+
+            return direction === '' ? str.replace(new RegExp(regStr, 'g'), '')
+                                    : str.replace(new RegExp(regStr), '');
+        };
+
+        return exports;
+    });
+
+    _define('ltrim', ['trim'], function (trim, s)
     {
         var exports;
 
@@ -407,18 +435,19 @@
         return exports;
     });
 
-    _define('undefined', [], function ()
+    _define('rtrim', ['trim'], function (trim, s)
     {
         var exports;
 
-        var undefined;
-
-        exports = undefined;
+        exports = function (str, chars)
+        {
+            return trim(str, chars, 'r');
+        };
 
         return exports;
     });
 
-    _define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
+    _define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb, s)
     {
         var exports;
 
@@ -449,7 +478,18 @@
         return exports;
     });
 
-    _define('toArray', ['isArray', 'slice', 'isString', 'isArrLike', 'map', 'identity', 'values'], function (isArray, slice, isString, isArrLike, map, identity, values)
+    _define('undefined', [], function ()
+    {
+        var exports;
+
+        var undefined;
+
+        exports = undefined;
+
+        return exports;
+    });
+
+    _define('toArray', ['isArray', 'slice', 'isString', 'isArrLike', 'map', 'identity', 'values'], function (isArray, slice, isString, isArrLike, map, identity, values, s)
     {
         var exports;
 
@@ -471,7 +511,7 @@
         return exports;
     });
 
-    _define('toString', ['objProto'], function (objProto)
+    _define('toString', ['objProto'], function (objProto, s)
     {
         var exports;
 
@@ -480,7 +520,30 @@
         return exports;
     });
 
-    _define('createAssigner', ['undefined'], function (undefined)
+    _define('isArray', [], function ()
+    {
+        var exports;
+
+        exports = Array.isArray;
+
+        return exports;
+    });
+
+    _define('isObject', [], function ()
+    {
+        var exports;
+
+        exports = function (obj)
+        {
+            var type = typeof obj;
+
+            return type === 'function' || type === 'object' && !!obj;
+        };
+
+        return exports;
+    });
+
+    _define('createAssigner', ['undefined'], function (undefined, s)
     {
         var exports;
 
@@ -514,7 +577,7 @@
         return exports;
     });
 
-    _define('allKeys', ['isObject'], function (isObject)
+    _define('allKeys', ['isObject'], function (isObject, s)
     {
         var exports;
 
@@ -532,7 +595,7 @@
         return exports;
     });
 
-    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
+    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property, s)
     {
         var exports;
 
@@ -550,7 +613,7 @@
         return exports;
     });
 
-    _define('keys', ['isObject', 'has'], function (isObject, has)
+    _define('keys', ['isObject', 'has'], function (isObject, has, s)
     {
         var exports;
 
@@ -575,7 +638,19 @@
         return exports;
     });
 
-    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
+    _define('isFunction', ['toString'], function (toString, s)
+    {
+        var exports;
+
+        exports = function (val)
+        {
+            return toString.call(val) === '[object Function]';
+        };
+
+        return exports;
+    });
+
+    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber, s)
     {
         var exports;
 
@@ -591,30 +666,7 @@
         return exports;
     });
 
-    _define('isObject', [], function ()
-    {
-        var exports;
-
-        exports = function (obj)
-        {
-            var type = typeof obj;
-
-            return type === 'function' || type === 'object' && !!obj;
-        };
-
-        return exports;
-    });
-
-    _define('isArray', [], function ()
-    {
-        var exports;
-
-        exports = Array.isArray;
-
-        return exports;
-    });
-
-    _define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray)
+    _define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray, s)
     {
         var exports;
 
@@ -635,19 +687,7 @@
         return exports;
     });
 
-    _define('isFunction', ['toString'], function (toString)
-    {
-        var exports;
-
-        exports = function (val)
-        {
-            return toString.call(val) === '[object Function]';
-        };
-
-        return exports;
-    });
-
-    _define('optimizeCb', ['undefined'], function (undefined)
+    _define('optimizeCb', ['undefined'], function (undefined, s)
     {
         var exports;
 
@@ -680,6 +720,15 @@
         return exports;
     });
 
+    _define('slice', ['arrProto'], function (arrProto, s)
+    {
+        var exports;
+
+        exports = arrProto.slice;
+
+        return exports;
+    });
+
     _define('identity', [], function ()
     {
         var exports;
@@ -692,16 +741,7 @@
         return exports;
     });
 
-    _define('slice', ['arrProto'], function (arrProto)
-    {
-        var exports;
-
-        exports = arrProto.slice;
-
-        return exports;
-    });
-
-    _define('values', ['keys'], function (keys)
+    _define('values', ['keys'], function (keys, s)
     {
         var exports;
 
@@ -728,45 +768,7 @@
         return exports;
     });
 
-    _define('property', ['undefined'], function (undefined)
-    {
-        var exports;
-
-        exports = function (key)
-        {
-            return function (obj)
-            {
-                return obj == null ? undefined : obj[key];
-            }
-        };
-
-        return exports;
-    });
-
-    _define('has', ['objProto'], function (objProto)
-    {
-        var exports;
-
-        var hasOwnProperty = objProto.hasOwnProperty;
-
-        exports = function (obj, key)
-        {
-            return obj != null && hasOwnProperty.call(obj, key);
-        };
-
-        return exports;
-    });
-
-    _define('getLen', ['property'], function (property)
-    {
-        var exports;
-
-        exports = property('length');
-
-        return exports;
-    });
-
-    _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
+    _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch, s)
     {
         var exports;
 
@@ -783,6 +785,44 @@
         return exports;
     });
 
+    _define('property', ['undefined'], function (undefined, s)
+    {
+        var exports;
+
+        exports = function (key)
+        {
+            return function (obj)
+            {
+                return obj == null ? undefined : obj[key];
+            }
+        };
+
+        return exports;
+    });
+
+    _define('has', ['objProto'], function (objProto, s)
+    {
+        var exports;
+
+        var hasOwnProperty = objProto.hasOwnProperty;
+
+        exports = function (obj, key)
+        {
+            return obj != null && hasOwnProperty.call(obj, key);
+        };
+
+        return exports;
+    });
+
+    _define('getLen', ['property'], function (property, s)
+    {
+        var exports;
+
+        exports = property('length');
+
+        return exports;
+    });
+
     _define('arrProto', [], function ()
     {
         var exports;
@@ -792,7 +832,7 @@
         return exports;
     });
 
-    _define('extendOwn', ['keys', 'createAssigner'], function (keys, createAssigner)
+    _define('extendOwn', ['keys', 'createAssigner'], function (keys, createAssigner, s)
     {
         var exports;
 
@@ -801,7 +841,7 @@
         return exports;
     });
 
-    _define('isMatch', ['keys'], function (keys)
+    _define('isMatch', ['keys'], function (keys, s)
     {
         var exports;
 
@@ -827,42 +867,44 @@
     });
 
     _init([
-        'Cookies',
         'Class',
-        'isNumber',
+        'Cookies',
+        'define',
+        'use',
         'test',
+        'isNumber',
         'isString',
+        'clone',
         'extend',
         'map',
-        'clone',
+        'deepClone',
         'deepExtend',
         'trim',
-        'deepClone',
-        'rtrim',
         'ltrim',
-        'undefined',
+        'rtrim',
         'each',
+        'undefined',
         'toArray',
         'toString',
+        'isArray',
+        'isObject',
         'createAssigner',
         'allKeys',
         'cb',
         'keys',
+        'isFunction',
         'isArrLike',
-        'isObject',
-        'isArray',
         'isPlainObject',
         'strProto',
-        'isFunction',
         'optimizeCb',
-        'identity',
         'slice',
+        'identity',
         'values',
         'objProto',
+        'matcher',
         'property',
         'has',
         'getLen',
-        'matcher',
         'arrProto',
         'extendOwn',
         'isMatch'

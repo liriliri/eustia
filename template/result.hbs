@@ -11,14 +11,13 @@
             requires: requires,
             body    : method
         };
+
+        delete requireMarks[name];
     }
 
     function _init(methods)
     {
-        for (var i = 0, len = methods.length; i < len; i++)
-        {
-            _require(methods[i]);
-        }
+        for (var i = 0, len = methods.length; i < len; i++) _require(methods[i]);
     }
 
     var requireMarks = {};
@@ -34,6 +33,8 @@
         {
             requires[i] = _require(requires[i]);
         }
+
+        requires.push({{name}});
 
         {{name}}[name] = body.apply({{name}}, requires);
 
