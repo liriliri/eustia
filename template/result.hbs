@@ -1,13 +1,13 @@
 (function ()
 {
-    var {{name}} = {};
+    var _ = {};
 
-    typeof module !== 'undefined' && module.exports ? module.exports = {{name}}
-                                                    : window.{{name}} = {{name}};
+    typeof module !== 'undefined' && module.exports ? module.exports = _
+                                                    : window.{{name}} = _;
 
     function _define(name, requires, method)
     {
-        {{name}}[name] = {
+        _[name] = {
             requires: requires,
             body    : method
         };
@@ -24,23 +24,21 @@
 
     function _require(name)
     {
-        if (requireMarks.hasOwnProperty(name)) return {{name}}[name];
+        if (requireMarks.hasOwnProperty(name)) return _[name];
 
-        var requires = {{name}}[name].requires,
-            body     = {{name}}[name].body;
+        var requires = _[name].requires,
+            body     = _[name].body,
+            len      = requires.length;
 
-        for (var i = 0, len = requires.length; i < len; i++)
-        {
-            requires[i] = _require(requires[i]);
-        }
+        for (var i = 0; i < len; i++) requires[i] = _require(requires[i]);
 
-        requires.push({{name}});
+        requires.push(_);
 
-        {{name}}[name] = body.apply({{name}}, requires);
+        _[name] = body.apply(_, requires);
 
         requireMarks[name] = true;
 
-        return {{name}}[name];
+        return _[name];
     }
 
     {{code}}

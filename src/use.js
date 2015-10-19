@@ -1,5 +1,7 @@
 'map';
 
+var self = this;
+
 exports = function (requires, method)
 {
     if (method == null)
@@ -9,7 +11,7 @@ exports = function (requires, method)
     }
 
     requires = map(requires, function (val) { return _require(val) });
-    requires.push(s);
+    requires.push(self);
 
-    method.apply(s, requires);
+    method.apply(self, requires);
 };

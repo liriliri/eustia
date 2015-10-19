@@ -25,13 +25,14 @@
     console.log(nemo.speak('swimming'));
 
     var Dog = Animal.extend({
-        speak: function (stuff)
-        {
-            return this.callSuper('speak', stuff).toUpperCase() + '!';
-        },
         huntForBones: function (garden)
         {
             // ...
+        }
+    }).methods({
+        speak: function (stuff)
+        {
+            return this.callSuper('speak', stuff).toUpperCase() + '!';
         }
     });
 
