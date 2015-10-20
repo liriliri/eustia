@@ -16,6 +16,7 @@ var knowOpts = {
     encoding: String,
     output  : String,
     name    : String,
+    external: String,
     exclude : String
 };
 

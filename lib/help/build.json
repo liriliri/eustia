@@ -26,6 +26,10 @@
         {
             "flag": "--exclude",
             "description": "Exclude file pattern"
+        },
+        {
+            "flag": "--external",
+            "description": "External lib path"
         }
     ]
 }
