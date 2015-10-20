@@ -6,7 +6,7 @@ exports = function (obj)
 {
     if (!obj) return [];
 
-    if (isArray(obj)) return slice.call(obj);
+    if (isArray(obj)) return slice(obj);
 
     if (isString(obj)) return obj ? obj.match(regReStrSymbol) : [];
 

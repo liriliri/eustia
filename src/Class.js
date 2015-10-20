@@ -14,9 +14,10 @@ function makeClass(parent, methods, statics)
     inherits(constructor, parent);
     constructor.superclass = constructor.prototype.superclass = parent;
 
-    constructor.extend  = function (methods, statics) { return makeClass(constructor, methods, statics) };
-    constructor.methods = function (methods) { extend(constructor.prototype, methods); return constructor };
-    constructor.statics = function (statics) { extend(constructor, statics); return constructor };
+    constructor.extend   = function (methods, statics) { return makeClass(constructor, methods, statics) };
+    constructor.inherits = function (Class) { inherits(Class, constructor) };
+    constructor.methods  = function (methods) { extend(constructor.prototype, methods); return constructor };
+    constructor.statics  = function (statics) { extend(constructor, statics); return constructor };
 
     constructor.methods(methods).statics(statics);
 

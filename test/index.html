@@ -47,6 +47,24 @@
     {
         console.log(test);
     });
+
+    var emitter = {};
+
+    _.Emitter.mixin(emitter);
+
+    emitter.on('test', function (val)
+    {
+        console.log('emitter test: ' + val);
+    });
+
+    emitter.once('testOnce', function ()
+    {
+        console.log('emitter test once');
+    });
+
+    emitter.emit('test', 'eustia');
+    emitter.emit('testOnce');
+    emitter.emit('testOnce');
 </script>
 </body>
 </html>
