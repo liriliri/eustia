@@ -1,4 +1,4 @@
-'Class has each slice inherits';
+'Class has each slice';
 
 var Emitter = Class({
     initialize: function ()
