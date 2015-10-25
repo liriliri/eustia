@@ -13,6 +13,7 @@
     var Animal = new _.Class({
         initialize: function (name)
         {
+            console.log('Animal constructor is called.');
             this.name = name;
         },
         speak: function (things)
@@ -65,6 +66,18 @@
     emitter.emit('test', 'eustia');
     emitter.emit('testOnce');
     emitter.emit('testOnce');
+
+    var state = new _.State('unloaded', {
+        load: {
+            from: 'unloaded',
+            to: 'loaded'
+        }
+    });
+    state.on('load', function ()
+    {
+        console.log('Current state is: ' + state.current);
+    });
+    state.load();
 </script>
 </body>
 </html>

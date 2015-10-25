@@ -1,27 +1,40 @@
-'extend toArray inherits';
+'extend toArray inherits has';
+
+var regCallSuper = /callSuper/;
 
 function makeClass(parent, methods, statics)
 {
     statics = statics || {};
 
-    var constructor = function ()
+    var ctor = function ()
     {
+        var args = toArray(arguments);
+
+        if (has(ctor.prototype, 'initialize') &&
+            !regCallSuper.test(this.initialize.toString()) &&
+            this.callSuper)
+        {
+            args.unshift('initialize');
+            this.callSuper.apply(this, args);
+            args.shift();
+        }
+
         return this.initialize
-               ? this.initialize.apply(this, arguments) || this
+               ? this.initialize.apply(this, args) || this
                : this;
     };
 
-    inherits(constructor, parent);
-    constructor.superclass = constructor.prototype.superclass = parent;
+    inherits(ctor, parent);
+    ctor.superclass = ctor.prototype.superclass = parent;
 
-    constructor.extend   = function (methods, statics) { return makeClass(constructor, methods, statics) };
-    constructor.inherits = function (Class) { inherits(Class, constructor) };
-    constructor.methods  = function (methods) { extend(constructor.prototype, methods); return constructor };
-    constructor.statics  = function (statics) { extend(constructor, statics); return constructor };
+    ctor.extend   = function (methods, statics) { return makeClass(ctor, methods, statics) };
+    ctor.inherits = function (Class) { inherits(Class, ctor) };
+    ctor.methods  = function (methods) { extend(ctor.prototype, methods); return ctor };
+    ctor.statics  = function (statics) { extend(ctor, statics); return ctor };
 
-    constructor.methods(methods).statics(statics);
+    ctor.methods(methods).statics(statics);
 
-    return constructor;
+    return ctor;
 }
 
 var Base = makeClass(Object, {
