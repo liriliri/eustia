@@ -1,4 +1,4 @@
-'Emitter each isArray';
+'Emitter each isArray some';
 
 var State = Emitter.extend({
     initialize: function (initial, events)
@@ -25,12 +25,7 @@ var State = Emitter.extend({
 
         return function ()
         {
-            var flag = from.some(function (val)
-            {
-                return this.current === val;
-            }, this);
-
-            if (flag)
+            if (some(from, function (val) {return this.current === val}, this))
             {
                 this.current = to;
                 this.emit(name);
