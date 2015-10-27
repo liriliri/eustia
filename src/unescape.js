@@ -1,3 +1,3 @@
-'createEscaper';
+'_createEscaper';
 
-exports = createEscaper(1);
+exports = _createEscaper(1);

@@ -1,3 +1,3 @@
-'objProto';
+'_objProto';
 
-exports = objProto.toString;
+exports = _objProto.toString;

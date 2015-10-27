@@ -1,3 +1,3 @@
-'keys createAssigner';
+'keys _createAssigner';
 
-exports = createAssigner(keys);
+exports = _createAssigner(keys);

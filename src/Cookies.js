@@ -1,3 +1,7 @@
+/* module
+ * Cookies: Simple api for handling browser cookies.
+ */
+
 'extend isNumber undefined';
 
 var defOpts = { path: '/' };
@@ -54,7 +58,18 @@ var Cookies = function (key, val, options)
 };
 
 exports = {
+    /* member
+     * Cookies.get: Read cookie.
+     * key(string): The cookie name.
+     * return(string): Returns cookie value if exists, eles undefined.
+     */
     get: Cookies,
+    /* member
+     * Cookies.set: Set cookie.
+     * key(string): The cookie name.
+     * val(string): The cookie value.
+     * options(Object): Options.
+     */
     set: Cookies,
     remove: function (key, options)
     {

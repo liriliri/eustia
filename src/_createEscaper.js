@@ -17,10 +17,7 @@ exports = function (type)
 
     if (type === 1) map = unescapeMap;
 
-    var escaper = function (match)
-    {
-        return map[match];
-    };
+    var escaper = function (match) { return map[match] };
 
     var source        = '(?:' + keys(map).join('|') + ')',
         testRegexp    = new RegExp(source),

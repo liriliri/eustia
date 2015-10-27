@@ -1,6 +1,6 @@
-'objProto';
+'_objProto';
 
-var hasOwnProperty = objProto.hasOwnProperty;
+var hasOwnProperty = _objProto.hasOwnProperty;
 
 exports = function (obj, key)
 {

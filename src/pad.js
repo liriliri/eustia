@@ -16,12 +16,10 @@ function strRepeat(str, qty)
 
 exports = function (str, len, padStr, type)
 {
-    var padLen = 0;
-
     padStr = padStr || ' ';
     padStr = padStr.charAt(0);
 
-    padLen = len - str.length;
+    var padLen = len - str.length;
 
     switch (type)
     {

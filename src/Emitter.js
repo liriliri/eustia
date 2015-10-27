@@ -9,12 +9,16 @@ var Emitter = Class({
     {
         this._events[event] = this._events[event] || [];
         this._events[event].push(listener);
+
+        return this;
     },
     off: function (event, listener)
     {
         if (!has(this._events, event)) return;
 
         this._events[event].splice(this._events[event].indexOf(listener), 1);
+
+        return this;
     },
     once: function (event, listener)
     {
@@ -31,6 +35,8 @@ var Emitter = Class({
         }
 
         this.on(event, g);
+
+        return this;
     },
     emit: function (event)
     {
@@ -42,6 +48,8 @@ var Emitter = Class({
         {
             val.apply(this, args);
         }, this);
+
+        return this;
     }
 }, {
     mixin: function (obj)
