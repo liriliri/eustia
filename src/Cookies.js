@@ -30,7 +30,7 @@ var Cookies = function (key, val, options)
             options.secure ? '; secure' : ''
         ].join('');
 
-        return;
+        return exports;
     }
 
     var cookies = document.cookie ? document.cookie.split('; ') : [],
@@ -75,6 +75,6 @@ exports = {
     {
         options = options || {};
         options.expires = -1;
-        Cookies(key, '', options);
+        return Cookies(key, '', options);
     }
 };

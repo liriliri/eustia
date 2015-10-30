@@ -19,10 +19,9 @@ function setAttr(node, name, val)
 
 var Select = Class({
     className: 'Select',
-    length   : 0,
     initialize: function (selector)
     {
-        if (!selector) return this;
+        this.length = 0;
 
         if (isString(selector)) return rootSelect.find(selector);
 
@@ -31,17 +30,19 @@ var Select = Class({
             this[0]     = selector;
             this.length = 1;
         }
+
+        return this;
     },
     find: function (selector)
     {
-        var elements = [];
+        var ret = new Select;
 
         this.each(function (element)
         {
-            mergeArr(elements, element.querySelectorAll(selector));
+            mergeArr(ret, element.querySelectorAll(selector));
         });
 
-        return mergeArr(new Select, elements);
+        return ret;
     },
     each: function (fn)
     {
@@ -89,7 +90,15 @@ var Select = Class({
         return this.each(function () { this.value = val });
     },
     first: function () { return new Select(this[0]) },
-    last : function () { return new Select(this[this.length - 1]) }
+    last : function () { return new Select(this[this.length - 1]) },
+    addClass: function ()
+    {
+
+    },
+    rmClass: function ()
+    {
+
+    }
 });
 
 var rootSelect = new Select(document);
