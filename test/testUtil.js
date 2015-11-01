@@ -5,7 +5,7 @@
     typeof module !== 'undefined' && module.exports ? module.exports = _
                                                     : window._ = _;
 
-    function _define(name, requires, method)
+    function define(name, requires, method)
     {
         _[name] = {
             requires: requires,
@@ -41,7 +41,7 @@
         return _[name];
     }
 
-    _define('Class', ['extend', 'toArray', 'inherits', 'has'], function (extend, toArray, inherits, has)
+    define('Class', ['extend', 'toArray', 'inherits', 'has'], function (extend, toArray, inherits, has)
     {
         var exports;
 
@@ -103,7 +103,7 @@
         return exports;
     });
 
-    _define('Cookies', ['extend', 'isNumber', 'undefined'], function (extend, isNumber, undefined)
+    define('Cookies', ['extend', 'isNumber', 'undefined'], function (extend, isNumber, undefined)
     {
         var exports;
 
@@ -174,7 +174,7 @@
         return exports;
     });
 
-    _define('define', [], function ()
+    define('define', [], function ()
     {
         var exports;
 
@@ -186,13 +186,13 @@
                 requires = [];
             }
 
-            _define(name, requires, method);
+            define(name, requires, method);
         };
 
         return exports;
     });
 
-    _define('use', ['map'], function (map)
+    define('use', ['map'], function (map)
     {
         var exports;
 
@@ -215,7 +215,7 @@
         return exports;
     });
 
-    _define('Emitter', ['Class', 'has', 'each', 'slice'], function (Class, has, each, slice)
+    define('Emitter', ['Class', 'has', 'each', 'slice'], function (Class, has, each, slice)
     {
         var exports;
 
@@ -279,7 +279,7 @@
         return exports;
     });
 
-    _define('State', ['Emitter', 'each', 'isArray', 'some'], function (Emitter, each, isArray, some)
+    define('State', ['Emitter', 'each', 'isArray', 'some'], function (Emitter, each, isArray, some)
     {
         var exports;
 
@@ -322,7 +322,7 @@
         return exports;
     });
 
-    _define('test', [], function ()
+    define('test', [], function ()
     {
         var exports;
 
@@ -344,7 +344,7 @@
         return exports;
     });
 
-    _define('isNumber', ['toString'], function (toString)
+    define('isNumber', ['toString'], function (toString)
     {
         var exports;
 
@@ -356,7 +356,7 @@
         return exports;
     });
 
-    _define('isString', ['toString'], function (toString)
+    define('isString', ['toString'], function (toString)
     {
         var exports;
 
@@ -368,7 +368,7 @@
         return exports;
     });
 
-    _define('clone', ['isObject', 'isArray', 'extend'], function (isObject, isArray, extend)
+    define('clone', ['isObject', 'isArray', 'extend'], function (isObject, isArray, extend)
     {
         var exports;
 
@@ -382,7 +382,7 @@
         return exports;
     });
 
-    _define('extend', ['createAssigner', 'allKeys'], function (createAssigner, allKeys)
+    define('extend', ['createAssigner', 'allKeys'], function (createAssigner, allKeys)
     {
         var exports;
 
@@ -391,7 +391,7 @@
         return exports;
     });
 
-    _define('map', ['cb', 'keys', 'isArrLike'], function (cb, keys, isArrLike)
+    define('map', ['cb', 'keys', 'isArrLike'], function (cb, keys, isArrLike)
     {
         var exports;
 
@@ -415,7 +415,7 @@
         return exports;
     });
 
-    _define('deepClone', ['keys', 'isObject', 'isFunction', 'isArray', 'each'], function (keys, isObject, isFunction, isArray, each)
+    define('deepClone', ['keys', 'isObject', 'isFunction', 'isArray', 'each'], function (keys, isObject, isFunction, isArray, each)
     {
         var exports;
 
@@ -457,7 +457,7 @@
         return exports;
     });
 
-    _define('deepExtend', ['isPlainObject', 'each', 'deepClone'], function (isPlainObject, each, deepClone)
+    define('deepExtend', ['isPlainObject', 'each', 'deepClone'], function (isPlainObject, each, deepClone)
     {
         var exports;
 
@@ -489,7 +489,7 @@
         return exports;
     });
 
-    _define('trim', ['strProto'], function (strProto)
+    define('trim', ['strProto'], function (strProto)
     {
         var exports;
 
@@ -531,7 +531,7 @@
         return exports;
     });
 
-    _define('ltrim', ['trim'], function (trim)
+    define('ltrim', ['trim'], function (trim)
     {
         var exports;
 
@@ -543,7 +543,7 @@
         return exports;
     });
 
-    _define('rtrim', ['trim'], function (trim)
+    define('rtrim', ['trim'], function (trim)
     {
         var exports;
 
@@ -555,7 +555,7 @@
         return exports;
     });
 
-    _define('toArray', ['isArray', 'slice', 'isString', 'isArrLike', 'map', 'identity', 'values'], function (isArray, slice, isString, isArrLike, map, identity, values)
+    define('toArray', ['isArray', 'slice', 'isString', 'isArrLike', 'map', 'identity', 'values'], function (isArray, slice, isString, isArrLike, map, identity, values)
     {
         var exports;
 
@@ -577,7 +577,7 @@
         return exports;
     });
 
-    _define('inherits', [], function ()
+    define('inherits', [], function ()
     {
         var exports;
 
@@ -600,7 +600,7 @@
         return exports;
     });
 
-    _define('has', ['objProto'], function (objProto)
+    define('has', ['objProto'], function (objProto)
     {
         var exports;
 
@@ -614,7 +614,7 @@
         return exports;
     });
 
-    _define('undefined', [], function ()
+    define('undefined', [], function ()
     {
         var exports;
 
@@ -625,7 +625,7 @@
         return exports;
     });
 
-    _define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
+    define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
     {
         var exports;
 
@@ -656,7 +656,7 @@
         return exports;
     });
 
-    _define('slice', ['arrProto'], function (arrProto)
+    define('slice', ['arrProto'], function (arrProto)
     {
         var exports;
 
@@ -668,7 +668,7 @@
         return exports;
     });
 
-    _define('isArray', [], function ()
+    define('isArray', [], function ()
     {
         var exports;
 
@@ -677,7 +677,7 @@
         return exports;
     });
 
-    _define('some', ['cb', 'isArrLike', 'keys'], function (cb, isArrLike, keys)
+    define('some', ['cb', 'isArrLike', 'keys'], function (cb, isArrLike, keys)
     {
         var exports;
 
@@ -700,7 +700,7 @@
         return exports;
     });
 
-    _define('toString', ['objProto'], function (objProto)
+    define('toString', ['objProto'], function (objProto)
     {
         var exports;
 
@@ -709,7 +709,7 @@
         return exports;
     });
 
-    _define('isObject', [], function ()
+    define('isObject', [], function ()
     {
         var exports;
 
@@ -723,7 +723,7 @@
         return exports;
     });
 
-    _define('createAssigner', ['undefined'], function (undefined)
+    define('createAssigner', ['undefined'], function (undefined)
     {
         var exports;
 
@@ -757,7 +757,7 @@
         return exports;
     });
 
-    _define('allKeys', ['isObject'], function (isObject)
+    define('allKeys', ['isObject'], function (isObject)
     {
         var exports;
 
@@ -775,7 +775,7 @@
         return exports;
     });
 
-    _define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
+    define('cb', ['identity', 'isFunction', 'isObject', 'optimizeCb', 'matcher', 'property'], function (identity, isFunction, isObject, optimizeCb, matcher, property)
     {
         var exports;
 
@@ -793,7 +793,7 @@
         return exports;
     });
 
-    _define('keys', ['isObject', 'has'], function (isObject, has)
+    define('keys', ['isObject', 'has'], function (isObject, has)
     {
         var exports;
 
@@ -818,7 +818,7 @@
         return exports;
     });
 
-    _define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
+    define('isArrLike', ['getLen', 'isNumber'], function (getLen, isNumber)
     {
         var exports;
 
@@ -834,7 +834,7 @@
         return exports;
     });
 
-    _define('isFunction', ['toString'], function (toString)
+    define('isFunction', ['toString'], function (toString)
     {
         var exports;
 
@@ -846,7 +846,7 @@
         return exports;
     });
 
-    _define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray)
+    define('isPlainObject', ['isObject', 'isArray'], function (isObject, isArray)
     {
         var exports;
 
@@ -858,7 +858,7 @@
         return exports;
     });
 
-    _define('strProto', [], function ()
+    define('strProto', [], function ()
     {
         var exports;
 
@@ -867,7 +867,7 @@
         return exports;
     });
 
-    _define('identity', [], function ()
+    define('identity', [], function ()
     {
         var exports;
 
@@ -879,7 +879,7 @@
         return exports;
     });
 
-    _define('values', ['keys'], function (keys)
+    define('values', ['keys'], function (keys)
     {
         var exports;
 
@@ -897,7 +897,7 @@
         return exports;
     });
 
-    _define('objProto', [], function ()
+    define('objProto', [], function ()
     {
         var exports;
 
@@ -906,7 +906,7 @@
         return exports;
     });
 
-    _define('optimizeCb', ['undefined'], function (undefined)
+    define('optimizeCb', ['undefined'], function (undefined)
     {
         var exports;
 
@@ -939,7 +939,7 @@
         return exports;
     });
 
-    _define('arrProto', [], function ()
+    define('arrProto', [], function ()
     {
         var exports;
 
@@ -948,7 +948,7 @@
         return exports;
     });
 
-    _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
+    define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
     {
         var exports;
 
@@ -965,7 +965,7 @@
         return exports;
     });
 
-    _define('property', ['undefined'], function (undefined)
+    define('property', ['undefined'], function (undefined)
     {
         var exports;
 
@@ -980,7 +980,7 @@
         return exports;
     });
 
-    _define('getLen', ['property'], function (property)
+    define('getLen', ['property'], function (property)
     {
         var exports;
 
@@ -989,7 +989,7 @@
         return exports;
     });
 
-    _define('isMatch', ['keys'], function (keys)
+    define('isMatch', ['keys'], function (keys)
     {
         var exports;
 
@@ -1014,7 +1014,7 @@
         return exports;
     });
 
-    _define('extendOwn', ['keys', 'createAssigner'], function (keys, createAssigner)
+    define('extendOwn', ['keys', 'createAssigner'], function (keys, createAssigner)
     {
         var exports;
 

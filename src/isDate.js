@@ -4,9 +4,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-'toString';
+'_toStr';
 
-exports = function (val)
-{
-    return toString.call(val) === '[object Date]';
-};
+isDate = function (value) { return _toStr.call(value) === '[object Date]' };

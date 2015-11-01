@@ -2,7 +2,7 @@
 
 var MAX_ARR_IDX = Math.pow(2, 53) - 1;
 
-exports = function (collection)
+var isArrLike = function (collection)
 {
     var len = getLen(collection);
 

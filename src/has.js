@@ -1,8 +1,6 @@
-'_objProto';
+var hasOwnProp = Object.prototype.hasOwnProperty;
 
-var hasOwnProperty = _objProto.hasOwnProperty;
-
-exports = function (obj, key)
+has = function (obj, key)
 {
-    return obj != null && hasOwnProperty.call(obj, key);
+    return obj != null && hasOwnProp.call(obj, key);
 };

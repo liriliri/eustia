@@ -53,4 +53,4 @@ var Base = makeClass(Object, {
     }
 });
 
-exports = function (methods, statics) { return Base.extend(methods, statics) };
+Class = function (methods, statics) { return Base.extend(methods, statics) };

@@ -2,7 +2,7 @@
 
 var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
 
-exports = function (obj)
+toArray = function (obj)
 {
     if (!obj) return [];
 

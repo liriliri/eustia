@@ -19,6 +19,7 @@ function buildEvent(name, event)
 }
 
 var State = Emitter.extend({
+    className: 'State',
     initialize: function (initial, events)
     {
         this.current = initial;

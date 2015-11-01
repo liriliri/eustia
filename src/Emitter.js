@@ -1,3 +1,7 @@
+/* class
+ * Emitter: Event emitter.
+ */
+
 'Class has each slice';
 
 var Emitter = Class({

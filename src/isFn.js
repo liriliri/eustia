@@ -1,0 +1,9 @@
+/* function
+ * isFn: Checks if value is classified as a Function object.
+ * value(*): The value to check.
+ * return(boolean): Returns true if value is correctly classified, else false.
+ */
+
+'_toStr';
+
+isFn = function (value) { return _toStr.call(value) === '[object Function]' };

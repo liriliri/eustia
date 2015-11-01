@@ -1,6 +1,6 @@
-'_arrProto';
+var arrProto = Array.prototype;
 
 exports = function (arr, start, end)
 {
-    return _arrProto.slice.call(arr, start, end);
+    return arrProto.slice.call(arr, start, end);
 };
