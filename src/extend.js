@@ -1,3 +1,3 @@
 '_createAssigner allKeys';
 
-exports = _createAssigner(allKeys);
+extend = _createAssigner(allKeys);

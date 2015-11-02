@@ -1,6 +1,6 @@
 'isArrLike keys';
 
-exports = function (obj)
+size = function (obj)
 {
     if (obj == null) return 0;
 

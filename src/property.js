@@ -1,6 +1,4 @@
-'undefined';
-
-exports = function (key)
+property = function (key)
 {
     return function (obj)
     {

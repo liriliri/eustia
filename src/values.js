@@ -1,6 +1,6 @@
 'keys';
 
-exports = function (obj)
+values = function (obj)
 {
     var _keys = keys(obj),
         len   = _keys.length,

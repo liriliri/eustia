@@ -1,11 +1,11 @@
-'Class State isFunction isObject each';
+'Class State isFn isObj each';
 
 function getThen(val)
 {
-    if (val && (isObject(val) || isFunction(val)))
+    if (val && (isObj(val) || isFn(val)))
     {
         var then = val.then;
-        if (isFunction(then)) return then;
+        if (isFn(then)) return then;
     }
 
     return null;
@@ -81,13 +81,11 @@ var Promise = Class({
             this._handlers.push(handler);
         } else
         {
-            if (state.is('fulfilled') &&
-                isFunction(handler.onFulfilled))
+            if (state.is('fulfilled') && isFn(handler.onFulfilled))
             {
                 handler.onFulfilled(value);
             }
-            if (state.is('rejected') &&
-                isFunction(handler.onRejected))
+            if (state.is('rejected') && isFn(handler.onRejected))
             {
                 handler.onRejected(value);
             }

@@ -10,7 +10,7 @@ var strProto        = String.prototype,
     nativeTrimLeft  = strProto.trimLeft,
     nativeTrimRight = strProto.trimRight;
 
-exports = function (str, chars, direction)
+trim = function (str, chars, direction)
 {
     direction = direction || '';
     chars     = chars || '\\s';

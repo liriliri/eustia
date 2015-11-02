@@ -6,7 +6,7 @@ var async = require('async'),
 
 var resolve = path.resolve;
 
-exports = function (paths, options, callback)
+expandPaths = function (paths, options, callback)
 {
     var files = [];
 

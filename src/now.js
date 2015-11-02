@@ -1,4 +1,1 @@
-exports = Date.now || function ()
-{
-    return new Date().getTime();
-};
+now = Date.now || function () { return new Date().getTime() };

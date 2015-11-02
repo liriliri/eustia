@@ -1,6 +1,6 @@
 'trim';
 
-exports = function (str, chars)
+rtrim = function (str, chars)
 {
     return trim(str, chars, 'r');
 };

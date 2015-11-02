@@ -1,6 +1,4 @@
-'undefined';
-
-exports = function (min, max)
+random = function (min, max)
 {
     if (max == null)
     {

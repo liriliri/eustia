@@ -1,6 +1,6 @@
-'toString';
+'_toStr';
 
-exports = function (val)
+isRegExp = function (value)
 {
-    return toString.call(val) === '[object RegExp]';
+    return _toStr.call(value) === '[object RegExp]';
 };

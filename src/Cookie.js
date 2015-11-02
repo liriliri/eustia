@@ -1,18 +1,18 @@
 /* module
- * Cookies: Simple api for handling browser cookies.
+ * Cookie: Simple api for handling browser cookies.
  */
 
-'extend isNumber undefined';
+'extend isNum';
 
 var defOpts = { path: '/' };
 
-var Cookies = function (key, val, options)
+Cookie = function (key, val, options)
 {
     if (arguments.length > 1)
     {
         options = extend(defOpts, options);
 
-        if (isNumber(options.expires))
+        if (isNum(options.expires))
         {
             var expires = new Date();
             expires.setMilliseconds(expires.getMilliseconds() + options.expires * 864e+5);
@@ -59,22 +59,22 @@ var Cookies = function (key, val, options)
 
 exports = {
     /* member
-     * Cookies.get: Read cookie.
+     * Cookie.get: Read cookie.
      * key(string): The cookie name.
      * return(string): Returns cookie value if exists, eles undefined.
      */
-    get: Cookies,
+    get: Cookie,
     /* member
-     * Cookies.set: Set cookie.
+     * Cookie.set: Set cookie.
      * key(string): The cookie name.
      * val(string): The cookie value.
      * options(Object): Options.
      */
-    set: Cookies,
+    set: Cookie,
     remove: function (key, options)
     {
         options = options || {};
         options.expires = -1;
-        return Cookies(key, '', options);
+        return Cookie(key, '', options);
     }
 };

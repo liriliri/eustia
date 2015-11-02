@@ -1,1 +1,1 @@
-exports = function () {};
+noop = function () {};

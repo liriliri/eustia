@@ -1,12 +1,12 @@
-'identity isFunction isObject optimizeCb matcher property';
+'identity isFn isObj optimizeCb matcher property';
 
-exports = function (val, ctx, argCount)
+cb = function (val, ctx, argCount)
 {
     if (val == null) return identity;
 
-    if (isFunction(val)) return optimizeCb(val, ctx, argCount);
+    if (isFn(val)) return optimizeCb(val, ctx, argCount);
 
-    if (isObject(val)) return matcher(val);
+    if (isObj(val)) return matcher(val);
 
     return property;
 };

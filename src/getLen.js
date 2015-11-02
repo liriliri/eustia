@@ -1,3 +1,3 @@
 'property';
 
-exports = property('length');
+getLen = property('length');

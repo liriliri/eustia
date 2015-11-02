@@ -1,6 +1,6 @@
 'cb each';
 
-exports = function (obj, predicate, ctx)
+filter = function (obj, predicate, ctx)
 {
     var ret = [];
 

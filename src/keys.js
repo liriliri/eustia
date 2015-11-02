@@ -1,10 +1,10 @@
-'isObject has';
+'isObj has';
 
 var nativeKeys = Object.keys;
 
-exports = function (obj)
+keys = function (obj)
 {
-    if (!isObject(obj)) return [];
+    if (!isObj(obj)) return [];
 
     if (nativeKeys) return nativeKeys(obj);
 

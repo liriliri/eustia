@@ -1,6 +1,6 @@
 'cb keys isArrLike';
 
-exports = function (obj, iteratee, ctx)
+map = function (obj, iteratee, ctx)
 {
     iteratee = cb(iteratee, ctx);
 

@@ -1,4 +1,4 @@
-'Class isString each isObject';
+'Class isStr each isObj';
 
 function mergeArr(first, second)
 {
@@ -17,21 +17,21 @@ function setAttr(node, name, val)
     val == null ? node.removeAttribute(name) : node.setAttribute(name, val);
 }
 
-var Select = Class({
+Select = Class({
     className: 'Select',
     initialize: function (selector)
     {
         this.length = 0;
 
-        if (isString(selector)) return rootSelect.find(selector);
+        if (!selector) return this;
+
+        if (isStr(selector)) return rootSelect.find(selector);
 
         if (selector.nodeType)
         {
             this[0]     = selector;
             this.length = 1;
         }
-
-        return this;
     },
     find: function (selector)
     {
@@ -53,7 +53,7 @@ var Select = Class({
     },
     attr: function (name, val)
     {
-        if (val == null && isString(name))
+        if (val == null && isStr(name))
         {
             return this[0].getAttribute(name);
         }
@@ -62,7 +62,7 @@ var Select = Class({
         {
             var self = this;
 
-            if (isObject(name))
+            if (isObj(name))
             {
                 each(name, function (val, key) { setAttr(self, key, val) });
             } else
@@ -102,5 +102,3 @@ var Select = Class({
 });
 
 var rootSelect = new Select(document);
-
-exports = Select;

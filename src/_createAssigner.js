@@ -1,6 +1,6 @@
-'undefined';
+'isUndef';
 
-exports = function (keysFunc, defaults)
+_createAssigner = function (keysFunc, defaults)
 {
     return function (obj)
     {
@@ -19,7 +19,7 @@ exports = function (keysFunc, defaults)
             for (var j = 0; j < keysLen; j++)
             {
                 var key = keys[j];
-                if (!defaults || obj[key] === undefined) obj[key] = src[key];
+                if (!defaults || isUndef(obj[key])) obj[key] = src[key];
             }
         }
 

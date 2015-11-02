@@ -1,4 +1,4 @@
-exports = function (str, suffix)
+endsWith = function (str, suffix)
 {
     var idx = str.length - suffix.length;
 

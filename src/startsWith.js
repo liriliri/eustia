@@ -1,1 +1,1 @@
-exports = function (str, prefix) { return str.indexOf(prefix) === 0 };
+startsWith = function (str, prefix) { return str.indexOf(prefix) === 0 };

@@ -3,7 +3,7 @@
 var fs    = require('fs'),
     async = require('async');
 
-exports = function (paths, options, callback)
+readPaths = function (paths, options, callback)
 {
     expandPaths(paths, options, function (err, files)
     {

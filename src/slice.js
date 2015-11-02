@@ -1,6 +1,6 @@
 var arrProto = Array.prototype;
 
-exports = function (arr, start, end)
+slice = function (arr, start, end)
 {
     return arrProto.slice.call(arr, start, end);
 };

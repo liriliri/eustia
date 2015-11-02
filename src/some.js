@@ -1,6 +1,6 @@
 'cb isArrLike keys';
 
-exports = function (obj, predicate, ctx)
+some = function (obj, predicate, ctx)
 {
     predicate = cb(predicate, ctx);
 

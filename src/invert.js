@@ -1,6 +1,6 @@
 'keys each';
 
-exports = function (obj)
+invert = function (obj)
 {
     var ret = {};
 

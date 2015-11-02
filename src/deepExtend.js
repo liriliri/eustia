@@ -1,6 +1,6 @@
-'isPlainObject each deepClone';
+'isPlainObj each deepClone';
 
-exports = function (obj)
+deepExtend = function (obj)
 {
     var i   = 0,
         ret = obj,
@@ -10,7 +10,7 @@ exports = function (obj)
     {
         obj = arguments[i];
 
-        if (isPlainObject(ret) && isPlainObject(obj))
+        if (isPlainObj(ret) && isPlainObj(obj))
         {
             each(obj, function (val, key)
             {

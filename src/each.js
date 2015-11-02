@@ -1,6 +1,6 @@
 'isArrLike keys optimizeCb';
 
-exports = function (obj, iteratee, ctx)
+each = function (obj, iteratee, ctx)
 {
     iteratee = optimizeCb(iteratee, ctx);
 

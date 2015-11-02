@@ -1,3 +1,0 @@
-var undefined;
-
-exports = undefined;

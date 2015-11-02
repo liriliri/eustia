@@ -1,4 +1,4 @@
-exports = function (arr)
+last = function (arr)
 {
     var len = arr ? arr.length : 0;
 

@@ -2,7 +2,7 @@
 
 var self = this;
 
-exports = function (requires, method)
+use = function (requires, method)
 {
     if (method == null)
     {

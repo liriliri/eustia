@@ -1,4 +1,4 @@
-exports = function (fn, startIdx)
+restArgs = function (fn, startIdx)
 {
     startIdx = startIdx == null ? fn.length - 1 : +startIdx;
 

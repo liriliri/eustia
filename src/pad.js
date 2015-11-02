@@ -14,7 +14,7 @@ function strRepeat(str, qty)
     return ret;
 }
 
-exports = function (str, len, padStr, type)
+pad = function (str, len, padStr, type)
 {
     padStr = padStr || ' ';
     padStr = padStr.charAt(0);

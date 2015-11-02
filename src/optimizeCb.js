@@ -1,8 +1,8 @@
-'undefined';
+'isUndef';
 
-exports = function (func, ctx, argCount)
+optimizeCb = function (func, ctx, argCount)
 {
-    if (ctx === undefined) return func;
+    if (isUndef(ctx)) return func;
 
     switch (argCount == null ? 3 : argCount)
     {

@@ -4,4 +4,4 @@
  * return(*): Returns value.
  */
 
-exports = function (value) { return value };
+identity = function (value) { return value };

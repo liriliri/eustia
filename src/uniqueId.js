@@ -1,6 +1,6 @@
 var idCounter = 0;
 
-exports = function (prefix)
+uniqueId = function (prefix)
 {
     var id = ++idCounter + '';
 

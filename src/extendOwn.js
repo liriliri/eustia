@@ -1,3 +1,3 @@
 'keys _createAssigner';
 
-exports = _createAssigner(keys);
+extendOwn = _createAssigner(keys);

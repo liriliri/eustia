@@ -1,6 +1,6 @@
 'extendOwn isMatch';
 
-exports = function (attrs)
+matcher = function (attrs)
 {
     attrs = extendOwn({}, attrs);
 

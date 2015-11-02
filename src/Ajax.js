@@ -9,19 +9,19 @@ var defOpts = {
     timeout : 0
 };
 
-exports = function (options)
+Ajax = function (options)
 {
     options = extend({}, defOpts, options);
 
 
 };
 
-exports.get = function ()
+Ajax.get = function ()
 {
 
 };
 
-exports.post = function ()
+Ajax.post = function ()
 {
 
 };

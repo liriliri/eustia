@@ -1,6 +1,6 @@
 'cb keys';
 
-exports = function (obj, predicate, ctx)
+findKey = function (obj, predicate, ctx)
 {
     predicate = cb(predicate, ctx);
 

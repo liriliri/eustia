@@ -1,6 +1,6 @@
 'keys';
 
-exports = function (obj, attrs)
+isMatch = function (obj, attrs)
 {
     var _keys = keys(attrs),
         len   = _keys.length;

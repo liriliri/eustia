@@ -1,11 +1,11 @@
-'Emitter each isArray some';
+'Emitter each isArr some';
 
 function buildEvent(name, event)
 {
     var from = event.from,
         to   = event.to;
 
-    if (!isArray(from)) from = [from];
+    if (!isArr(from)) from = [from];
 
     return function ()
     {

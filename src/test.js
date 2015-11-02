@@ -7,7 +7,7 @@ var assert = {
     }
 };
 
-exports = function (name, callback)
+test = function (name, callback)
 {
     console.log(name + ':');
     callback(assert);

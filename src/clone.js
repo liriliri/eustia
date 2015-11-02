@@ -1,8 +1,8 @@
-'isObject isArray extend';
+'isObj isArr extend';
 
-exports = function (obj)
+clone = function (obj)
 {
-    if (!isObject(obj)) return obj;
+    if (!isObj(obj)) return obj;
 
-    return isArray(obj) ? obj.slice() : extend({}, obj);
+    return isArr(obj) ? obj.slice() : extend({}, obj);
 };

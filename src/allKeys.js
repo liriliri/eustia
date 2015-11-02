@@ -1,8 +1,8 @@
-'isObject';
+'isObj';
 
-exports = function (obj)
+allKeys = function (obj)
 {
-    if (!isObject(obj)) return [];
+    if (!isObj(obj)) return [];
 
     var keys = [];
 

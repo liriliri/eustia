@@ -4,7 +4,7 @@
 
 'Class has each slice';
 
-var Emitter = Class({
+Emitter = Class({
     initialize: function ()
     {
         this._events = this._events || {};
@@ -66,5 +66,3 @@ var Emitter = Class({
         obj._events = obj._events || {};
     }
 });
-
-exports = Emitter;

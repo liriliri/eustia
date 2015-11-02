@@ -1,6 +1,6 @@
 var regStripComments = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 
-exports = function (str)
+stripComments = function (str)
 {
     return str.replace(regStripComments, '');
 };

@@ -1,4 +1,4 @@
-exports = function (name, requires, method)
+define = function (name, requires, method)
 {
     if (arguments.length === 2)
     {

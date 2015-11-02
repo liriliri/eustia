@@ -1,4 +1,4 @@
-'keys isObject isFunction isArray each';
+'keys isObj isFn isArr each';
 
 function mapObject(obj, iteratee)
 {
@@ -14,9 +14,9 @@ function mapObject(obj, iteratee)
     return newObj;
 }
 
-exports = function (obj)
+deepClone = function (obj)
 {
-    if (isArray(obj))
+    if (isArr(obj))
     {
         return obj.map(function (val)
         {
@@ -24,7 +24,7 @@ exports = function (obj)
         });
     }
 
-    if (isObject(obj) && !isFunction(obj))
+    if (isObj(obj) && !isFn(obj))
     {
         return mapObject(obj, function (key, val)
         {
