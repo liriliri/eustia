@@ -30,7 +30,7 @@ Cookie = function (key, val, options)
             options.secure ? '; secure' : ''
         ].join('');
 
-        return exports;
+        return Cookie;
     }
 
     var cookies = document.cookie ? document.cookie.split('; ') : [],
@@ -57,7 +57,7 @@ Cookie = function (key, val, options)
     return result;
 };
 
-exports = {
+Cookie = {
     /* member
      * Cookie.get: Read cookie.
      * key(string): The cookie name.

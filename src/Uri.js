@@ -19,6 +19,18 @@ function removeParameter(url, parameter)
     return url;
 }
 
+function updateQueryStringParameter(uri, key, value)
+{
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+        return uri + separator + key + "=" + value;
+    }
+}
+
 Uri = Class({
     className: 'Uri',
     initialize: function (url)
@@ -33,6 +45,14 @@ Uri = Class({
         {
             this._url = removeParameter(this._url, name);
         }, this);
+
+        return this;
+    },
+    query: function (key, value)
+    {
+        this._url = updateQueryStringParameter(this._url, key, value);
+
+        return this;
     },
     toString: function ()
     {
