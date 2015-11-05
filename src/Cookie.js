@@ -6,7 +6,7 @@
 
 var defOpts = { path: '/' };
 
-Cookie = function (key, val, options)
+var cookie = function (key, val, options)
 {
     if (arguments.length > 1)
     {
@@ -63,18 +63,18 @@ Cookie = {
      * key(string): The cookie name.
      * return(string): Returns cookie value if exists, eles undefined.
      */
-    get: Cookie,
+    get: cookie,
     /* member
      * Cookie.set: Set cookie.
      * key(string): The cookie name.
      * val(string): The cookie value.
      * options(Object): Options.
      */
-    set: Cookie,
+    set: cookie,
     remove: function (key, options)
     {
         options = options || {};
         options.expires = -1;
-        return Cookie(key, '', options);
+        return cookie(key, '', options);
     }
 };

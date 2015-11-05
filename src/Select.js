@@ -50,6 +50,21 @@ Select = Class({
         {
             fn.call(element, element, idx);
         });
+
+        return this;
+    },
+    css: function (name, val)
+    {
+        if (val === undefined) return this[0].style[name];
+
+        return this.each(function ()
+        {
+            this.style[name] = val;
+        });
+    },
+    hide: function ()
+    {
+        return this.css('display', 'none');
     },
     attr: function (name, val)
     {
@@ -89,15 +104,22 @@ Select = Class({
 
         return this.each(function () { this.value = val });
     },
+    on: function (type, fn)
+    {
+        return this.each(function ()
+        {
+            this.addEventListener(type, fn, false);
+        });
+    },
     first: function () { return new Select(this[0]) },
     last : function () { return new Select(this[this.length - 1]) },
     addClass: function ()
     {
 
     },
-    rmClass: function ()
+    rmClass: function (name)
     {
-
+        return this.each(function () { this.classList.remove(name) });
     }
 });
 
