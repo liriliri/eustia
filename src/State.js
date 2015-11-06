@@ -18,7 +18,7 @@ function buildEvent(name, event)
     };
 }
 
-var State = Emitter.extend({
+State = Emitter.extend({
     className: 'State',
     initialize: function (initial, events)
     {
@@ -36,5 +36,3 @@ var State = Emitter.extend({
         return this.current = state;
     }
 });
-
-exports = State;

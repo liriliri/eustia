@@ -34,7 +34,8 @@
 
         requires.push(_);
 
-        _[name] = body.apply(_, requires);
+        var exports = body.apply(_, requires);
+        if (exports) _[name] = exports;
 
         requireMarks[name] = true;
 

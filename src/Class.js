@@ -37,7 +37,9 @@ function makeClass(parent, methods, statics)
     return ctor;
 }
 
-var Base = makeClass(Object, {
+Class = function (methods, statics) { return Base.extend(methods, statics) };
+
+var Base = Class.Base = makeClass(Object, {
     className: 'Base',
     callSuper: function (name)
     {
@@ -52,5 +54,3 @@ var Base = makeClass(Object, {
         return this.className;
     }
 });
-
-Class = function (methods, statics) { return Base.extend(methods, statics) };
