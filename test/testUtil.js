@@ -42,24 +42,6 @@
         return _[name];
     }
 
-    _define('define', [], function ()
-    {
-        var define;
-
-        define = function (name, requires, method)
-        {
-            if (arguments.length === 2)
-            {
-                method   = requires;
-                requires = [];
-            }
-
-            _define(name, requires, method);
-        };
-
-        _.define = define;
-    });
-
     _define('Cookie', ['extend', 'isNum'], function (extend, isNum)
     {
         var Cookie;
@@ -131,6 +113,24 @@
         };
 
         _.Cookie = Cookie;
+    });
+
+    _define('define', [], function ()
+    {
+        var define;
+
+        define = function (name, requires, method)
+        {
+            if (arguments.length === 2)
+            {
+                method   = requires;
+                requires = [];
+            }
+
+            _define(name, requires, method);
+        };
+
+        _.define = define;
     });
 
     _define('Class', ['extend', 'toArray', 'inherits', 'has'], function (extend, toArray, inherits, has)
@@ -218,6 +218,50 @@
         _.use = use;
     });
 
+    _define('State', ['Emitter', 'each', 'isArr', 'some'], function (Emitter, each, isArr, some)
+    {
+        var State;
+
+        function buildEvent(name, event)
+        {
+            var from = event.from,
+                to   = event.to;
+
+            if (!isArr(from)) from = [from];
+
+            return function ()
+            {
+                var args = slice(arguments, 1);
+                if (some(from, function (val) {return this.current === val}, this))
+                {
+                    this.current = to;
+                    this.emit.apply(name, args);
+                }
+            };
+        }
+
+        State = Emitter.extend({
+            className: 'State',
+            initialize: function (initial, events)
+            {
+                this.current = initial;
+
+                var self = this;
+
+                each(events, function (event, key)
+                {
+                    self[key] = buildEvent(key, event);
+                });
+            },
+            is: function (state)
+            {
+                return this.current = state;
+            }
+        });
+
+        _.State = State;
+    });
+
     _define('Emitter', ['Class', 'has', 'each', 'slice'], function (Class, has, each, slice)
     {
         var Emitter;
@@ -288,57 +332,43 @@
         _.Emitter = Emitter;
     });
 
-    _define('State', ['Emitter', 'each', 'isArr', 'some'], function (Emitter, each, isArr, some)
+    _define('test', ['Emitter'], function (Emitter)
     {
-        var State;
+        var test;
 
-        function buildEvent(name, event)
-        {
-            var from = event.from,
-                to   = event.to;
+        function print(str) { console.log(str) }
 
-            if (!isArr(from)) from = [from];
-
-            return function ()
+        var Expect = Emitter.extend({
+            className: 'Expect',
+            initialize: function (name, value)
             {
-                var args = slice(arguments, 1);
-                if (some(from, function (val) {return this.current === val}, this))
-                {
-                    this.current = to;
-                    this.emit.apply(name, args);
-                }
-            };
-        }
+                this.name  = name;
+                this.value = value;
 
-        State = Emitter.extend({
-            className: 'State',
-            initialize: function (initial, events)
-            {
-                this.current = initial;
+                this.on('error', function (msg) { print('Error: ' + msg) });
 
-                var self = this;
-
-                each(events, function (event, key)
-                {
-                    self[key] = buildEvent(key, event);
-                });
+                this.on('ok', function (msg) { print('Ok: ' + msg) });
             },
-            is: function (state)
+            toBe: function (targetVal)
             {
-                return this.current = state;
-            }
+                this.value === targetVal ? this.emit('ok', this.value + ' is ' + targetVal + '.')
+                                         : this.emit('error', this.value + ' should be ' + targetVal + '.');
+            },
+            toBeTrue: function () { this.toBe(true) },
+            toBeFalse: function () { this.toBe(false) }
         });
 
-        _.State = State;
-    });
+        test = function (name, callback)
+        {
+            print('Running test ' + name + ':');
 
-    _define('extend', ['_createAssigner', 'allKeys'], function (_createAssigner, allKeys)
-    {
-        var extend;
+            callback(function (value)
+            {
+                return new Expect(name, value);
+            });
+        };
 
-        extend = _createAssigner(allKeys);
-
-        _.extend = extend;
+        _.test = test;
     });
 
     _define('isNum', ['_toStr'], function (_toStr)
@@ -348,6 +378,15 @@
         isNum = function (value) { return _toStr.call(value) === '[object Number]' };
 
         _.isNum = isNum;
+    });
+
+    _define('isStr', ['_toStr'], function (_toStr)
+    {
+        var isStr;
+
+        isStr = function (value) { return _toStr.call(value) === '[object String]' };
+
+        _.isStr = isStr;
     });
 
     _define('toArray', ['isArr', 'slice', 'isStr', 'isArrLike', 'map', 'identity', 'values'], function (isArr, slice, isStr, isArrLike, map, identity, values)
@@ -370,6 +409,15 @@
         };
 
         _.toArray = toArray;
+    });
+
+    _define('extend', ['_createAssigner', 'allKeys'], function (_createAssigner, allKeys)
+    {
+        var extend;
+
+        extend = _createAssigner(allKeys);
+
+        _.extend = extend;
     });
 
     _define('inherits', [], function ()
@@ -457,20 +505,6 @@
         _.each = each;
     });
 
-    _define('slice', [], function ()
-    {
-        var slice;
-
-        var arrProto = Array.prototype;
-
-        slice = function (arr, start, end)
-        {
-            return arrProto.slice.call(arr, start, end);
-        };
-
-        _.slice = slice;
-    });
-
     _define('isArr', ['_toStr'], function (_toStr)
     {
         var isArr;
@@ -508,56 +542,18 @@
         _.some = some;
     });
 
-    _define('_createAssigner', ['isUndef'], function (isUndef)
+    _define('slice', [], function ()
     {
-        var _createAssigner;
+        var slice;
 
-        _createAssigner = function (keysFunc, defaults)
+        var arrProto = Array.prototype;
+
+        slice = function (arr, start, end)
         {
-            return function (obj)
-            {
-                var len = arguments.length;
-
-                if (defaults) obj = Object(obj);
-
-                if (len < 2 || obj == null) return obj;
-
-                for (var i = 1; i < len; i++)
-                {
-                    var src     = arguments[i],
-                        keys    = keysFunc(src),
-                        keysLen = keys.length;
-
-                    for (var j = 0; j < keysLen; j++)
-                    {
-                        var key = keys[j];
-                        if (!defaults || isUndef(obj[key])) obj[key] = src[key];
-                    }
-                }
-
-                return obj;
-            };
+            return arrProto.slice.call(arr, start, end);
         };
 
-        _._createAssigner = _createAssigner;
-    });
-
-    _define('allKeys', ['isObj'], function (isObj)
-    {
-        var allKeys;
-
-        allKeys = function (obj)
-        {
-            if (!isObj(obj)) return [];
-
-            var keys = [];
-
-            for (var key in obj) keys.push(key);
-
-            return keys;
-        };
-
-        _.allKeys = allKeys;
+        _.slice = slice;
     });
 
     _define('_toStr', [], function ()
@@ -569,22 +565,13 @@
         _._toStr = _toStr;
     });
 
-    _define('isStr', ['_toStr'], function (_toStr)
-    {
-        var isStr;
-
-        isStr = function (value) { return _toStr.call(value) === '[object String]' };
-
-        _.isStr = isStr;
-    });
-
     _define('isArrLike', ['getLen', 'isNum'], function (getLen, isNum)
     {
         var isArrLike;
 
         var MAX_ARR_IDX = Math.pow(2, 53) - 1;
 
-        var isArrLike = function (value)
+        isArrLike = function (value)
         {
             var len = getLen(value);
 
@@ -637,6 +624,58 @@
         };
 
         _.cb = cb;
+    });
+
+    _define('_createAssigner', ['isUndef'], function (isUndef)
+    {
+        var _createAssigner;
+
+        _createAssigner = function (keysFunc, defaults)
+        {
+            return function (obj)
+            {
+                var len = arguments.length;
+
+                if (defaults) obj = Object(obj);
+
+                if (len < 2 || obj == null) return obj;
+
+                for (var i = 1; i < len; i++)
+                {
+                    var src     = arguments[i],
+                        keys    = keysFunc(src),
+                        keysLen = keys.length;
+
+                    for (var j = 0; j < keysLen; j++)
+                    {
+                        var key = keys[j];
+                        if (!defaults || isUndef(obj[key])) obj[key] = src[key];
+                    }
+                }
+
+                return obj;
+            };
+        };
+
+        _._createAssigner = _createAssigner;
+    });
+
+    _define('allKeys', ['isObj'], function (isObj)
+    {
+        var allKeys;
+
+        allKeys = function (obj)
+        {
+            if (!isObj(obj)) return [];
+
+            var keys = [];
+
+            for (var key in obj) keys.push(key);
+
+            return keys;
+        };
+
+        _.allKeys = allKeys;
     });
 
     _define('keys', ['isObj', 'has'], function (isObj, has)
@@ -697,29 +736,6 @@
         _.optimizeCb = optimizeCb;
     });
 
-    _define('isUndef', [], function ()
-    {
-        var isUndef;
-
-        isUndef = function (value) { return value === void 0 };
-
-        _.isUndef = isUndef;
-    });
-
-    _define('isObj', [], function ()
-    {
-        var isObj;
-
-        isObj = function (value)
-        {
-            var type = typeof value;
-
-            return type === 'function' || type === 'object';
-        };
-
-        _.isObj = isObj;
-    });
-
     _define('getLen', ['property'], function (property)
     {
         var getLen;
@@ -736,6 +752,20 @@
         isFn = function (value) { return _toStr.call(value) === '[object Function]' };
 
         _.isFn = isFn;
+    });
+
+    _define('isObj', [], function ()
+    {
+        var isObj;
+
+        isObj = function (value)
+        {
+            var type = typeof value;
+
+            return type === 'function' || type === 'object';
+        };
+
+        _.isObj = isObj;
     });
 
     _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
@@ -768,6 +798,15 @@
         };
 
         _.property = property;
+    });
+
+    _define('isUndef', [], function ()
+    {
+        var isUndef;
+
+        isUndef = function (value) { return value === void 0 };
+
+        _.isUndef = isUndef;
     });
 
     _define('extendOwn', ['keys', '_createAssigner'], function (keys, _createAssigner)
@@ -805,38 +844,39 @@
     });
 
     _init([
-        'define',
         'Cookie',
+        'define',
         'Class',
         'use',
-        'Emitter',
         'State',
-        'extend',
+        'Emitter',
+        'test',
         'isNum',
+        'isStr',
         'toArray',
+        'extend',
         'inherits',
         'has',
         'map',
         'each',
-        'slice',
         'isArr',
         'some',
-        '_createAssigner',
-        'allKeys',
+        'slice',
         '_toStr',
-        'isStr',
         'isArrLike',
         'identity',
         'values',
         'cb',
+        '_createAssigner',
+        'allKeys',
         'keys',
         'optimizeCb',
-        'isUndef',
-        'isObj',
         'getLen',
         'isFn',
+        'isObj',
         'matcher',
         'property',
+        'isUndef',
         'extendOwn',
         'isMatch'
     ]);
