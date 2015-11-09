@@ -29,12 +29,9 @@ var Expect = Emitter.extend({
     toBeFalse: function () { this.toBe(false) }
 });
 
-test = function (name, callback)
+test = function (name, cb)
 {
     print('Running test ' + name + ':');
 
-    callback(function (value)
-    {
-        return new Expect(name, value);
-    });
+    cb(function (val) { return new Expect(name, val) });
 };

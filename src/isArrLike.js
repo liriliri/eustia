@@ -4,9 +4,9 @@ var MAX_ARR_IDX = Math.pow(2, 53) - 1;
 
 isArrLike = function (val)
 {
-    var len;
+    if (!has(val, 'length')) return false;
 
-    if (has(val, 'length')) len = value.length;
+    var len = val.length;
 
     return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
 };

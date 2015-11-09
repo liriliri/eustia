@@ -11,7 +11,7 @@ var escapeMap = {
 
 var unescapeMap = invert(escapeMap);
 
-_escaper = function (type)
+_createEscaper = function (type)
 {
     var map = escapeMap;
 
