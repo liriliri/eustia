@@ -111,6 +111,13 @@ Select = Class({
             this.addEventListener(type, fn, false);
         });
     },
+    off: function (type, fn)
+    {
+        return this.each(function ()
+        {
+            this.removeEventListener(type, fn);
+        });
+    },
     first: function () { return new Select(this[0]) },
     last : function () { return new Select(this[this.length - 1]) },
     addClass: function ()

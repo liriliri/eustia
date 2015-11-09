@@ -4,9 +4,9 @@
  * return(boolean): Returns true if value is an object, else false.
  */
 
-isObj = function (value)
+isObj = function (val)
 {
-    var type = typeof value;
+    var type = typeof val;
 
     return type === 'function' || type === 'object';
 };

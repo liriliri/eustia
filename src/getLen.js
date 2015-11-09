@@ -1,3 +1,0 @@
-'property';
-
-getLen = property('length');

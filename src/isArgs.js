@@ -6,4 +6,4 @@
 
 '_toStr';
 
-isArgs = function (value) { return _toStr.call(value) === '[object Arguments]' };
+isArgs = function (val) { return _toStr.call(val) === '[object Arguments]' };

@@ -4,4 +4,4 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-isBool = function (value) { return value === true || value === false };
+isBool = function (val) { return val === true || val === false };

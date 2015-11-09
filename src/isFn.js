@@ -6,4 +6,4 @@
 
 '_toStr';
 
-isFn = function (value) { return _toStr.call(value) === '[object Function]' };
+isFn = function (val) { return _toStr.call(val) === '[object Function]' };

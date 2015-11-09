@@ -1,4 +1,4 @@
-'Emitter';
+'Emitter isEqual';
 
 function print(str) { console.log(str) }
 
@@ -13,10 +13,17 @@ var Expect = Emitter.extend({
 
         this.on('ok', function (msg) { print('Ok: ' + msg) });
     },
+    toEqual: function (targetVal)
+    {
+        isEqual(this.value, targetVal)
+        ? this.emit('ok', this.value + ' is ' + targetVal + '.')
+        : this.emit('error', this.value + ' should be ' + targetVal + '.');
+    },
     toBe: function (targetVal)
     {
-        this.value === targetVal ? this.emit('ok', this.value + ' is ' + targetVal + '.')
-                                 : this.emit('error', this.value + ' should be ' + targetVal + '.');
+        this.value === targetVal
+        ? this.emit('ok', this.value + ' is ' + targetVal + '.')
+        : this.emit('error', this.value + ' should be ' + targetVal + '.');
     },
     toBeTrue: function () { this.toBe(true) },
     toBeFalse: function () { this.toBe(false) }

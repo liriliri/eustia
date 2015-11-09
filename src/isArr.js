@@ -8,7 +8,7 @@
 
 var nativeIsArr = Array.isArray;
 
-isArr = nativeIsArr || function (value)
+isArr = nativeIsArr || function (val)
 {
-    return _toStr.call(value) === '[object Array]';
+    return _toStr.call(val) === '[object Array]';
 };

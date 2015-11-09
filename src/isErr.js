@@ -6,4 +6,4 @@
 
 '_toStr';
 
-isErr = function (value) { return _toStr.call(value) === '[object Error]' };
+isErr = function (val) { return _toStr.call(val) === '[object Error]' };

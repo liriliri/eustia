@@ -1,4 +1,4 @@
-'identity isFn isObj optimizeCb matcher property';
+'identity isFn isObj optimizeCb matcher';
 
 cb = function (val, ctx, argCount)
 {
@@ -8,5 +8,11 @@ cb = function (val, ctx, argCount)
 
     if (isObj(val)) return matcher(val);
 
-    return property;
+    return function (key)
+    {
+        return function (obj)
+        {
+            return obj == null ? undefined : obj[key];
+        }
+    };
 };

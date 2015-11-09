@@ -6,4 +6,4 @@
 
 '_toStr';
 
-isDate = function (value) { return _toStr.call(value) === '[object Date]' };
+isDate = function (val) { return _toStr.call(val) === '[object Date]' };
