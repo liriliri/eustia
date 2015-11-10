@@ -4,7 +4,7 @@
   "description": "Tool for generating utility libraries",
   "main": "index.js",
   "scripts": {
-    "genTestUtil": "eustia build test/ -o test/testUtil.js --exclude testUtil\\.js",
+    "genTestUtil": "eustia build test/ -o test/util.js --exclude test/testUtil\\.js",
     "genUtil": "eustia build index.js lib/ -o lib/util.js",
     "test": "node test/index"
   },
@@ -33,5 +33,8 @@
     "chalk": "^1.1.1",
     "handlebars": "^4.0.3",
     "nopt": "^3.0.4"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1"
   }
 }

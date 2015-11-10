@@ -1,62 +1,135 @@
-var _ = require('./testUtil');
+var _ = require('./util.js'),
+    expect = require('expect.js');
 
-_.test('has', function (expect)
+describe('Emitter', function ()
 {
-    var has = _.has,
-        obj = { a: 0 };
+    var Emitter = _.Emitter;
 
-    expect(has(obj, 'a')).toBeTrue();
-    expect(has(obj, 'b')).toBeFalse();
-    expect(has(obj, 'toString')).toBeFalse();
+    var emitter   = new Emitter(),
+        character = '';
+
+    function setCharacter(name) { character = name }
+
+    describe('#on()', function ()
+    {
+        it('add setCharacter listener', function ()
+        {
+            emitter.on('setCharacter', setCharacter);
+        });
+    });
+
+    describe('#emit()', function ()
+    {
+        it('emit setCharacter with eustia', function ()
+        {
+            emitter.emit('setCharacter', 'eustia');
+            expect(character).to.be('eustia');
+        });
+    });
+
+    describe('#off()', function ()
+    {
+        it('remove setCharacter listener', function ()
+        {
+            emitter.off('setCharacter', setCharacter);
+            emitter.emit('setCharacter', 'eris');
+            expect(character).to.be('eustia');
+        });
+    });
+
+    describe('#once()', function ()
+    {
+        it('add setCharacter listener and trigger once', function ()
+        {
+            emitter.once('setCharacter', setCharacter);
+            emitter.emit('setCharacter', 'licia');
+            expect(character).to.be('licia');
+            emitter.emit('setCharacter', 'fione');
+            expect(character).not.to.be('fione');
+        });
+    });
 });
 
-_.test('isBool', function (expect)
+describe('Object', function ()
 {
-    var isBool = _.isBool;
+    describe('#has()', function ()
+    {
+        var has = _.has,
+            obj = { a: 0 };
 
-    expect(isBool(true)).toBeTrue();
-    expect(isBool(false)).toBeTrue();
-    expect(isBool(5)).toBeFalse();
-    expect(isBool('eustia')).toBeFalse();
-});
+        it('checks if key is a direct property', function ()
+        {
+            expect(has(obj, 'a')).to.be(true);
+            expect(has(obj, 'b')).to.be(false);
+            expect(has(obj, 'toString')).to.be(false);
+        });
+    });
 
-_.test('isFn', function (expect)
-{
-    var isFn = _.isFn;
+    describe('#isBool()', function ()
+    {
+        var isBool = _.isBool;
 
-    expect(isFn(function () {})).toBeTrue();
-    expect(isFn({})).toBeFalse();
-});
+        it('determine value is boolean or not', function ()
+        {
+            expect(isBool(true)).to.be(true);
+            expect(isBool(false)).to.be(true);
+            expect(isBool(5)).to.be(false);
+        });
+    });
 
-_.test('isNum', function (expect)
-{
-    var isNum = _.isNum;
+    describe('#isFn()', function ()
+    {
+        var isFn = _.isFn;
 
-    expect(isNum(5)).toBeTrue();
-    expect(isNum('eustia')).toBeFalse();
-});
+        it('determine value is function or not', function ()
+        {
+            expect(isFn(function () {})).to.be(true);
+            expect(isFn({})).to.be(false);
+        });
+    });
 
-_.test('isObj', function (expect)
-{
-    var isObj = _.isObj;
+    describe('#isNum()', function ()
+    {
+        var isNum = _.isNum;
 
-    expect(isObj({})).toBeTrue();
-    expect(isObj(function () {})).toBeTrue();
-    expect(isObj(5)).toBeFalse();
-});
+        it('determine value is number or not', function ()
+        {
+            expect(isNum(5)).to.be(true);
+            expect(isNum('eustia')).to.be(false);
+        });
+    });
 
-_.test('isStr', function (expect)
-{
-    var isStr = _.isStr;
+    describe('#isObj()', function ()
+    {
+        var isObj = _.isObj;
 
-    expect(isStr('eustia')).toBeTrue();
-    expect(isStr(5)).toBeFalse();
-});
+        it('determine value is number or not', function ()
+        {
+            expect(isObj({})).to.be(true);
+            expect(isObj(function () {})).to.be(true);
+            expect(isObj(5)).to.be(false);
+        });
+    });
 
-_.test('keys', function (expect)
-{
-    var keys = _.keys;
+    describe('#isStr()', function ()
+    {
+        var isStr = _.isStr;
 
-    expect(keys({ a: 0, b: 1 })).toEqual(['a', 'b']);
-    expect(keys({})).toEqual([]);
+        it('determine value is number or not', function ()
+        {
+            expect(isStr('eustia')).to.be(true);
+            expect(isStr(5)).to.be(false);
+        });
+    });
+
+    describe('#keys()', function ()
+    {
+        var keys = _.keys;
+
+        it('get enumerable property names of object', function ()
+        {
+            expect(keys({ a: 0, b: 1 })).to.eql(['a', 'b']);
+            expect(keys({})).to.eql([]);
+        });
+    });
 });

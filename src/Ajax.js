@@ -1,4 +1,4 @@
-'noop extend';
+'noop defaults';
 
 var defOpts = {
     type    : 'GET',
@@ -11,7 +11,7 @@ var defOpts = {
 
 Ajax = function (options)
 {
-    options = extend({}, defOpts, options);
+    options = defaults(options, defOpts);
 
 
 };
