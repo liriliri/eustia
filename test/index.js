@@ -1,6 +1,19 @@
 var _      = require('./util.js'),
     expect = require('expect.js');
 
+describe('Array', function ()
+{
+    describe('#last', function ()
+    {
+        var last = _.last;
+
+        it('get last element of given array', function ()
+        {
+            expect(last([1, 2])).to.be(2);
+        });
+    });
+});
+
 describe('Emitter', function ()
 {
     var Emitter = _.Emitter;

@@ -4,7 +4,7 @@
   "description": "Tool for generating utility libraries",
   "main": "index.js",
   "scripts": {
-    "genTestUtil": "eustia build test/ -o test/util.js --exclude test/testUtil\\.js",
+    "genTestUtil": "eustia build test/ -o test/util.js --exclude test/util\\.js",
     "genUtil": "eustia build index.js lib/ -o lib/util.js"
   },
   "repository": {
