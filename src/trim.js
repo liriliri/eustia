@@ -1,35 +1,10 @@
-var regEscape = /([.*+?^=!:${}()|[\]\/\\])/g;
+'ltrim rtrim';
 
-function escapeRegExp(str)
+var regSpace = /^\s+|\s+$/g;
+
+trim = function (str, chars)
 {
-    return str.replace(regEscape, '\\$1');
-}
+    if (chars == null) return str.replace(regSpace, '');
 
-var strProto        = String.prototype,
-    nativeTrim      = strProto.trim,
-    nativeTrimLeft  = strProto.trimLeft,
-    nativeTrimRight = strProto.trimRight;
-
-trim = function (str, chars, direction)
-{
-    direction = direction || '';
-    chars     = chars || '\\s';
-
-    chars = '[' + escapeRegExp(chars) + ']';
-
-    var native   = nativeTrim,
-        regLeft  = '^' + chars + '+',
-        regRight = chars + '+$',
-        regStr   = regLeft + '|' + regRight;
-
-    switch (direction)
-    {
-        case 'l': native = nativeTrimLeft; regStr = regLeft; break;
-        case 'r': native = nativeTrimRight; regStr = regRight; break;
-    }
-
-    if (chars === '\\s' && nativeTrim) return native.call(str);
-
-    return direction === '' ? str.replace(new RegExp(regStr, 'g'), '')
-                            : str.replace(new RegExp(regStr), '');
+    return ltrim(rtrim(str, chars), chars);
 };

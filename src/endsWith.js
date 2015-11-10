@@ -1,3 +1,10 @@
+/* function
+ * endsWith: Checks if string ends with the given target string.
+ * string(string): The string to search.
+ * suffix(string): String suffix.
+ * return(boolean):  Returns true if string ends with target, else false.
+ */
+
 endsWith = function (str, suffix)
 {
     var idx = str.length - suffix.length;

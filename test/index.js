@@ -1,4 +1,4 @@
-var _ = require('./util.js'),
+var _      = require('./util.js'),
     expect = require('expect.js');
 
 describe('Emitter', function ()
@@ -48,10 +48,136 @@ describe('Emitter', function ()
             expect(character).not.to.be('fione');
         });
     });
+
+    describe('#mixin()', function ()
+    {
+        it('mixin an object', function ()
+        {
+            var obj = {};
+            Emitter.mixin(obj);
+            obj.on('setCharacter', setCharacter);
+            obj.emit('setCharacter', 'eustia');
+            expect(character).to.be('eustia');
+        });
+    });
+});
+
+describe('State', function ()
+{
+    var state = new _.State('one', {
+        oneToTwo: {
+            from: 'one',
+            to  : 'two'
+        },
+        twoToOne: {
+            from: 'one',
+            to  : 'two'
+        }
+    });
+
+    describe('#is()', function ()
+    {
+        it('checks whether state is the given value', function ()
+        {
+            expect(state.is('one')).to.be(true);
+            expect(state.is('two')).to.be(false);
+        });
+    });
+
+    describe('#event()', function ()
+    {
+        it('change state from one to two', function ()
+        {
+            state.oneToTwo();
+            expect(state.is('two')).to.be(true);
+        });
+    });
+});
+
+describe('String', function ()
+{
+    describe('#endsWith()', function ()
+    {
+        var endsWith = _.endsWith;
+
+        it('string ends with the given target string', function ()
+        {
+            expect(endsWith('eustia', 'tia')).to.be(true);
+            expect(endsWith('eustia', 'ti')).to.be(false);
+        });
+    });
+
+    describe('#ltrim()', function ()
+    {
+        var ltrim = _.ltrim;
+
+        it('trim space', function ()
+        {
+            expect(ltrim(' eustia  ')).to.be('eustia  ');
+        });
+
+        it('trim chars', function ()
+        {
+            expect(ltrim('eustia', 'ea')).to.be('ustia');
+        });
+    });
+
+    describe('#rtrim()', function ()
+    {
+        var rtrim = _.rtrim;
+
+        it('trim space', function ()
+        {
+            expect(rtrim(' eustia  ')).to.be(' eustia');
+        });
+
+        it('trim chars', function ()
+        {
+            expect(rtrim('eustia', 'ea')).to.be('eusti');
+        });
+    });
+
+    describe('#startsWith()', function ()
+    {
+        var startsWith = _.startsWith;
+
+        it('string starts with the given target string', function ()
+        {
+            expect(startsWith('eustia', 'eus')).to.be(true);
+            expect(startsWith('eustia', 'us')).to.be(false);
+        });
+    });
+
+    describe('#trim()', function ()
+    {
+        var trim = _.trim;
+
+        it('trim space', function ()
+        {
+            expect(trim('  eustia  ')).to.be('eustia');
+        });
+
+        it('trim chars', function ()
+        {
+            expect(trim('eustia', 'ea')).to.be('usti');
+        });
+    });
 });
 
 describe('Object', function ()
 {
+    describe('#allKeys()', function ()
+    {
+        var allKeys = _.allKeys;
+
+        var obj = Object.create({ a: 0 });
+
+        it('get all enumerable property names of object', function ()
+        {
+            expect(allKeys(obj)).to.contain('a');
+        });
+    });
+
     describe('#has()', function ()
     {
         var has = _.has,

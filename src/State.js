@@ -1,4 +1,4 @@
-'Emitter each isArr some';
+'Emitter each isArr some slice';
 
 function buildEvent(name, event)
 {
@@ -10,10 +10,11 @@ function buildEvent(name, event)
     return function ()
     {
         var args = slice(arguments, 1);
+        args.unshift(name);
         if (some(from, function (val) {return this.current === val}, this))
         {
             this.current = to;
-            this.emit.apply(name, args);
+            this.emit.apply(this, args);
         }
     };
 }
@@ -31,8 +32,5 @@ State = Emitter.extend({
             self[key] = buildEvent(key, event);
         });
     },
-    is: function (state)
-    {
-        return this.current = state;
-    }
+    is: function (state) { return this.current === state }
 });
