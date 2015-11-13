@@ -37,9 +37,9 @@ Select = Class({
     {
         var ret = new Select;
 
-        this.each(function (element)
+        this.each(function ()
         {
-            mergeArr(ret, element.querySelectorAll(selector));
+            mergeArr(ret, this.querySelectorAll(selector));
         });
 
         return ret;
@@ -48,7 +48,7 @@ Select = Class({
     {
         each(this, function (element, idx)
         {
-            fn.call(element, element, idx);
+            fn.call(element, idx, element);
         });
 
         return this;
@@ -85,6 +85,19 @@ Select = Class({
                 setAttr(this, name, val);
             }
         });
+    },
+    data: function (name, val)
+    {
+        var newName = name;
+
+        if (isStr(name)) newName = 'data-' + name;
+        if (isObj(name))
+        {
+            newName = {};
+            each(name, function (val, key) { newName['data-' + key] = val });
+        }
+
+        return this.attr(newName, val);
     },
     html: function (val)
     {
