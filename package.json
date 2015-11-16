@@ -4,8 +4,9 @@
   "description": "Tool for generating utility libraries",
   "main": "index.js",
   "scripts": {
-    "genTestUtil": "eustia build test/ -o test/util.js --exclude test/util\\.js",
-    "genUtil": "eustia build index.js lib/ -o lib/util.js"
+    "genTest": "eustia build test/*.js -o test/util/node.js",
+    "genBrowserTest": "eustia build test/*.html -o test/util/browser.js",
+    "genUtil": "eustia build index.js lib/*.js -o lib/util.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   "dependencies": {
     "async": "^1.4.2",
     "chalk": "^1.1.1",
+    "glob": "^6.0.1",
     "handlebars": "^4.0.3",
     "nopt": "^3.0.4"
   },

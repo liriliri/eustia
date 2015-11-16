@@ -1,10 +1,7 @@
 'each';
 
 var async = require('async'),
-    fs    = require('fs'),
-    path  = require('path');
-
-var resolve = path.resolve;
+    glob  = require('glob');
 
 expandPaths = function (paths, options, callback)
 {
@@ -12,33 +9,19 @@ expandPaths = function (paths, options, callback)
 
     var walker = async.queue(function (path, callback)
     {
-        fs.stat(path, function (err, stat)
+        glob(path, {
+            ignore: options.exclude
+        }, function (err, result)
         {
             if (err) return callback(err);
 
-            if (stat.isDirectory())
-            {
-                fs.readdir(path, function (err, files)
-                {
-                    if (err) return callback(err);
+            files = files.concat(result);
 
-                    each(files, function (val)
-                    {
-                        walker.push(resolve(path, val));
-                    });
-                    callback();
-                });
-                return;
-            }
-
-            if (options.exclude && options.exclude.test(path)) return callback();
-
-            files.push(path);
             callback();
         });
     }, 50);
 
     _.each(paths, function (val) { walker.push(val) });
 
-    walker.drain = function () { callback(null, files) };
+    walker.drain = function () { callback(null, files)};
 };

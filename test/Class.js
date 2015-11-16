@@ -1,4 +1,4 @@
-var _      = require('./util'),
+var _      = require('./util/node'),
     expect = require('expect.js');
 
 var Class = _.Class;

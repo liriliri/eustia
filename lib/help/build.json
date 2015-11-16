@@ -4,8 +4,8 @@
     "usage": [
         "build [<options>]",
         "build index.html",
-        "build index.html src/",
-        "build index.html src/ -o lib.js"
+        "build index.html src/*.js",
+        "build index.html src/*.js -o lib.js"
     ],
     "options": [
         {

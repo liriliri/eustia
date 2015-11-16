@@ -1,9 +1,15 @@
-(function ()
+(function(root, factory)
+{
+    if (typeof define === 'function' && define.amd)
+    {
+        define([], factory);
+    } else if (typeof module === 'object' && module.exports)
+    {
+        module.exports = factory();
+    } else { root.{{name}} = factory() }
+}(this, function ()
 {
     var _ = {};
-
-    typeof module !== 'undefined' && module.exports ? module.exports = _
-                                                    : window.{{name}} = _;
 
     function _define(name, requires, method)
     {
@@ -47,4 +53,6 @@
     _init([
         {{methodList}}
     ]);
-})();
+
+    return _;
+}));

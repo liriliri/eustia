@@ -1,7 +1,6 @@
 var nopt = require('nopt'),
     _    = require('./lib/util'),
-    cmd  = require('./lib/cmd'),
-    path = require('path');
+    cmd  = require('./lib/cmd');
 
 var defOpts =
 {

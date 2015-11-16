@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Cookie</title>
+    <title>Select</title>
     <link href="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css" rel="stylesheet" />
 </head>
 <body>
@@ -9,26 +9,13 @@
 
 <script src="https://cdn.rawgit.com/Automattic/expect.js/0.3.1/index.js"></script>
 <script src="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js"></script>
-<script src="util/browser.js"></script>
+<script src="util.js"></script>
 <script>mocha.setup('bdd')</script>
 
 <script>
-    var Cookie = _.Cookie;
+    var Select = _.Select;
 
-    describe('Cookie', function ()
-    {
-        it('set and get', function ()
-        {
-            Cookie.set('name', 'eustia');
-            expect(Cookie.get('name')).to.be('eustia');
-        });
 
-        it('remove', function ()
-        {
-            Cookie.remove('name');
-            expect(Cookie.get('name')).to.be(undefined);
-        });
-    });
 </script>
 
 <script>
