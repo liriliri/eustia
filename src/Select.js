@@ -133,9 +133,9 @@ Select = Class({
     },
     first: function () { return new Select(this[0]) },
     last : function () { return new Select(this[this.length - 1]) },
-    addClass: function ()
+    addClass: function (name)
     {
-
+        return this.each(function () { this.classList.add(name) });
     },
     rmClass: function (name)
     {

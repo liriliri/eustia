@@ -1,4 +1,4 @@
-'Class isArr each';
+'Class isArr each isObj isStr';
 
 function removeParameter(url, parameter)
 {
@@ -31,6 +31,16 @@ function updateQueryStringParameter(uri, key, value)
     }
 }
 
+function getQueryParameter(url, name)
+{
+    if (!url) url = location.href;
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( url );
+    return results == null ? null : results[1];
+}
+
 Uri = Class({
     className: 'Uri',
     initialize: function (url)
@@ -48,9 +58,23 @@ Uri = Class({
 
         return this;
     },
-    query: function (key, value)
+    query: function (key, val)
     {
-        this._url = updateQueryStringParameter(this._url, key, value);
+        if (val == null && isStr(key))
+        {
+            return getQueryParameter(this._url, key);
+        }
+
+        if (isObj(key))
+        {
+            each(key, function (val, key)
+            {
+                this._url = updateQueryStringParameter(this._url, key, val);
+            }, this);
+        } else
+        {
+            this._url = updateQueryStringParameter(this._url, key, val);
+        }
 
         return this;
     },
