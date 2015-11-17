@@ -1,1 +1,0 @@
-exports.class = require('./class');
