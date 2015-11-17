@@ -1,10 +1,7 @@
-var _      = require('./util/node'),
-    expect = require('expect.js');
-
-var Emitter = _.Emitter;
-
 describe('Emitter', function ()
 {
+    var Emitter = _.Emitter;
+
     var emitter = new Emitter(),
         name    = '';
 
@@ -18,23 +15,23 @@ describe('Emitter', function ()
     it('emit setName with "eustia"', function ()
     {
         emitter.emit('setName', 'eustia');
-        expect(name).to.be('eustia');
+        expect(name).to.equal('eustia');
     });
 
     it('remove setName listener', function ()
     {
         emitter.off('setName', setName);
         emitter.emit('setName', 'eris');
-        expect(name).to.be('eustia');
+        expect(name).to.equal('eustia');
     });
 
     it('add setName listener and trigger once', function ()
     {
         emitter.once('setName', setName);
         emitter.emit('setName', 'licia');
-        expect(name).to.be('licia');
+        expect(name).to.equal('licia');
         emitter.emit('setName', 'fione');
-        expect(name).not.to.be('fione');
+        expect(name).not.to.equal('fione');
     });
 
     it('mixin an object with Emitter', function ()
@@ -43,6 +40,6 @@ describe('Emitter', function ()
         Emitter.mixin(obj);
         obj.on('setName', setName);
         obj.emit('setName', 'eustia');
-        expect(name).to.be('eustia');
+        expect(name).to.equal('eustia');
     });
 });

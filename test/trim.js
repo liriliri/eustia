@@ -1,18 +1,15 @@
-var _      = require('./util/node'),
-    expect = require('expect.js');
-
-var trim = _.trim;
-
 describe('trim', function ()
 {
+    var trim = _.trim;
+
     it('trim spaces', function ()
     {
-        expect(trim('  eustia  ')).to.be('eustia');
+        expect(trim('  eustia  ')).to.equal('eustia');
     });
 
     it('trim chars', function ()
     {
-        expect(trim('eustia', 'ea')).to.be('usti');
+        expect(trim('eustia', 'ea')).to.equal('usti');
     });
 });
 

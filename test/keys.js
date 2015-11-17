@@ -1,10 +1,7 @@
-var _      = require('./util/node'),
-    expect = require('expect.js');
-
-var keys = _.keys;
-
 describe('keys', function ()
 {
+    var keys = _.keys;
+
     var obj = Object.create({c: 2});
 
     obj.a = 0;

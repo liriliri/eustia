@@ -1,11 +1,8 @@
-var _      = require('./util/node'),
-    expect = require('expect.js');
-
-var Class = _.Class;
-
 describe('Class', function ()
 {
-    var A = new _.Class({
+    var Class = _.Class;
+
+    var A = new Class({
         initialize: function (name, height)
         {
             this._name   = name;
@@ -38,21 +35,21 @@ describe('Class', function ()
 
     it('basic class creation', function ()
     {
-        expect(a.getName()).to.be('eustia');
+        expect(a.getName()).to.equal('eustia');
     });
 
     it('basic class extension', function ()
     {
-        expect(b.getHeight()).to.be(1.496);
-        expect(b.getBloodType()).to.be('A');
+        expect(b.getHeight()).to.equal(1.496);
+        expect(b.getBloodType()).to.equal('A');
     });
 
     it('callSuper and override', function ()
     {
-        expect(a.introduce()).to.be('My name is eustia. ' +
-                                    'I\'m 1.496 meters tall. ');
-        expect(b.introduce()).to.be('My name is eustia. ' +
-                                    'I\'m 1.496 meters tall. ' +
-                                    'And my blood type is A. ');
+        expect(a.introduce()).to.equal('My name is eustia. ' +
+                                       'I\'m 1.496 meters tall. ');
+        expect(b.introduce()).to.equal('My name is eustia. ' +
+                                       'I\'m 1.496 meters tall. ' +
+                                       'And my blood type is A. ');
     });
 });

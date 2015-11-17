@@ -4,8 +4,7 @@
   "description": "Tool for generating utility libraries",
   "main": "index.js",
   "scripts": {
-    "genTest": "eustia build test/*.js -o test/util/node.js",
-    "genBrowserTest": "eustia build test/*.html -o test/util/browser.js",
+    "genTest": "eustia build test/*.js -o test/util.js",
     "genUtil": "eustia build index.js lib/*.js -o lib/util.js"
   },
   "repository": {
@@ -36,6 +35,12 @@
     "nopt": "^3.0.4"
   },
   "devDependencies": {
-    "expect.js": "^0.3.1"
+    "karma": "^0.13.15",
+    "karma-chai-plugins": "^0.6.1",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.1",
+    "mocha": "^2.3.4"
   }
 }

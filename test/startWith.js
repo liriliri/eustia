@@ -1,17 +1,14 @@
-var _      = require('./util/node'),
-    expect = require('expect.js');
-
-var startWith = _.startWith;
-
 describe('startWith', function ()
 {
+    var startWith = _.startWith;
+
     it('"eustia" starts with "eus"', function ()
     {
-        expect(startWith('eustia', 'eus')).to.be(true);
+        expect(startWith('eustia', 'eus')).to.be.true;
     });
 
     it('"eustia" does not start with "us"', function ()
     {
-        expect(startWith('eustia', 'us')).to.be(false);
+        expect(startWith('eustia', 'us')).to.be.false;
     });
 });

@@ -1,17 +1,14 @@
-var _      = require('./util/node'),
-    expect = require('expect.js');
-
-var endWith = _.endWith;
-
 describe('endWith', function ()
 {
+    var endWith = _.endWith;
+
     it('"eustia" ends with "tia"', function ()
     {
-        expect(endWith('eustia', 'tia')).to.be(true);
+        expect(endWith('eustia', 'tia')).to.be.true;
     });
 
     it('"eustia" does not end with "ti"', function ()
     {
-        expect(endWith('eustia', 'ti')).to.be(false);
+        expect(endWith('eustia', 'ti')).to.be.false;
     });
 });
