@@ -1,6 +1,15 @@
-'pad';
+/* function
+ * lpad: Pads string on the left side if it¡¯s shorter than length.
+ * string(string): The string to pad.
+ * length(number): The padding length.
+ * chars(string): The string used as padding.
+ */
 
-lpad = function (str, len, padStr)
+'repeat';
+
+lpad = function (str, len, chars)
 {
-    return pad(str, len, 'l');
+    var strLen = str.length;
+
+    return strLen < len ? repeat(chars, len - strLen) + str : str;
 };
