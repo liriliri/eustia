@@ -1,4 +1,7 @@
 /.idea/
+/eustia/
 /test/
 .gitignore
+.npmignore
+karma.conf.js
 README.md
