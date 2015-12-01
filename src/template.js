@@ -50,6 +50,6 @@ template = function (text) {
     var render = new Function('obj', 'util', source);
 
     return function (data) {
-        return render.call(null, data, util);
+        return render.call(null, data, _);
     };
 };

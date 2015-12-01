@@ -140,6 +140,27 @@ Select = Class({
     rmClass: function (name)
     {
         return this.each(function () { this.classList.remove(name) });
+    },
+    append: function (val)
+    {
+        return this.each(function ()
+        {
+            this.insertAdjacentHTML('beforeend', val);
+        });
+    },
+    before: function (val)
+    {
+        return this.each(function ()
+        {
+            this.insertAdjacentHTML('beforebegin', val);
+        });
+    },
+    prepend: function (val)
+    {
+        return this.each(function ()
+        {
+            this.insertAdjacentHTML('afterbegin', val);
+        });
     }
 });
 
