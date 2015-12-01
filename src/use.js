@@ -6,8 +6,8 @@ use = function (requires, method)
 {
     if (method == null)
     {
-        requires = [];
         method   = requires;
+        requires = [];
     }
 
     requires = map(requires, function (val) { return _require(val) });
