@@ -1,4 +1,8 @@
-'Class isStr each isObj';
+/* class
+ * Select: jQuery like dom manipulator.
+ */
+
+'Class isStr each isObj some';
 
 function mergeArr(first, second)
 {
@@ -133,6 +137,18 @@ Select = Class({
     },
     first: function () { return new Select(this[0]) },
     last : function () { return new Select(this[this.length - 1]) },
+    /* method
+     * hasClass: Determine whether any of the matched elements are assigned the given class.
+     * className(string): The class name to search for.
+     * return(boolean): Has the given class name or not.
+     */
+    hasClass: function (name)
+    {
+        return some(this, function (el)
+        {
+            return this.test(el.className);
+        }, new RegExp('(^|\\s)' + name + '(\\s|$)'));
+    },
     addClass: function (name)
     {
         return this.each(function () { this.classList.add(name) });
