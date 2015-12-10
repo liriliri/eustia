@@ -48,68 +48,6 @@
         return _[name];
     }
 
-    _define('Class', ['extend', 'toArray', 'inherits', 'has'], function (extend, toArray, inherits, has)
-    {
-        var Class;
-
-        var regCallSuper = /callSuper/;
-
-        function makeClass(parent, methods, statics)
-        {
-            statics = statics || {};
-
-            var ctor = function ()
-            {
-                var args = toArray(arguments);
-
-                if (has(ctor.prototype, 'initialize') &&
-                    !regCallSuper.test(this.initialize.toString()) &&
-                    this.callSuper)
-                {
-                    args.unshift('initialize');
-                    this.callSuper.apply(this, args);
-                    args.shift();
-                }
-
-                return this.initialize
-                       ? this.initialize.apply(this, args) || this
-                       : this;
-            };
-
-            inherits(ctor, parent);
-            ctor.superclass = ctor.prototype.superclass = parent;
-
-            ctor.extend   = function (methods, statics) { return makeClass(ctor, methods, statics) };
-            ctor.inherits = function (Class) { inherits(Class, ctor) };
-            ctor.methods  = function (methods) { extend(ctor.prototype, methods); return ctor };
-            ctor.statics  = function (statics) { extend(ctor, statics); return ctor };
-
-            ctor.methods(methods).statics(statics);
-
-            return ctor;
-        }
-
-        Class = function (methods, statics) { return Base.extend(methods, statics) };
-
-        var Base = Class.Base = makeClass(Object, {
-            className: 'Base',
-            callSuper: function (name)
-            {
-                var superMethod = this.superclass.prototype[name];
-
-                if (!superMethod) return;
-
-                return superMethod.apply(this, toArray(arguments).slice(1));
-            },
-            toString: function ()
-            {
-                return this.className;
-            }
-        });
-
-        _.Class = Class;
-    });
-
     _define('allKeys', [], function ()
     {
         var allKeys;
@@ -124,76 +62,6 @@
         };
 
         _.allKeys = allKeys;
-    });
-
-    _define('Emitter', ['Class', 'has', 'each', 'slice'], function (Class, has, each, slice)
-    {
-        var Emitter;
-
-        Emitter = Class({
-            initialize: function ()
-            {
-                this._events = this._events || {};
-            },
-            on: function (event, listener)
-            {
-                this._events[event] = this._events[event] || [];
-                this._events[event].push(listener);
-
-                return this;
-            },
-            off: function (event, listener)
-            {
-                if (!has(this._events, event)) return;
-
-                this._events[event].splice(this._events[event].indexOf(listener), 1);
-
-                return this;
-            },
-            once: function (event, listener)
-            {
-                var fired = false;
-
-                function g()
-                {
-                    this.off(event, g);
-                    if (!fired)
-                    {
-                        fired = true;
-                        listener.apply(this, arguments);
-                    }
-                }
-
-                this.on(event, g);
-
-                return this;
-            },
-            emit: function (event)
-            {
-                if (!has(this._events, event)) return;
-
-                var args = slice(arguments, 1);
-
-                each(this._events[event], function (val)
-                {
-                    val.apply(this, args);
-                }, this);
-
-                return this;
-            }
-        }, {
-            mixin: function (obj)
-            {
-                each(['on', 'off', 'once', 'emit'], function (val)
-                {
-                    obj[val] = Emitter.prototype[val];
-                });
-
-                obj._events = obj._events || {};
-            }
-        });
-
-        _.Emitter = Emitter;
     });
 
     _define('Cookie', ['extend', 'isNum'], function (extend, isNum)
@@ -267,6 +135,90 @@
         };
 
         _.Cookie = Cookie;
+    });
+
+    _define('Emitter', ['Class', 'has', 'each', 'slice'], function (Class, has, each, slice)
+    {
+        var Emitter;
+
+        Emitter = Class({
+            initialize: function ()
+            {
+                this._events = this._events || {};
+            },
+            on: function (event, listener)
+            {
+                this._events[event] = this._events[event] || [];
+                this._events[event].push(listener);
+
+                return this;
+            },
+            off: function (event, listener)
+            {
+                if (!has(this._events, event)) return;
+
+                this._events[event].splice(this._events[event].indexOf(listener), 1);
+
+                return this;
+            },
+            once: function (event, listener)
+            {
+                var fired = false;
+
+                function g()
+                {
+                    this.off(event, g);
+                    if (!fired)
+                    {
+                        fired = true;
+                        listener.apply(this, arguments);
+                    }
+                }
+
+                this.on(event, g);
+
+                return this;
+            },
+            emit: function (event)
+            {
+                if (!has(this._events, event)) return;
+
+                var args = slice(arguments, 1);
+
+                each(this._events[event], function (val)
+                {
+                    val.apply(this, args);
+                }, this);
+
+                return this;
+            }
+        }, {
+            mixin: function (obj)
+            {
+                each(['on', 'off', 'once', 'emit'], function (val)
+                {
+                    obj[val] = Emitter.prototype[val];
+                });
+
+                obj._events = obj._events || {};
+            }
+        });
+
+        _.Emitter = Emitter;
+    });
+
+    _define('endWith', [], function ()
+    {
+        var endWith;
+
+        endWith = function (str, suffix)
+        {
+            var idx = str.length - suffix.length;
+
+            return idx >= 0 && str.indexOf(suffix, idx) === idx;
+        };
+
+        _.endWith = endWith;
     });
 
     _define('has', [], function ()
@@ -365,6 +317,15 @@
         _.isObj = isObj;
     });
 
+    _define('isStr', ['_toStr'], function (_toStr)
+    {
+        var isStr;
+
+        isStr = function (value) { return _toStr.call(value) === '[object String]' };
+
+        _.isStr = isStr;
+    });
+
     _define('isUndef', [], function ()
     {
         var isUndef;
@@ -392,20 +353,6 @@
         _.keys = keys;
     });
 
-    _define('lpad', ['repeat'], function (repeat)
-    {
-        var lpad;
-
-        lpad = function (str, len, chars)
-        {
-            var strLen = str.length;
-
-            return strLen < len ? repeat(chars, len - strLen) + str : str;
-        };
-
-        _.lpad = lpad;
-    });
-
     _define('last', [], function ()
     {
         var last;
@@ -418,6 +365,20 @@
         };
 
         _.last = last;
+    });
+
+    _define('lpad', ['repeat'], function (repeat)
+    {
+        var lpad;
+
+        lpad = function (str, len, chars)
+        {
+            var strLen = str.length;
+
+            return strLen < len ? repeat(chars, len - strLen) + str : str;
+        };
+
+        _.lpad = lpad;
     });
 
     _define('ltrim', [], function ()
@@ -474,6 +435,24 @@
         _.pad = pad;
     });
 
+    _define('random', [], function ()
+    {
+        var random;
+
+        random = function (min, max)
+        {
+            if (max == null)
+            {
+                max = min;
+                min = 0;
+            }
+
+            return min + Math.floor(Math.random() * (max - min + 1));
+        };
+
+        _.random = random;
+    });
+
     _define('repeat', [], function ()
     {
         var repeat;
@@ -495,24 +474,6 @@
         };
 
         _.repeat = repeat;
-    });
-
-    _define('random', [], function ()
-    {
-        var random;
-
-        random = function (min, max)
-        {
-            if (max == null)
-            {
-                max = min;
-                min = 0;
-            }
-
-            return min + Math.floor(Math.random() * (max - min + 1));
-        };
-
-        _.random = random;
     });
 
     _define('rpad', ['repeat'], function (repeat)
@@ -567,6 +528,15 @@
         _.rtrim = rtrim;
     });
 
+    _define('startWith', [], function ()
+    {
+        var startWith;
+
+        startWith = function (str, prefix) { return str.indexOf(prefix) === 0 };
+
+        _.startWith = startWith;
+    });
+
     _define('State', ['Emitter', 'each', 'isArr', 'some', 'slice'], function (Emitter, each, isArr, some, slice)
     {
         var State;
@@ -609,29 +579,6 @@
         _.State = State;
     });
 
-    _define('startWith', [], function ()
-    {
-        var startWith;
-
-        startWith = function (str, prefix) { return str.indexOf(prefix) === 0 };
-
-        _.startWith = startWith;
-    });
-
-    _define('isArr', ['_toStr'], function (_toStr)
-    {
-        var isArr;
-
-        var nativeIsArr = Array.isArray;
-
-        isArr = nativeIsArr || function (val)
-        {
-            return _toStr.call(val) === '[object Array]';
-        };
-
-        _.isArr = isArr;
-    });
-
     _define('trim', ['ltrim', 'rtrim'], function (ltrim, rtrim)
     {
         var trim;
@@ -648,46 +595,30 @@
         _.trim = trim;
     });
 
-    _define('extendOwn', ['keys', '_createAssigner'], function (keys, _createAssigner)
+    _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
     {
-        var extendOwn;
+        var matcher;
 
-        extendOwn = _createAssigner(keys);
-
-        _.extendOwn = extendOwn;
-    });
-
-    _define('identity', [], function ()
-    {
-        var identity;
-
-        identity = function (value) { return value };
-
-        _.identity = identity;
-    });
-
-    _define('map', ['cb', 'keys', 'isArrLike'], function (cb, keys, isArrLike)
-    {
-        var map;
-
-        map = function (obj, iteratee, ctx)
+        matcher = function (attrs)
         {
-            iteratee = cb(iteratee, ctx);
+            attrs = extendOwn({}, attrs);
 
-            var _keys   = !isArrLike(obj) && keys(obj),
-                len     = (_keys || obj).length,
-                results = Array(len);
-
-            for (var i = 0; i < len; i++)
+            return function (obj)
             {
-                var curKey = _keys ? _keys[i] : i;
-                results[i] = iteratee(obj[curKey], curKey, obj);
-            }
-
-            return results;
+                return isMatch(obj, attrs);
+            };
         };
 
-        _.map = map;
+        _.matcher = matcher;
+    });
+
+    _define('_toStr', [], function ()
+    {
+        var _toStr;
+
+        _toStr = Object.prototype.toString;
+
+        _._toStr = _toStr;
     });
 
     _define('isMatch', ['keys'], function (keys)
@@ -715,6 +646,52 @@
         _.isMatch = isMatch;
     });
 
+    _define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
+    {
+        var each;
+
+        each = function (obj, iteratee, ctx)
+        {
+            iteratee = optimizeCb(iteratee, ctx);
+
+            var i, len;
+
+            if (isArrLike(obj))
+            {
+                for (i = 0, len = obj.length; i < len; i++) iteratee(obj[i], i, obj);
+            } else
+            {
+                var _keys = keys(obj);
+                for (i = 0, len = _keys.length; i < len; i++)
+                {
+                    iteratee(obj[_keys[i]], _keys[i], obj);
+                }
+            }
+
+            return obj;
+        };
+
+        _.each = each;
+    });
+
+    _define('isArrLike', ['isNum', 'has'], function (isNum, has)
+    {
+        var isArrLike;
+
+        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
+
+        isArrLike = function (val)
+        {
+            if (!has(val, 'length')) return false;
+
+            var len = val.length;
+
+            return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
+        };
+
+        _.isArrLike = isArrLike;
+    });
+
     _define('toArray', ['isArr', 'slice', 'isStr', 'isArrLike', 'map', 'identity', 'values'], function (isArr, slice, isStr, isArrLike, map, identity, values)
     {
         var toArray;
@@ -737,83 +714,13 @@
         _.toArray = toArray;
     });
 
-    _define('optimizeCb', ['isUndef'], function (isUndef)
+    _define('identity', [], function ()
     {
-        var optimizeCb;
+        var identity;
 
-        optimizeCb = function (func, ctx, argCount)
-        {
-            if (isUndef(ctx)) return func;
+        identity = function (value) { return value };
 
-            switch (argCount == null ? 3 : argCount)
-            {
-                case 1: return function (val)
-                {
-                    return func.call(ctx, val);
-                };
-                case 3: return function (val, idx, collection)
-                {
-                    return func.call(ctx, val, idx, collection);
-                };
-                case 4: return function (accumulator, val, idx, collection)
-                {
-                    return func.call(ctx, accumulator, val, idx, collection);
-                }
-            }
-
-            return function ()
-            {
-                return func.apply(ctx, arguments);
-            };
-        };
-
-        _.optimizeCb = optimizeCb;
-    });
-
-    _define('isArrLike', ['isNum', 'has'], function (isNum, has)
-    {
-        var isArrLike;
-
-        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
-
-        isArrLike = function (val)
-        {
-            if (!has(val, 'length')) return false;
-
-            var len = val.length;
-
-            return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
-        };
-
-        _.isArrLike = isArrLike;
-    });
-
-    _define('endWith', [], function ()
-    {
-        var endWith;
-
-        endWith = function (str, suffix)
-        {
-            var idx = str.length - suffix.length;
-
-            return idx >= 0 && str.indexOf(suffix, idx) === idx;
-        };
-
-        _.endWith = endWith;
-    });
-
-    _define('slice', [], function ()
-    {
-        var slice;
-
-        var arrProto = Array.prototype;
-
-        slice = function (arr, start, end)
-        {
-            return arrProto.slice.call(arr, start, end);
-        };
-
-        _.slice = slice;
+        _.identity = identity;
     });
 
     _define('some', ['cb', 'isArrLike', 'keys'], function (cb, isArrLike, keys)
@@ -839,22 +746,83 @@
         _.some = some;
     });
 
-    _define('_toStr', [], function ()
+    _define('isArr', ['_toStr'], function (_toStr)
     {
-        var _toStr;
+        var isArr;
 
-        _toStr = Object.prototype.toString;
+        var nativeIsArr = Array.isArray;
 
-        _._toStr = _toStr;
+        isArr = nativeIsArr || function (val)
+        {
+            return _toStr.call(val) === '[object Array]';
+        };
+
+        _.isArr = isArr;
     });
 
-    _define('extend', ['_createAssigner', 'allKeys'], function (_createAssigner, allKeys)
+    _define('cb', ['identity', 'isFn', 'isObj', 'optimizeCb', 'matcher'], function (identity, isFn, isObj, optimizeCb, matcher)
     {
-        var extend;
+        var cb;
 
-        extend = _createAssigner(allKeys);
+        cb = function (val, ctx, argCount)
+        {
+            if (val == null) return identity;
 
-        _.extend = extend;
+            if (isFn(val)) return optimizeCb(val, ctx, argCount);
+
+            if (isObj(val)) return matcher(val);
+
+            return function (key)
+            {
+                return function (obj)
+                {
+                    return obj == null ? undefined : obj[key];
+                }
+            };
+        };
+
+        _.cb = cb;
+    });
+
+    _define('values', ['keys'], function (keys)
+    {
+        var values;
+
+        values = function (obj)
+        {
+            var _keys = keys(obj),
+                len   = _keys.length,
+                ret   = Array(len);
+
+            for (var i = 0; i < len; i++) ret[i] = obj[_keys[i]];
+
+            return ret;
+        };
+
+        _.values = values;
+    });
+
+    _define('slice', [], function ()
+    {
+        var slice;
+
+        var arrProto = Array.prototype;
+
+        slice = function (arr, start, end)
+        {
+            return arrProto.slice.call(arr, start, end);
+        };
+
+        _.slice = slice;
+    });
+
+    _define('extendOwn', ['keys', '_createAssigner'], function (keys, _createAssigner)
+    {
+        var extendOwn;
+
+        extendOwn = _createAssigner(keys);
+
+        _.extendOwn = extendOwn;
     });
 
     _define('_createAssigner', ['isUndef'], function (isUndef)
@@ -891,107 +859,139 @@
         _._createAssigner = _createAssigner;
     });
 
-    _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
+    _define('optimizeCb', ['isUndef'], function (isUndef)
     {
-        var matcher;
+        var optimizeCb;
 
-        matcher = function (attrs)
+        optimizeCb = function (func, ctx, argCount)
         {
-            attrs = extendOwn({}, attrs);
+            if (isUndef(ctx)) return func;
 
-            return function (obj)
+            switch (argCount == null ? 3 : argCount)
             {
-                return isMatch(obj, attrs);
-            };
-        };
-
-        _.matcher = matcher;
-    });
-
-    _define('cb', ['identity', 'isFn', 'isObj', 'optimizeCb', 'matcher'], function (identity, isFn, isObj, optimizeCb, matcher)
-    {
-        var cb;
-
-        cb = function (val, ctx, argCount)
-        {
-            if (val == null) return identity;
-
-            if (isFn(val)) return optimizeCb(val, ctx, argCount);
-
-            if (isObj(val)) return matcher(val);
-
-            return function (key)
-            {
-                return function (obj)
+                case 1: return function (val)
                 {
-                    return obj == null ? undefined : obj[key];
-                }
-            };
-        };
-
-        _.cb = cb;
-    });
-
-    _define('each', ['isArrLike', 'keys', 'optimizeCb'], function (isArrLike, keys, optimizeCb)
-    {
-        var each;
-
-        each = function (obj, iteratee, ctx)
-        {
-            iteratee = optimizeCb(iteratee, ctx);
-
-            var i, len;
-
-            if (isArrLike(obj))
-            {
-                for (i = 0, len = obj.length; i < len; i++) iteratee(obj[i], i, obj);
-            } else
-            {
-                var _keys = keys(obj);
-                for (i = 0, len = _keys.length; i < len; i++)
+                    return func.call(ctx, val);
+                };
+                case 3: return function (val, idx, collection)
                 {
-                    iteratee(obj[_keys[i]], _keys[i], obj);
+                    return func.call(ctx, val, idx, collection);
+                };
+                case 4: return function (accumulator, val, idx, collection)
+                {
+                    return func.call(ctx, accumulator, val, idx, collection);
                 }
             }
 
-            return obj;
+            return function ()
+            {
+                return func.apply(ctx, arguments);
+            };
         };
 
-        _.each = each;
+        _.optimizeCb = optimizeCb;
     });
 
-    _define('values', ['keys'], function (keys)
+    _define('extend', ['_createAssigner', 'allKeys'], function (_createAssigner, allKeys)
     {
-        var values;
+        var extend;
 
-        values = function (obj)
+        extend = _createAssigner(allKeys);
+
+        _.extend = extend;
+    });
+
+    _define('map', ['cb', 'keys', 'isArrLike'], function (cb, keys, isArrLike)
+    {
+        var map;
+
+        map = function (obj, iteratee, ctx)
         {
-            var _keys = keys(obj),
-                len   = _keys.length,
-                ret   = Array(len);
+            iteratee = cb(iteratee, ctx);
 
-            for (var i = 0; i < len; i++) ret[i] = obj[_keys[i]];
+            var _keys   = !isArrLike(obj) && keys(obj),
+                len     = (_keys || obj).length,
+                results = Array(len);
 
-            return ret;
+            for (var i = 0; i < len; i++)
+            {
+                var curKey = _keys ? _keys[i] : i;
+                results[i] = iteratee(obj[curKey], curKey, obj);
+            }
+
+            return results;
         };
 
-        _.values = values;
+        _.map = map;
     });
 
-    _define('isStr', ['_toStr'], function (_toStr)
+    _define('Class', ['extend', 'toArray', 'inherits', 'has'], function (extend, toArray, inherits, has)
     {
-        var isStr;
+        var Class;
 
-        isStr = function (value) { return _toStr.call(value) === '[object String]' };
+        var regCallSuper = /callSuper/;
 
-        _.isStr = isStr;
+        function makeClass(parent, methods, statics)
+        {
+            statics = statics || {};
+
+            var ctor = function ()
+            {
+                var args = toArray(arguments);
+
+                if (has(ctor.prototype, 'initialize') &&
+                    !regCallSuper.test(this.initialize.toString()) &&
+                    this.callSuper)
+                {
+                    args.unshift('initialize');
+                    this.callSuper.apply(this, args);
+                    args.shift();
+                }
+
+                return this.initialize
+                       ? this.initialize.apply(this, args) || this
+                       : this;
+            };
+
+            inherits(ctor, parent);
+            ctor.superclass = ctor.prototype.superclass = parent;
+
+            ctor.extend   = function (methods, statics) { return makeClass(ctor, methods, statics) };
+            ctor.inherits = function (Class) { inherits(Class, ctor) };
+            ctor.methods  = function (methods) { extend(ctor.prototype, methods); return ctor };
+            ctor.statics  = function (statics) { extend(ctor, statics); return ctor };
+
+            ctor.methods(methods).statics(statics);
+
+            return ctor;
+        }
+
+        Class = function (methods, statics) { return Base.extend(methods, statics) };
+
+        var Base = Class.Base = makeClass(Object, {
+            className: 'Base',
+            callSuper: function (name)
+            {
+                var superMethod = this.superclass.prototype[name];
+
+                if (!superMethod) return;
+
+                return superMethod.apply(this, toArray(arguments).slice(1));
+            },
+            toString: function ()
+            {
+                return this.className;
+            }
+        });
+
+        _.Class = Class;
     });
 
     _init([
-        'Class',
         'allKeys',
-        'Emitter',
         'Cookie',
+        'Emitter',
+        'endWith',
         'has',
         'inherits',
         'invert',
@@ -1000,38 +1000,38 @@
         'isInt',
         'isNum',
         'isObj',
+        'isStr',
         'isUndef',
         'keys',
-        'lpad',
         'last',
+        'lpad',
         'ltrim',
         'pad',
-        'repeat',
         'random',
+        'repeat',
         'rpad',
         'rtrim',
-        'State',
         'startWith',
-        'isArr',
+        'State',
         'trim',
-        'extendOwn',
-        'identity',
-        'map',
-        'isMatch',
-        'toArray',
-        'optimizeCb',
-        'isArrLike',
-        'endWith',
-        'slice',
-        'some',
-        '_toStr',
-        'extend',
-        '_createAssigner',
         'matcher',
-        'cb',
+        '_toStr',
+        'isMatch',
         'each',
+        'isArrLike',
+        'toArray',
+        'identity',
+        'some',
+        'isArr',
+        'cb',
         'values',
-        'isStr'
+        'slice',
+        'extendOwn',
+        '_createAssigner',
+        'optimizeCb',
+        'extend',
+        'map',
+        'Class'
     ]);
 
     return _;

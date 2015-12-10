@@ -138,7 +138,7 @@ Select = Class({
     first: function () { return new Select(this[0]) },
     last : function () { return new Select(this[this.length - 1]) },
     /* method
-     * hasClass: Determine whether any of the matched elements are assigned the given class.
+     * Select.hasClass: Determine whether any of the matched elements are assigned the given class.
      * className(string): The class name to search for.
      * return(boolean): Has the given class name or not.
      */
@@ -149,9 +149,24 @@ Select = Class({
             return this.test(el.className);
         }, new RegExp('(^|\\s)' + name + '(\\s|$)'));
     },
+    /* method
+     * Select.addClass: Adds the specified class(es) to each element in the set of matched elements.
+     * className(string): One or more space-separated classes to be added to the class attribute of each matched element.
+     */
     addClass: function (name)
     {
-        return this.each(function () { this.classList.add(name) });
+        var newName = name.split(/\s+/g);
+
+        return this.each(function ()
+        {
+            var classList = [],
+                $this = new Select(this);
+            each(newName, function (val)
+            {
+                if (!$this.hasClass(val)) classList.push(val);
+            });
+            if (classList.length !== 0) this.className += ' ' + classList.join(' ');
+        });
     },
     rmClass: function (name)
     {
@@ -163,6 +178,13 @@ Select = Class({
         {
             this.insertAdjacentHTML('beforeend', val);
         });
+    },
+    /* method
+     * Select.after: Insert content, specified by the parameter, after each element in the set of matched elements.
+     */
+    after: function ()
+    {
+
     },
     before: function (val)
     {
