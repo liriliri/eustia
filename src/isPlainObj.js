@@ -1,3 +1,5 @@
+// @TODO
+
 'isObj isArr';
 
 isPlainObj = function (obj)

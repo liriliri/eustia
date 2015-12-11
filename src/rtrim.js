@@ -1,3 +1,5 @@
+// @TODO
+
 var regSpace = /\s+$/;
 
 rtrim = function (str, chars)

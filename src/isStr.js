@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * isStr: Checks if value is classified as a String primitive or object.
  * value(*): The value to check.

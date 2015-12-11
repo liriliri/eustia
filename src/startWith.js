@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * startWith: Checks if string starts with the given target string.
  * string(string): The string to search.

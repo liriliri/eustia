@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * isArgs: Checks if value is classified as an arguments object.
  * value(*): The value to check.

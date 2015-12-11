@@ -1,3 +1,5 @@
+// @TODO
+
 var idCounter = 0;
 
 uniqueId = function (prefix)

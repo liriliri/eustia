@@ -11,9 +11,9 @@
 
 allKeys = function (obj)
 {
-    var keys = [];
+    var keys = [], key;
 
-    for (var key in obj) keys.push(key);
+    for (key in obj) keys.push(key);
 
     return keys;
 };

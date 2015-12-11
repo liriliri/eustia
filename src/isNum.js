@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * isNum: Checks if value is classified as a Number primitive or object.
  * value(*): The value to check.

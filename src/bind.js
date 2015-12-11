@@ -1,3 +1,4 @@
+// @TODO
 'restArgs';
 
 bind = restArgs(function (fn, ctx, args)

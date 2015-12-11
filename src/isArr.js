@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * isArr: Check if value is classified as an Array Object
  * value(*): The value to check.

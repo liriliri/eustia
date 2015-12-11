@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * isFn: Checks if value is classified as a Function object.
  * value(*): The value to check.

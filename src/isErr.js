@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * isErr: Checks if value is an Error.
  * value(*): The value to check.

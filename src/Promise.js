@@ -1,3 +1,5 @@
+// @TODO
+
 'Class State isFn isObj each';
 
 function getThen(val)

@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * pad: Pads string on the left and right sides if it's shorter than length.
  * string(string): The string to pad.

@@ -1,3 +1,5 @@
+// @TODO
+
 /* function
  * isDate: Checks if value is classified as a Date object.
  * val(*): The value to check.

@@ -1,3 +1,5 @@
+// @TODO
+
 'isObj isArr extend';
 
 clone = function (obj)
