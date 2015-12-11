@@ -1,4 +1,6 @@
-// @TODO
+/* function
+ * Class: Create js class.
+ */
 
 'extend toArray inherits has';
 
