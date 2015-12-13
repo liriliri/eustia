@@ -1,10 +1,10 @@
-'identity isFn isObj optimizeCb matcher';
+'identity isFn isObj _optimizeCb matcher';
 
-cb = function (val, ctx, argCount)
+_cb = function (val, ctx, argCount)
 {
     if (val == null) return identity;
 
-    if (isFn(val)) return optimizeCb(val, ctx, argCount);
+    if (isFn(val)) return _optimizeCb(val, ctx, argCount);
 
     if (isObj(val)) return matcher(val);
 

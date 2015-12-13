@@ -4,7 +4,7 @@
  * Select: jQuery like dom manipulator.
  */
 
-'Class isStr each isObj some';
+'Class isStr each isObj some camelize isNum dasherize';
 
 function mergeArr(first, second)
 {
@@ -21,6 +21,23 @@ function mergeArr(first, second)
 function setAttr(node, name, val)
 {
     val == null ? node.removeAttribute(name) : node.setAttribute(name, val);
+}
+
+var cssNumber = {
+    'column-count': 1,
+    'columns'     : 1,
+    'font-weight' : 1,
+    'line-weight' : 1,
+    'opacity'     : 1,
+    'z-index'     : 1,
+    'zoom'        : 1
+};
+
+function addPx(name, val)
+{
+    if (isNum(val) && !cssNumber[dasherize(name)]) return val + 'px';
+
+    return val;
 }
 
 Select = Class({
@@ -61,11 +78,27 @@ Select = Class({
     },
     css: function (name, val)
     {
-        if (val === undefined) return this[0].style[name];
+        if (val == null && isStr(name))
+        {
+            return this[0].style[camelize(name)];
+        }
+
+        var css = '';
+
+        if (isStr(name))
+        {
+            css = dasherize(name) + ':' + addPx(name, val) + ';';
+        } else
+        {
+            each(name, function (val, key)
+            {
+                css += dasherize(key) + ':' + addPx(key, val) + ';';
+            });
+        }
 
         return this.each(function ()
         {
-            this.style[name] = val;
+            this.style.cssText += ';' + css;
         });
     },
     hide: function ()

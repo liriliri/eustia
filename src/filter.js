@@ -1,12 +1,12 @@
 // @TODO
 
-'cb each';
+'_cb each';
 
 filter = function (obj, predicate, ctx)
 {
     var ret = [];
 
-    predicate = cb(predicate, ctx);
+    predicate = _cb(predicate, ctx);
 
     each(obj, function (val, idx, list)
     {

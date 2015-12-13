@@ -1,10 +1,10 @@
 // @TODO
 
-'cb isArrLike keys';
+'_cb isArrLike keys';
 
 some = function (obj, predicate, ctx)
 {
-    predicate = cb(predicate, ctx);
+    predicate = _cb(predicate, ctx);
 
     var _keys = !isArrLike(obj) && keys(obj),
         len   = (_keys || obj).length;

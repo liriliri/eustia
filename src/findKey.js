@@ -1,10 +1,10 @@
 // @TODO
 
-'cb keys';
+'_cb keys';
 
 findKey = function (obj, predicate, ctx)
 {
-    predicate = cb(predicate, ctx);
+    predicate = _cb(predicate, ctx);
 
     var _keys = keys(obj), key;
 

@@ -1,5 +1,13 @@
+// @TODO
+
 /* function
- * Class: Create js class.
+ *
+ * Class: Create JavaScript class.
+ * methods(object): Public methods.
+ * statics(object): Static methods.
+ * return(function): Result function used to create instance.
+ *
+ *
  */
 
 'extend toArray inherits has';

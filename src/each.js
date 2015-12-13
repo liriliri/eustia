@@ -1,10 +1,10 @@
 // @TODO
 
-'isArrLike keys optimizeCb';
+'isArrLike keys _optimizeCb';
 
 each = function (obj, iteratee, ctx)
 {
-    iteratee = optimizeCb(iteratee, ctx);
+    iteratee = _optimizeCb(iteratee, ctx);
 
     var i, len;
 
