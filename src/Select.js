@@ -23,6 +23,25 @@ function setAttr(node, name, val)
     val == null ? node.removeAttribute(name) : node.setAttribute(name, val);
 }
 
+var elDisplay = {};
+
+function defaultDisplay(nodeName)
+{
+    var element, display;
+
+    if (!elDisplay[nodeName])
+    {
+        element = document.createElement(nodeName);
+        document.body.appendChild(element);
+        display = getComputedStyle(element, '').getPropertyValue("display");
+        element.parentNode.removeChild(element);
+        display == "none" && (display = "block");
+        elDisplay[nodeName] = display;
+    }
+
+    return elDisplay[nodeName];
+}
+
 var cssNumber = {
     'column-count': 1,
     'columns'     : 1,
@@ -99,6 +118,16 @@ Select = Class({
         return this.each(function ()
         {
             this.style.cssText += ';' + css;
+        });
+    },
+    show: function ()
+    {
+        return this.each(function ()
+        {
+            if (getComputedStyle(this, '').getPropertyValue('display') == 'none')
+            {
+                this.style.display = defaultDisplay(this.nodeName);
+            }
         });
     },
     hide: function ()
