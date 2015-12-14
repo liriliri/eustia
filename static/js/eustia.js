@@ -92,6 +92,25 @@
             val == null ? node.removeAttribute(name) : node.setAttribute(name, val);
         }
 
+        var elDisplay = {};
+
+        function defaultDisplay(nodeName)
+        {
+            var element, display;
+
+            if (!elDisplay[nodeName])
+            {
+                element = document.createElement(nodeName);
+                document.body.appendChild(element);
+                display = getComputedStyle(element, '').getPropertyValue("display");
+                element.parentNode.removeChild(element);
+                display == "none" && (display = "block");
+                elDisplay[nodeName] = display;
+            }
+
+            return elDisplay[nodeName];
+        }
+
         var cssNumber = {
             'column-count': 1,
             'columns'     : 1,
@@ -168,6 +187,16 @@
                 return this.each(function ()
                 {
                     this.style.cssText += ';' + css;
+                });
+            },
+            show: function ()
+            {
+                return this.each(function ()
+                {
+                    if (getComputedStyle(this, '').getPropertyValue('display') == 'none')
+                    {
+                        this.style.display = defaultDisplay(this.nodeName);
+                    }
                 });
             },
             hide: function ()
@@ -302,6 +331,53 @@
         _.Select = Select;
     });
 
+    _define('map', ['_cb', 'keys', 'isArrLike'], function (_cb, keys, isArrLike)
+    {
+        var map;
+
+        map = function (obj, iteratee, ctx)
+        {
+            iteratee = _cb(iteratee, ctx);
+
+            var _keys   = !isArrLike(obj) && keys(obj),
+                len     = (_keys || obj).length,
+                results = Array(len);
+
+            for (var i = 0; i < len; i++)
+            {
+                var curKey = _keys ? _keys[i] : i;
+                results[i] = iteratee(obj[curKey], curKey, obj);
+            }
+
+            return results;
+        };
+
+        _.map = map;
+    });
+
+    _define('isStr', ['_toStr'], function (_toStr)
+    {
+        var isStr;
+
+        isStr = function (value) { return _toStr.call(value) === '[object String]' };
+
+        _.isStr = isStr;
+    });
+
+    _define('isObj', [], function ()
+    {
+        var isObj;
+
+        isObj = function (val)
+        {
+            var type = typeof val;
+
+            return type === 'function' || type === 'object';
+        };
+
+        _.isObj = isObj;
+    });
+
     _define('each', ['isArrLike', 'keys', '_optimizeCb'], function (isArrLike, keys, _optimizeCb)
     {
         var each;
@@ -328,53 +404,6 @@
         };
 
         _.each = each;
-    });
-
-    _define('isStr', ['_toStr'], function (_toStr)
-    {
-        var isStr;
-
-        isStr = function (value) { return _toStr.call(value) === '[object String]' };
-
-        _.isStr = isStr;
-    });
-
-    _define('map', ['_cb', 'keys', 'isArrLike'], function (_cb, keys, isArrLike)
-    {
-        var map;
-
-        map = function (obj, iteratee, ctx)
-        {
-            iteratee = _cb(iteratee, ctx);
-
-            var _keys   = !isArrLike(obj) && keys(obj),
-                len     = (_keys || obj).length,
-                results = Array(len);
-
-            for (var i = 0; i < len; i++)
-            {
-                var curKey = _keys ? _keys[i] : i;
-                results[i] = iteratee(obj[curKey], curKey, obj);
-            }
-
-            return results;
-        };
-
-        _.map = map;
-    });
-
-    _define('isObj', [], function ()
-    {
-        var isObj;
-
-        isObj = function (val)
-        {
-            var type = typeof val;
-
-            return type === 'function' || type === 'object';
-        };
-
-        _.isObj = isObj;
     });
 
     _define('camelize', [], function ()
@@ -498,6 +527,30 @@
         _.Class = Class;
     });
 
+    _define('_cb', ['identity', 'isFn', 'isObj', '_optimizeCb', 'matcher'], function (identity, isFn, isObj, _optimizeCb, matcher)
+    {
+        var _cb;
+
+        _cb = function (val, ctx, argCount)
+        {
+            if (val == null) return identity;
+
+            if (isFn(val)) return _optimizeCb(val, ctx, argCount);
+
+            if (isObj(val)) return matcher(val);
+
+            return function (key)
+            {
+                return function (obj)
+                {
+                    return obj == null ? undefined : obj[key];
+                }
+            };
+        };
+
+        _._cb = _cb;
+    });
+
     _define('isArrLike', ['isNum', 'has'], function (isNum, has)
     {
         var isArrLike;
@@ -541,30 +594,6 @@
         _toStr = Object.prototype.toString;
 
         _._toStr = _toStr;
-    });
-
-    _define('_cb', ['identity', 'isFn', 'isObj', '_optimizeCb', 'matcher'], function (identity, isFn, isObj, _optimizeCb, matcher)
-    {
-        var _cb;
-
-        _cb = function (val, ctx, argCount)
-        {
-            if (val == null) return identity;
-
-            if (isFn(val)) return _optimizeCb(val, ctx, argCount);
-
-            if (isObj(val)) return matcher(val);
-
-            return function (key)
-            {
-                return function (obj)
-                {
-                    return obj == null ? undefined : obj[key];
-                }
-            };
-        };
-
-        _._cb = _cb;
     });
 
     _define('extend', ['_createAssigner', 'allKeys'], function (_createAssigner, allKeys)
@@ -631,17 +660,6 @@
         _._optimizeCb = _optimizeCb;
     });
 
-    _define('has', [], function ()
-    {
-        var has;
-
-        var hasOwnProp = Object.prototype.hasOwnProperty;
-
-        has = function (obj, key) { return hasOwnProp.call(obj, key) };
-
-        _.has = has;
-    });
-
     _define('inherits', [], function ()
     {
         var inherits;
@@ -659,6 +677,17 @@
         };
 
         _.inherits = inherits;
+    });
+
+    _define('has', [], function ()
+    {
+        var has;
+
+        var hasOwnProp = Object.prototype.hasOwnProperty;
+
+        has = function (obj, key) { return hasOwnProp.call(obj, key) };
+
+        _.has = has;
     });
 
     _define('identity', [], function ()
@@ -712,20 +741,6 @@
         _.allKeys = allKeys;
     });
 
-    _define('slice', [], function ()
-    {
-        var slice;
-
-        var arrProto = Array.prototype;
-
-        slice = function (arr, start, end)
-        {
-            return arrProto.slice.call(arr, start, end);
-        };
-
-        _.slice = slice;
-    });
-
     _define('isArr', ['_toStr'], function (_toStr)
     {
         var isArr;
@@ -738,6 +753,20 @@
         };
 
         _.isArr = isArr;
+    });
+
+    _define('slice', [], function ()
+    {
+        var slice;
+
+        var arrProto = Array.prototype;
+
+        slice = function (arr, start, end)
+        {
+            return arrProto.slice.call(arr, start, end);
+        };
+
+        _.slice = slice;
     });
 
     _define('values', ['keys'], function (keys)
@@ -838,30 +867,30 @@
     _init([
         'use',
         'Select',
-        'each',
-        'isStr',
         'map',
+        'isStr',
         'isObj',
+        'each',
         'camelize',
         'some',
         'isNum',
         'dasherize',
         'Class',
+        '_cb',
         'isArrLike',
         'keys',
         '_toStr',
-        '_cb',
         'extend',
         'toArray',
         '_optimizeCb',
-        'has',
         'inherits',
+        'has',
         'identity',
         'isFn',
         'matcher',
         'allKeys',
-        'slice',
         'isArr',
+        'slice',
         'values',
         'isUndef',
         '_createAssigner',
