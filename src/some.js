@@ -1,6 +1,6 @@
 // @TODO
 
-'_cb isArrLike keys';
+_('_cb isArrLike keys');
 
 some = function (obj, predicate, ctx)
 {

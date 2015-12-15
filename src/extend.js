@@ -1,5 +1,5 @@
 // @TODO
 
-'_createAssigner allKeys';
+_('_createAssigner allKeys');
 
 extend = _createAssigner(allKeys);

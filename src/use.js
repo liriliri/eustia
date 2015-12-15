@@ -1,6 +1,6 @@
 // @TODO
 
-'map';
+_('map');
 
 var self = this;
 

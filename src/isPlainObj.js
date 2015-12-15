@@ -1,6 +1,6 @@
 // @TODO
 
-'isObj isArr';
+_('isObj isArr');
 
 isPlainObj = function (obj)
 {

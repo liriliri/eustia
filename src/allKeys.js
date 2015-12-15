@@ -9,6 +9,9 @@
  * obj.b = 1;
  * _.allKeys(obj) // -> ['a', 'b']
  * ```
+ *
+ * > Members of Object's prototype won't be retrieved.
+ *
  */
 
 allKeys = function (obj)

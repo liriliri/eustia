@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-'isNum';
+_('isNum');
 
 isInt = function (val) { return isNum(val) && (val % 1 === 0) };

@@ -1,6 +1,6 @@
 // @TODO
 
-'isObj isArr extend';
+_('isObj isArr extend');
 
 clone = function (obj)
 {

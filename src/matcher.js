@@ -1,6 +1,6 @@
 // @TODO
 
-'extendOwn isMatch';
+_('extendOwn isMatch');
 
 matcher = function (attrs)
 {

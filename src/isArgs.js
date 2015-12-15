@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-'_toStr';
+_('_toStr');
 
 isArgs = function (val) { return _toStr.call(val) === '[object Arguments]' };

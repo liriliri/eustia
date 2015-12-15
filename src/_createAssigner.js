@@ -1,4 +1,4 @@
-'isUndef';
+_('isUndef');
 
 _createAssigner = function (keysFunc, defaults)
 {

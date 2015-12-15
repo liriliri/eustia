@@ -5,12 +5,10 @@
  * Class: Create JavaScript class.
  * methods(object): Public methods.
  * statics(object): Static methods.
- * return(function): Result function used to create instance.
- *
- *
+ * return(function): Result function used to create instances.
  */
 
-'extend toArray inherits has';
+_('extend toArray inherits has');
 
 var regCallSuper = /callSuper/;
 

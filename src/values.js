@@ -1,6 +1,6 @@
 // @TODO
 
-'keys';
+_('keys');
 
 values = function (obj)
 {

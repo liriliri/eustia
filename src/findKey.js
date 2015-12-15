@@ -1,6 +1,6 @@
 // @TODO
 
-'_cb keys';
+_('_cb keys');
 
 findKey = function (obj, predicate, ctx)
 {

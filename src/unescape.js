@@ -1,5 +1,5 @@
 // @TODO
 
-'_createEscaper';
+_('_createEscaper');
 
 unescape = _createEscaper(1);

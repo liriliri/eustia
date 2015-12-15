@@ -1,4 +1,4 @@
-'isUndef';
+_('isUndef');
 
 _optimizeCb = function (func, ctx, argCount)
 {

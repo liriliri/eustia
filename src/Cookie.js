@@ -4,7 +4,7 @@
  * Cookie: Simple api for handling browser cookies.
  */
 
-'extend isNum';
+_('extend isNum');
 
 var defOpts = { path: '/' };
 

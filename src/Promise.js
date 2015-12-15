@@ -1,6 +1,6 @@
 // @TODO
 
-'Class State isFn isObj each';
+_('Class State isFn isObj each');
 
 function getThen(val)
 {

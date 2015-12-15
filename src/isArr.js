@@ -6,7 +6,7 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-'_toStr';
+_('_toStr');
 
 var nativeIsArr = Array.isArray;
 

@@ -1,8 +1,14 @@
-/* method
+/* function
+ *
  * restArgs: This accumulates the arguments passed into an array, after a given index.
  * function(function): Function that needs rest parameters.
  * startIndex(number): The start index to accumulates.
- * return(function): Result function with rest parameters.
+ * return(function): Generated function with rest parameters.
+ *
+ * ```javascript
+ * var paramArr = _.restArs(function (rest) { return rest });
+ * paramArr(1, 2, 3, 4); // -> [1, 2, 3, 4]
+ * ```
  */
 
 restArgs = function (fn, startIdx)

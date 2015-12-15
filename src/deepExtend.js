@@ -1,6 +1,6 @@
 // @TODO
 
-'isPlainObj each deepClone';
+_('isPlainObj each deepClone');
 
 deepExtend = function (obj)
 {

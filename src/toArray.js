@@ -1,6 +1,6 @@
 // @TODO
 
-'isArr slice isStr isArrLike map identity values';
+_('isArr slice isStr isArrLike map identity values');
 
 var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
 

@@ -8,7 +8,7 @@
  * assignments of previous values unless multiValue is true.
  */
 
-'keys each';
+_('keys each');
 
 invert = function (obj)
 {

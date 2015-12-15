@@ -1,6 +1,6 @@
 // @TODO
 
-'Class';
+_('Class');
 
 Model = Class({
 

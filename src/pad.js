@@ -7,7 +7,7 @@
  * chars(string): The string used as padding.
  */
 
-'repeat';
+_('repeat');
 
 pad = function (str, len, chars)
 {

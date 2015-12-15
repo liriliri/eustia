@@ -1,6 +1,6 @@
 // @TODO
 
-'isArrLike keys _optimizeCb';
+_('isArrLike keys _optimizeCb');
 
 each = function (obj, iteratee, ctx)
 {

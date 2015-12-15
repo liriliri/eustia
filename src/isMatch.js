@@ -1,6 +1,6 @@
 // @TODO
 
-'keys';
+_('keys');
 
 isMatch = function (obj, attrs)
 {

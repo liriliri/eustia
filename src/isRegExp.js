@@ -1,6 +1,6 @@
 // @TODO
 
-'_toStr';
+_('_toStr');
 
 isRegExp = function (value)
 {

@@ -1,6 +1,6 @@
 // @TODO
 
-'Class isArr each isObj isStr';
+_('Class isArr each isObj isStr');
 
 function removeParameter(url, parameter)
 {
@@ -40,7 +40,7 @@ function getQueryParameter(url, name)
     var regexS = "[\\?&]"+name+"=([^&#]*)";
     var regex = new RegExp( regexS );
     var results = regex.exec( url );
-    return results == null ? null : results[1];
+    return results == null ? null : decodeURIComponent(results[1]);
 }
 
 Uri = Class({

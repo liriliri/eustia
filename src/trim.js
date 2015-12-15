@@ -1,6 +1,6 @@
 // @TODO
 
-'ltrim rtrim';
+_('ltrim rtrim');
 
 var regSpace = /^\s+|\s+$/g;
 

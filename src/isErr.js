@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is an error object, else false.
  */
 
-'_toStr';
+_('_toStr');
 
 isErr = function (val) { return _toStr.call(val) === '[object Error]' };

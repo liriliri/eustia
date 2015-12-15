@@ -4,7 +4,7 @@
  * Select: jQuery like dom manipulator.
  */
 
-'Class isStr each isObj some camelize isNum dasherize';
+_('Class isStr each isObj some camelize isNum dasherize');
 
 function mergeArr(first, second)
 {

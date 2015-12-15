@@ -1,6 +1,6 @@
 // @TODO
 
-'_cb each';
+_('_cb each');
 
 filter = function (obj, predicate, ctx)
 {

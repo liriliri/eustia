@@ -6,9 +6,11 @@
  *
  * ```javascript
  * _.isUndef(void 0) // -> true
- * _.isUndef(null) // ->false
+ * _.isUndef(null) // -> false
  * ```
- * undefined
+ *
+ * Just a shortcut for **x === undefined**, doesn't matter that much whether you
+ * use it or not.
  */
 
 isUndef = function (value) { return value === void 0 };

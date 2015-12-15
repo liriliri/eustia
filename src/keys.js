@@ -6,7 +6,7 @@
  * return(array): Returns the array of property names.
  */
 
-'isObj has';
+_('isObj has');
 
 var nativeKeys = Object.keys;
 

@@ -4,7 +4,7 @@
  * Emitter: Event emitter.
  */
 
-'Class has each slice';
+_('Class has each slice');
 
 Emitter = Class({
     initialize: function ()
