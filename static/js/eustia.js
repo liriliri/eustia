@@ -355,116 +355,6 @@
         _.map = map;
     });
 
-    _define('isStr', ['_toStr'], function (_toStr)
-    {
-        var isStr;
-
-        isStr = function (value) { return _toStr.call(value) === '[object String]' };
-
-        _.isStr = isStr;
-    });
-
-    _define('isObj', [], function ()
-    {
-        var isObj;
-
-        isObj = function (val)
-        {
-            var type = typeof val;
-
-            return type === 'function' || type === 'object';
-        };
-
-        _.isObj = isObj;
-    });
-
-    _define('each', ['isArrLike', 'keys', '_optimizeCb'], function (isArrLike, keys, _optimizeCb)
-    {
-        var each;
-
-        each = function (obj, iteratee, ctx)
-        {
-            iteratee = _optimizeCb(iteratee, ctx);
-
-            var i, len;
-
-            if (isArrLike(obj))
-            {
-                for (i = 0, len = obj.length; i < len; i++) iteratee(obj[i], i, obj);
-            } else
-            {
-                var _keys = keys(obj);
-                for (i = 0, len = _keys.length; i < len; i++)
-                {
-                    iteratee(obj[_keys[i]], _keys[i], obj);
-                }
-            }
-
-            return obj;
-        };
-
-        _.each = each;
-    });
-
-    _define('camelize', [], function ()
-    {
-        var camelize;
-
-        camelize = function (str)
-        {
-            return str.replace(/-+(.)?/g, function (match, char)
-            {
-                return char ? char.toUpperCase() : '';
-            });
-        };
-
-        _.camelize = camelize;
-    });
-
-    _define('some', ['_cb', 'isArrLike', 'keys'], function (_cb, isArrLike, keys)
-    {
-        var some;
-
-        some = function (obj, predicate, ctx)
-        {
-            predicate = _cb(predicate, ctx);
-
-            var _keys = !isArrLike(obj) && keys(obj),
-                len   = (_keys || obj).length;
-
-            for (var i = 0; i < len; i++)
-            {
-                var key = _keys ? _keys[i] : i;
-                if (predicate(obj[key], key, obj)) return true;
-            }
-
-            return false;
-        };
-
-        _.some = some;
-    });
-
-    _define('isNum', ['_toStr'], function (_toStr)
-    {
-        var isNum;
-
-        isNum = function (value) { return _toStr.call(value) === '[object Number]' };
-
-        _.isNum = isNum;
-    });
-
-    _define('dasherize', [], function ()
-    {
-        var dasherize;
-
-        dasherize = function (str)
-        {
-            return str.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase();
-        };
-
-        _.dasherize = dasherize;
-    });
-
     _define('Class', ['extend', 'toArray', 'inherits', 'has'], function (extend, toArray, inherits, has)
     {
         var Class;
@@ -527,6 +417,134 @@
         _.Class = Class;
     });
 
+    _define('isStr', ['_toStr'], function (_toStr)
+    {
+        var isStr;
+
+        isStr = function (value) { return _toStr.call(value) === '[object String]' };
+
+        _.isStr = isStr;
+    });
+
+    _define('each', ['isArrLike', 'keys', '_optimizeCb'], function (isArrLike, keys, _optimizeCb)
+    {
+        var each;
+
+        each = function (obj, iteratee, ctx)
+        {
+            iteratee = _optimizeCb(iteratee, ctx);
+
+            var i, len;
+
+            if (isArrLike(obj))
+            {
+                for (i = 0, len = obj.length; i < len; i++) iteratee(obj[i], i, obj);
+            } else
+            {
+                var _keys = keys(obj);
+                for (i = 0, len = _keys.length; i < len; i++)
+                {
+                    iteratee(obj[_keys[i]], _keys[i], obj);
+                }
+            }
+
+            return obj;
+        };
+
+        _.each = each;
+    });
+
+    _define('some', ['_cb', 'isArrLike', 'keys'], function (_cb, isArrLike, keys)
+    {
+        var some;
+
+        some = function (obj, predicate, ctx)
+        {
+            predicate = _cb(predicate, ctx);
+
+            var _keys = !isArrLike(obj) && keys(obj),
+                len   = (_keys || obj).length;
+
+            for (var i = 0; i < len; i++)
+            {
+                var key = _keys ? _keys[i] : i;
+                if (predicate(obj[key], key, obj)) return true;
+            }
+
+            return false;
+        };
+
+        _.some = some;
+    });
+
+    _define('isObj', [], function ()
+    {
+        var isObj;
+
+        isObj = function (val)
+        {
+            var type = typeof val;
+
+            return type === 'function' || type === 'object';
+        };
+
+        _.isObj = isObj;
+    });
+
+    _define('camelize', [], function ()
+    {
+        var camelize;
+
+        camelize = function (str)
+        {
+            return str.replace(/-+(.)?/g, function (match, char)
+            {
+                return char ? char.toUpperCase() : '';
+            });
+        };
+
+        _.camelize = camelize;
+    });
+
+    _define('isNum', ['_toStr'], function (_toStr)
+    {
+        var isNum;
+
+        isNum = function (value) { return _toStr.call(value) === '[object Number]' };
+
+        _.isNum = isNum;
+    });
+
+    _define('dasherize', [], function ()
+    {
+        var dasherize;
+
+        dasherize = function (str)
+        {
+            return str.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase();
+        };
+
+        _.dasherize = dasherize;
+    });
+
+    _define('keys', ['isObj', 'has'], function (isObj, has)
+    {
+        var keys;
+
+        var nativeKeys = Object.keys;
+
+        keys = nativeKeys || function (obj)
+        {
+            var keys = [];
+
+            for (var key in obj) { if (has(obj, key)) keys.push(key) }
+
+            return keys;
+        };
+
+        _.keys = keys;
+    });
+
     _define('_cb', ['identity', 'isFn', 'isObj', '_optimizeCb', 'matcher'], function (identity, isFn, isObj, _optimizeCb, matcher)
     {
         var _cb;
@@ -551,60 +569,6 @@
         _._cb = _cb;
     });
 
-    _define('isArrLike', ['isNum', 'has'], function (isNum, has)
-    {
-        var isArrLike;
-
-        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
-
-        isArrLike = function (val)
-        {
-            if (!has(val, 'length')) return false;
-
-            var len = val.length;
-
-            return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
-        };
-
-        _.isArrLike = isArrLike;
-    });
-
-    _define('keys', ['isObj', 'has'], function (isObj, has)
-    {
-        var keys;
-
-        var nativeKeys = Object.keys;
-
-        keys = nativeKeys || function (obj)
-        {
-            var keys = [];
-
-            for (var key in obj) { if (has(obj, key)) keys.push(key) }
-
-            return keys;
-        };
-
-        _.keys = keys;
-    });
-
-    _define('_toStr', [], function ()
-    {
-        var _toStr;
-
-        _toStr = Object.prototype.toString;
-
-        _._toStr = _toStr;
-    });
-
-    _define('extend', ['_createAssigner', 'allKeys'], function (_createAssigner, allKeys)
-    {
-        var extend;
-
-        extend = _createAssigner(allKeys);
-
-        _.extend = extend;
-    });
-
     _define('toArray', ['isArr', 'slice', 'isStr', 'isArrLike', 'map', 'identity', 'values'], function (isArr, slice, isStr, isArrLike, map, identity, values)
     {
         var toArray;
@@ -625,6 +589,72 @@
         };
 
         _.toArray = toArray;
+    });
+
+    _define('inherits', [], function ()
+    {
+        var inherits;
+
+        var objCreate = Object.create;
+
+        function noop() {}
+
+        inherits = function (Class, SuperClass)
+        {
+            if (objCreate) return Class.prototype = objCreate(SuperClass.prototype);
+
+            noop.prototype  = SuperClass.prototype;
+            Class.prototype = new noop();
+        };
+
+        _.inherits = inherits;
+    });
+
+    _define('extend', ['_createAssigner', 'allKeys'], function (_createAssigner, allKeys)
+    {
+        var extend;
+
+        extend = _createAssigner(allKeys);
+
+        _.extend = extend;
+    });
+
+    _define('_toStr', [], function ()
+    {
+        var _toStr;
+
+        _toStr = Object.prototype.toString;
+
+        _._toStr = _toStr;
+    });
+
+    _define('has', [], function ()
+    {
+        var has;
+
+        var hasOwnProp = Object.prototype.hasOwnProperty;
+
+        has = function (obj, key) { return hasOwnProp.call(obj, key) };
+
+        _.has = has;
+    });
+
+    _define('isArrLike', ['isNum', 'has'], function (isNum, has)
+    {
+        var isArrLike;
+
+        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
+
+        isArrLike = function (val)
+        {
+            if (!has(val, 'length')) return false;
+
+            var len = val.length;
+
+            return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
+        };
+
+        _.isArrLike = isArrLike;
     });
 
     _define('_optimizeCb', ['isUndef'], function (isUndef)
@@ -660,36 +690,6 @@
         _._optimizeCb = _optimizeCb;
     });
 
-    _define('inherits', [], function ()
-    {
-        var inherits;
-
-        var objCreate = Object.create;
-
-        function noop() {}
-
-        inherits = function (Class, SuperClass)
-        {
-            if (objCreate) return Class.prototype = objCreate(SuperClass.prototype);
-
-            noop.prototype  = SuperClass.prototype;
-            Class.prototype = new noop();
-        };
-
-        _.inherits = inherits;
-    });
-
-    _define('has', [], function ()
-    {
-        var has;
-
-        var hasOwnProp = Object.prototype.hasOwnProperty;
-
-        has = function (obj, key) { return hasOwnProp.call(obj, key) };
-
-        _.has = has;
-    });
-
     _define('identity', [], function ()
     {
         var identity;
@@ -699,6 +699,20 @@
         _.identity = identity;
     });
 
+    _define('isArr', ['_toStr'], function (_toStr)
+    {
+        var isArr;
+
+        var nativeIsArr = Array.isArray;
+
+        isArr = nativeIsArr || function (val)
+        {
+            return _toStr.call(val) === '[object Array]';
+        };
+
+        _.isArr = isArr;
+    });
+
     _define('isFn', ['_toStr'], function (_toStr)
     {
         var isFn;
@@ -706,6 +720,20 @@
         isFn = function (val) { return _toStr.call(val) === '[object Function]' };
 
         _.isFn = isFn;
+    });
+
+    _define('slice', [], function ()
+    {
+        var slice;
+
+        var arrProto = Array.prototype;
+
+        slice = function (arr, start, end)
+        {
+            return arrProto.slice.call(arr, start, end);
+        };
+
+        _.slice = slice;
     });
 
     _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
@@ -725,50 +753,6 @@
         _.matcher = matcher;
     });
 
-    _define('allKeys', [], function ()
-    {
-        var allKeys;
-
-        allKeys = function (obj)
-        {
-            var keys = [], key;
-
-            for (key in obj) keys.push(key);
-
-            return keys;
-        };
-
-        _.allKeys = allKeys;
-    });
-
-    _define('isArr', ['_toStr'], function (_toStr)
-    {
-        var isArr;
-
-        var nativeIsArr = Array.isArray;
-
-        isArr = nativeIsArr || function (val)
-        {
-            return _toStr.call(val) === '[object Array]';
-        };
-
-        _.isArr = isArr;
-    });
-
-    _define('slice', [], function ()
-    {
-        var slice;
-
-        var arrProto = Array.prototype;
-
-        slice = function (arr, start, end)
-        {
-            return arrProto.slice.call(arr, start, end);
-        };
-
-        _.slice = slice;
-    });
-
     _define('values', ['keys'], function (keys)
     {
         var values;
@@ -785,15 +769,6 @@
         };
 
         _.values = values;
-    });
-
-    _define('isUndef', [], function ()
-    {
-        var isUndef;
-
-        isUndef = function (value) { return value === void 0 };
-
-        _.isUndef = isUndef;
     });
 
     _define('_createAssigner', ['isUndef'], function (isUndef)
@@ -828,6 +803,31 @@
         };
 
         _._createAssigner = _createAssigner;
+    });
+
+    _define('allKeys', [], function ()
+    {
+        var allKeys;
+
+        allKeys = function (obj)
+        {
+            var keys = [], key;
+
+            for (key in obj) keys.push(key);
+
+            return keys;
+        };
+
+        _.allKeys = allKeys;
+    });
+
+    _define('isUndef', [], function ()
+    {
+        var isUndef;
+
+        isUndef = function (value) { return value === void 0 };
+
+        _.isUndef = isUndef;
     });
 
     _define('extendOwn', ['keys', '_createAssigner'], function (keys, _createAssigner)
@@ -868,32 +868,32 @@
         'use',
         'Select',
         'map',
+        'Class',
         'isStr',
-        'isObj',
         'each',
-        'camelize',
         'some',
+        'isObj',
+        'camelize',
         'isNum',
         'dasherize',
-        'Class',
-        '_cb',
-        'isArrLike',
         'keys',
-        '_toStr',
-        'extend',
+        '_cb',
         'toArray',
-        '_optimizeCb',
         'inherits',
+        'extend',
+        '_toStr',
         'has',
+        'isArrLike',
+        '_optimizeCb',
         'identity',
-        'isFn',
-        'matcher',
-        'allKeys',
         'isArr',
+        'isFn',
         'slice',
+        'matcher',
         'values',
-        'isUndef',
         '_createAssigner',
+        'allKeys',
+        'isUndef',
         'extendOwn',
         'isMatch'
     ]);
