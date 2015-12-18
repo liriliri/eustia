@@ -1,4 +1,4 @@
-_.('identity isFn isObj _optimizeCb matcher');
+_('identity isFn isObj _optimizeCb matcher');
 
 _cb = function (val, ctx, argCount)
 {

@@ -23,25 +23,6 @@ function setAttr(node, name, val)
     val == null ? node.removeAttribute(name) : node.setAttribute(name, val);
 }
 
-var elDisplay = {};
-
-function defaultDisplay(nodeName)
-{
-    var element, display;
-
-    if (!elDisplay[nodeName])
-    {
-        element = document.createElement(nodeName);
-        document.body.appendChild(element);
-        display = getComputedStyle(element, '').getPropertyValue("display");
-        element.parentNode.removeChild(element);
-        display == "none" && (display = "block");
-        elDisplay[nodeName] = display;
-    }
-
-    return elDisplay[nodeName];
-}
-
 var cssNumber = {
     'column-count': 1,
     'columns'     : 1,
@@ -120,19 +101,12 @@ Select = Class({
             this.style.cssText += ';' + css;
         });
     },
-    show: function ()
+    rmAttr: function (name)
     {
         return this.each(function ()
         {
-            if (getComputedStyle(this, '').getPropertyValue('display') == 'none')
-            {
-                this.style.display = defaultDisplay(this.nodeName);
-            }
+            setAttr(this, name);
         });
-    },
-    hide: function ()
-    {
-        return this.css('display', 'none');
     },
     attr: function (name, val)
     {
@@ -167,45 +141,6 @@ Select = Class({
 
         return this.attr(newName, val);
     },
-    html: function (val)
-    {
-        if (val == null) return this[0].innerHTML;
-
-        return this.each(function () { this.innerHTML = val });
-    },
-    text: function (val)
-    {
-        if (val == null) return this[0].textContent;
-
-        return this.each(function () { this.textContent = val });
-    },
-    val: function (val)
-    {
-        if (val == null) return this[0].value;
-
-        return this.each(function () { this.value = val });
-    },
-    on: function (type, fn)
-    {
-        return this.each(function ()
-        {
-            this.addEventListener(type, fn, false);
-        });
-    },
-    off: function (type, fn)
-    {
-        return this.each(function ()
-        {
-            this.removeEventListener(type, fn);
-        });
-    },
-    first: function () { return new Select(this[0]) },
-    last : function () { return new Select(this[this.length - 1]) },
-    /* method
-     * Select.hasClass: Determine whether any of the matched elements are assigned the given class.
-     * className(string): The class name to search for.
-     * return(boolean): Has the given class name or not.
-     */
     hasClass: function (name)
     {
         return some(this, function (el)
@@ -213,10 +148,6 @@ Select = Class({
             return this.test(el.className);
         }, new RegExp('(^|\\s)' + name + '(\\s|$)'));
     },
-    /* method
-     * Select.addClass: Adds the specified class(es) to each element in the set of matched elements.
-     * className(string): One or more space-separated classes to be added to the class attribute of each matched element.
-     */
     addClass: function (name)
     {
         var newName = name.split(/\s+/g);
@@ -242,13 +173,6 @@ Select = Class({
         {
             this.insertAdjacentHTML('beforeend', val);
         });
-    },
-    /* method
-     * Select.after: Insert content, specified by the parameter, after each element in the set of matched elements.
-     */
-    after: function ()
-    {
-
     },
     before: function (val)
     {

@@ -1,0 +1,6 @@
+// @TODO
+
+$animate = function ()
+{
+
+};
