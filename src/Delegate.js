@@ -119,10 +119,7 @@ Delegate = {
     },
     Event: Class({
         className: 'Event',
-        initialize: function Event(e)
-        {
-            this.origEvent = e;
-        },
+        initialize: function Event(e) { this.origEvent = e },
         isDefaultPrevented: retFalse,
         isPropagationStopped: retFalse,
         isImmediatePropagationStopped: retFalse,
