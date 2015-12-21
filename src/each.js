@@ -1,11 +1,9 @@
 // @TODO
 
-_('isArrLike keys _optimizeCb');
+_('isArrLike keys');
 
 each = function (obj, iteratee, ctx)
 {
-    iteratee = _optimizeCb(iteratee, ctx);
-
     var i, len;
 
     if (isArrLike(obj))
@@ -16,7 +14,7 @@ each = function (obj, iteratee, ctx)
         var _keys = keys(obj);
         for (i = 0, len = _keys.length; i < len; i++)
         {
-            iteratee(obj[_keys[i]], _keys[i], obj);
+            iteratee.call(ctx, obj[_keys[i]], _keys[i], obj);
         }
     }
 

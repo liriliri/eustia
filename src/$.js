@@ -16,7 +16,7 @@ Select.methods({
 
         return this.each(function ()
         {
-            Delegate.add(this, type, fn, selector);
+            Delegate.add(this, type, selector, fn);
         });
     },
     off: function (type, selector, fn)
@@ -49,6 +49,16 @@ Select.methods({
         if (val == null) return this[0].value;
 
         return this.each(function () { this.value = val });
+    },
+    remove: function ()
+    {
+        var parent;
+
+        return this.each(function ()
+        {
+            parent = this.parentNode;
+            if (parent != null) parent.removeChild(this);
+        });
     }
 });
 

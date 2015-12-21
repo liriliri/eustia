@@ -1,5 +1,5 @@
 $attr = {
-    get: function ()
+    get: function (name, val)
     {
 
     },

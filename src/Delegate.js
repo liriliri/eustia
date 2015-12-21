@@ -70,7 +70,7 @@ function formatHandlers(e, handlers)
 }
 
 Delegate = {
-    add: function (el, type, fn, selector)
+    add: function (el, type, selector, fn)
     {
         var handler = {
                 selector: selector,
