@@ -5,7 +5,7 @@
  * Class: Create JavaScript class.
  * methods(object): Public methods.
  * statics(object): Static methods.
- * return(function): Result function used to create instances.
+ * return(function): Return function used to create instances.
  */
 
 _('extend toArray inherits has');
