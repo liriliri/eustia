@@ -1,0 +1,10 @@
+{
+    "util": {
+        "output": "./lib/util.js",
+        "files": ["./index.js", "./lib/*.js"]
+    },
+    "test": {
+        "output": "./test/util.js",
+        "files": ["./test/*.js"]
+    }
+}
