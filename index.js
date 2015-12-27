@@ -1,45 +1,18 @@
-var nopt = require('nopt'),
-    _    = require('./lib/util'),
-    cmd  = require('./lib/cmd');
+var _ = require('./lib/util');
 
-var defOpts =
-{
+var defOpts = {
     cwd     : process.cwd(),
-    dirname : __dirname,
-    files   : [],
-    cmd     : 'help',
+    magicNum: '// Built by eustia.', // Prepend to generated file to prevent being scanned again.
     packInfo: require('./package.json')
 };
 
-var knowOpts = {
-    encoding: String,
-    output  : String,
-    name    : String,
-    external: String,
-    exclude : String
-};
-
-var shortHands = {
-    o: '--output',
-    e: '--encoding',
-    n: '--name'
-};
-
-var options = _.extend(defOpts, nopt(knowOpts, shortHands, process.argv, 2));
-
-var remain = options.argv.remain;
-
-for (var i = 0, len = remain.length; i < len; i++)
+['build', 'help'].forEach(function (name)
 {
-    if (_.has(cmd, remain[i]))
+    var cmd = require('./lib/' + name);
+
+    exports[name] = function (options, cb)
     {
-        options.cmd = remain[i];
-        remain.splice(i, 1);
-        break;
-    }
-}
-
-cmd = cmd[options.cmd];
-
-cmd(_.extend(cmd.defOpts, options));
+        cmd(_.defaults(options, defOpts, cmd.defOpts), cb);
+    };
+});
 

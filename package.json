@@ -3,10 +3,6 @@
   "version": "0.0.12",
   "description": "Tool for generating utility libraries",
   "main": "index.js",
-  "scripts": {
-    "genTest": "eustia build test/*.js -o test/util.js",
-    "genUtil": "eustia build index.js lib/*.js -o lib/util.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liriliri/eustia.git"

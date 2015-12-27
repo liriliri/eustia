@@ -1,4 +1,4 @@
-'each';
+_('each');
 
 var async = require('async'),
     glob  = require('glob');
@@ -10,7 +10,7 @@ expandPaths = function (paths, options, callback)
     var walker = async.queue(function (path, callback)
     {
         glob(path, {
-            ignore: options.exclude
+            ignore: ['util.js']
         }, function (err, result)
         {
             if (err) return callback(err);

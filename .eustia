@@ -1,10 +1,12 @@
 {
     "util": {
         "output": "./lib/util.js",
-        "files": ["./index.js", "./lib/*.js"]
+        "files": ["./index.js", "./bin/eustia.js", "./lib/**/*.js"],
+        "pattern": "commonjs"
     },
     "test": {
         "output": "./test/util.js",
+        "pattern": "global",
         "files": ["./test/*.js"]
     }
 }

@@ -1,12 +1,13 @@
-'rpad each';
+_('rpad each');
 
 var handlebars = require('handlebars'),
-    fs         = require('fs'),
-    chalk      = require('chalk');
+    chalk      = require('chalk'),
+    path = require('path'),
+    fs   = require('fs');
 
 handlebars.registerHelper('rapd', function (len, ctx)
 {
-    return rpad(ctx.fn(this), parseInt(len, 10));
+    return rpad(ctx.fn(this), parseInt(len, 10), ' ');
 });
 
 each(['yellow', 'green', 'cyan', 'red', 'white', 'magenta'], function (color)
@@ -17,33 +18,40 @@ each(['yellow', 'green', 'cyan', 'red', 'white', 'magenta'], function (color)
     });
 });
 
-log = function (msg)
+var msgs = [], enabled = false;
+
+log = function (msg, tpl)
 {
+    if (!enabled) return;
+
+    if (tpl) msg = handlebars.compile(tpl, { noEscape: true })(msg);
+
+    // All messages is pushed into msgs for debugging purpose when error occurs.
+    msgs.push(msg);
+
     process.stdout.write(msg + '\n');
 };
 
 log.err = function (msg)
 {
-    process.stdout.write(msg + '\n');
+    log.color(msg, 'red');
+
+    var logPath = path.resolve(process.cwd(), './eustia-debug.log');
+
+    fs.writeFileSync(logPath, msgs.join('\n'), 'utf-8');
+
     process.exit();
 };
 
-var tpl = {};
+log.warn = function (msg) { log.color(msg, 'yellow') };
 
-log.tpl = function (msg, tplPath)
+log.ok = function (msg) { log.color(msg, 'green') };
+
+log.color = function (msg, color)
 {
-    if (tpl[tplPath])
-    {
-        log(tpl[tplPath](msg));
-    } else
-    {
-        fs.readFile(tplPath, 'utf-8', function (err, data)
-        {
-            if (err) return;
-
-            tpl[tplPath] = handlebars.compile(data, {noEscape: true});
-
-            log(tpl[tplPath](msg));
-        });
-    }
+    log({
+        msg: msg
+    }, '{{#' + color + '}}{{msg}}{{/' + color + '}}');
 };
+
+log.enable = function () { enabled = true };
