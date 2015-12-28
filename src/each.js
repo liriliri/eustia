@@ -8,7 +8,7 @@ each = function (obj, iteratee, ctx)
 
     if (isArrLike(obj))
     {
-        for (i = 0, len = obj.length; i < len; i++) iteratee(obj[i], i, obj);
+        for (i = 0, len = obj.length; i < len; i++) iteratee.call(ctx, obj[i], i, obj);
     } else
     {
         var _keys = keys(obj);

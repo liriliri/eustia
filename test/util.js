@@ -1,5 +1,14 @@
-// Built by eustia. 2015-12-27 23:24:59
-window._ = (function()
+// Built by eustia. 2015-12-28 14:11:56
+(function(root, factory)
+{
+    if (typeof define === 'function' && define.amd)
+    {
+        define([], factory);
+    } else if (typeof module === 'object' && module.exports)
+    {
+        module.exports = factory();
+    } else { root._ = factory() }
+}(this, function ()
 {
     var _ = {};
 
@@ -428,7 +437,7 @@ window._ = (function()
 
             if (isArrLike(obj))
             {
-                for (i = 0, len = obj.length; i < len; i++) iteratee(obj[i], i, obj);
+                for (i = 0, len = obj.length; i < len; i++) iteratee.call(ctx, obj[i], i, obj);
             } else
             {
                 var _keys = keys(obj);
@@ -1077,4 +1086,4 @@ window._ = (function()
     ]);
 
     return _;
-})();
+}));
