@@ -1,3 +1,5 @@
+![Eustia](http://liriliri.github.io/eustia/static/img/banner.jpg)
+
 # Eustia
 
 Eustia is a tool for building your own JavaScript utility libraries. When we create a new project, usually the first thing we do is choosing a JavaScript library that provides useful programming helpers to make our lives easier. At this point, we think of open source JavaScript libraries such as underscore.js or lodash. However, there are times that we just want to use one or two of its functions. Moreover, the function helper we just need doesn't exist in it. And most of the time, we ended up extracting code from those libraries and writing extra helpers ourselves. This is the problem that Eustia is trying to solve.
@@ -29,7 +31,7 @@ Suppose you are doing a new project, and create a file name `index.html`. Then y
 
 Inside the same folder, run command:
 
-    eustia index.html -o util.js
+    eustia build
 
 After that, just include the generated library in you html file. This is it, everything is just done, so simple!
 

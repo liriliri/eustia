@@ -163,6 +163,10 @@ Select = Class({
             if (classList.length !== 0) this.className += ' ' + classList.join(' ');
         });
     },
+    toggleClass: function (name)
+    {
+        return this.hasClass(name) ? this.rmClass(name) : this.addClass(name);
+    },
     rmClass: function (name)
     {
         return this.each(function () { this.classList.remove(name) });
