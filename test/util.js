@@ -1,14 +1,5 @@
-// Built by eustia. 2015-12-30 22:37:42
-(function(root, factory)
-{
-    if (typeof define === 'function' && define.amd)
-    {
-        define([], factory);
-    } else if (typeof module === 'object' && module.exports)
-    {
-        module.exports = factory();
-    } else { root._ = factory() }
-}(this, function ()
+// Built by eustia. 2016-1-1 20:42:24
+window._ = (function()
 {
     var _ = {};
 
@@ -1086,4 +1077,4 @@
     ]);
 
     return _;
-}));
+})();
