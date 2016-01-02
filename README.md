@@ -82,8 +82,7 @@ Just create a file named **.eustia** in your project root.
     "node": {
         "files": ["./lib/*.js", "./tool/**/*.js"],
         "output": "./lib/util.js"
-    },
-    ...
+    }
 }
 ```
 

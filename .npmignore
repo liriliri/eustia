@@ -3,5 +3,7 @@
 /test/
 .gitignore
 .npmignore
+.eustia
+.eslintrc
 karma.conf.js
 README.md
