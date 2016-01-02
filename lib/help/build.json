@@ -42,7 +42,7 @@
             "description": "Output path, default to util.js"
         },
         {
-            "pattern": "p",
+            "shorthand": "-p",
             "flag": "--pattern",
             "description": "Module pattern, commonjs, umd or global, defaults to umd"
         }
