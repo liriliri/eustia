@@ -32,20 +32,24 @@ log = function (msg, tpl)
     process.stdout.write(msg + '\n');
 };
 
+var errLogPath = path.resolve(process.cwd(), './eustia-debug.log');
+
 log.err = function (msg)
 {
     log.color(msg, 'red');
 
-    var logPath = path.resolve(process.cwd(), './eustia-debug.log');
-
-    fs.writeFileSync(logPath, msgs.join('\n'), 'utf-8');
+    fs.writeFileSync(errLogPath, msgs.join('\n'), 'utf-8');
 
     process.exit();
 };
 
 log.warn = function (msg) { log.color(msg, 'yellow') };
 
-log.ok = function (msg) { log.color(msg, 'green') };
+log.ok = function (msg)
+{
+    log.color(msg, 'green');
+    fs.exists(errLogPath, function (result) { if (result) fs.unlink(errLogPath) });
+};
 
 log.color = function (msg, color)
 {

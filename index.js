@@ -1,9 +1,11 @@
 var _ = require('./lib/util');
 
 var defOpts = {
-    cwd     : process.cwd(),
-    magicNum: '// Built by eustia.', // Prepend to generated file to prevent being scanned again.
-    packInfo: require('./package.json')
+    cwd: process.cwd(),
+    // Prepend to generated file to prevent being scanned again.
+    magicNum : '// Built by eustia.',
+    shareData: {},
+    packInfo : require('./package.json')
 };
 
 ['build', 'help', 'version'].forEach(function (name)
