@@ -1,4 +1,4 @@
-// Built by eustia. 2016-1-1 20:42:24
+// Built by eustia.
 window._ = (function()
 {
     var _ = {};

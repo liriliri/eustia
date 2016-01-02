@@ -1,6 +1,6 @@
 {
     "command": "build",
-    "description": "Build JavaSript library by scanning files",
+    "description": "Build JavaScript libraries by scanning files.",
     "usage": [
         "build [<options>]",
         "build index.html",
@@ -9,27 +9,37 @@
     ],
     "options": [
         {
-            "shorthand": "-o",
-            "flag": "--output",
-            "description": "Output path"
+            "shorthand": "-e",
+            "flag": "--exclude",
+            "description": "Functions excluded"
         },
         {
-            "shorthand": "-e",
             "flag": "--encoding",
             "description": "Input file encoding, default to utf-8"
         },
         {
+            "shorthand": "-l",
+            "flag": "--library",
+            "description": "External library paths"
+        },
+        {
+            "shorthand": "-i",
+            "flag": "--include",
+            "description": "Functions included"
+        },
+        {
+            "flag": "--ignore",
+            "description": "Files excluded"
+        },
+        {
             "shorthand": "-n",
-            "flag": "--name",
+            "flag": "--namespace",
             "description": "Namespace of the generated library, default to _"
         },
         {
-            "flag": "--exclude",
-            "description": "Exclude file pattern"
-        },
-        {
-            "flag": "--external",
-            "description": "External lib path"
+            "shorthand": "-o",
+            "flag": "--output",
+            "description": "Output path, default to util.js"
         }
     ]
 }

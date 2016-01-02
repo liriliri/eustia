@@ -6,7 +6,7 @@ var defOpts = {
     packInfo: require('./package.json')
 };
 
-['build', 'help'].forEach(function (name)
+['build', 'help', 'version'].forEach(function (name)
 {
     var cmd = require('./lib/' + name);
 
