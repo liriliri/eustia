@@ -16,7 +16,8 @@ var knowOpts = {
         library  : Array,
         exclude  : Array,
         include  : Array,
-        command  : String
+        command  : String,
+        pattern  : String
     },
     shortHands = {
         c: '--command',
@@ -24,7 +25,8 @@ var knowOpts = {
         i: '--include',
         l: '--library',
         e: '--exclude',
-        n: '--namespace'
+        n: '--namespace',
+        p: '--pattern'
     },
     options = nopt(knowOpts, shortHands, process.argv, 2),
     remain  = options.argv.remain,
