@@ -1,22 +1,50 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Eustia - A tool for building JavaScript utility libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Eustia: A Tool for Generating JavaScript Utility Libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
 {
     _.$('nav').toggleClass('collapsed');
-});</script><ul><li><a href="http://liriliri.github.io/eustia/guide/index.html">GUIDE</a></li><li><a href="http://liriliri.github.io/eustia/api.html">API</a></li><li><a href="http://liriliri.github.io/eustia/function.html">FUNCTION</a></li><li><a href="http://liriliri.github.io/eustia/module.html">MODULE</a></li><li><a href="http://liriliri.github.io/eustia/class.html">CLASS</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="banner"><h1>A tool for building JavaScript utility libraries:)</h1><a href="http://liriliri.github.io/eustia/guide/index.html" class="btn second">GET STARTED</a><div class="glow hidden"></div></div><div class="procedure"><div class="container"><ul><li><h2>Step 1</h2><p>Break utilities in pieces.</p></li><li><h2>Step 2</h2><p>Scan code to generate libraries.</p></li><li><h2>Step 3</h2><p>Use the generated library.
-</p></li></ul></div></div><div class="md container intro"><h2 id="what-s-the-goal">What&#39;s the Goal</h2>
-<p><strong>Eustia</strong> is a tool for building your own JavaScript utility libraries. When we create a new project, usually the first thing we do is choosing a JavaScript library that provides useful programming helpers to make our lives easier. At this point, we think of open source JavaScript libraries such as <strong>underscore.js</strong> or <strong>lodash</strong>. However, there are times that we just want to use one or two of its functions. Moreover, the function helper we just need doesn&#39;t exist in it. And most of the time, we ended up extracting code from those libraries and writing extra helpers ourselves. This is the problem that Eustia is trying to solve.</p>
+});</script><ul><li><a href="http://liriliri.github.io/eustia/guide.html">GUIDE</a></li><li><a href="http://liriliri.github.io/eustia/api.html">API</a></li><li><a href="http://liriliri.github.io/eustia/function.html">FUNCTION</a></li><li><a href="http://liriliri.github.io/eustia/module.html">MODULE</a></li><li><a href="http://liriliri.github.io/eustia/class.html">CLASS</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="banner"><h1>A Tool for Generating JavaScript Utility Libraries:)</h1><a href="http://liriliri.github.io/eustia/guide.html" class="btn second">GET STARTED</a><div class="glow hidden"></div></div><div class="procedure"><div class="container"><ul><li><h2>Step 1</h2><p>Break utilities in pieces.</p></li><li><h2>Step 2</h2><p>Scan code to generate libraries.</p></li><li><h2>Step 3</h2><p>Use the generated library.
+</p></li></ul></div></div><div class="md container mobile intro"><h2 id="what-s-the-goal">What&#39;s the Goal</h2>
+<p><strong>Eustia</strong> is a tool for building your own JavaScript utility libraries. When we
+create a new project, usually the first thing we do is choosing a JavaScript
+library that provides useful programming helpers to make our lives easier. At
+this point, we think of open source JavaScript libraries such as
+<strong>underscore.js</strong> or <strong>lodash</strong>. However, there are times that we just want to
+use one or two of its functions. Moreover, the function helper we just need
+doesn&#39;t exist in it. And most of the time, we ended up extracting code from
+those libraries and writing extra helpers ourselves. This is the problem Eustia
+is trying to solve.</p>
 <h2 id="how-it-works">How it Works</h2>
-<p>The tool will scan your source code to find strings that match the pattern <strong>_.method</strong> , then generates a JavaScript library containing only the methods you have used. It provides most of underscore&#39;s functions and some other useful small libraries, for example, ajax, Class, cookie helpers. You can also collect your own modules and methods to create libraries for multiple projects.</p>
+<p>The tool will scan your source code to find strings that match the pattern
+<strong>util.method</strong>, <strong>util = require(&#39;./util&#39;)</strong> or <strong>import {...} from &#39;./util&#39;</strong>,
+then generates a JavaScript library containing only the methods you have used.
+It provides most of underscore&#39;s functions and some other useful small
+libraries, for example, Class, cookie helpers. You can also collect your own
+modules and functions to create libraries for multiple projects.</p>
 <h2 id="the-benefits">The Benefits</h2>
 <h3 id="1-no-more-copying-and-pasting-">1. No more copying and Pasting.</h3>
-<p>When creating a new project with a util module, you don&#39;t have to copy the code manually from the other old projects you have written. Just run a command, and everything will be just ready for you.</p>
+<p>When creating a new project with a util module, you don&#39;t have to copy the code
+manually from the other old projects you have written. Just run a command, and
+everything will be just ready for you.</p>
 <h3 id="2-reusable-code-">2. Reusable code.</h3>
-<p>Util functions are reusable in this case since the whole idea is to break the utility library into small LEGO bricks. With those, you&#39;re able to construct any library you want. Besides, you can even share your LEGO with other folks, reducing pain for everybody.</p>
+<p>Util functions are reusable in this case since the whole idea is to break the
+utility library into small LEGO bricks. With those, you&#39;re able to construct any
+library you want. Besides, you can even share your LEGO with other folks,
+reducing pain for everybody.</p>
 <h3 id="3-share-the-same-piece-of-code-both-in-server-side-and-client-side-">3. Share the same piece of code both in server side and client side.</h3>
-<p>The generated library follows the UMD(Universal Module Definition) patterns so that it can used both in server side(Node.js) and client side(Browser). Using the same utility library not only makes code reusable but also keeps consistency between two sides.</p>
+<p>The generated library follows the UMD(Universal Module Definition) patterns so
+that it can used both in server side(Node.js) and client side(Browser). Using
+the same utility library not only makes code reusable but also keeps consistency
+between two sides.</p>
 <h3 id="4-keep-it-small-">4. Keep it small.</h3>
-<p>While developing in the mobile platform, the size of JavaScript library do matter. Since the tool scan the source code and only generates what you need, the result is definitely the smallest one with no redundant code.</p>
+<p>While developing in the mobile platform, the size of JavaScript library do
+matter. Since the tool scan the source code and only generates what you need,
+the result is definitely the smallest one with no redundant code.</p>
 <h3 id="5-provide-many-useful-utilities-in-default-">5. Provide many useful utilities in default.</h3>
-<p>Eustia is a tool for generating libraries. However, it also provides a lot of common helpers in default. You can check the full list of <a href="http://liriliri.github.io/eustia/function.html">functions</a>, <a href="http://liriliri.github.io/eustia/module.html">modules</a> and <a href="http://liriliri.github.io/eustia/class.html">classes</a> to choose what you really need.</p>
+<p>Eustia is a tool for generating libraries. However, it also provides a lot of
+common helpers in default. You can check the full list of
+<a href="http://liriliri.github.io/eustia/function.html">functions</a>,
+<a href="http://liriliri.github.io/eustia/module.html">modules</a> and
+<a href="http://liriliri.github.io/eustia/class.html">classes</a> to choose what you really
+need.</p>
 </div><script>// Banner glow effect.
 _.use(function ()
 {

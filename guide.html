@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Guide - Eustia: A Tool for Generating JavaScript Utility Libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
+{
+    _.$('nav').toggleClass('collapsed');
+});</script><ul><li><a href="http://liriliri.github.io/eustia/guide.html">GUIDE</a></li><li><a href="http://liriliri.github.io/eustia/api.html">API</a></li><li><a href="http://liriliri.github.io/eustia/function.html">FUNCTION</a></li><li><a href="http://liriliri.github.io/eustia/module.html">MODULE</a></li><li><a href="http://liriliri.github.io/eustia/class.html">CLASS</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="md container mobile intro"><h2 id="quick-example">Quick Example</h2>
+<p>You can install Eustia using Node Package Manager(<strong>npm</strong>).</p>
+<pre><code class="language-bash">npm <span class="token function">install</span> -g eustia
+</code></pre>
+<p>Suppose you are doing a new project, after creating a file named <strong>index.html</strong>,
+you want to use <strong>trim</strong> function in it, so you just write the code down as follows:</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>utf-8<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Eustia<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>util.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+    <span class="token keyword">var</span> projectName <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos; Eustia &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Some code...</span>
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>Inside the same folder, run command:</p>
+<pre><code class="language-bash">eustia build
+</code></pre>
+<p>The tool will scan you html code and generate a file name <strong>util.js</strong>(Default
+output file name). And that is it, everything is just done!</p>
+<h2 id="use-a-configuration-file">Use a Configuration File</h2>
+<p>You can use Eustia with command lines totally. It usually follows the same
+pattern described below:</p>
+<pre><code class="language-bash">eustia build -o util.js index.html *.js <span class="token punctuation">..</span>.<span class="token operator">&lt;</span>list of files to be scanned<span class="token operator">&gt;</span>
+</code></pre>
+<p>It&apos;s also possible to use a configuration file to save settings. This is pretty
+helpful especially when you want to generate multiple utility libraries for
+different sections of your website.</p>
+<p>Just create a file named <strong>.eustia</strong> in your project root.</p>
+<pre><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token keys">&quot;page&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token keys">&quot;files&quot;</span><span class="token punctuation">:</span> &quot;./layout/**/*.jade&quot;<span class="token punctuation">,</span>
+        <span class="token keys">&quot;output&quot;</span><span class="token punctuation">:</span> &quot;./static/js/eustia.js&quot;
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token keys">&quot;node&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token keys">&quot;files&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>&quot;./lib/*.js&quot;<span class="token punctuation">,</span> &quot;./tool/**/*.js&quot;<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token keys">&quot;output&quot;</span><span class="token punctuation">:</span> &quot;./lib/util.js&quot;
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Running Eustia without any sub commands, the tool will find <strong>.eustia</strong>
+under current working directory to read configuration to generate libraries. It
+is almost the same as running build command from console, just a different way
+of passing options.</p>
+<blockquote>
+<p>For a full list of options can be used, please check
+<a href="http://liriliri.github.io/eustia/api.html">API</a> page.</p>
+</blockquote>
+<h2 id="prepare-lego-bricks">Prepare LEGO Bricks</h2>
+<p>Materials must be prepared first to cook a good meal. Right now, our materials
+is a bunch of functions. Eustia provides many in default. Still, there are times
+you want to add your own ones. To achieve that, create a directory named
+<strong>eustia</strong> in the root directory.</p>
+<p>Now, let&apos;s say I want to have a function to compare version numbers. The first
+step is to create a js file named <strong>compareVersion.js</strong> in <strong>eustia</strong> directory.
+Then fills it with actual codes to finish the procedure.</p>
+<pre><code class="language-javascript"><span class="token comment" spellcheck="true">// eustia/compareVersion.js</span>
+<span class="token function">_</span><span class="token punctuation">(</span><span class="token string">&apos;isStr each&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// dependencies</span>
+
+<span class="token comment" spellcheck="true">// export object</span>
+compareVersion <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>v1<span class="token punctuation">,</span> v2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isStr</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">isStr</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Now you can use <strong>compareVersion</strong> anywhere in your project.</p>
+<blockquote>
+<p>Using option <strong>library</strong> allows you to search functions in other paths, quite
+useful when sharing functions among several projects.</p>
+</blockquote>
+</div></div><footer>Built for <a href="https://github.com/liriliri">Liriliri</a> project 2014-2015</footer></body></html>

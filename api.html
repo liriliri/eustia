@@ -1,5 +1,92 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Eustia - A tool for building JavaScript utility libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Eustia: A Tool for Generating JavaScript Utility Libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
 {
     _.$('nav').toggleClass('collapsed');
-});</script><ul><li><a href="http://liriliri.github.io/eustia/guide/index.html">GUIDE</a></li><li><a href="http://liriliri.github.io/eustia/api.html">API</a></li><li><a href="http://liriliri.github.io/eustia/function.html">FUNCTION</a></li><li><a href="http://liriliri.github.io/eustia/module.html">MODULE</a></li><li><a href="http://liriliri.github.io/eustia/class.html">CLASS</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="md container intro"><p>Building:)</p>
+});</script><ul><li><a href="http://liriliri.github.io/eustia/guide.html">GUIDE</a></li><li><a href="http://liriliri.github.io/eustia/api.html">API</a></li><li><a href="http://liriliri.github.io/eustia/function.html">FUNCTION</a></li><li><a href="http://liriliri.github.io/eustia/module.html">MODULE</a></li><li><a href="http://liriliri.github.io/eustia/class.html">CLASS</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="md container mobile intro"><p>As a matter of fact, there&apos;s only one useful command <strong>build</strong> so far:(</p>
+<pre><code class="language-bash">eustia <span class="token operator">&lt;</span>command<span class="token operator">&gt;</span> <span class="token punctuation">[</span><span class="token operator">&lt;</span>options<span class="token operator">&gt;</span><span class="token punctuation">]</span>
+</code></pre>
+<h2 id="build">Build</h2>
+<p>Build JavaScript libraries by scanning files.</p>
+<p>When used in command line, the rest arguments will be treated as files.</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>shorthand</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exclude</td>
+<td>e</td>
+<td></td>
+<td>Functions excluded</td>
+</tr>
+<tr>
+<td>encoding</td>
+<td></td>
+<td>utf-8</td>
+<td>Input file encoding</td>
+</tr>
+<tr>
+<td>files</td>
+<td></td>
+<td>[&apos;*.html&apos;, &apos;*.js&apos;]</td>
+<td>Files to scan</td>
+</tr>
+<tr>
+<td>include</td>
+<td>i</td>
+<td></td>
+<td>Functions included</td>
+</tr>
+<tr>
+<td>ignore</td>
+<td></td>
+<td></td>
+<td>Files excluded</td>
+</tr>
+<tr>
+<td>library</td>
+<td>l</td>
+<td></td>
+<td>External library paths</td>
+</tr>
+<tr>
+<td>namespace</td>
+<td>n</td>
+<td>_</td>
+<td>Namespace of generated library</td>
+</tr>
+<tr>
+<td>output</td>
+<td>o</td>
+<td>util.js</td>
+<td>Output path</td>
+</tr>
+</tbody>
+</table>
+<h2 id="help">Help</h2>
+<p>Display help information.</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>shorthand</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command</td>
+<td>c</td>
+<td></td>
+<td>Command name</td>
+</tr>
+</tbody>
+</table>
+<h2 id="version">Version</h2>
+<p>Display version info.</p>
 </div></div><footer>Built for <a href="https://github.com/liriliri">Liriliri</a> project 2014-2015</footer></body></html>
