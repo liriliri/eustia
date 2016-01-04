@@ -44,6 +44,16 @@ window._ = (function()
     {
         var Class;
 
+        // @TODO
+
+        /* function
+         *
+         * Class: Create JavaScript class.
+         * methods(object): Public methods.
+         * statics(object): Static methods.
+         * return(function): Return function used to create instances.
+         */
+
         var regCallSuper = /callSuper/;
 
         function makeClass(parent, methods, statics)
@@ -106,6 +116,12 @@ window._ = (function()
     {
         var Cookie;
 
+        // @TODO
+
+        /* module
+         * Cookie: Simple api for handling browser cookies.
+         */
+
         var defOpts = { path: '/' };
 
         var cookie = function (key, val, options)
@@ -160,9 +176,18 @@ window._ = (function()
         };
 
         Cookie = {
-
+            /* member
+             * Cookie.get: Read cookie.
+             * key(string): The cookie name.
+             * return(string): Returns cookie value if exists, eles undefined.
+             */
             get: cookie,
-
+            /* member
+             * Cookie.set: Set cookie.
+             * key(string): The cookie name.
+             * val(string): The cookie value.
+             * options(Object): Options.
+             */
             set: cookie,
             remove: function (key, options)
             {
@@ -178,6 +203,12 @@ window._ = (function()
     _define('Emitter', ['Class', 'has', 'each', 'slice'], function (Class, has, each, slice)
     {
         var Emitter;
+
+        // @TODO
+
+        /* class
+         * Emitter: Event emitter.
+         */
 
         Emitter = Class({
             initialize: function ()
@@ -248,6 +279,8 @@ window._ = (function()
     _define('State', ['Emitter', 'each', 'isArr', 'some', 'slice'], function (Emitter, each, isArr, some, slice)
     {
         var State;
+
+        // @TODO
 
         function buildEvent(name, event)
         {
@@ -391,6 +424,22 @@ window._ = (function()
     {
         var allKeys;
 
+        /* function
+         *
+         * allKeys: Retrieve all the names of object's own and inherited properties.
+         * object(object): The object to query.
+         * return(array): Returns the array of all property names.
+         *
+         * ```javascript
+         * var obj = Object.create({ a: 0 });
+         * obj.b = 1;
+         * _.allKeys(obj) // -> ['a', 'b']
+         * ```
+         *
+         * > Members of Object's prototype won't be retrieved.
+         *
+         */
+
         allKeys = function (obj)
         {
             var keys = [], key;
@@ -407,6 +456,23 @@ window._ = (function()
     {
         var bind;
 
+        /* function
+         *
+         * bind: Create a function bound to a given object.
+         * function(function): The function to bind.
+         * context(*): This binding of given function.
+         * [rest](...*): Optional arguments.
+         * return(function): Returns the new bound function.
+         *
+         * ```javascript
+         * var fn = _.bind(function (msg)
+         * {
+         *     console.log(this.name + ':' + msg);
+         * }, {name: 'eustia'}, 'I am a utility library.');
+         * fn(); // -> 'eustia: I am a utility library.'
+         * ```
+         */
+
         bind = restArgs(function (fn, ctx, rest)
         {
             return restArgs(function (callArgs)
@@ -421,6 +487,8 @@ window._ = (function()
     _define('each', ['isArrLike', 'keys'], function (isArrLike, keys)
     {
         var each;
+
+        // @TODO
 
         each = function (obj, iteratee, ctx)
         {
@@ -448,6 +516,15 @@ window._ = (function()
     {
         var endWith;
 
+        // @TODO
+
+        /* function
+         * endWith: Checks if string ends with the given target string.
+         * string(string): The string to search.
+         * suffix(string): String suffix.
+         * return(boolean):  Returns true if string ends with target, else false.
+         */
+
         endWith = function (str, suffix)
         {
             var idx = str.length - suffix.length;
@@ -462,6 +539,8 @@ window._ = (function()
     {
         var extend;
 
+        // @TODO
+
         extend = _createAssigner(allKeys);
 
         _.extend = extend;
@@ -471,6 +550,8 @@ window._ = (function()
     {
         var extendOwn;
 
+        // @TODO
+
         extendOwn = _createAssigner(keys);
 
         _.extendOwn = extendOwn;
@@ -479,6 +560,15 @@ window._ = (function()
     _define('has', [], function ()
     {
         var has;
+
+        // @TODO
+
+        /* function
+         * has: Checks if key is a direct property.
+         * object(object): The object to query.
+         * key(string): The path to check.
+         * return(boolean): Returns true if key is a direct property, else false.
+         */
 
         var hasOwnProp = Object.prototype.hasOwnProperty;
 
@@ -491,6 +581,14 @@ window._ = (function()
     {
         var identity;
 
+        // @TODO
+
+        /* function
+         * identity: This method returns the first argument provided to it.
+         * value(*): Any value.
+         * return(*): Returns value.
+         */
+
         identity = function (value) { return value };
 
         _.identity = identity;
@@ -499,6 +597,14 @@ window._ = (function()
     _define('inherits', [], function ()
     {
         var inherits;
+
+        // @TODO
+
+        /* function
+         * inherits: Inherit the prototype methods from one constructor into another.
+         * Class(function): Child Class.
+         * SuperClass(function): Super Class.
+         */
 
         var objCreate = Object.create;
 
@@ -519,6 +625,16 @@ window._ = (function()
     {
         var invert;
 
+        // @TODO
+
+        /* function
+         * invert: Creates an object composed of the inverted keys and values of object.
+         * object(object): The object to invert.
+         * return(object): Returns the new inverted object.
+         * If object contains duplicate values, subsequent values overwrite property
+         * assignments of previous values unless multiValue is true.
+         */
+
         invert = function (obj)
         {
             var ret = {};
@@ -535,6 +651,14 @@ window._ = (function()
     {
         var isArr;
 
+        // @TODO
+
+        /* function
+         * isArr: Check if value is classified as an Array Object
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
         var nativeIsArr = Array.isArray;
 
         isArr = nativeIsArr || function (val)
@@ -548,6 +672,8 @@ window._ = (function()
     _define('isArrLike', ['isNum', 'has'], function (isNum, has)
     {
         var isArrLike;
+
+        // @TODO
 
         var MAX_ARR_IDX = Math.pow(2, 53) - 1;
 
@@ -567,6 +693,14 @@ window._ = (function()
     {
         var isBool;
 
+        // @TODO
+
+        /* function
+         * isBool: Checks if value is classified as a boolean primitive or object.
+         * val(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
         isBool = function (val) { return val === true || val === false };
 
         _.isBool = isBool;
@@ -575,6 +709,14 @@ window._ = (function()
     _define('isFn', ['_toStr'], function (_toStr)
     {
         var isFn;
+
+        // @TODO
+
+        /* function
+         * isFn: Checks if value is classified as a Function object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
 
         isFn = function (val) { return _toStr.call(val) === '[object Function]' };
 
@@ -585,6 +727,14 @@ window._ = (function()
     {
         var isInt;
 
+        // @TODO
+
+        /* function
+         * isInt: Checks if value is classified as a Integer.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
         isInt = function (val) { return isNum(val) && (val % 1 === 0) };
 
         _.isInt = isInt;
@@ -593,6 +743,8 @@ window._ = (function()
     _define('isMatch', ['keys'], function (keys)
     {
         var isMatch;
+
+        // @TODO
 
         isMatch = function (obj, attrs)
         {
@@ -619,6 +771,14 @@ window._ = (function()
     {
         var isNum;
 
+        // @TODO
+
+        /* function
+         * isNum: Checks if value is classified as a Number primitive or object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
         isNum = function (value) { return _toStr.call(value) === '[object Number]' };
 
         _.isNum = isNum;
@@ -627,6 +787,14 @@ window._ = (function()
     _define('isObj', [], function ()
     {
         var isObj;
+
+        // @TODO
+
+        /* function
+         * isObj: Checks if value is the language type of Object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is an object, else false.
+         */
 
         isObj = function (val)
         {
@@ -642,6 +810,14 @@ window._ = (function()
     {
         var isStr;
 
+        // @TODO
+
+        /* function
+         * isStr: Checks if value is classified as a String primitive or object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
         isStr = function (value) { return _toStr.call(value) === '[object String]' };
 
         _.isStr = isStr;
@@ -651,6 +827,21 @@ window._ = (function()
     {
         var isUndef;
 
+        /* function
+         *
+         * isUndef: Checks if value is undefined.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is undefined, else false.
+         *
+         * ```javascript
+         * _.isUndef(void 0) // -> true
+         * _.isUndef(null) // -> false
+         * ```
+         *
+         * Just a shortcut for **x === undefined**, doesn't matter that much whether you
+         * use it or not.
+         */
+
         isUndef = function (value) { return value === void 0 };
 
         _.isUndef = isUndef;
@@ -659,6 +850,14 @@ window._ = (function()
     _define('keys', ['isObj', 'has'], function (isObj, has)
     {
         var keys;
+
+        // @TODO
+
+        /* function
+         * keys: Creates an array of the own enumerable property names of object.
+         * object(object): The object to query.
+         * return(array): Returns the array of property names.
+         */
 
         var nativeKeys = Object.keys;
 
@@ -678,6 +877,14 @@ window._ = (function()
     {
         var last;
 
+        // @TODO
+
+        /* function
+         * last: Gets the last element of array.
+         * array(array): The array to query.
+         * return(*): Returns the last element of array.
+         */
+
         last = function (arr)
         {
             var len = arr ? arr.length : 0;
@@ -692,6 +899,15 @@ window._ = (function()
     {
         var lpad;
 
+        // @TODO
+
+        /* function
+         * lpad: Pads string on the left side if it's shorter than length.
+         * string(string): The string to pad.
+         * length(number): The padding length.
+         * chars(string): The string used as padding.
+         */
+
         lpad = function (str, len, chars)
         {
             var strLen = str.length;
@@ -705,6 +921,8 @@ window._ = (function()
     _define('ltrim', [], function ()
     {
         var ltrim;
+
+        // @TODO
 
         var regSpace = /^\s+/;
 
@@ -745,6 +963,8 @@ window._ = (function()
     {
         var map;
 
+        // @TODO
+
         map = function (obj, iteratee, ctx)
         {
             iteratee = _cb(iteratee, ctx);
@@ -769,6 +989,8 @@ window._ = (function()
     {
         var matcher;
 
+        // @TODO
+
         matcher = function (attrs)
         {
             attrs = extendOwn({}, attrs);
@@ -786,6 +1008,15 @@ window._ = (function()
     {
         var pad;
 
+        // @TODO
+
+        /* function
+         * pad: Pads string on the left and right sides if it's shorter than length.
+         * string(string): The string to pad.
+         * length(number): The padding length.
+         * chars(string): The string used as padding.
+         */
+
         pad = function (str, len, chars)
         {
             var padLen = len - str.length;
@@ -800,6 +1031,15 @@ window._ = (function()
     _define('random', [], function ()
     {
         var random;
+
+        // @TODO
+
+        /* function
+         * random: Produces a random number between min and max (inclusive).
+         * min(number): The minimum possible value.
+         * max(number): The maximum possible value.
+         * return(number): Returns the random number.
+         */
 
         random = function (min, max)
         {
@@ -818,6 +1058,15 @@ window._ = (function()
     _define('repeat', [], function ()
     {
         var repeat;
+
+        // @TODO
+
+        /* function
+         * repeat: Repeat string n-times.
+         * string(string): The string to repeat.
+         * n(number): Repeat times.
+         * return(string): Repeated string.
+         */
 
         repeat = function (str, n)
         {
@@ -842,6 +1091,19 @@ window._ = (function()
     {
         var restArgs;
 
+        /* function
+         *
+         * restArgs: This accumulates the arguments passed into an array, after a given index.
+         * function(function): Function that needs rest parameters.
+         * startIndex(number): The start index to accumulates.
+         * return(function): Generated function with rest parameters.
+         *
+         * ```javascript
+         * var paramArr = _.restArs(function (rest) { return rest });
+         * paramArr(1, 2, 3, 4); // -> [1, 2, 3, 4]
+         * ```
+         */
+
         restArgs = function (fn, startIdx)
         {
             startIdx = startIdx == null ? fn.length - 1 : +startIdx;
@@ -853,6 +1115,7 @@ window._ = (function()
 
                 for (var i = 0; i < len; i++) rest[i] = arguments[i + startIdx];
 
+                // Call runs faster than apply.
                 switch (startIdx)
                 {
                     case 0: return fn.call(this, rest);
@@ -877,6 +1140,17 @@ window._ = (function()
     {
         var rpad;
 
+        // @TODO
+
+        /* function
+         *
+         * rpad: Pads string on the right side if it's shorter than length.
+         * string(string): The string to pad.
+         * length(number): Padding length.
+         * chars(string): String used as padding.
+         * return(string): Resulted string.
+         */
+
         rpad = function (str, len, chars)
         {
             var strLen = str.length;
@@ -890,6 +1164,8 @@ window._ = (function()
     _define('rtrim', [], function ()
     {
         var rtrim;
+
+        // @TODO
 
         var regSpace = /\s+$/;
 
@@ -929,6 +1205,8 @@ window._ = (function()
     {
         var slice;
 
+        // @TODO
+
         var arrProto = Array.prototype;
 
         slice = function (arr, start, end)
@@ -942,6 +1220,8 @@ window._ = (function()
     _define('some', ['_cb', 'isArrLike', 'keys'], function (_cb, isArrLike, keys)
     {
         var some;
+
+        // @TODO
 
         some = function (obj, predicate, ctx)
         {
@@ -966,6 +1246,15 @@ window._ = (function()
     {
         var startWith;
 
+        // @TODO
+
+        /* function
+         * startWith: Checks if string starts with the given target string.
+         * string(string): The string to search.
+         * prefix(string): String prefix.
+         * return(boolean): Returns true if string starts with prefix, else false.
+         */
+
         startWith = function (str, prefix) { return str.indexOf(prefix) === 0 };
 
         _.startWith = startWith;
@@ -974,6 +1263,8 @@ window._ = (function()
     _define('toArray', ['isArr', 'slice', 'isStr', 'isArrLike', 'map', 'identity', 'values'], function (isArr, slice, isStr, isArrLike, map, identity, values)
     {
         var toArray;
+
+        // @TODO
 
         var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
 
@@ -997,6 +1288,8 @@ window._ = (function()
     {
         var trim;
 
+        // @TODO
+
         var regSpace = /^\s+|\s+$/g;
 
         trim = function (str, chars)
@@ -1012,6 +1305,8 @@ window._ = (function()
     _define('values', ['keys'], function (keys)
     {
         var values;
+
+        // @TODO
 
         values = function (obj)
         {

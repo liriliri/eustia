@@ -1,9 +1,7 @@
 _('rpad each');
 
 var handlebars = require('handlebars'),
-    chalk      = require('chalk'),
-    path = require('path'),
-    fs   = require('fs');
+    chalk      = require('chalk');
 
 handlebars.registerHelper('rapd', function (len, ctx)
 {
@@ -32,30 +30,17 @@ log = function (msg, tpl)
     process.stdout.write(msg + '\n');
 };
 
-var errLogPath = path.resolve(process.cwd(), './eustia-debug.log');
-
-log.err = function (msg)
-{
-    log.color(msg, 'red');
-
-    fs.writeFileSync(errLogPath, msgs.join('\n'), 'utf-8');
-
-    process.exit();
-};
+log.err = function (msg) { log.color(msg, 'red') };
 
 log.warn = function (msg) { log.color(msg, 'yellow') };
 
-log.ok = function (msg)
-{
-    log.color(msg, 'green');
-    fs.exists(errLogPath, function (result) { if (result) fs.unlink(errLogPath) });
-};
+log.ok = function (msg) { log.color(msg, 'green') };
 
 log.color = function (msg, color)
 {
-    log({
-        msg: msg
-    }, '{{#' + color + '}}{{msg}}{{/' + color + '}}');
+    log({ msg: msg }, '{{#' + color + '}}{{msg}}{{/' + color + '}}');
 };
+
+log.get = function () { return msgs };
 
 log.enable = function () { enabled = true };

@@ -1,4 +1,4 @@
-stripComments = function (str)
+stripCmts = function (str)
 {
     str = ('__' + str + '__').split('');
     var mode = {

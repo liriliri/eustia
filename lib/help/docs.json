@@ -1,0 +1,33 @@
+{
+    "command": "docs",
+    "description": "Generate documentation.",
+    "usage": [
+        "docs [<options>]",
+        "docs --input util.js -o docs.html"
+    ],
+    "options": [
+        {
+            "flag": "--encoding",
+            "description": "Input file encoding, default to utf-8"
+        },
+        {
+            "flag": "--input",
+            "description": "Generated eustia library"
+        },
+        {
+            "shorthand": "-o",
+            "flag": "--output",
+            "description": "Output path, default to docs.html"
+        },
+        {
+            "shorthand": "-r",
+            "flag": "--raw",
+            "description": "Output json, defaults to false"
+        },
+        {
+            "shorthand": "-t",
+            "flag": "--title",
+            "description": "Documentation title"
+        }
+    ]
+}
