@@ -3,38 +3,6 @@ window._ = (function()
 {
     var _ = {};
 
-    var allKeys = _.allKeys = (function ()
-    {
-        var allKeys;
-
-        /* function
-         *
-         * allKeys: Retrieve all the names of object's own and inherited properties.
-         * object(object): The object to query.
-         * return(array): Returns the array of all property names.
-         *
-         * ```javascript
-         * var obj = Object.create({ a: 0 });
-         * obj.b = 1;
-         * _.allKeys(obj) // -> ['a', 'b']
-         * ```
-         *
-         * > Members of Object's prototype won't be retrieved.
-         *
-         */
-
-        allKeys = function (obj)
-        {
-            var keys = [], key;
-
-            for (key in obj) keys.push(key);
-
-            return keys;
-        };
-
-        return allKeys;
-    })();
-
     var inherits = _.inherits = (function ()
     {
         var inherits;
@@ -80,6 +48,348 @@ window._ = (function()
         has = function (obj, key) { return hasOwnProp.call(obj, key) };
 
         return has;
+    })();
+
+    var slice = _.slice = (function ()
+    {
+        var slice;
+
+        // @TODO
+
+        var arrProto = Array.prototype;
+
+        slice = function (arr, start, end)
+        {
+            return arrProto.slice.call(arr, start, end);
+        };
+
+        return slice;
+    })();
+
+    var identity = _.identity = (function ()
+    {
+        var identity;
+
+        // @TODO
+
+        /* function
+         * identity: This method returns the first argument provided to it.
+         * value(*): Any value.
+         * return(*): Returns value.
+         */
+
+        identity = function (value) { return value };
+
+        return identity;
+    })();
+
+    var isObj = _.isObj = (function ()
+    {
+        var isObj;
+
+        // @TODO
+
+        /* function
+         * isObj: Checks if value is the language type of Object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is an object, else false.
+         */
+
+        isObj = function (val)
+        {
+            var type = typeof val;
+
+            return type === 'function' || type === 'object';
+        };
+
+        return isObj;
+    })();
+
+    var isUndef = _.isUndef = (function ()
+    {
+        var isUndef;
+
+        /* function
+         *
+         * isUndef: Checks if value is undefined.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is undefined, else false.
+         *
+         * ```javascript
+         * _.isUndef(void 0) // -> true
+         * _.isUndef(null) // -> false
+         * ```
+         *
+         * Just a shortcut for **x === undefined**, doesn't matter that much whether you
+         * use it or not.
+         */
+
+        isUndef = function (value) { return value === void 0 };
+
+        return isUndef;
+    })();
+
+    var _createAssigner = _._createAssigner = (function ()
+    {
+        var _createAssigner;
+
+        _createAssigner = function (keysFunc, defaults)
+        {
+            return function (obj)
+            {
+                var len = arguments.length;
+
+                if (defaults) obj = Object(obj);
+
+                if (len < 2 || obj == null) return obj;
+
+                for (var i = 1; i < len; i++)
+                {
+                    var src     = arguments[i],
+                        keys    = keysFunc(src),
+                        keysLen = keys.length;
+
+                    for (var j = 0; j < keysLen; j++)
+                    {
+                        var key = keys[j];
+                        if (!defaults || isUndef(obj[key])) obj[key] = src[key];
+                    }
+                }
+
+                return obj;
+            };
+        };
+
+        return _createAssigner;
+    })();
+
+    var _optimizeCb = _._optimizeCb = (function ()
+    {
+        var _optimizeCb;
+
+        _optimizeCb = function (func, ctx, argCount)
+        {
+            if (isUndef(ctx)) return func;
+
+            switch (argCount == null ? 3 : argCount)
+            {
+                case 1: return function (val)
+                {
+                    return func.call(ctx, val);
+                };
+                case 3: return function (val, idx, collection)
+                {
+                    return func.call(ctx, val, idx, collection);
+                };
+                case 4: return function (accumulator, val, idx, collection)
+                {
+                    return func.call(ctx, accumulator, val, idx, collection);
+                }
+            }
+
+            return function ()
+            {
+                return func.apply(ctx, arguments);
+            };
+        };
+
+        return _optimizeCb;
+    })();
+
+    var _toStr = _._toStr = (function ()
+    {
+        var _toStr;
+
+        _toStr = Object.prototype.toString;
+
+        return _toStr;
+    })();
+
+    var isArr = _.isArr = (function ()
+    {
+        var isArr;
+
+        // @TODO
+
+        /* function
+         * isArr: Check if value is classified as an Array Object
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
+        var nativeIsArr = Array.isArray;
+
+        isArr = nativeIsArr || function (val)
+        {
+            return _toStr.call(val) === '[object Array]';
+        };
+
+        return isArr;
+    })();
+
+    var isFn = _.isFn = (function ()
+    {
+        var isFn;
+
+        // @TODO
+
+        /* function
+         * isFn: Checks if value is classified as a Function object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
+        isFn = function (val) { return _toStr.call(val) === '[object Function]' };
+
+        return isFn;
+    })();
+
+    var isNum = _.isNum = (function ()
+    {
+        var isNum;
+
+        // @TODO
+
+        /* function
+         * isNum: Checks if value is classified as a Number primitive or object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
+        isNum = function (value) { return _toStr.call(value) === '[object Number]' };
+
+        return isNum;
+    })();
+
+    var allKeys = _.allKeys = (function ()
+    {
+        var allKeys;
+
+        /* function
+         *
+         * allKeys: Retrieve all the names of object's own and inherited properties.
+         * object(object): The object to query.
+         * return(array): Returns the array of all property names.
+         *
+         * ```javascript
+         * var obj = Object.create({ a: 0 });
+         * obj.b = 1;
+         * _.allKeys(obj) // -> ['a', 'b']
+         * ```
+         *
+         * > Members of Object's prototype won't be retrieved.
+         *
+         */
+
+        allKeys = function (obj)
+        {
+            var keys = [], key;
+
+            for (key in obj) keys.push(key);
+
+            return keys;
+        };
+
+        return allKeys;
+    })();
+
+    var extend = _.extend = (function ()
+    {
+        var extend;
+
+        // @TODO
+
+        extend = _createAssigner(allKeys);
+
+        return extend;
+    })();
+
+    var Cookie = _.Cookie = (function ()
+    {
+        var Cookie;
+
+        // @TODO
+
+        /* module
+         * Cookie: Simple api for handling browser cookies.
+         */
+
+        var defOpts = { path: '/' };
+
+        var cookie = function (key, val, options)
+        {
+            if (arguments.length > 1)
+            {
+                options = extend(defOpts, options);
+
+                if (isNum(options.expires))
+                {
+                    var expires = new Date();
+                    expires.setMilliseconds(expires.getMilliseconds() + options.expires * 864e+5);
+                    options.expires = expires;
+                }
+
+                val = encodeURIComponent(String(val));
+                key = encodeURIComponent(key);
+
+                document.cookie = [
+                    key, '=', val,
+                    options.expires && '; expires=' + options.expires.toUTCString(),
+                    options.path    && '; path=' + options.path,
+                    options.domain  && '; domain=' + options.domain,
+                    options.secure ? '; secure' : ''
+                ].join('');
+
+                return Cookie;
+            }
+
+            var cookies = document.cookie ? document.cookie.split('; ') : [],
+                result  = key ? undefined : {};
+
+            for (var i = 0, len = cookies.length; i < len; i++)
+            {
+                var cookie = cookies[i],
+                    parts  = cookie.split('='),
+                    name   = decodeURIComponent(parts.shift());
+
+                cookie = parts.join('=');
+                cookie = decodeURIComponent(cookie);
+
+                if (key === name)
+                {
+                    result = cookie;
+                    break;
+                }
+
+                if (!key) result[name] = cookie;
+            }
+
+            return result;
+        };
+
+        Cookie = {
+            /* member
+             * Cookie.get: Read cookie.
+             * key(string): The cookie name.
+             * return(string): Returns cookie value if exists, eles undefined.
+             */
+            get: cookie,
+            /* member
+             * Cookie.set: Set cookie.
+             * key(string): The cookie name.
+             * val(string): The cookie value.
+             * options(Object): Options.
+             */
+            set: cookie,
+            remove: function (key, options)
+            {
+                options = options || {};
+                options.expires = -1;
+                return cookie(key, '', options);
+            }
+        };
+
+        return Cookie;
     })();
 
     var restArgs = _.restArgs = (function ()
@@ -163,142 +473,24 @@ window._ = (function()
         return bind;
     })();
 
-    var slice = _.slice = (function ()
+    var isArrLike = _.isArrLike = (function ()
     {
-        var slice;
+        var isArrLike;
 
         // @TODO
 
-        var arrProto = Array.prototype;
+        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
 
-        slice = function (arr, start, end)
+        isArrLike = function (val)
         {
-            return arrProto.slice.call(arr, start, end);
+            if (!has(val, 'length')) return false;
+
+            var len = val.length;
+
+            return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
         };
 
-        return slice;
-    })();
-
-    var endWith = _.endWith = (function ()
-    {
-        var endWith;
-
-        // @TODO
-
-        /* function
-         * endWith: Checks if string ends with the given target string.
-         * string(string): The string to search.
-         * suffix(string): String suffix.
-         * return(boolean):  Returns true if string ends with target, else false.
-         */
-
-        endWith = function (str, suffix)
-        {
-            var idx = str.length - suffix.length;
-
-            return idx >= 0 && str.indexOf(suffix, idx) === idx;
-        };
-
-        return endWith;
-    })();
-
-    var isBool = _.isBool = (function ()
-    {
-        var isBool;
-
-        // @TODO
-
-        /* function
-         * isBool: Checks if value is classified as a boolean primitive or object.
-         * val(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
-         */
-
-        isBool = function (val) { return val === true || val === false };
-
-        return isBool;
-    })();
-
-    var _toStr = _._toStr = (function ()
-    {
-        var _toStr;
-
-        _toStr = Object.prototype.toString;
-
-        return _toStr;
-    })();
-
-    var isFn = _.isFn = (function ()
-    {
-        var isFn;
-
-        // @TODO
-
-        /* function
-         * isFn: Checks if value is classified as a Function object.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
-         */
-
-        isFn = function (val) { return _toStr.call(val) === '[object Function]' };
-
-        return isFn;
-    })();
-
-    var isNum = _.isNum = (function ()
-    {
-        var isNum;
-
-        // @TODO
-
-        /* function
-         * isNum: Checks if value is classified as a Number primitive or object.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
-         */
-
-        isNum = function (value) { return _toStr.call(value) === '[object Number]' };
-
-        return isNum;
-    })();
-
-    var isInt = _.isInt = (function ()
-    {
-        var isInt;
-
-        // @TODO
-
-        /* function
-         * isInt: Checks if value is classified as a Integer.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
-         */
-
-        isInt = function (val) { return isNum(val) && (val % 1 === 0) };
-
-        return isInt;
-    })();
-
-    var isObj = _.isObj = (function ()
-    {
-        var isObj;
-
-        // @TODO
-
-        /* function
-         * isObj: Checks if value is the language type of Object.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is an object, else false.
-         */
-
-        isObj = function (val)
-        {
-            var type = typeof val;
-
-            return type === 'function' || type === 'object';
-        };
-
-        return isObj;
+        return isArrLike;
     })();
 
     var keys = _.keys = (function ()
@@ -327,6 +519,223 @@ window._ = (function()
         return keys;
     })();
 
+    var each = _.each = (function ()
+    {
+        var each;
+
+        // @TODO
+
+        each = function (obj, iteratee, ctx)
+        {
+            var i, len;
+
+            if (isArrLike(obj))
+            {
+                for (i = 0, len = obj.length; i < len; i++) iteratee.call(ctx, obj[i], i, obj);
+            } else
+            {
+                var _keys = keys(obj);
+                for (i = 0, len = _keys.length; i < len; i++)
+                {
+                    iteratee.call(ctx, obj[_keys[i]], _keys[i], obj);
+                }
+            }
+
+            return obj;
+        };
+
+        return each;
+    })();
+
+    var endWith = _.endWith = (function ()
+    {
+        var endWith;
+
+        // @TODO
+
+        /* function
+         * endWith: Checks if string ends with the given target string.
+         * string(string): The string to search.
+         * suffix(string): String suffix.
+         * return(boolean):  Returns true if string ends with target, else false.
+         */
+
+        endWith = function (str, suffix)
+        {
+            var idx = str.length - suffix.length;
+
+            return idx >= 0 && str.indexOf(suffix, idx) === idx;
+        };
+
+        return endWith;
+    })();
+
+    var extendOwn = _.extendOwn = (function ()
+    {
+        var extendOwn;
+
+        // @TODO
+
+        extendOwn = _createAssigner(keys);
+
+        return extendOwn;
+    })();
+
+    var invert = _.invert = (function ()
+    {
+        var invert;
+
+        // @TODO
+
+        /* function
+         * invert: Creates an object composed of the inverted keys and values of object.
+         * object(object): The object to invert.
+         * return(object): Returns the new inverted object.
+         * If object contains duplicate values, subsequent values overwrite property
+         * assignments of previous values unless multiValue is true.
+         */
+
+        invert = function (obj)
+        {
+            var ret = {};
+
+            each(obj, function (val, key) { ret[val] = key });
+
+            return ret;
+        };
+
+        return invert;
+    })();
+
+    var isBool = _.isBool = (function ()
+    {
+        var isBool;
+
+        // @TODO
+
+        /* function
+         * isBool: Checks if value is classified as a boolean primitive or object.
+         * val(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
+        isBool = function (val) { return val === true || val === false };
+
+        return isBool;
+    })();
+
+    var isInt = _.isInt = (function ()
+    {
+        var isInt;
+
+        // @TODO
+
+        /* function
+         * isInt: Checks if value is classified as a Integer.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
+        isInt = function (val) { return isNum(val) && (val % 1 === 0) };
+
+        return isInt;
+    })();
+
+    var isMatch = _.isMatch = (function ()
+    {
+        var isMatch;
+
+        // @TODO
+
+        isMatch = function (obj, attrs)
+        {
+            var _keys = keys(attrs),
+                len   = _keys.length;
+
+            if (obj == null) return !len;
+
+            obj = Object(obj);
+
+            for (var i = 0; i < len; i++)
+            {
+                var key = keys[i];
+                if (attrs[key] !== obj[key] || !(key in obj)) return false;
+            }
+
+            return true;
+        };
+
+        return isMatch;
+    })();
+
+    var matcher = _.matcher = (function ()
+    {
+        var matcher;
+
+        // @TODO
+
+        matcher = function (attrs)
+        {
+            attrs = extendOwn({}, attrs);
+
+            return function (obj)
+            {
+                return isMatch(obj, attrs);
+            };
+        };
+
+        return matcher;
+    })();
+
+    var _cb = _._cb = (function ()
+    {
+        var _cb;
+
+        _cb = function (val, ctx, argCount)
+        {
+            if (val == null) return identity;
+
+            if (isFn(val)) return _optimizeCb(val, ctx, argCount);
+
+            if (isObj(val)) return matcher(val);
+
+            return function (key)
+            {
+                return function (obj)
+                {
+                    return obj == null ? undefined : obj[key];
+                }
+            };
+        };
+
+        return _cb;
+    })();
+
+    var some = _.some = (function ()
+    {
+        var some;
+
+        // @TODO
+
+        some = function (obj, predicate, ctx)
+        {
+            predicate = _cb(predicate, ctx);
+
+            var _keys = !isArrLike(obj) && keys(obj),
+                len   = (_keys || obj).length;
+
+            for (var i = 0; i < len; i++)
+            {
+                var key = _keys ? _keys[i] : i;
+                if (predicate(obj[key], key, obj)) return true;
+            }
+
+            return false;
+        };
+
+        return some;
+    })();
+
     var isStr = _.isStr = (function ()
     {
         var isStr;
@@ -342,30 +751,6 @@ window._ = (function()
         isStr = function (value) { return _toStr.call(value) === '[object String]' };
 
         return isStr;
-    })();
-
-    var isUndef = _.isUndef = (function ()
-    {
-        var isUndef;
-
-        /* function
-         *
-         * isUndef: Checks if value is undefined.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is undefined, else false.
-         *
-         * ```javascript
-         * _.isUndef(void 0) // -> true
-         * _.isUndef(null) // -> false
-         * ```
-         *
-         * Just a shortcut for **x === undefined**, doesn't matter that much whether you
-         * use it or not.
-         */
-
-        isUndef = function (value) { return value === void 0 };
-
-        return isUndef;
     })();
 
     var last = _.last = (function ()
@@ -486,6 +871,56 @@ window._ = (function()
         return ltrim;
     })();
 
+    var map = _.map = (function ()
+    {
+        var map;
+
+        // @TODO
+
+        map = function (obj, iteratee, ctx)
+        {
+            iteratee = _cb(iteratee, ctx);
+
+            var _keys   = !isArrLike(obj) && keys(obj),
+                len     = (_keys || obj).length,
+                results = Array(len);
+
+            for (var i = 0; i < len; i++)
+            {
+                var curKey = _keys ? _keys[i] : i;
+                results[i] = iteratee(obj[curKey], curKey, obj);
+            }
+
+            return results;
+        };
+
+        return map;
+    })();
+
+    var pad = _.pad = (function ()
+    {
+        var pad;
+
+        // @TODO
+
+        /* function
+         * pad: Pads string on the left and right sides if it's shorter than length.
+         * string(string): The string to pad.
+         * length(number): The padding length.
+         * chars(string): The string used as padding.
+         */
+
+        pad = function (str, len, chars)
+        {
+            var padLen = len - str.length;
+
+            return repeat(chars, Math.ceil(padLen / 2)) + str +
+                   repeat(chars, Math.floor(padLen /2));
+        };
+
+        return pad;
+    })();
+
     var random = _.random = (function ()
     {
         var random;
@@ -513,30 +948,6 @@ window._ = (function()
         return random;
     })();
 
-    var pad = _.pad = (function ()
-    {
-        var pad;
-
-        // @TODO
-
-        /* function
-         * pad: Pads string on the left and right sides if it's shorter than length.
-         * string(string): The string to pad.
-         * length(number): The padding length.
-         * chars(string): The string used as padding.
-         */
-
-        pad = function (str, len, chars)
-        {
-            var padLen = len - str.length;
-
-            return repeat(chars, Math.ceil(padLen / 2)) + str +
-                   repeat(chars, Math.floor(padLen /2));
-        };
-
-        return pad;
-    })();
-
     var rpad = _.rpad = (function ()
     {
         var rpad;
@@ -560,24 +971,6 @@ window._ = (function()
         };
 
         return rpad;
-    })();
-
-    var startWith = _.startWith = (function ()
-    {
-        var startWith;
-
-        // @TODO
-
-        /* function
-         * startWith: Checks if string starts with the given target string.
-         * string(string): The string to search.
-         * prefix(string): String prefix.
-         * return(boolean): Returns true if string starts with prefix, else false.
-         */
-
-        startWith = function (str, prefix) { return str.indexOf(prefix) === 0 };
-
-        return startWith;
     })();
 
     var rtrim = _.rtrim = (function ()
@@ -620,268 +1013,22 @@ window._ = (function()
         return rtrim;
     })();
 
-    var isArr = _.isArr = (function ()
+    var startWith = _.startWith = (function ()
     {
-        var isArr;
+        var startWith;
 
         // @TODO
 
         /* function
-         * isArr: Check if value is classified as an Array Object
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
+         * startWith: Checks if string starts with the given target string.
+         * string(string): The string to search.
+         * prefix(string): String prefix.
+         * return(boolean): Returns true if string starts with prefix, else false.
          */
 
-        var nativeIsArr = Array.isArray;
+        startWith = function (str, prefix) { return str.indexOf(prefix) === 0 };
 
-        isArr = nativeIsArr || function (val)
-        {
-            return _toStr.call(val) === '[object Array]';
-        };
-
-        return isArr;
-    })();
-
-    var trim = _.trim = (function ()
-    {
-        var trim;
-
-        // @TODO
-
-        var regSpace = /^\s+|\s+$/g;
-
-        trim = function (str, chars)
-        {
-            if (chars == null) return str.replace(regSpace, '');
-
-            return ltrim(rtrim(str, chars), chars);
-        };
-
-        return trim;
-    })();
-
-    var _createAssigner = _._createAssigner = (function ()
-    {
-        var _createAssigner;
-
-        _createAssigner = function (keysFunc, defaults)
-        {
-            return function (obj)
-            {
-                var len = arguments.length;
-
-                if (defaults) obj = Object(obj);
-
-                if (len < 2 || obj == null) return obj;
-
-                for (var i = 1; i < len; i++)
-                {
-                    var src     = arguments[i],
-                        keys    = keysFunc(src),
-                        keysLen = keys.length;
-
-                    for (var j = 0; j < keysLen; j++)
-                    {
-                        var key = keys[j];
-                        if (!defaults || isUndef(obj[key])) obj[key] = src[key];
-                    }
-                }
-
-                return obj;
-            };
-        };
-
-        return _createAssigner;
-    })();
-
-    var extend = _.extend = (function ()
-    {
-        var extend;
-
-        // @TODO
-
-        extend = _createAssigner(allKeys);
-
-        return extend;
-    })();
-
-    var Cookie = _.Cookie = (function ()
-    {
-        var Cookie;
-
-        // @TODO
-
-        /* module
-         * Cookie: Simple api for handling browser cookies.
-         */
-
-        var defOpts = { path: '/' };
-
-        var cookie = function (key, val, options)
-        {
-            if (arguments.length > 1)
-            {
-                options = extend(defOpts, options);
-
-                if (isNum(options.expires))
-                {
-                    var expires = new Date();
-                    expires.setMilliseconds(expires.getMilliseconds() + options.expires * 864e+5);
-                    options.expires = expires;
-                }
-
-                val = encodeURIComponent(String(val));
-                key = encodeURIComponent(key);
-
-                document.cookie = [
-                    key, '=', val,
-                    options.expires && '; expires=' + options.expires.toUTCString(),
-                    options.path    && '; path=' + options.path,
-                    options.domain  && '; domain=' + options.domain,
-                    options.secure ? '; secure' : ''
-                ].join('');
-
-                return Cookie;
-            }
-
-            var cookies = document.cookie ? document.cookie.split('; ') : [],
-                result  = key ? undefined : {};
-
-            for (var i = 0, len = cookies.length; i < len; i++)
-            {
-                var cookie = cookies[i],
-                    parts  = cookie.split('='),
-                    name   = decodeURIComponent(parts.shift());
-
-                cookie = parts.join('=');
-                cookie = decodeURIComponent(cookie);
-
-                if (key === name)
-                {
-                    result = cookie;
-                    break;
-                }
-
-                if (!key) result[name] = cookie;
-            }
-
-            return result;
-        };
-
-        Cookie = {
-            /* member
-             * Cookie.get: Read cookie.
-             * key(string): The cookie name.
-             * return(string): Returns cookie value if exists, eles undefined.
-             */
-            get: cookie,
-            /* member
-             * Cookie.set: Set cookie.
-             * key(string): The cookie name.
-             * val(string): The cookie value.
-             * options(Object): Options.
-             */
-            set: cookie,
-            remove: function (key, options)
-            {
-                options = options || {};
-                options.expires = -1;
-                return cookie(key, '', options);
-            }
-        };
-
-        return Cookie;
-    })();
-
-    var isArrLike = _.isArrLike = (function ()
-    {
-        var isArrLike;
-
-        // @TODO
-
-        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
-
-        isArrLike = function (val)
-        {
-            if (!has(val, 'length')) return false;
-
-            var len = val.length;
-
-            return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
-        };
-
-        return isArrLike;
-    })();
-
-    var each = _.each = (function ()
-    {
-        var each;
-
-        // @TODO
-
-        each = function (obj, iteratee, ctx)
-        {
-            var i, len;
-
-            if (isArrLike(obj))
-            {
-                for (i = 0, len = obj.length; i < len; i++) iteratee.call(ctx, obj[i], i, obj);
-            } else
-            {
-                var _keys = keys(obj);
-                for (i = 0, len = _keys.length; i < len; i++)
-                {
-                    iteratee.call(ctx, obj[_keys[i]], _keys[i], obj);
-                }
-            }
-
-            return obj;
-        };
-
-        return each;
-    })();
-
-    var invert = _.invert = (function ()
-    {
-        var invert;
-
-        // @TODO
-
-        /* function
-         * invert: Creates an object composed of the inverted keys and values of object.
-         * object(object): The object to invert.
-         * return(object): Returns the new inverted object.
-         * If object contains duplicate values, subsequent values overwrite property
-         * assignments of previous values unless multiValue is true.
-         */
-
-        invert = function (obj)
-        {
-            var ret = {};
-
-            each(obj, function (val, key) { ret[val] = key });
-
-            return ret;
-        };
-
-        return invert;
-    })();
-
-    var identity = _.identity = (function ()
-    {
-        var identity;
-
-        // @TODO
-
-        /* function
-         * identity: This method returns the first argument provided to it.
-         * value(*): Any value.
-         * return(*): Returns value.
-         */
-
-        identity = function (value) { return value };
-
-        return identity;
+        return startWith;
     })();
 
     var values = _.values = (function ()
@@ -902,171 +1049,6 @@ window._ = (function()
         };
 
         return values;
-    })();
-
-    var _optimizeCb = _._optimizeCb = (function ()
-    {
-        var _optimizeCb;
-
-        _optimizeCb = function (func, ctx, argCount)
-        {
-            if (isUndef(ctx)) return func;
-
-            switch (argCount == null ? 3 : argCount)
-            {
-                case 1: return function (val)
-                {
-                    return func.call(ctx, val);
-                };
-                case 3: return function (val, idx, collection)
-                {
-                    return func.call(ctx, val, idx, collection);
-                };
-                case 4: return function (accumulator, val, idx, collection)
-                {
-                    return func.call(ctx, accumulator, val, idx, collection);
-                }
-            }
-
-            return function ()
-            {
-                return func.apply(ctx, arguments);
-            };
-        };
-
-        return _optimizeCb;
-    })();
-
-    var extendOwn = _.extendOwn = (function ()
-    {
-        var extendOwn;
-
-        // @TODO
-
-        extendOwn = _createAssigner(keys);
-
-        return extendOwn;
-    })();
-
-    var isMatch = _.isMatch = (function ()
-    {
-        var isMatch;
-
-        // @TODO
-
-        isMatch = function (obj, attrs)
-        {
-            var _keys = keys(attrs),
-                len   = _keys.length;
-
-            if (obj == null) return !len;
-
-            obj = Object(obj);
-
-            for (var i = 0; i < len; i++)
-            {
-                var key = keys[i];
-                if (attrs[key] !== obj[key] || !(key in obj)) return false;
-            }
-
-            return true;
-        };
-
-        return isMatch;
-    })();
-
-    var matcher = _.matcher = (function ()
-    {
-        var matcher;
-
-        // @TODO
-
-        matcher = function (attrs)
-        {
-            attrs = extendOwn({}, attrs);
-
-            return function (obj)
-            {
-                return isMatch(obj, attrs);
-            };
-        };
-
-        return matcher;
-    })();
-
-    var _cb = _._cb = (function ()
-    {
-        var _cb;
-
-        _cb = function (val, ctx, argCount)
-        {
-            if (val == null) return identity;
-
-            if (isFn(val)) return _optimizeCb(val, ctx, argCount);
-
-            if (isObj(val)) return matcher(val);
-
-            return function (key)
-            {
-                return function (obj)
-                {
-                    return obj == null ? undefined : obj[key];
-                }
-            };
-        };
-
-        return _cb;
-    })();
-
-    var some = _.some = (function ()
-    {
-        var some;
-
-        // @TODO
-
-        some = function (obj, predicate, ctx)
-        {
-            predicate = _cb(predicate, ctx);
-
-            var _keys = !isArrLike(obj) && keys(obj),
-                len   = (_keys || obj).length;
-
-            for (var i = 0; i < len; i++)
-            {
-                var key = _keys ? _keys[i] : i;
-                if (predicate(obj[key], key, obj)) return true;
-            }
-
-            return false;
-        };
-
-        return some;
-    })();
-
-    var map = _.map = (function ()
-    {
-        var map;
-
-        // @TODO
-
-        map = function (obj, iteratee, ctx)
-        {
-            iteratee = _cb(iteratee, ctx);
-
-            var _keys   = !isArrLike(obj) && keys(obj),
-                len     = (_keys || obj).length,
-                results = Array(len);
-
-            for (var i = 0; i < len; i++)
-            {
-                var curKey = _keys ? _keys[i] : i;
-                results[i] = iteratee(obj[curKey], curKey, obj);
-            }
-
-            return results;
-        };
-
-        return map;
     })();
 
     var toArray = _.toArray = (function ()
@@ -1283,6 +1265,24 @@ window._ = (function()
         });
 
         return State;
+    })();
+
+    var trim = _.trim = (function ()
+    {
+        var trim;
+
+        // @TODO
+
+        var regSpace = /^\s+|\s+$/g;
+
+        trim = function (str, chars)
+        {
+            if (chars == null) return str.replace(regSpace, '');
+
+            return ltrim(rtrim(str, chars), chars);
+        };
+
+        return trim;
     })();
 
     return _;
