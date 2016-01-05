@@ -1,8 +1,8 @@
-_define('{{name}}', [{{depStr}}], function ({{params}})
+var {{name}} = _.{{name}} = (function ()
 {
     var {{name}};
 
     {{code}}
 
-    _.{{name}} = {{name}};
-});
+    return {{name}};
+})();
