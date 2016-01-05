@@ -21,6 +21,7 @@ var knowOpts = {
         pattern  : String,
         raw      : Boolean,
         title    : String,
+        watch    : Boolean
     },
     shortHands = {
         c: '--command',
@@ -31,7 +32,8 @@ var knowOpts = {
         n: '--namespace',
         p: '--pattern',
         r: '--raw',
-        t: '--title'
+        t: '--title',
+        w: '--watch'
     },
     options = nopt(knowOpts, shortHands, process.argv, 2),
     remain  = options.argv.remain,

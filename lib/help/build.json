@@ -45,6 +45,11 @@
             "shorthand": "-p",
             "flag": "--pattern",
             "description": "Module pattern, commonjs, umd or global, defaults to umd"
+        },
+        {
+            "shorthand": "-w",
+            "flag": "--watch",
+            "description": "Watch files to regenerate automatically"
         }
     ]
 }
