@@ -1,12 +1,12 @@
-{
-    "util": {
-        "output": "./lib/util.js",
-        "files": ["./index.js", "./bin/eustia.js", "./lib/**/*.js"],
-        "pattern": "commonjs"
+module.exports = {
+    util: {
+        output: 'lib/util.js',
+        files: ['index.js', 'bin/eustia.js', 'lib/**/*.js'],
+        pattern: 'commonjs'
     },
-    "test": {
-        "output": "./test/util.js",
-        "pattern": "global",
-        "files": ["./test/*.js"]
+    test: {
+        output: 'test/util.js',
+        pattern: 'global',
+        files: ['test/*.js']
     }
-}
+};

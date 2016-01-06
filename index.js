@@ -10,9 +10,10 @@ var defOpts = {
     packInfo : require('./package.json')
 };
 
-var errLogPath = path.resolve(process.cwd(), './eustia-debug.log');
+var errLogPath = path.resolve(process.cwd(), './eustia-debug.log'),
+    commands = ['build', 'docs', 'search', 'install', 'help', 'version'];
 
-['build', 'docs', 'help', 'version'].forEach(function (name)
+_.each(commands, function (name)
 {
     var cmd = require('./lib/' + name);
 

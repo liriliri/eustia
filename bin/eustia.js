@@ -63,7 +63,16 @@ if (!cmd)
 
             fs.readFile(cfgPath, 'utf-8', function (err, data)
             {
-                buildAll(JSON.parse(data));
+                var options;
+
+                try {
+                    options = JSON.parse(data);
+                } catch (e)
+                {
+                    options = require(cfgPath);
+                }
+
+                buildAll(options);
             });
         } else eustia['help'](options);
     });
