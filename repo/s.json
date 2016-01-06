@@ -2,7 +2,7 @@
     {
         "name": "stripCmts",
         "src": "https://raw.githubusercontent.com/liriliri/eustia/master/eustia/stripCmts.js",
-        "keywords": [],
-        "desc": ""
+        "keywords": ["strip", "comment"],
+        "desc": "Strip comments from source code."
     }
 ]

@@ -14,19 +14,19 @@ var knowOpts = {
         namespace: String,
         ignore   : Array,
         input    : String,
+        keyword  : String,
         library  : Array,
         exclude  : Array,
         include  : Array,
-        command  : String,
         pattern  : String,
         raw      : Boolean,
         title    : String,
         watch    : Boolean
     },
     shortHands = {
-        c: '--command',
         o: '--output',
         i: '--include',
+        k: '--keyword',
         l: '--library',
         e: '--exclude',
         n: '--namespace',
@@ -48,8 +48,6 @@ for (i = 0, len = remain.length; i < len; i++)
         break;
     }
 }
-
-options.files = options.argv.remain;
 
 if (!cmd)
 {
@@ -76,7 +74,24 @@ if (!cmd)
             });
         } else eustia['help'](options);
     });
-} else eustia[cmd](options);
+} else
+{
+    switch (cmd)
+    {
+        case 'build': options.files = remain; break;
+        case 'search': {
+            if (remain.length > 0) options.keyword = remain[0];
+            break;
+        }
+        case 'help': {
+            if (remain.length > 0) options.command = remain[0];
+            break;
+        }
+        case 'install': options.utils = remain; break;
+    }
+
+    eustia[cmd](options);
+}
 
 function buildAll(configs)
 {

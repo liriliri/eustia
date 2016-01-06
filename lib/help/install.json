@@ -1,3 +1,7 @@
 {
-    "command": "install"
+    "command": "install",
+    "desc": "Install utilities.",
+    "usage": [
+        "install [<function names>]"
+    ]
 }

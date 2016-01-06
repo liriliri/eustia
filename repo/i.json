@@ -1,0 +1,8 @@
+[
+    {
+        "name": "isMobile",
+        "src": "https://raw.githubusercontent.com/surunzi/utility/master/isMobile.js",
+        "keywords": ["mobile", "ua"],
+        "desc": "Check whether client is using a mobile browser using ua."
+    }
+]

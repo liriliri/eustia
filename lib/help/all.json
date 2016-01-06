@@ -5,8 +5,8 @@
     "commands": {
         "build": "Build JavaScript libraries by scanning files",
         "docs": "Generate documentation",
-        "search": "",
-        "install": "",
+        "search": "Search for utilities",
+        "install": "Install utilities",
         "help": "Display help information",
         "version": "Display version info"
     }

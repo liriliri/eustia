@@ -1,6 +1,6 @@
 {
     "command": "docs",
-    "description": "Generate documentation.",
+    "desc": "Generate documentation.",
     "usage": [
         "docs [<options>]",
         "docs --input util.js -o docs.html"

@@ -1,6 +1,6 @@
 {
     "command": "build",
-    "description": "Build JavaScript libraries by scanning files.",
+    "desc": "Build JavaScript libraries by scanning files.",
     "usage": [
         "build [<options>]",
         "build index.html",

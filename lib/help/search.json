@@ -1,3 +1,7 @@
 {
-    "command": "search"
+    "command": "search",
+    "desc": "Search for utilities.",
+    "usage": [
+        "search <keyword>"
+    ]
 }
