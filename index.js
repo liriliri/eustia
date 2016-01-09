@@ -7,6 +7,7 @@ var defOpts = {
     // Prepend to generated file to prevent being scanned again.
     magicNum : '// Built by eustia.',
     shareData: {},
+    encoding : 'utf-8',
     packInfo : require('./package.json')
 };
 

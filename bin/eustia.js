@@ -21,7 +21,7 @@ var knowOpts = {
         raw      : Boolean,
         title    : String,
         watch    : Boolean,
-        description: 'String'
+        description: String
     },
     shortHands = {
         o: '--output',
