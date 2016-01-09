@@ -3,16 +3,13 @@
     "desc": "Generate documentation.",
     "usage": [
         "docs [<options>]",
-        "docs --input util.js -o docs.html"
+        "docs util.js -o docs.html"
     ],
     "options": [
         {
-            "flag": "--encoding",
-            "description": "Input file encoding, default to utf-8"
-        },
-        {
-            "flag": "--input",
-            "description": "Generated eustia library"
+            "shorthand": "-d",
+            "flag": "--description",
+            "description": "Extra description markdown file path."
         },
         {
             "shorthand": "-o",

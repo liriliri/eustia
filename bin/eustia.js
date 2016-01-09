@@ -13,7 +13,6 @@ var knowOpts = {
         output   : String,
         namespace: String,
         ignore   : Array,
-        input    : String,
         keyword  : String,
         library  : Array,
         exclude  : Array,
@@ -21,7 +20,8 @@ var knowOpts = {
         pattern  : String,
         raw      : Boolean,
         title    : String,
-        watch    : Boolean
+        watch    : Boolean,
+        description: 'String'
     },
     shortHands = {
         o: '--output',
@@ -33,7 +33,8 @@ var knowOpts = {
         p: '--pattern',
         r: '--raw',
         t: '--title',
-        w: '--watch'
+        w: '--watch',
+        d: '--description'
     },
     options = nopt(knowOpts, shortHands, process.argv, 2),
     remain  = options.argv.remain,
@@ -85,6 +86,10 @@ if (!cmd)
         }
         case 'help': {
             if (remain.length > 0) options.command = remain[0];
+            break;
+        }
+        case 'docs': {
+            if (remain.length > 0) options.input = remain[0];
             break;
         }
         case 'install': options.utils = remain; break;

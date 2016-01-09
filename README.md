@@ -1,4 +1,6 @@
-![Eustia](http://liriliri.github.io/eustia/static/img/banner.jpg)
+<a href="http://liriliri.github.io/eustia/" target="_blank">
+    <img src="http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia.jpg">
+</a>
 
 # Eustia
 
@@ -121,40 +123,3 @@ Now you can use **compareVersion** anywhere in your project.
 
 > Using option **library** allows you to search functions in other paths, quite
 useful when sharing functions among several projects.
-
-## The Benefits
-
-### 1. No more copying and Pasting.
-
-When creating a new project with a util module, you don't have to copy the code
-manually from the other old projects you have written. Just run a command, and
-everything will be just ready for you.
-
-### 2. Reusable code.
-
-Util functions are reusable in this case since the whole idea is to break the
-utility library into small LEGO bricks. With those, you're able to construct any
-library you want. Besides, you can even share your LEGO with other folks,
-reducing pain for everybody.
-
-### 3. Share the same piece of code both in server side and client side.
-
-The generated library follows the UMD(Universal Module Definition) patterns so
-that it can used both in server side(Node.js) and client side(Browser). Using
-the same utility library not only makes code reusable but also keeps consistency
-between two sides.
-
-### 4. Keep it small.
-
-While developing in the mobile platform, the size of JavaScript library do
-matter. Since the tool scan the source code and only generates what you need,
-the result is definitely the smallest one with no redundant code.
-
-### 5. Provide many useful utilities in default.
-
-Eustia is a tool for generating libraries. However, it also provides a lot of
-common helpers in default. You can check the full list of
-[functions](http://liriliri.github.io/eustia/function.html),
-[modules](http://liriliri.github.io/eustia/module.html) and
-[classes](http://liriliri.github.io/eustia/class.html) to choose what you really
-need.
