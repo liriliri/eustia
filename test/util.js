@@ -3,6 +3,8 @@ window._ = (function()
 {
     var _ = {};
 
+    /* ------------------------------ inherits ------------------------------ */
+
     var inherits = _.inherits = (function ()
     {
         var inherits;
@@ -30,6 +32,8 @@ window._ = (function()
         return inherits;
     })();
 
+    /* ------------------------------ has ------------------------------ */
+
     var has = _.has = (function ()
     {
         var has;
@@ -50,6 +54,8 @@ window._ = (function()
         return has;
     })();
 
+    /* ------------------------------ slice ------------------------------ */
+
     var slice = _.slice = (function ()
     {
         var slice;
@@ -65,6 +71,8 @@ window._ = (function()
 
         return slice;
     })();
+
+    /* ------------------------------ identity ------------------------------ */
 
     var identity = _.identity = (function ()
     {
@@ -82,6 +90,8 @@ window._ = (function()
 
         return identity;
     })();
+
+    /* ------------------------------ isObj ------------------------------ */
 
     var isObj = _.isObj = (function ()
     {
@@ -104,6 +114,8 @@ window._ = (function()
 
         return isObj;
     })();
+
+    /* ------------------------------ isUndef ------------------------------ */
 
     var isUndef = _.isUndef = (function ()
     {
@@ -128,6 +140,8 @@ window._ = (function()
 
         return isUndef;
     })();
+
+    /* ------------------------------ _createAssigner ------------------------------ */
 
     var _createAssigner = _._createAssigner = (function ()
     {
@@ -163,6 +177,8 @@ window._ = (function()
         return _createAssigner;
     })();
 
+    /* ------------------------------ _optimizeCb ------------------------------ */
+
     var _optimizeCb = _._optimizeCb = (function ()
     {
         var _optimizeCb;
@@ -196,6 +212,8 @@ window._ = (function()
         return _optimizeCb;
     })();
 
+    /* ------------------------------ _toStr ------------------------------ */
+
     var _toStr = _._toStr = (function ()
     {
         var _toStr;
@@ -204,6 +222,8 @@ window._ = (function()
 
         return _toStr;
     })();
+
+    /* ------------------------------ isArr ------------------------------ */
 
     var isArr = _.isArr = (function ()
     {
@@ -227,6 +247,8 @@ window._ = (function()
         return isArr;
     })();
 
+    /* ------------------------------ isFn ------------------------------ */
+
     var isFn = _.isFn = (function ()
     {
         var isFn;
@@ -244,6 +266,8 @@ window._ = (function()
         return isFn;
     })();
 
+    /* ------------------------------ isNum ------------------------------ */
+
     var isNum = _.isNum = (function ()
     {
         var isNum;
@@ -260,6 +284,8 @@ window._ = (function()
 
         return isNum;
     })();
+
+    /* ------------------------------ allKeys ------------------------------ */
 
     var allKeys = _.allKeys = (function ()
     {
@@ -293,6 +319,8 @@ window._ = (function()
         return allKeys;
     })();
 
+    /* ------------------------------ extend ------------------------------ */
+
     var extend = _.extend = (function ()
     {
         var extend;
@@ -303,6 +331,8 @@ window._ = (function()
 
         return extend;
     })();
+
+    /* ------------------------------ Cookie ------------------------------ */
 
     var Cookie = _.Cookie = (function ()
     {
@@ -392,6 +422,8 @@ window._ = (function()
         return Cookie;
     })();
 
+    /* ------------------------------ restArgs ------------------------------ */
+
     var restArgs = _.restArgs = (function ()
     {
         var restArgs;
@@ -441,6 +473,8 @@ window._ = (function()
         return restArgs;
     })();
 
+    /* ------------------------------ bind ------------------------------ */
+
     var bind = _.bind = (function ()
     {
         var bind;
@@ -473,6 +507,8 @@ window._ = (function()
         return bind;
     })();
 
+    /* ------------------------------ isArrLike ------------------------------ */
+
     var isArrLike = _.isArrLike = (function ()
     {
         var isArrLike;
@@ -492,6 +528,8 @@ window._ = (function()
 
         return isArrLike;
     })();
+
+    /* ------------------------------ keys ------------------------------ */
 
     var keys = _.keys = (function ()
     {
@@ -518,6 +556,8 @@ window._ = (function()
 
         return keys;
     })();
+
+    /* ------------------------------ each ------------------------------ */
 
     var each = _.each = (function ()
     {
@@ -547,6 +587,8 @@ window._ = (function()
         return each;
     })();
 
+    /* ------------------------------ endWith ------------------------------ */
+
     var endWith = _.endWith = (function ()
     {
         var endWith;
@@ -570,6 +612,8 @@ window._ = (function()
         return endWith;
     })();
 
+    /* ------------------------------ extendOwn ------------------------------ */
+
     var extendOwn = _.extendOwn = (function ()
     {
         var extendOwn;
@@ -580,6 +624,8 @@ window._ = (function()
 
         return extendOwn;
     })();
+
+    /* ------------------------------ invert ------------------------------ */
 
     var invert = _.invert = (function ()
     {
@@ -607,6 +653,8 @@ window._ = (function()
         return invert;
     })();
 
+    /* ------------------------------ isBool ------------------------------ */
+
     var isBool = _.isBool = (function ()
     {
         var isBool;
@@ -624,6 +672,8 @@ window._ = (function()
         return isBool;
     })();
 
+    /* ------------------------------ isInt ------------------------------ */
+
     var isInt = _.isInt = (function ()
     {
         var isInt;
@@ -640,6 +690,8 @@ window._ = (function()
 
         return isInt;
     })();
+
+    /* ------------------------------ isMatch ------------------------------ */
 
     var isMatch = _.isMatch = (function ()
     {
@@ -668,6 +720,8 @@ window._ = (function()
         return isMatch;
     })();
 
+    /* ------------------------------ matcher ------------------------------ */
+
     var matcher = _.matcher = (function ()
     {
         var matcher;
@@ -686,6 +740,8 @@ window._ = (function()
 
         return matcher;
     })();
+
+    /* ------------------------------ _cb ------------------------------ */
 
     var _cb = _._cb = (function ()
     {
@@ -710,6 +766,8 @@ window._ = (function()
 
         return _cb;
     })();
+
+    /* ------------------------------ some ------------------------------ */
 
     var some = _.some = (function ()
     {
@@ -736,6 +794,8 @@ window._ = (function()
         return some;
     })();
 
+    /* ------------------------------ isStr ------------------------------ */
+
     var isStr = _.isStr = (function ()
     {
         var isStr;
@@ -752,6 +812,8 @@ window._ = (function()
 
         return isStr;
     })();
+
+    /* ------------------------------ last ------------------------------ */
 
     var last = _.last = (function ()
     {
@@ -774,6 +836,8 @@ window._ = (function()
 
         return last;
     })();
+
+    /* ------------------------------ repeat ------------------------------ */
 
     var repeat = _.repeat = (function ()
     {
@@ -807,6 +871,8 @@ window._ = (function()
         return repeat;
     })();
 
+    /* ------------------------------ lpad ------------------------------ */
+
     var lpad = _.lpad = (function ()
     {
         var lpad;
@@ -829,6 +895,8 @@ window._ = (function()
 
         return lpad;
     })();
+
+    /* ------------------------------ ltrim ------------------------------ */
 
     var ltrim = _.ltrim = (function ()
     {
@@ -871,6 +939,8 @@ window._ = (function()
         return ltrim;
     })();
 
+    /* ------------------------------ map ------------------------------ */
+
     var map = _.map = (function ()
     {
         var map;
@@ -897,6 +967,8 @@ window._ = (function()
         return map;
     })();
 
+    /* ------------------------------ pad ------------------------------ */
+
     var pad = _.pad = (function ()
     {
         var pad;
@@ -920,6 +992,8 @@ window._ = (function()
 
         return pad;
     })();
+
+    /* ------------------------------ random ------------------------------ */
 
     var random = _.random = (function ()
     {
@@ -948,6 +1022,8 @@ window._ = (function()
         return random;
     })();
 
+    /* ------------------------------ rpad ------------------------------ */
+
     var rpad = _.rpad = (function ()
     {
         var rpad;
@@ -972,6 +1048,8 @@ window._ = (function()
 
         return rpad;
     })();
+
+    /* ------------------------------ rtrim ------------------------------ */
 
     var rtrim = _.rtrim = (function ()
     {
@@ -1013,6 +1091,8 @@ window._ = (function()
         return rtrim;
     })();
 
+    /* ------------------------------ startWith ------------------------------ */
+
     var startWith = _.startWith = (function ()
     {
         var startWith;
@@ -1030,6 +1110,8 @@ window._ = (function()
 
         return startWith;
     })();
+
+    /* ------------------------------ values ------------------------------ */
 
     var values = _.values = (function ()
     {
@@ -1050,6 +1132,8 @@ window._ = (function()
 
         return values;
     })();
+
+    /* ------------------------------ toArray ------------------------------ */
 
     var toArray = _.toArray = (function ()
     {
@@ -1074,6 +1158,8 @@ window._ = (function()
 
         return toArray;
     })();
+
+    /* ------------------------------ Class ------------------------------ */
 
     var Class = _.Class = (function ()
     {
@@ -1146,6 +1232,8 @@ window._ = (function()
 
         return Class;
     })();
+
+    /* ------------------------------ Emitter ------------------------------ */
 
     var Emitter = _.Emitter = (function ()
     {
@@ -1223,6 +1311,8 @@ window._ = (function()
         return Emitter;
     })();
 
+    /* ------------------------------ State ------------------------------ */
+
     var State = _.State = (function ()
     {
         var State;
@@ -1266,6 +1356,8 @@ window._ = (function()
 
         return State;
     })();
+
+    /* ------------------------------ trim ------------------------------ */
 
     var trim = _.trim = (function ()
     {
