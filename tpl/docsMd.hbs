@@ -1,0 +1,27 @@
+# {{title}}
+{{#if description}}
+
+{{description}}
+{{/if}}
+{{#each function}}
+
+## {{name}}
+{{#if return}}
+
+Return({{return.type}}): {{return.desc}}
+{{/if}}
+
+{{desc}}
+
+{{#if params}}
+|Name|Type|Desc|
+|--------------|
+{{#each params}}
+|{{name}}|{{type}}|{{desc}}|
+{{/each}}
+{{/if}}
+{{#if detail}}
+
+{{detail}}
+{{/if}}
+{{/each}}

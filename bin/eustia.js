@@ -20,6 +20,7 @@ var knowOpts = {
         pattern  : String,
         raw      : Boolean,
         title    : String,
+        type     : String,
         watch    : Boolean,
         description: String
     },
@@ -31,7 +32,6 @@ var knowOpts = {
         e: '--exclude',
         n: '--namespace',
         p: '--pattern',
-        r: '--raw',
         t: '--title',
         w: '--watch',
         d: '--description'
