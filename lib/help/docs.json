@@ -17,14 +17,13 @@
             "description": "Output path, default to docs.html"
         },
         {
-            "shorthand": "-r",
-            "flag": "--raw",
-            "description": "Output json, defaults to false"
-        },
-        {
             "shorthand": "-t",
             "flag": "--title",
             "description": "Documentation title"
+        },
+        {
+            "flag": "--type",
+            "description": "Output type, html, json or markdown, defaults to html"
         }
     ]
 }
