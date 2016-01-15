@@ -10,6 +10,7 @@ _.log.enable();
 
 var knowOpts = {
         encoding : String,
+        extension: Array,
         output   : String,
         namespace: String,
         ignore   : Array,

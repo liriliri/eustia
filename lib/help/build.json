@@ -47,6 +47,10 @@
             "description": "Module pattern, commonjs, umd or global, defaults to umd"
         },
         {
+            "flag": "--transpiler",
+            "description": "Transpiler to transform code, not accessible through command line"
+        },
+        {
             "shorthand": "-w",
             "flag": "--watch",
             "description": "Watch files to regenerate automatically"
