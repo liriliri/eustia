@@ -7,10 +7,10 @@ window._ = (function()
 
     /* ------------------------------ inherits ------------------------------ */
 
-    var inherits = _.inherits = (function ()
-    {
-        var inherits;
+    var inherits;
 
+    _.inherits = (function ()
+    {
         // @TODO
 
         /* function
@@ -36,10 +36,10 @@ window._ = (function()
 
     /* ------------------------------ has ------------------------------ */
 
-    var has = _.has = (function ()
-    {
-        var has;
+    var has;
 
+    _.has = (function ()
+    {
         // @TODO
 
         /* function
@@ -58,10 +58,10 @@ window._ = (function()
 
     /* ------------------------------ slice ------------------------------ */
 
-    var slice = _.slice = (function ()
-    {
-        var slice;
+    var slice;
 
+    _.slice = (function ()
+    {
         // @TODO
 
         var arrProto = Array.prototype;
@@ -76,10 +76,10 @@ window._ = (function()
 
     /* ------------------------------ identity ------------------------------ */
 
-    var identity = _.identity = (function ()
-    {
-        var identity;
+    var identity;
 
+    _.identity = (function ()
+    {
         // @TODO
 
         /* function
@@ -95,10 +95,10 @@ window._ = (function()
 
     /* ------------------------------ isObj ------------------------------ */
 
-    var isObj = _.isObj = (function ()
-    {
-        var isObj;
+    var isObj;
 
+    _.isObj = (function ()
+    {
         // @TODO
 
         /* function
@@ -119,10 +119,10 @@ window._ = (function()
 
     /* ------------------------------ isUndef ------------------------------ */
 
-    var isUndef = _.isUndef = (function ()
-    {
-        var isUndef;
+    var isUndef;
 
+    _.isUndef = (function ()
+    {
         /* function
          *
          * isUndef: Checks if value is undefined.
@@ -145,9 +145,10 @@ window._ = (function()
 
     /* ------------------------------ _createAssigner ------------------------------ */
 
-    var _createAssigner = _._createAssigner = (function ()
+    var _createAssigner;
+
+    _._createAssigner = (function ()
     {
-        var _createAssigner;
 
         _createAssigner = function (keysFunc, defaults)
         {
@@ -181,9 +182,10 @@ window._ = (function()
 
     /* ------------------------------ _optimizeCb ------------------------------ */
 
-    var _optimizeCb = _._optimizeCb = (function ()
+    var _optimizeCb;
+
+    _._optimizeCb = (function ()
     {
-        var _optimizeCb;
 
         _optimizeCb = function (func, ctx, argCount)
         {
@@ -216,10 +218,10 @@ window._ = (function()
 
     /* ------------------------------ _toStr ------------------------------ */
 
-    var _toStr = _._toStr = (function ()
-    {
-        var _toStr;
+    var _toStr;
 
+    _._toStr = (function ()
+    {
         _toStr = Object.prototype.toString;
 
         return _toStr;
@@ -227,10 +229,10 @@ window._ = (function()
 
     /* ------------------------------ isArr ------------------------------ */
 
-    var isArr = _.isArr = (function ()
-    {
-        var isArr;
+    var isArr;
 
+    _.isArr = (function ()
+    {
         // @TODO
 
         /* function
@@ -251,10 +253,10 @@ window._ = (function()
 
     /* ------------------------------ isFn ------------------------------ */
 
-    var isFn = _.isFn = (function ()
-    {
-        var isFn;
+    var isFn;
 
+    _.isFn = (function ()
+    {
         // @TODO
 
         /* function
@@ -270,10 +272,10 @@ window._ = (function()
 
     /* ------------------------------ isNum ------------------------------ */
 
-    var isNum = _.isNum = (function ()
-    {
-        var isNum;
+    var isNum;
 
+    _.isNum = (function ()
+    {
         // @TODO
 
         /* function
@@ -289,10 +291,10 @@ window._ = (function()
 
     /* ------------------------------ allKeys ------------------------------ */
 
-    var allKeys = _.allKeys = (function ()
-    {
-        var allKeys;
+    var allKeys;
 
+    _.allKeys = (function ()
+    {
         /* function
          *
          * allKeys: Retrieve all the names of object's own and inherited properties.
@@ -323,10 +325,10 @@ window._ = (function()
 
     /* ------------------------------ extend ------------------------------ */
 
-    var extend = _.extend = (function ()
-    {
-        var extend;
+    var extend;
 
+    _.extend = (function ()
+    {
         // @TODO
 
         extend = _createAssigner(allKeys);
@@ -336,10 +338,10 @@ window._ = (function()
 
     /* ------------------------------ Cookie ------------------------------ */
 
-    var Cookie = _.Cookie = (function ()
-    {
-        var Cookie;
+    var Cookie;
 
+    _.Cookie = (function ()
+    {
         // @TODO
 
         /* module
@@ -426,10 +428,10 @@ window._ = (function()
 
     /* ------------------------------ restArgs ------------------------------ */
 
-    var restArgs = _.restArgs = (function ()
-    {
-        var restArgs;
+    var restArgs;
 
+    _.restArgs = (function ()
+    {
         /* function
          *
          * restArgs: This accumulates the arguments passed into an array, after a given index.
@@ -477,10 +479,10 @@ window._ = (function()
 
     /* ------------------------------ bind ------------------------------ */
 
-    var bind = _.bind = (function ()
-    {
-        var bind;
+    var bind;
 
+    _.bind = (function ()
+    {
         /* function
          *
          * bind: Create a function bound to a given object.
@@ -511,10 +513,10 @@ window._ = (function()
 
     /* ------------------------------ isArrLike ------------------------------ */
 
-    var isArrLike = _.isArrLike = (function ()
-    {
-        var isArrLike;
+    var isArrLike;
 
+    _.isArrLike = (function ()
+    {
         // @TODO
 
         var MAX_ARR_IDX = Math.pow(2, 53) - 1;
@@ -533,10 +535,10 @@ window._ = (function()
 
     /* ------------------------------ keys ------------------------------ */
 
-    var keys = _.keys = (function ()
-    {
-        var keys;
+    var keys;
 
+    _.keys = (function ()
+    {
         // @TODO
 
         /* function
@@ -561,10 +563,10 @@ window._ = (function()
 
     /* ------------------------------ each ------------------------------ */
 
-    var each = _.each = (function ()
-    {
-        var each;
+    var each;
 
+    _.each = (function ()
+    {
         // @TODO
 
         each = function (obj, iteratee, ctx)
@@ -591,10 +593,10 @@ window._ = (function()
 
     /* ------------------------------ endWith ------------------------------ */
 
-    var endWith = _.endWith = (function ()
-    {
-        var endWith;
+    var endWith;
 
+    _.endWith = (function ()
+    {
         // @TODO
 
         /* function
@@ -616,10 +618,10 @@ window._ = (function()
 
     /* ------------------------------ extendOwn ------------------------------ */
 
-    var extendOwn = _.extendOwn = (function ()
-    {
-        var extendOwn;
+    var extendOwn;
 
+    _.extendOwn = (function ()
+    {
         // @TODO
 
         extendOwn = _createAssigner(keys);
@@ -629,10 +631,10 @@ window._ = (function()
 
     /* ------------------------------ invert ------------------------------ */
 
-    var invert = _.invert = (function ()
-    {
-        var invert;
+    var invert;
 
+    _.invert = (function ()
+    {
         // @TODO
 
         /* function
@@ -657,10 +659,10 @@ window._ = (function()
 
     /* ------------------------------ isBool ------------------------------ */
 
-    var isBool = _.isBool = (function ()
-    {
-        var isBool;
+    var isBool;
 
+    _.isBool = (function ()
+    {
         // @TODO
 
         /* function
@@ -676,10 +678,10 @@ window._ = (function()
 
     /* ------------------------------ isInt ------------------------------ */
 
-    var isInt = _.isInt = (function ()
-    {
-        var isInt;
+    var isInt;
 
+    _.isInt = (function ()
+    {
         // @TODO
 
         /* function
@@ -695,10 +697,10 @@ window._ = (function()
 
     /* ------------------------------ isMatch ------------------------------ */
 
-    var isMatch = _.isMatch = (function ()
-    {
-        var isMatch;
+    var isMatch;
 
+    _.isMatch = (function ()
+    {
         // @TODO
 
         isMatch = function (obj, attrs)
@@ -724,10 +726,10 @@ window._ = (function()
 
     /* ------------------------------ matcher ------------------------------ */
 
-    var matcher = _.matcher = (function ()
-    {
-        var matcher;
+    var matcher;
 
+    _.matcher = (function ()
+    {
         // @TODO
 
         matcher = function (attrs)
@@ -745,9 +747,10 @@ window._ = (function()
 
     /* ------------------------------ _cb ------------------------------ */
 
-    var _cb = _._cb = (function ()
+    var _cb;
+
+    _._cb = (function ()
     {
-        var _cb;
 
         _cb = function (val, ctx, argCount)
         {
@@ -771,10 +774,10 @@ window._ = (function()
 
     /* ------------------------------ some ------------------------------ */
 
-    var some = _.some = (function ()
-    {
-        var some;
+    var some;
 
+    _.some = (function ()
+    {
         // @TODO
 
         some = function (obj, predicate, ctx)
@@ -798,10 +801,10 @@ window._ = (function()
 
     /* ------------------------------ isStr ------------------------------ */
 
-    var isStr = _.isStr = (function ()
-    {
-        var isStr;
+    var isStr;
 
+    _.isStr = (function ()
+    {
         // @TODO
 
         /* function
@@ -817,10 +820,10 @@ window._ = (function()
 
     /* ------------------------------ last ------------------------------ */
 
-    var last = _.last = (function ()
-    {
-        var last;
+    var last;
 
+    _.last = (function ()
+    {
         // @TODO
 
         /* function
@@ -841,10 +844,10 @@ window._ = (function()
 
     /* ------------------------------ repeat ------------------------------ */
 
-    var repeat = _.repeat = (function ()
-    {
-        var repeat;
+    var repeat;
 
+    _.repeat = (function ()
+    {
         // @TODO
 
         /* function
@@ -875,10 +878,10 @@ window._ = (function()
 
     /* ------------------------------ lpad ------------------------------ */
 
-    var lpad = _.lpad = (function ()
-    {
-        var lpad;
+    var lpad;
 
+    _.lpad = (function ()
+    {
         // @TODO
 
         /* function
@@ -900,10 +903,10 @@ window._ = (function()
 
     /* ------------------------------ ltrim ------------------------------ */
 
-    var ltrim = _.ltrim = (function ()
-    {
-        var ltrim;
+    var ltrim;
 
+    _.ltrim = (function ()
+    {
         // @TODO
 
         var regSpace = /^\s+/;
@@ -943,10 +946,10 @@ window._ = (function()
 
     /* ------------------------------ map ------------------------------ */
 
-    var map = _.map = (function ()
-    {
-        var map;
+    var map;
 
+    _.map = (function ()
+    {
         // @TODO
 
         map = function (obj, iteratee, ctx)
@@ -971,10 +974,10 @@ window._ = (function()
 
     /* ------------------------------ pad ------------------------------ */
 
-    var pad = _.pad = (function ()
-    {
-        var pad;
+    var pad;
 
+    _.pad = (function ()
+    {
         // @TODO
 
         /* function
@@ -997,10 +1000,10 @@ window._ = (function()
 
     /* ------------------------------ random ------------------------------ */
 
-    var random = _.random = (function ()
-    {
-        var random;
+    var random;
 
+    _.random = (function ()
+    {
         // @TODO
 
         /* function
@@ -1026,10 +1029,10 @@ window._ = (function()
 
     /* ------------------------------ rpad ------------------------------ */
 
-    var rpad = _.rpad = (function ()
-    {
-        var rpad;
+    var rpad;
 
+    _.rpad = (function ()
+    {
         // @TODO
 
         /* function
@@ -1053,10 +1056,10 @@ window._ = (function()
 
     /* ------------------------------ rtrim ------------------------------ */
 
-    var rtrim = _.rtrim = (function ()
-    {
-        var rtrim;
+    var rtrim;
 
+    _.rtrim = (function ()
+    {
         // @TODO
 
         var regSpace = /\s+$/;
@@ -1095,10 +1098,10 @@ window._ = (function()
 
     /* ------------------------------ startWith ------------------------------ */
 
-    var startWith = _.startWith = (function ()
-    {
-        var startWith;
+    var startWith;
 
+    _.startWith = (function ()
+    {
         // @TODO
 
         /* function
@@ -1115,10 +1118,10 @@ window._ = (function()
 
     /* ------------------------------ values ------------------------------ */
 
-    var values = _.values = (function ()
-    {
-        var values;
+    var values;
 
+    _.values = (function ()
+    {
         // @TODO
 
         values = function (obj)
@@ -1137,10 +1140,10 @@ window._ = (function()
 
     /* ------------------------------ toArray ------------------------------ */
 
-    var toArray = _.toArray = (function ()
-    {
-        var toArray;
+    var toArray;
 
+    _.toArray = (function ()
+    {
         // @TODO
 
         var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
@@ -1163,10 +1166,10 @@ window._ = (function()
 
     /* ------------------------------ Class ------------------------------ */
 
-    var Class = _.Class = (function ()
-    {
-        var Class;
+    var Class;
 
+    _.Class = (function ()
+    {
         // @TODO
 
         /* function
@@ -1237,10 +1240,10 @@ window._ = (function()
 
     /* ------------------------------ Emitter ------------------------------ */
 
-    var Emitter = _.Emitter = (function ()
-    {
-        var Emitter;
+    var Emitter;
 
+    _.Emitter = (function ()
+    {
         // @TODO
 
         /* class
@@ -1315,10 +1318,10 @@ window._ = (function()
 
     /* ------------------------------ State ------------------------------ */
 
-    var State = _.State = (function ()
-    {
-        var State;
+    var State;
 
+    _.State = (function ()
+    {
         // @TODO
 
         function buildEvent(name, event)
@@ -1361,10 +1364,10 @@ window._ = (function()
 
     /* ------------------------------ trim ------------------------------ */
 
-    var trim = _.trim = (function ()
-    {
-        var trim;
+    var trim;
 
+    _.trim = (function ()
+    {
         // @TODO
 
         var regSpace = /^\s+|\s+$/g;
