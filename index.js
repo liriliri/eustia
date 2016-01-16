@@ -7,6 +7,7 @@ var defOpts = {
     // Prepend to generated file to prevent being scanned again.
     magicNum : '// Built by eustia.',
     shareData: {},
+    enableLog: false,
     encoding : 'utf-8',
     packInfo : require('./package.json')
 };
@@ -20,6 +21,8 @@ _.each(commands, function (name)
 
     exports[name] = function (options, cb)
     {
+        if (options.enableLog) _.log.enable();
+
         cb = cb || _.noop;
 
         cmd(_.defaults(options, defOpts, cmd.defOpts), function (err)

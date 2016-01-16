@@ -44,3 +44,4 @@ log.color = function (msg, color)
 log.get = function () { return msgs };
 
 log.enable = function () { enabled = true };
+log.disable = function () { enabled = false };
