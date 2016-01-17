@@ -6,6 +6,7 @@ dasherize
 eustia
 lpad
 ltrim
+noop
 nopt
 repos
 rpad
