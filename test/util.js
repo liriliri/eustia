@@ -1,5 +1,14 @@
 // Built by eustia.
-window._ = (function()
+(function(root, factory)
+{
+    if (typeof define === 'function' && define.amd)
+    {
+        define([], factory);
+    } else if (typeof module === 'object' && module.exports)
+    {
+        module.exports = factory();
+    } else { root._ = factory() }
+}(this, function ()
 {
     var _ = {};
 
@@ -539,23 +548,22 @@ window._ = (function()
 
     _.keys = (function ()
     {
-        // @TODO
-
         /* function
          * keys: Creates an array of the own enumerable property names of object.
          * object(object): The object to query.
          * return(array): Returns the array of property names.
          */
 
-        var nativeKeys = Object.keys;
-
-        keys = nativeKeys || function (obj)
+        keys = Object.keys || function (obj)
         {
-            var keys = [];
+            var ret = [];
 
-            for (var key in obj) { if (has(obj, key)) keys.push(key) }
+            for (var key in obj)
+            {
+                if (has(obj, key)) ret.push(key);
+            }
 
-            return keys;
+            return ret;
         };
 
         return keys;
@@ -1383,4 +1391,4 @@ window._ = (function()
     })();
 
     return _;
-})();
+}));

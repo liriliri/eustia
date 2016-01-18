@@ -2,10 +2,10 @@ _('Select $offset $show Delegate');
 
 Select.methods({
     offset: function () { return $offset(this[0]) },
-    hide  : function () { return this.css('display', 'none') },
-    show  : function () { return this.each(function () { $show(this) }) },
-    first : function () { return $(this[0]) },
-    last  : function () { return $(this[this.length - 1]) },
+    hide: function () { return this.css('display', 'none') },
+    show: function () { return this.each(function () { $show(this) }) },
+    first: function () { return $(this[0]) },
+    last: function () { return $(this[this.length - 1]) },
     on: function (type, selector, fn)
     {
         if (fn == null)

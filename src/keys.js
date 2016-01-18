@@ -1,20 +1,19 @@
-// @TODO
-
 /* function
  * keys: Creates an array of the own enumerable property names of object.
  * object(object): The object to query.
  * return(array): Returns the array of property names.
  */
 
-_('isObj has');
+_('has');
 
-var nativeKeys = Object.keys;
-
-keys = nativeKeys || function (obj)
+keys = Object.keys || function (obj)
 {
-    var keys = [];
+    var ret = [];
 
-    for (var key in obj) { if (has(obj, key)) keys.push(key) }
+    for (var key in obj)
+    {
+        if (has(obj, key)) ret.push(key);
+    }
 
-    return keys;
+    return ret;
 };

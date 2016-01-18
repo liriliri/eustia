@@ -2,13 +2,22 @@ describe('keys', function ()
 {
     var keys = _.keys;
 
-    var obj = Object.create({c: 2});
-
-    obj.a = 0;
-    obj.b = 1;
-
-    it('{a:0, b:1} with prototype {c:2} has key a and b', function ()
+    it('get object keys', function ()
     {
-        expect(keys(obj)).to.eql(['a', 'b']);
+        expect(keys({
+            zero: 0,
+            one: 1
+        })).to.eql(['zero', 'one']);
+    });
+
+    it('do not get keys on object prototypes', function ()
+    {
+        expect(keys(Object.create({two: 2}))).to.eql([]);
+    });
+
+    it('throw error if not object', function ()
+    {
+        expect(keys.bind(1)).to.throw(Error);
+        expect(keys.bind('eustia')).to.throw(Error);
     });
 });
