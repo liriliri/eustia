@@ -8,9 +8,9 @@ _('has');
 
 keys = Object.keys || function (obj)
 {
-    var ret = [];
+    var ret = [], key;
 
-    for (var key in obj)
+    for (key in obj)
     {
         if (has(obj, key)) ret.push(key);
     }

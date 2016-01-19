@@ -1,13 +1,13 @@
 describe('has', function ()
 {
-    var has = _.has,
-        obj = Object.create({ a: 0});
+    var has = _.has;
 
-    obj.b = 1;
-
-    it('{b:1} with prototype {a:0} has b, but no a', function ()
+    it('return true if given key is a direct property', function ()
     {
-        expect(has(obj, 'a')).to.be.false;
-        expect(has(obj, 'b')).to.be.true;
+        var obj = Object.create({zero: 0});
+        obj.one = 1;
+
+        expect(has(obj, 'zero')).to.be.false;
+        expect(has(obj, 'one')).to.be.true;
     });
 });

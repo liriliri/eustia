@@ -2,10 +2,11 @@ describe('allKeys', function ()
 {
     var allKeys = _.allKeys;
 
-    var obj = Object.create({ a: 0 });
-
-    it('obj with prototype {a:0} has key a', function ()
+    it('retrieve all keys including those inherited', function ()
     {
-        expect(allKeys(obj)).to.contain('a');
+        var obj = Object.create({ zero: 0 });
+        obj.two = 1;
+
+        expect(allKeys(obj)).to.contain('zero');
     });
 });

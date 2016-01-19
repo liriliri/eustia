@@ -1,12 +1,11 @@
 /* function
- *
  * restArgs: This accumulates the arguments passed into an array, after a given index.
  * function(function): Function that needs rest parameters.
  * startIndex(number): The start index to accumulates.
  * return(function): Generated function with rest parameters.
  *
  * ```javascript
- * var paramArr = _.restArs(function (rest) { return rest });
+ * var paramArr = _.restArgs(function (rest) { return rest });
  * paramArr(1, 2, 3, 4); // -> [1, 2, 3, 4]
  * ```
  */
@@ -17,10 +16,11 @@ restArgs = function (fn, startIdx)
 
     return function ()
     {
-        var len  = Math.max(arguments.length - startIdx, 0),
-            rest = new Array(len);
+        var len = Math.max(arguments.length - startIdx, 0),
+            rest = new Array(len),
+            i;
 
-        for (var i = 0; i < len; i++) rest[i] = arguments[i + startIdx];
+        for (i = 0; i < len; i++) rest[i] = arguments[i + startIdx];
 
         // Call runs faster than apply.
         switch (startIdx)

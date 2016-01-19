@@ -1,5 +1,4 @@
 /* function
- *
  * allKeys: Retrieve all the names of object's own and inherited properties.
  * object(object): The object to query.
  * return(array): Returns the array of all property names.
@@ -11,14 +10,13 @@
  * ```
  *
  * > Members of Object's prototype won't be retrieved.
- *
  */
 
 allKeys = function (obj)
 {
-    var keys = [], key;
+    var ret = [], key;
 
-    for (key in obj) keys.push(key);
+    for (key in obj) ret.push(key);
 
-    return keys;
+    return ret;
 };

@@ -1,5 +1,4 @@
 /* function
- *
  * bind: Create a function bound to a given object.
  * function(function): The function to bind.
  * context(*): This binding of given function.

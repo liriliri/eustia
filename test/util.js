@@ -49,8 +49,6 @@
 
     _.has = (function ()
     {
-        // @TODO
-
         /* function
          * has: Checks if key is a direct property.
          * object(object): The object to query.
@@ -60,7 +58,10 @@
 
         var hasOwnProp = Object.prototype.hasOwnProperty;
 
-        has = function (obj, key) { return hasOwnProp.call(obj, key) };
+        has = function (obj, key)
+        {
+            return hasOwnProp.call(obj, key);
+        };
 
         return has;
     })();
@@ -305,7 +306,6 @@
     _.allKeys = (function ()
     {
         /* function
-         *
          * allKeys: Retrieve all the names of object's own and inherited properties.
          * object(object): The object to query.
          * return(array): Returns the array of all property names.
@@ -317,16 +317,15 @@
          * ```
          *
          * > Members of Object's prototype won't be retrieved.
-         *
          */
 
         allKeys = function (obj)
         {
-            var keys = [], key;
+            var ret = [], key;
 
-            for (key in obj) keys.push(key);
+            for (key in obj) ret.push(key);
 
-            return keys;
+            return ret;
         };
 
         return allKeys;
@@ -442,14 +441,13 @@
     _.restArgs = (function ()
     {
         /* function
-         *
          * restArgs: This accumulates the arguments passed into an array, after a given index.
          * function(function): Function that needs rest parameters.
          * startIndex(number): The start index to accumulates.
          * return(function): Generated function with rest parameters.
          *
          * ```javascript
-         * var paramArr = _.restArs(function (rest) { return rest });
+         * var paramArr = _.restArgs(function (rest) { return rest });
          * paramArr(1, 2, 3, 4); // -> [1, 2, 3, 4]
          * ```
          */
@@ -460,10 +458,11 @@
 
             return function ()
             {
-                var len  = Math.max(arguments.length - startIdx, 0),
-                    rest = new Array(len);
+                var len = Math.max(arguments.length - startIdx, 0),
+                    rest = new Array(len),
+                    i;
 
-                for (var i = 0; i < len; i++) rest[i] = arguments[i + startIdx];
+                for (i = 0; i < len; i++) rest[i] = arguments[i + startIdx];
 
                 // Call runs faster than apply.
                 switch (startIdx)
@@ -493,7 +492,6 @@
     _.bind = (function ()
     {
         /* function
-         *
          * bind: Create a function bound to a given object.
          * function(function): The function to bind.
          * context(*): This binding of given function.
@@ -556,9 +554,9 @@
 
         keys = Object.keys || function (obj)
         {
-            var ret = [];
+            var ret = [], key;
 
-            for (var key in obj)
+            for (key in obj)
             {
                 if (has(obj, key)) ret.push(key);
             }
@@ -1146,17 +1144,17 @@
         return values;
     })();
 
-    /* ------------------------------ toArray ------------------------------ */
+    /* ------------------------------ toArr ------------------------------ */
 
-    var toArray;
+    var toArr;
 
-    _.toArray = (function ()
+    _.toArr = (function ()
     {
         // @TODO
 
         var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
 
-        toArray = function (obj)
+        toArr = function (obj)
         {
             if (!obj) return [];
 
@@ -1169,7 +1167,7 @@
             return values(obj);
         };
 
-        return toArray;
+        return toArr;
     })();
 
     /* ------------------------------ Class ------------------------------ */
@@ -1196,7 +1194,7 @@
 
             var ctor = function ()
             {
-                var args = toArray(arguments);
+                var args = toArr(arguments);
 
                 if (has(ctor.prototype, 'initialize') &&
                     !regCallSuper.test(this.initialize.toString()) &&
@@ -1235,7 +1233,7 @@
 
                 if (!superMethod) return;
 
-                return superMethod.apply(this, toArray(arguments).slice(1));
+                return superMethod.apply(this, toArr(arguments).slice(1));
             },
             toString: function ()
             {

@@ -8,7 +8,7 @@
  * return(function): Return function used to create instances.
  */
 
-_('extend toArray inherits has');
+_('extend toArr inherits has');
 
 var regCallSuper = /callSuper/;
 
@@ -18,7 +18,7 @@ function makeClass(parent, methods, statics)
 
     var ctor = function ()
     {
-        var args = toArray(arguments);
+        var args = toArr(arguments);
 
         if (has(ctor.prototype, 'initialize') &&
             !regCallSuper.test(this.initialize.toString()) &&
@@ -57,7 +57,7 @@ var Base = Class.Base = makeClass(Object, {
 
         if (!superMethod) return;
 
-        return superMethod.apply(this, toArray(arguments).slice(1));
+        return superMethod.apply(this, toArr(arguments).slice(1));
     },
     toString: function ()
     {

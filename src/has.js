@@ -1,5 +1,3 @@
-// @TODO
-
 /* function
  * has: Checks if key is a direct property.
  * object(object): The object to query.
@@ -9,4 +7,7 @@
 
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
-has = function (obj, key) { return hasOwnProp.call(obj, key) };
+has = function (obj, key)
+{
+    return hasOwnProp.call(obj, key);
+};

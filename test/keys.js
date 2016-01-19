@@ -14,10 +14,4 @@ describe('keys', function ()
     {
         expect(keys(Object.create({two: 2}))).to.eql([]);
     });
-
-    it('throw error if not object', function ()
-    {
-        expect(keys.bind(1)).to.throw(Error);
-        expect(keys.bind('eustia')).to.throw(Error);
-    });
 });

@@ -4,7 +4,7 @@ _('isArr slice isStr isArrLike map identity values');
 
 var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
 
-toArray = function (obj)
+toArr = function (obj)
 {
     if (!obj) return [];
 
