@@ -1,18 +1,10 @@
-// @TODO
-
-_('isArr slice isStr isArrLike map identity values');
-
-var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
+_('isArrLike isStr map isArr');
 
 toArr = function (obj)
 {
-    if (!obj) return [];
+    if (isArr(obj)) return obj;
 
-    if (isArr(obj)) return slice(obj);
-
-    if (isStr(obj)) return obj ? obj.match(regReStrSymbol) : [];
-
-    if (isArrLike(obj)) return map(obj, identity);
-
-    return values(obj);
+    return isArrLike(obj) && !isStr(obj)
+           ? map(obj, function (val) { return val })
+           : [obj];
 };

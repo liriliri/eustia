@@ -2,10 +2,16 @@ module.exports = function(config)
 {
     config.set({
         basePath: '',
-        frameworks: ['mocha', 'chai'],
+        frameworks: ['mocha', 'chai', 'chai-jquery', 'jquery-1.8.3'],
         files: [
             'test/util.js',
-            'test/*.js'
+            'test/$attr.js'
+        ],
+        plugins: [
+            'karma-mocha',
+            'karma-chai-plugins',
+            'karma-jquery',
+            'karma-chrome-launcher'
         ],
         exclude: [],
         preprocessors: {},
@@ -14,7 +20,7 @@ module.exports = function(config)
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['Chrome', 'Firefox', 'IE'],
+        browsers: ['Chrome'],
         singleRun: false,
         concurrency: Infinity
     });

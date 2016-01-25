@@ -14,6 +14,30 @@
 
     if (typeof window === 'object' && window._) _ = window._;
 
+    /* ------------------------------ isObj ------------------------------ */
+
+    var isObj;
+
+    _.isObj = (function ()
+    {
+        // @TODO
+
+        /* function
+         * isObj: Checks if value is the language type of Object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is an object, else false.
+         */
+
+        isObj = function (val)
+        {
+            var type = typeof val;
+
+            return type === 'function' || type === 'object';
+        };
+
+        return isObj;
+    })();
+
     /* ------------------------------ inherits ------------------------------ */
 
     var inherits;
@@ -82,49 +106,6 @@
         };
 
         return slice;
-    })();
-
-    /* ------------------------------ identity ------------------------------ */
-
-    var identity;
-
-    _.identity = (function ()
-    {
-        // @TODO
-
-        /* function
-         * identity: This method returns the first argument provided to it.
-         * value(*): Any value.
-         * return(*): Returns value.
-         */
-
-        identity = function (value) { return value };
-
-        return identity;
-    })();
-
-    /* ------------------------------ isObj ------------------------------ */
-
-    var isObj;
-
-    _.isObj = (function ()
-    {
-        // @TODO
-
-        /* function
-         * isObj: Checks if value is the language type of Object.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is an object, else false.
-         */
-
-        isObj = function (val)
-        {
-            var type = typeof val;
-
-            return type === 'function' || type === 'object';
-        };
-
-        return isObj;
     })();
 
     /* ------------------------------ isUndef ------------------------------ */
@@ -297,6 +278,25 @@
         isNum = function (value) { return _toStr.call(value) === '[object Number]' };
 
         return isNum;
+    })();
+
+    /* ------------------------------ isStr ------------------------------ */
+
+    var isStr;
+
+    _.isStr = (function ()
+    {
+        // @TODO
+
+        /* function
+         * isStr: Checks if value is classified as a String primitive or object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
+        isStr = function (value) { return _toStr.call(value) === '[object String]' };
+
+        return isStr;
     })();
 
     /* ------------------------------ allKeys ------------------------------ */
@@ -760,7 +760,7 @@
 
         _cb = function (val, ctx, argCount)
         {
-            if (val == null) return identity;
+            if (val == null) return function (val) { return val };
 
             if (isFn(val)) return _optimizeCb(val, ctx, argCount);
 
@@ -803,25 +803,6 @@
         };
 
         return some;
-    })();
-
-    /* ------------------------------ isStr ------------------------------ */
-
-    var isStr;
-
-    _.isStr = (function ()
-    {
-        // @TODO
-
-        /* function
-         * isStr: Checks if value is classified as a String primitive or object.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
-         */
-
-        isStr = function (value) { return _toStr.call(value) === '[object String]' };
-
-        return isStr;
     })();
 
     /* ------------------------------ last ------------------------------ */
@@ -978,196 +959,79 @@
         return map;
     })();
 
-    /* ------------------------------ pad ------------------------------ */
-
-    var pad;
-
-    _.pad = (function ()
-    {
-        // @TODO
-
-        /* function
-         * pad: Pads string on the left and right sides if it's shorter than length.
-         * string(string): The string to pad.
-         * length(number): The padding length.
-         * chars(string): The string used as padding.
-         */
-
-        pad = function (str, len, chars)
-        {
-            var padLen = len - str.length;
-
-            return repeat(chars, Math.ceil(padLen / 2)) + str +
-                   repeat(chars, Math.floor(padLen /2));
-        };
-
-        return pad;
-    })();
-
-    /* ------------------------------ random ------------------------------ */
-
-    var random;
-
-    _.random = (function ()
-    {
-        // @TODO
-
-        /* function
-         * random: Produces a random number between min and max (inclusive).
-         * min(number): The minimum possible value.
-         * max(number): The maximum possible value.
-         * return(number): Returns the random number.
-         */
-
-        random = function (min, max)
-        {
-            if (max == null)
-            {
-                max = min;
-                min = 0;
-            }
-
-            return min + Math.floor(Math.random() * (max - min + 1));
-        };
-
-        return random;
-    })();
-
-    /* ------------------------------ rpad ------------------------------ */
-
-    var rpad;
-
-    _.rpad = (function ()
-    {
-        // @TODO
-
-        /* function
-         *
-         * rpad: Pads string on the right side if it's shorter than length.
-         * string(string): The string to pad.
-         * length(number): Padding length.
-         * chars(string): String used as padding.
-         * return(string): Resulted string.
-         */
-
-        rpad = function (str, len, chars)
-        {
-            var strLen = str.length;
-
-            return strLen < len ? str + repeat(chars, len - strLen): str;
-        };
-
-        return rpad;
-    })();
-
-    /* ------------------------------ rtrim ------------------------------ */
-
-    var rtrim;
-
-    _.rtrim = (function ()
-    {
-        // @TODO
-
-        var regSpace = /\s+$/;
-
-        rtrim = function (str, chars)
-        {
-            if (chars == null) return str.replace(regSpace, '');
-
-            var end     = str.length - 1,
-                charLen = chars.length,
-                found   = true,
-                i, c;
-
-            while (found && end >= 0)
-            {
-                found = false;
-                i = -1;
-                c = str.charAt(end);
-
-                while (++i < charLen)
-                {
-                    if (c === chars[i])
-                    {
-                        found = true;
-                        end--;
-                        break;
-                    }
-                }
-            }
-
-            return (end >= 0) ? str.substring(0, end + 1) : '';
-        };
-
-        return rtrim;
-    })();
-
-    /* ------------------------------ startWith ------------------------------ */
-
-    var startWith;
-
-    _.startWith = (function ()
-    {
-        // @TODO
-
-        /* function
-         * startWith: Checks if string starts with the given target string.
-         * string(string): The string to search.
-         * prefix(string): String prefix.
-         * return(boolean): Returns true if string starts with prefix, else false.
-         */
-
-        startWith = function (str, prefix) { return str.indexOf(prefix) === 0 };
-
-        return startWith;
-    })();
-
-    /* ------------------------------ values ------------------------------ */
-
-    var values;
-
-    _.values = (function ()
-    {
-        // @TODO
-
-        values = function (obj)
-        {
-            var _keys = keys(obj),
-                len   = _keys.length,
-                ret   = Array(len);
-
-            for (var i = 0; i < len; i++) ret[i] = obj[_keys[i]];
-
-            return ret;
-        };
-
-        return values;
-    })();
-
     /* ------------------------------ toArr ------------------------------ */
 
     var toArr;
 
     _.toArr = (function ()
     {
-        // @TODO
-
-        var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
 
         toArr = function (obj)
         {
-            if (!obj) return [];
+            if (isArr(obj)) return obj;
 
-            if (isArr(obj)) return slice(obj);
-
-            if (isStr(obj)) return obj ? obj.match(regReStrSymbol) : [];
-
-            if (isArrLike(obj)) return map(obj, identity);
-
-            return values(obj);
+            return isArrLike(obj) && !isStr(obj)
+                   ? map(obj, function (val) { return val })
+                   : [obj];
         };
 
         return toArr;
+    })();
+
+    /* ------------------------------ $attr ------------------------------ */
+
+    var $attr;
+
+    _.$attr = (function ()
+    {
+
+        $attr = function (nodes, name, val)
+        {
+            nodes = toArr(nodes);
+
+            if (arguments.length === 2 && isStr(name)) return getAttr(nodes[0], name);
+
+            var attrs = name;
+            if (!isObj(attrs))
+            {
+                attrs = {};
+                attrs[name] = val;
+            }
+
+            setAttr(nodes, attrs);
+        };
+
+        $attr.remove = function (nodes, names)
+        {
+            nodes = toArr(nodes);
+            names = toArr(names);
+
+            each(nodes, function (node)
+            {
+                each(names, function (name)
+                {
+                    node.removeAttribute(name);
+                });
+            });
+        };
+
+        function getAttr(node, name)
+        {
+            return node.getAttribute(name);
+        }
+
+        function setAttr(nodes, attrs)
+        {
+            each(nodes, function (node)
+            {
+                each(attrs, function (val, name)
+                {
+                    node.setAttribute(name, val);
+                });
+            })
+        }
+
+        return $attr;
     })();
 
     /* ------------------------------ Class ------------------------------ */
@@ -1366,6 +1230,150 @@
         });
 
         return State;
+    })();
+
+    /* ------------------------------ pad ------------------------------ */
+
+    var pad;
+
+    _.pad = (function ()
+    {
+        // @TODO
+
+        /* function
+         * pad: Pads string on the left and right sides if it's shorter than length.
+         * string(string): The string to pad.
+         * length(number): The padding length.
+         * chars(string): The string used as padding.
+         */
+
+        pad = function (str, len, chars)
+        {
+            var padLen = len - str.length;
+
+            return repeat(chars, Math.ceil(padLen / 2)) + str +
+                   repeat(chars, Math.floor(padLen /2));
+        };
+
+        return pad;
+    })();
+
+    /* ------------------------------ random ------------------------------ */
+
+    var random;
+
+    _.random = (function ()
+    {
+        // @TODO
+
+        /* function
+         * random: Produces a random number between min and max (inclusive).
+         * min(number): The minimum possible value.
+         * max(number): The maximum possible value.
+         * return(number): Returns the random number.
+         */
+
+        random = function (min, max)
+        {
+            if (max == null)
+            {
+                max = min;
+                min = 0;
+            }
+
+            return min + Math.floor(Math.random() * (max - min + 1));
+        };
+
+        return random;
+    })();
+
+    /* ------------------------------ rpad ------------------------------ */
+
+    var rpad;
+
+    _.rpad = (function ()
+    {
+        // @TODO
+
+        /* function
+         *
+         * rpad: Pads string on the right side if it's shorter than length.
+         * string(string): The string to pad.
+         * length(number): Padding length.
+         * chars(string): String used as padding.
+         * return(string): Resulted string.
+         */
+
+        rpad = function (str, len, chars)
+        {
+            var strLen = str.length;
+
+            return strLen < len ? str + repeat(chars, len - strLen): str;
+        };
+
+        return rpad;
+    })();
+
+    /* ------------------------------ rtrim ------------------------------ */
+
+    var rtrim;
+
+    _.rtrim = (function ()
+    {
+        // @TODO
+
+        var regSpace = /\s+$/;
+
+        rtrim = function (str, chars)
+        {
+            if (chars == null) return str.replace(regSpace, '');
+
+            var end     = str.length - 1,
+                charLen = chars.length,
+                found   = true,
+                i, c;
+
+            while (found && end >= 0)
+            {
+                found = false;
+                i = -1;
+                c = str.charAt(end);
+
+                while (++i < charLen)
+                {
+                    if (c === chars[i])
+                    {
+                        found = true;
+                        end--;
+                        break;
+                    }
+                }
+            }
+
+            return (end >= 0) ? str.substring(0, end + 1) : '';
+        };
+
+        return rtrim;
+    })();
+
+    /* ------------------------------ startWith ------------------------------ */
+
+    var startWith;
+
+    _.startWith = (function ()
+    {
+        // @TODO
+
+        /* function
+         * startWith: Checks if string starts with the given target string.
+         * string(string): The string to search.
+         * prefix(string): String prefix.
+         * return(boolean): Returns true if string starts with prefix, else false.
+         */
+
+        startWith = function (str, prefix) { return str.indexOf(prefix) === 0 };
+
+        return startWith;
     })();
 
     /* ------------------------------ trim ------------------------------ */
