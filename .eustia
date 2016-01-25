@@ -7,6 +7,6 @@ module.exports = {
     test: {
         output: 'test/util.js',
         pattern: 'global',
-        files: ['test/*.js']
+        files: 'test/*.js'
     }
 };

@@ -6,7 +6,7 @@ describe('$attr', function ()
 
     var $dom = $('#dollarAttr');
 
-    it('retrieve node\'s attribute with given name', function ()
+    it('get node\'s attribute with given name', function ()
     {
         $dom.append('<div class="getter"></div>');
 

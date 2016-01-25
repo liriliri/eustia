@@ -1,10 +1,11 @@
-_('toArr isObj isStr each');
+_('toArr isObj isStr each isUndef');
 
 $attr = function (nodes, name, val)
 {
     nodes = toArr(nodes);
 
-    if (arguments.length === 2 && isStr(name)) return getAttr(nodes[0], name);
+    var isGetter = isUndef(val) && isStr(name);
+    if (isGetter) return getAttr(nodes[0], name);
 
     var attrs = name;
     if (!isObj(attrs))

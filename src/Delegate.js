@@ -1,6 +1,4 @@
-// @TODO
-
-_('Class contains');
+_('Class contain');
 
 function retTrue()  { return true }
 function retFalse() { return false }
@@ -50,7 +48,7 @@ function formatHandlers(e, handlers)
                 selector = handler.selector + ' ';
                 if (matches[selector] === undefined)
                 {
-                    matches[selector] = contains(this.querySelectorAll(selector), current);
+                    matches[selector] = contain(this.querySelectorAll(selector), current);
                 }
                 if (matches[selector]) matches.push(handler);
             }

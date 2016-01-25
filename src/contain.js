@@ -2,7 +2,7 @@
 
 _('indexOf isArrLike values');
 
-contains = function (arr, val)
+contain = function (arr, val)
 {
     if (!isArrLike(arr)) arr = values(arr);
 

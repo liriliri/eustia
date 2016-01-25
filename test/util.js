@@ -38,6 +38,32 @@
         return isObj;
     })();
 
+    /* ------------------------------ isUndef ------------------------------ */
+
+    var isUndef;
+
+    _.isUndef = (function ()
+    {
+        /* function
+         *
+         * isUndef: Checks if value is undefined.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is undefined, else false.
+         *
+         * ```javascript
+         * _.isUndef(void 0) // -> true
+         * _.isUndef(null) // -> false
+         * ```
+         *
+         * Just a shortcut for **x === undefined**, doesn't matter that much whether you
+         * use it or not.
+         */
+
+        isUndef = function (value) { return value === void 0 };
+
+        return isUndef;
+    })();
+
     /* ------------------------------ inherits ------------------------------ */
 
     var inherits;
@@ -108,30 +134,40 @@
         return slice;
     })();
 
-    /* ------------------------------ isUndef ------------------------------ */
+    /* ------------------------------ _optimizeCb ------------------------------ */
 
-    var isUndef;
+    var _optimizeCb;
 
-    _.isUndef = (function ()
+    _._optimizeCb = (function ()
     {
-        /* function
-         *
-         * isUndef: Checks if value is undefined.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is undefined, else false.
-         *
-         * ```javascript
-         * _.isUndef(void 0) // -> true
-         * _.isUndef(null) // -> false
-         * ```
-         *
-         * Just a shortcut for **x === undefined**, doesn't matter that much whether you
-         * use it or not.
-         */
 
-        isUndef = function (value) { return value === void 0 };
+        _optimizeCb = function (func, ctx, argCount)
+        {
+            if (isUndef(ctx)) return func;
 
-        return isUndef;
+            switch (argCount == null ? 3 : argCount)
+            {
+                case 1: return function (val)
+                {
+                    return func.call(ctx, val);
+                };
+                case 3: return function (val, idx, collection)
+                {
+                    return func.call(ctx, val, idx, collection);
+                };
+                case 4: return function (accumulator, val, idx, collection)
+                {
+                    return func.call(ctx, accumulator, val, idx, collection);
+                }
+            }
+
+            return function ()
+            {
+                return func.apply(ctx, arguments);
+            };
+        };
+
+        return _optimizeCb;
     })();
 
     /* ------------------------------ _createAssigner ------------------------------ */
@@ -169,42 +205,6 @@
         };
 
         return _createAssigner;
-    })();
-
-    /* ------------------------------ _optimizeCb ------------------------------ */
-
-    var _optimizeCb;
-
-    _._optimizeCb = (function ()
-    {
-
-        _optimizeCb = function (func, ctx, argCount)
-        {
-            if (isUndef(ctx)) return func;
-
-            switch (argCount == null ? 3 : argCount)
-            {
-                case 1: return function (val)
-                {
-                    return func.call(ctx, val);
-                };
-                case 3: return function (val, idx, collection)
-                {
-                    return func.call(ctx, val, idx, collection);
-                };
-                case 4: return function (accumulator, val, idx, collection)
-                {
-                    return func.call(ctx, accumulator, val, idx, collection);
-                }
-            }
-
-            return function ()
-            {
-                return func.apply(ctx, arguments);
-            };
-        };
-
-        return _optimizeCb;
     })();
 
     /* ------------------------------ _toStr ------------------------------ */
@@ -989,7 +989,8 @@
         {
             nodes = toArr(nodes);
 
-            if (arguments.length === 2 && isStr(name)) return getAttr(nodes[0], name);
+            var isGetter = isUndef(val) && isStr(name);
+            if (isGetter) return getAttr(nodes[0], name);
 
             var attrs = name;
             if (!isObj(attrs))
