@@ -1,3 +1,11 @@
+$show = function (el)
+{
+    if (getComputedStyle(el, '').getPropertyValue('display') == 'none')
+    {
+        el.style.display = defDisplay(el.nodeName);
+    }
+};
+
 var elDisplay = {};
 
 function defDisplay(nodeName)
@@ -16,11 +24,3 @@ function defDisplay(nodeName)
 
     return elDisplay[nodeName];
 }
-
-$show = function (el)
-{
-    if (getComputedStyle(el, '').getPropertyValue('display') == 'none')
-    {
-        el.style.display = defDisplay(el.nodeName);
-    }
-};

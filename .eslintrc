@@ -2,6 +2,7 @@
     "rules": {
         "no-alert": 1,
         "no-caller": 1,
-        "no-extra-semi": 1
+        "no-extra-semi": 1,
+        "no-else-return": 1
     }
 }

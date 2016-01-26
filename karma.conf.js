@@ -5,7 +5,9 @@ module.exports = function(config)
         frameworks: ['mocha', 'chai', 'chai-jquery', 'jquery-1.8.3'],
         files: [
             'test/util.js',
-            'test/$attr.js'
+            'test/$attr.js',
+            'test/$css.js',
+            'test/$propFactory.js'
         ],
         plugins: [
             'karma-mocha',

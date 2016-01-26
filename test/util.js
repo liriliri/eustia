@@ -64,6 +64,52 @@
         return isUndef;
     })();
 
+    /* ------------------------------ camelize ------------------------------ */
+
+    var camelize;
+
+    _.camelize = (function ()
+    {
+        // @TODO
+
+        /* function
+         * camelCase: Convert string to "camelCase" text.
+         */
+
+        camelize = function (str, char)
+        {
+            char = char || '-';
+
+            return str.replace(new RegExp(char + '+(.)?', 'g'), function (match, char)
+            {
+                return char ? char.toUpperCase() : '';
+            });
+        };
+
+        return camelize;
+    })();
+
+    /* ------------------------------ dasherize ------------------------------ */
+
+    var dasherize;
+
+    _.dasherize = (function ()
+    {
+        // @TODO
+
+        /* function
+         *
+         * dasherize:  Convert string to "dashCase".
+         */
+
+        dasherize = function (str)
+        {
+            return str.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase();
+        };
+
+        return dasherize;
+    })();
+
     /* ------------------------------ inherits ------------------------------ */
 
     var inherits;
@@ -518,6 +564,22 @@
         return bind;
     })();
 
+    /* ------------------------------ indexOf ------------------------------ */
+
+    var indexOf;
+
+    _.indexOf = (function ()
+    {
+        // @TODO
+
+        indexOf = function (arr, val)
+        {
+            return Array.prototype.indexOf.call(arr, val);
+        };
+
+        return indexOf;
+    })();
+
     /* ------------------------------ isArrLike ------------------------------ */
 
     var isArrLike;
@@ -595,6 +657,46 @@
         };
 
         return each;
+    })();
+
+    /* ------------------------------ values ------------------------------ */
+
+    var values;
+
+    _.values = (function ()
+    {
+        // @TODO
+
+        values = function (obj)
+        {
+            var _keys = keys(obj),
+                len   = _keys.length,
+                ret   = Array(len);
+
+            for (var i = 0; i < len; i++) ret[i] = obj[_keys[i]];
+
+            return ret;
+        };
+
+        return values;
+    })();
+
+    /* ------------------------------ contain ------------------------------ */
+
+    var contain;
+
+    _.contain = (function ()
+    {
+        // @TODO
+
+        contain = function (arr, val)
+        {
+            if (!isArrLike(arr)) arr = values(arr);
+
+            return indexOf(arr, val) >= 0;
+        };
+
+        return contain;
     })();
 
     /* ------------------------------ endWith ------------------------------ */
@@ -1033,6 +1135,93 @@
         }
 
         return $attr;
+    })();
+
+    /* ------------------------------ $css ------------------------------ */
+
+    var $css;
+
+    _.$css = (function ()
+    {
+
+        $css = function (nodes, name, val)
+        {
+            nodes = toArr(nodes);
+
+            var isGetter = isUndef(val) && isStr(name);
+            if (isGetter) return getCss(nodes[0], name);
+
+            var css = name;
+            if (!isObj(css))
+            {
+                css = {};
+                css[name] = val;
+            }
+
+            setCss(nodes, css);
+        };
+
+        function getCss(node, name)
+        {
+            return node.style[camelize(name)];
+        }
+
+        function setCss(nodes, css)
+        {
+            each(nodes, function (node)
+            {
+                var cssText = ';';
+                each(css, function (val, key)
+                {
+                    cssText += dasherize(key) + ':' + addPx(key, val) + ';';
+                });
+                node.style.cssText += cssText;
+            });
+        }
+
+        var cssNumProps = [
+            'column-count',
+            'columns',
+            'font-weight',
+            'line-weight',
+            'opacity',
+            'z-index',
+            'zoom'
+        ];
+
+        function addPx(key, val)
+        {
+            var needPx = isNum(val) && !contain(cssNumProps, dasherize(key));
+
+            return needPx ? val + 'px' : val;
+        }
+
+        return $css;
+    })();
+
+    /* ------------------------------ $propFactory ------------------------------ */
+
+    var $propFactory;
+
+    _.$propFactory = (function ()
+    {
+
+        $propFactory = function (name)
+        {
+            return function (nodes, val)
+            {
+                nodes = toArr(nodes);
+
+                if (isUndef(val)) return nodes[0][name];
+
+                each(nodes, function (node)
+                {
+                    node[name] = val;
+                });
+            };
+        };
+
+        return $propFactory;
     })();
 
     /* ------------------------------ Class ------------------------------ */

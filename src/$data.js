@@ -1,0 +1,6 @@
+_('$attr');
+
+$data = function ()
+{
+
+};

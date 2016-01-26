@@ -4,7 +4,11 @@
 
 ## Working
 $attr(doc)
-$css(doc, src, test)
+$attr.remove(doc)
+$class(doc, src, test);
+$css(doc)
+$propFactory(doc)
+$remove(doc, src, test)
 
 ## Finished
 

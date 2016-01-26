@@ -6,37 +6,35 @@ describe('$attr', function ()
 
     var $dom = $('#dollarAttr');
 
-    it('get node\'s attribute with given name', function ()
+    it('get node\'s attribute', function ()
     {
         $dom.append('<div class="getter"></div>');
 
         var $el = $dom.find('.getter');
 
-        $attr($el, 'data-multiple', 'true');
-        expect($el.attr('data-multiple')).to.equal('true');
-
-        $attr($el.get(0), 'data-multiple', 'false');
-        expect($el.attr('data-multiple')).to.equal('false');
+        $el.attr('data-one', 'true');
+        expect($attr($el, 'data-one')).to.equal('true');
+        expect($attr($el.get(0), 'data-one')).to.equal('true');
     });
 
-    it('set node\'s attribute with given name and value', function ()
+    it('set node\'s attribute', function ()
     {
         $dom.append('<div class="setter"></div>');
 
         var $el = $dom.find('.setter');
 
-        $attr($el, 'data-single', 'true');
-        expect($el.attr('data-single')).to.equal('true');
+        $attr($el, 'data-one', 'true');
+        expect($el.attr('data-one')).to.equal('true');
 
         $attr($el, {
-            'data-multiple-one': 'true',
-            'data-multiple-two': 'true'
+            'data-two': 'true',
+            'data-three': 'true'
         });
-        expect($el.attr('data-multiple-one')).to.equal('true');
-        expect($el.attr('data-multiple-two')).to.equal('true');
+        expect($el.attr('data-two')).to.equal('true');
+        expect($el.attr('data-three')).to.equal('true');
     });
 
-    it('remove node\'s attribute with given name', function ()
+    it('remove node\'s attribute', function ()
     {
         $dom.append('<div class="remove"></div>');
 

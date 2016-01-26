@@ -1,11 +1,29 @@
-_('Select $offset $show Delegate');
+_('Select $offset $show Delegate $css $attr $valueFactory last $remove');
+
+var $html = $valFactory('innerHTML'),
+    $text = $valFactory('textContent'),
+    $val = $valFactory('value');
 
 Select.methods({
-    offset: function () { return $offset(this[0]) },
-    hide: function () { return this.css('display', 'none') },
-    show: function () { return this.each(function () { $show(this) }) },
-    first: function () { return $(this[0]) },
-    last: function () { return $(this[this.length - 1]) },
+    offset: function ()
+    {
+        return $offset(this[0]);
+    },
+    hide: function ()
+    {
+        return this.css('display', 'none');
+    },
+    show: function ()
+    {
+        return this.each(function () { $show(this) });
+    },
+    first: function ()
+    {
+        return $(this[0]);
+    },
+    last: function () {
+        return $(last(this));
+    },
     on: function (type, selector, fn)
     {
         if (fn == null)
@@ -34,31 +52,35 @@ Select.methods({
     },
     html: function (val)
     {
-        if (val == null) return this[0].innerHTML;
-
-        return this.each(function () { this.innerHTML = val });
+        return $html(this, val) || this;
     },
     text: function (val)
     {
-        if (val == null) return this[0].textContent;
-
-        return this.each(function () { this.textContent = val });
+        return $text(this, val) || this;
     },
     val: function (val)
     {
-        if (val == null) return this[0].value;
+        return $val(this, val) || this;
+    },
+    css: function (name, val)
+    {
+        return $css(this, name, val) || this;
+    },
+    attr: function (name, val)
+    {
+        return $attr(this, name, val) || this;
+    },
+    rmAttr: function (name)
+    {
+        $attr.remove(this, name);
 
-        return this.each(function () { this.value = val });
+        return this;
     },
     remove: function ()
     {
-        var parent;
+        $remove(this);
 
-        return this.each(function ()
-        {
-            parent = this.parentNode;
-            if (parent != null) parent.removeChild(this);
-        });
+        return this;
     }
 });
 

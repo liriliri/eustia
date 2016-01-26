@@ -8,7 +8,7 @@ $css = function (nodes, name, val)
     if (isGetter) return getCss(nodes[0], name);
 
     var css = name;
-    if (!isObj)
+    if (!isObj(css))
     {
         css = {};
         css[name] = val;
@@ -24,7 +24,6 @@ function getCss(node, name)
 
 function setCss(nodes, css)
 {
-
     each(nodes, function (node)
     {
         var cssText = ';';

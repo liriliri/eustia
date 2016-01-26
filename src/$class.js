@@ -1,7 +1,6 @@
 $class = {
     add: function ()
     {
-
     },
     has: function ()
     {

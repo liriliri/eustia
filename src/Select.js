@@ -76,58 +76,6 @@ Select = Class({
 
         return this;
     },
-    css: function (name, val)
-    {
-        if (val == null && isStr(name))
-        {
-            return this[0].style[camelize(name)];
-        }
-
-        var css = '';
-
-        if (isStr(name))
-        {
-            css = dasherize(name) + ':' + addPx(name, val) + ';';
-        } else
-        {
-            each(name, function (val, key)
-            {
-                css += dasherize(key) + ':' + addPx(key, val) + ';';
-            });
-        }
-
-        return this.each(function ()
-        {
-            this.style.cssText += ';' + css;
-        });
-    },
-    rmAttr: function (name)
-    {
-        return this.each(function ()
-        {
-            setAttr(this, name);
-        });
-    },
-    attr: function (name, val)
-    {
-        if (val == null && isStr(name))
-        {
-            return this[0].getAttribute(name);
-        }
-
-        return this.each(function ()
-        {
-            var self = this;
-
-            if (isObj(name))
-            {
-                each(name, function (val, key) { setAttr(self, key, val) });
-            } else
-            {
-                setAttr(this, name, val);
-            }
-        });
-    },
     data: function (name, val)
     {
         var newName = name;

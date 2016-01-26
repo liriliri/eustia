@@ -8,6 +8,7 @@
 |array|arr|
 |attribute|attr|
 |callback|cb|
+|constructor|ctor|
 |context|ctx|
 |element|el|
 |function|fn|
