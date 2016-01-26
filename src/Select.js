@@ -53,57 +53,6 @@ Select = Class({
         });
 
         return this;
-    },
-    hasClass: function (name)
-    {
-        return some(this, function (el)
-        {
-            return this.test(el.className);
-        }, new RegExp('(^|\\s)' + name + '(\\s|$)'));
-    },
-    addClass: function (name)
-    {
-        var newName = name.split(/\s+/g);
-
-        return this.each(function ()
-        {
-            var classList = [],
-                $this = new Select(this);
-            each(newName, function (val)
-            {
-                if (!$this.hasClass(val)) classList.push(val);
-            });
-            if (classList.length !== 0) this.className += ' ' + classList.join(' ');
-        });
-    },
-    toggleClass: function (name)
-    {
-        return this.hasClass(name) ? this.rmClass(name) : this.addClass(name);
-    },
-    rmClass: function (name)
-    {
-        return this.each(function () { this.classList.remove(name) });
-    },
-    append: function (val)
-    {
-        return this.each(function ()
-        {
-            this.insertAdjacentHTML('beforeend', val);
-        });
-    },
-    before: function (val)
-    {
-        return this.each(function ()
-        {
-            this.insertAdjacentHTML('beforebegin', val);
-        });
-    },
-    prepend: function (val)
-    {
-        return this.each(function ()
-        {
-            this.insertAdjacentHTML('afterbegin', val);
-        });
     }
 });
 

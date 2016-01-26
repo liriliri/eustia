@@ -1,4 +1,4 @@
-_('Select $offset $show $css $attr $valueFactory last $remove $event');
+_('Select $offset $show $css $attr $valueFactory last $remove $event $class');
 
 $ = function (selector)
 {
@@ -76,5 +76,27 @@ Select.methods({
         $remove(this);
 
         return this;
+    },
+    addClass: function (name)
+    {
+        $class.add(this, name);
+
+        return this;
+    },
+    rmClass: function (name)
+    {
+        $class.remove(this, name);
+
+        return this;
+    },
+    toggleClass: function (name)
+    {
+        $class.toggle(this, name);
+
+        return this;
+    },
+    hasClass: function (name)
+    {
+        return $class.has(this, name);
     }
 });
