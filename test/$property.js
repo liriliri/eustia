@@ -1,6 +1,6 @@
 describe('$propFactory', function ()
 {
-    var $text = _.$propFactory('textContent');
+    var $text = _.$property.text;
 
     $('body').append('<div id="dollarPropFactory"></div>');
 

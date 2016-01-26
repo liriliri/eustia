@@ -1,13 +1,9 @@
-_('Select $offset $show $css $attr $valueFactory last $remove $event $class');
+_('Select $offset $show $css $attr $property last $remove $event $class');
 
 $ = function (selector)
 {
     return new Select(selector);
 };
-
-var $html = $valFactory('innerHTML'),
-    $text = $valFactory('textContent'),
-    $val = $valFactory('value');
 
 Select.methods({
     offset: function ()
@@ -45,15 +41,15 @@ Select.methods({
     },
     html: function (val)
     {
-        return $html(this, val) || this;
+        return $property.html(this, val) || this;
     },
     text: function (val)
     {
-        return $text(this, val) || this;
+        return $property.text(this, val) || this;
     },
     val: function (val)
     {
-        return $val(this, val) || this;
+        return $property.val(this, val) || this;
     },
     css: function (name, val)
     {

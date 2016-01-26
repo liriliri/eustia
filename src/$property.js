@@ -1,6 +1,12 @@
 _('toArr isUndef each');
 
-$propFactory = function (name)
+$property = {
+    html: propFactory('innerHTML'),
+    text: propFactory('textContent'),
+    val: propFactory('value')
+};
+
+function propFactory(name)
 {
     return function (nodes, val)
     {
@@ -13,4 +19,4 @@ $propFactory = function (name)
             node[name] = val;
         });
     };
-};
+}

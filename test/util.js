@@ -1199,14 +1199,20 @@
         return $css;
     })();
 
-    /* ------------------------------ $propFactory ------------------------------ */
+    /* ------------------------------ $property ------------------------------ */
 
-    var $propFactory;
+    var $property;
 
-    _.$propFactory = (function ()
+    _.$property = (function ()
     {
 
-        $propFactory = function (name)
+        $property = {
+            html: propFactory('innerHTML'),
+            text: propFactory('textContent'),
+            val: propFactory('value')
+        };
+
+        function propFactory(name)
         {
             return function (nodes, val)
             {
@@ -1219,9 +1225,9 @@
                     node[name] = val;
                 });
             };
-        };
+        }
 
-        return $propFactory;
+        return $property;
     })();
 
     /* ------------------------------ Class ------------------------------ */
