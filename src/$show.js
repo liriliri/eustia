@@ -1,14 +1,26 @@
-$show = function (el)
+_('toArr each');
+
+$show = function (nodes)
 {
-    if (getComputedStyle(el, '').getPropertyValue('display') == 'none')
+    nodes = toArr(nodes);
+
+    each(nodes, function (node)
     {
-        el.style.display = defDisplay(el.nodeName);
-    }
+        if (isHidden(node))
+        {
+            node.style.display = getDefDisplay(node.nodeName);
+        }
+    });
 };
+
+function isHidden(node)
+{
+    return getComputedStyle(node, '').getPropertyValue('display') == 'none';
+}
 
 var elDisplay = {};
 
-function defDisplay(nodeName)
+function getDefDisplay(nodeName)
 {
     var el, display;
 

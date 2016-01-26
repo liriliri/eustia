@@ -20,7 +20,9 @@ Select.methods({
     },
     show: function ()
     {
-        return this.each(function () { $show(this) });
+        $show(this);
+
+        return this;
     },
     first: function ()
     {
