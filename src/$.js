@@ -1,4 +1,9 @@
-_('Select $offset $show Delegate $css $attr $valueFactory last $remove');
+_('Select $offset $show $css $attr $valueFactory last $remove $event');
+
+$ = function (selector)
+{
+    return new Select(selector);
+};
 
 var $html = $valFactory('innerHTML'),
     $text = $valFactory('textContent'),
@@ -24,31 +29,17 @@ Select.methods({
     last: function () {
         return $(last(this));
     },
-    on: function (type, selector, fn)
+    on: function (event, selector, handler)
     {
-        if (fn == null)
-        {
-            fn = selector;
-            selector = undefined;
-        }
+        $event.on(event, selector, handler);
 
-        return this.each(function ()
-        {
-            Delegate.add(this, type, selector, fn);
-        });
+        return this;
     },
-    off: function (type, selector, fn)
+    off: function (event, selector, handler)
     {
-        if (fn == null)
-        {
-            fn = selector;
-            selector = undefined;
-        }
+        $event.off(this, event, selector, handler);
 
-        return this.each(function ()
-        {
-            Delegate.remove(this, type, fn, selector);
-        });
+        return this;
     },
     html: function (val)
     {
@@ -70,6 +61,10 @@ Select.methods({
     {
         return $attr(this, name, val) || this;
     },
+    data: function (name, val)
+    {
+        return $data(this, name, val) || this;
+    },
     rmAttr: function (name)
     {
         $attr.remove(this, name);
@@ -83,5 +78,3 @@ Select.methods({
         return this;
     }
 });
-
-$ = function (selector) { return new Select(selector) };

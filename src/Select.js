@@ -18,28 +18,6 @@ function mergeArr(first, second)
     return first;
 }
 
-function setAttr(node, name, val)
-{
-    val == null ? node.removeAttribute(name) : node.setAttribute(name, val);
-}
-
-var cssNumber = {
-    'column-count': 1,
-    'columns'     : 1,
-    'font-weight' : 1,
-    'line-weight' : 1,
-    'opacity'     : 1,
-    'z-index'     : 1,
-    'zoom'        : 1
-};
-
-function addPx(name, val)
-{
-    if (isNum(val) && !cssNumber[dasherize(name)]) return val + 'px';
-
-    return val;
-}
-
 Select = Class({
     className: 'Select',
     initialize: function (selector)
@@ -75,19 +53,6 @@ Select = Class({
         });
 
         return this;
-    },
-    data: function (name, val)
-    {
-        var newName = name;
-
-        if (isStr(name)) newName = 'data-' + name;
-        if (isObj(name))
-        {
-            newName = {};
-            each(name, function (val, key) { newName['data-' + key] = val });
-        }
-
-        return this.attr(newName, val);
     },
     hasClass: function (name)
     {

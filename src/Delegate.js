@@ -9,7 +9,7 @@ function trigger(e)
         handler,
         handlerQueue = formatHandlers.call(this, e, handlers);
 
-    e = new Delegate.Event(e);
+    e = new delegate.Event(e);
 
     var i = 0, j, matched, ret;
 
@@ -67,7 +67,7 @@ function formatHandlers(e, handlers)
     return ret;
 }
 
-Delegate = {
+delegate = {
     add: function (el, type, selector, fn)
     {
         var handler = {
