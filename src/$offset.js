@@ -1,6 +1,12 @@
-$offset = function (el)
+_('toArr');
+
+$offset = function (nodes)
 {
-    var clientRect = el.getBoundingClientRect();
+    nodes = toArr(nodes);
+
+    var node = nodes[0];
+
+    var clientRect = node.getBoundingClientRect();
 
     return {
         left: clientRect.left + window.pageXOffset,

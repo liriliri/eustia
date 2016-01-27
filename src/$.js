@@ -8,7 +8,7 @@ $ = function (selector)
 Select.methods({
     offset: function ()
     {
-        return $offset(this[0]);
+        return $offset(this);
     },
     hide: function ()
     {
@@ -26,6 +26,10 @@ Select.methods({
     },
     last: function () {
         return $(last(this));
+    },
+    eq: function (idx)
+    {
+        return $(idx);
     },
     on: function (event, selector, handler)
     {
