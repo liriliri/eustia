@@ -1,5 +1,6 @@
 attrs
 camelize
+chai
 chokidar
 cmts
 ctor
