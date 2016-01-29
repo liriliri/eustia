@@ -1,14 +1,20 @@
-// @TODO
+/* function
+ * values: Creates an array of the own enumerable property values of object.
+ * object(object): The object to query.
+ * return(array): The array of property values.
+ *
+ * ```javascript
+ * values({one: 1, two: 2}); // -> [1, 2]
+ * ```
+ */
 
-_('keys');
+_('each');
 
 values = function (obj)
 {
-    var _keys = keys(obj),
-        len   = _keys.length,
-        ret   = Array(len);
+    var ret = [];
 
-    for (var i = 0; i < len; i++) ret[i] = obj[_keys[i]];
+    each(obj, function (val) { ret.push(val) });
 
     return ret;
 };

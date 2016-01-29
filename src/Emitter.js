@@ -1,9 +1,3 @@
-// @TODO
-
-/* class
- * Emitter: Event emitter.
- */
-
 _('Class has each slice');
 
 Emitter = Class({
