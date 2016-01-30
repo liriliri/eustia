@@ -1,8 +1,8 @@
-_('toArr each');
+_('each $safeNodes');
 
 $show = function (nodes)
 {
-    nodes = toArr(nodes);
+    nodes = $safeNodes(nodes);
 
     each(nodes, function (node)
     {

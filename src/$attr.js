@@ -1,8 +1,8 @@
-_('toArr isObj isStr each isUndef');
+_('toArr isObj isStr each isUndef $safeNodes');
 
 $attr = function (nodes, name, val)
 {
-    nodes = toArr(nodes);
+    nodes = $safeNodes(nodes);
 
     var isGetter = isUndef(val) && isStr(name);
     if (isGetter) return getAttr(nodes[0], name);
@@ -19,7 +19,7 @@ $attr = function (nodes, name, val)
 
 $attr.remove = function (nodes, names)
 {
-    nodes = toArr(nodes);
+    nodes = $safeNodes(nodes);
     names = toArr(names);
 
     each(nodes, function (node)

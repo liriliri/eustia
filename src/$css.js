@@ -1,8 +1,8 @@
-_('toArr isStr isObj camelize dasherize isUndef contain isNum');
+_('isStr isObj camelize dasherize isUndef contain isNum $safeNodes');
 
 $css = function (nodes, name, val)
 {
-    nodes = toArr(nodes);
+    nodes = $safeNodes(nodes);
 
     var isGetter = isUndef(val) && isStr(name);
     if (isGetter) return getCss(nodes[0], name);

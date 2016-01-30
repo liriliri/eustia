@@ -1,8 +1,8 @@
-_('toArr');
+_('$safeNodes');
 
 $offset = function (nodes)
 {
-    nodes = toArr(nodes);
+    nodes = $safeNodes(nodes);
 
     var node = nodes[0];
 

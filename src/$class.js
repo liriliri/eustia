@@ -1,8 +1,9 @@
-_('toArr some');
+_('toArr some $safeNodes');
 
 $class = {
     add: function (nodes, name)
     {
+        nodes = $safeNodes(nodes);
         var names = toArr(name);
 
         each(nodes, function (node)
@@ -19,6 +20,8 @@ $class = {
     },
     has: function (nodes, name)
     {
+        nodes = $safeNodes(nodes);
+
         var regName = new RegExp('(^|\\s)' + name + '(\\s|$)');
 
         return some(nodes, function (node)
@@ -28,6 +31,8 @@ $class = {
     },
     toggle: function (nodes, name)
     {
+        nodes = $safeNodes(nodes);
+
         each(nodes, function (node)
         {
             if ($class.has(node, name)) return $class.add(node, name);
@@ -37,6 +42,7 @@ $class = {
     },
     remove: function (nodes, name)
     {
+        nodes = $safeNodes(nodes);
         var names = toArr(name);
 
         each(nodes, function (node)

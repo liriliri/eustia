@@ -1,4 +1,4 @@
-_('each');
+_('each $safeNodes');
 
 $insert = {
     before: insertFactory('beforebegin'),
@@ -11,7 +11,7 @@ function insertFactory(type)
 {
     return function (nodes, val)
     {
-        nodes = toArr(nodes);
+        nodes = $safeNodes(nodes);
 
         each(nodes, function (node)
         {

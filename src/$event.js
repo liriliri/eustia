@@ -1,4 +1,4 @@
-_('delegate toArr isUndef');
+_('delegate isUndef $safeNodes');
 
 $event = {
     on: eventFactory('add'),
@@ -9,7 +9,7 @@ function eventFactory(type)
 {
     return function (nodes, event, selector, handler)
     {
-        nodes = toArr(nodes);
+        nodes = $safeNodes(nodes);
 
         if (isUndef(handler))
         {

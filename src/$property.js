@@ -1,4 +1,4 @@
-_('toArr isUndef each');
+_('isUndef each $safeNodes');
 
 $property = {
     html: propFactory('innerHTML'),
@@ -10,7 +10,7 @@ function propFactory(name)
 {
     return function (nodes, val)
     {
-        nodes = toArr(nodes);
+        nodes = $safeNodes(nodes);
 
         if (isUndef(val)) return nodes[0][name];
 
