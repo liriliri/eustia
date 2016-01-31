@@ -38,7 +38,7 @@ function doResolve(fn, onFulfilled, onRejected)
     }
 }
 
-var Promise = Class({
+Promise = Promise || Class({
     initialize: function (fn)
     {
         this._state = new State('pending', {

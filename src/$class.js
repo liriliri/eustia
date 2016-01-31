@@ -12,7 +12,7 @@ $class = {
 
             each(names, function (name)
             {
-                if (!$class.hasClass(node, name)) classList.push(name);
+                if (!$class.has(node, name)) classList.push(name);
             });
 
             if (classList.length !== 0) node.className += ' ' + classList.join(' ');

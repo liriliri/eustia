@@ -2,7 +2,7 @@
 
 _('isPlainObj each deepClone');
 
-deepExtend = function (obj)
+extendDeep = function (obj)
 {
     var i   = 0,
         ret = obj,
@@ -16,11 +16,11 @@ deepExtend = function (obj)
         {
             each(obj, function (val, key)
             {
-                ret[key] = exports(ret[key], obj[key]);
+                ret[key] = extendDeep(ret[key], obj[key]);
             });
         } else
         {
-            ret = deepClone(obj);
+            ret = cloneDeep(obj);
         }
     }
 

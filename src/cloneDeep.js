@@ -16,13 +16,13 @@ function mapObject(obj, iteratee)
     return newObj;
 }
 
-deepClone = function (obj)
+cloneDeep = function (obj)
 {
     if (isArr(obj))
     {
         return obj.map(function (val)
         {
-            return exports(val);
+            return cloneDeep(val);
         });
     }
 
@@ -30,7 +30,7 @@ deepClone = function (obj)
     {
         return mapObject(obj, function (key, val)
         {
-            return [key, exports(val)];
+            return [key, cloneDeep(val)];
         });
     }
 
