@@ -1263,14 +1263,9 @@
 
         values = function (obj)
         {
-            var objKeys = keys(obj),
-                len = objKeys.length,
-                ret = new Array(len);
+            var ret = [];
 
-            for (var i = 0; i < len; i++)
-            {
-                ret[i] = obj[objKeys[i]];
-            }
+            each(obj, function (val) { ret.push(val) });
 
             return ret;
         };

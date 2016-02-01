@@ -30,7 +30,8 @@ _.each(commands, function (name)
             if (err)
             {
                 _.log.err(err);
-                fs.writeFileSync(errLogPath, _.log.get().join('\n'), 'utf-8');
+                var errLogs = _.stripColorCodes(_.log.get().join('\n'));
+                fs.writeFileSync(errLogPath, errLogs, 'utf-8');
                 process.exit();
             }
 

@@ -101,6 +101,58 @@ window._ = (function()
         return dasherize;
     })();
 
+    /* ------------------------------ inherits ------------------------------ */
+
+    var inherits;
+
+    _.inherits = (function ()
+    {
+        // @TODO
+
+        /* function
+         * inherits: Inherit the prototype methods from one constructor into another.
+         * Class(function): Child Class.
+         * SuperClass(function): Super Class.
+         */
+
+        var objCreate = Object.create;
+
+        function noop() {}
+
+        inherits = function (Class, SuperClass)
+        {
+            if (objCreate) return Class.prototype = objCreate(SuperClass.prototype);
+
+            noop.prototype  = SuperClass.prototype;
+            Class.prototype = new noop();
+        };
+
+        return inherits;
+    })();
+
+    /* ------------------------------ has ------------------------------ */
+
+    var has;
+
+    _.has = (function ()
+    {
+        /* function
+         * has: Checks if key is a direct property.
+         * object(object): The object to query.
+         * key(string): The path to check.
+         * return(boolean): Returns true if key is a direct property, else false.
+         */
+
+        var hasOwnProp = Object.prototype.hasOwnProperty;
+
+        has = function (obj, key)
+        {
+            return hasOwnProp.call(obj, key);
+        };
+
+        return has;
+    })();
+
     /* ------------------------------ _optimizeCb ------------------------------ */
 
     var _optimizeCb;
@@ -393,29 +445,6 @@ window._ = (function()
         return indexOf;
     })();
 
-    /* ------------------------------ has ------------------------------ */
-
-    var has;
-
-    _.has = (function ()
-    {
-        /* function
-         * has: Checks if key is a direct property.
-         * object(object): The object to query.
-         * key(string): The path to check.
-         * return(boolean): Returns true if key is a direct property, else false.
-         */
-
-        var hasOwnProp = Object.prototype.hasOwnProperty;
-
-        has = function (obj, key)
-        {
-            return hasOwnProp.call(obj, key);
-        };
-
-        return has;
-    })();
-
     /* ------------------------------ isArrLike ------------------------------ */
 
     var isArrLike;
@@ -495,19 +524,6 @@ window._ = (function()
         return each;
     })();
 
-    /* ------------------------------ extendOwn ------------------------------ */
-
-    var extendOwn;
-
-    _.extendOwn = (function ()
-    {
-        // @TODO
-
-        extendOwn = _createAssigner(keys);
-
-        return extendOwn;
-    })();
-
     /* ------------------------------ values ------------------------------ */
 
     var values;
@@ -526,14 +542,9 @@ window._ = (function()
 
         values = function (obj)
         {
-            var objKeys = keys(obj),
-                len = objKeys.length,
-                ret = new Array(len);
+            var ret = [];
 
-            for (var i = 0; i < len; i++)
-            {
-                ret[i] = obj[objKeys[i]];
-            }
+            each(obj, function (val) { ret.push(val) });
 
             return ret;
         };
@@ -557,6 +568,19 @@ window._ = (function()
         };
 
         return contain;
+    })();
+
+    /* ------------------------------ extendOwn ------------------------------ */
+
+    var extendOwn;
+
+    _.extendOwn = (function ()
+    {
+        // @TODO
+
+        extendOwn = _createAssigner(keys);
+
+        return extendOwn;
     })();
 
     /* ------------------------------ isArr ------------------------------ */
@@ -660,6 +684,33 @@ window._ = (function()
         return _cb;
     })();
 
+    /* ------------------------------ some ------------------------------ */
+
+    var some;
+
+    _.some = (function ()
+    {
+        // @TODO
+
+        some = function (obj, predicate, ctx)
+        {
+            predicate = _cb(predicate, ctx);
+
+            var _keys = !isArrLike(obj) && keys(obj),
+                len   = (_keys || obj).length;
+
+            for (var i = 0; i < len; i++)
+            {
+                var key = _keys ? _keys[i] : i;
+                if (predicate(obj[key], key, obj)) return true;
+            }
+
+            return false;
+        };
+
+        return some;
+    })();
+
     /* ------------------------------ map ------------------------------ */
 
     var map;
@@ -707,6 +758,164 @@ window._ = (function()
         return toArr;
     })();
 
+    /* ------------------------------ Class ------------------------------ */
+
+    var Class;
+
+    _.Class = (function ()
+    {
+        // @TODO
+
+        /* function
+         *
+         * Class: Create JavaScript class.
+         * methods(object): Public methods.
+         * statics(object): Static methods.
+         * return(function): Return function used to create instances.
+         */
+
+        var regCallSuper = /callSuper/;
+
+        function makeClass(parent, methods, statics)
+        {
+            statics = statics || {};
+
+            var ctor = function ()
+            {
+                var args = toArr(arguments);
+
+                if (has(ctor.prototype, 'initialize') &&
+                    !regCallSuper.test(this.initialize.toString()) &&
+                    this.callSuper)
+                {
+                    args.unshift('initialize');
+                    this.callSuper.apply(this, args);
+                    args.shift();
+                }
+
+                return this.initialize
+                       ? this.initialize.apply(this, args) || this
+                       : this;
+            };
+
+            inherits(ctor, parent);
+            ctor.superclass = ctor.prototype.superclass = parent;
+
+            ctor.extend   = function (methods, statics) { return makeClass(ctor, methods, statics) };
+            ctor.inherits = function (Class) { inherits(Class, ctor) };
+            ctor.methods  = function (methods) { extend(ctor.prototype, methods); return ctor };
+            ctor.statics  = function (statics) { extend(ctor, statics); return ctor };
+
+            ctor.methods(methods).statics(statics);
+
+            return ctor;
+        }
+
+        Class = function (methods, statics) { return Base.extend(methods, statics) };
+
+        var Base = Class.Base = makeClass(Object, {
+            className: 'Base',
+            callSuper: function (name)
+            {
+                var superMethod = this.superclass.prototype[name];
+
+                if (!superMethod) return;
+
+                return superMethod.apply(this, toArr(arguments).slice(1));
+            },
+            toString: function ()
+            {
+                return this.className;
+            }
+        });
+
+        return Class;
+    })();
+
+    /* ------------------------------ Select ------------------------------ */
+
+    var Select;
+
+    _.Select = (function ()
+    {
+        // @TODO
+
+        /* class
+         * Select: jQuery like dom manipulator.
+         */
+
+        function mergeArr(first, second)
+        {
+            var len = second.length,
+                i   = first.length;
+
+            for (var j = 0; j < len; j++) first[i++] = second[j];
+
+            first.length = i;
+
+            return first;
+        }
+
+        Select = Class({
+            className: 'Select',
+            initialize: function (selector)
+            {
+                this.length = 0;
+
+                if (!selector) return this;
+
+                if (isStr(selector)) return rootSelect.find(selector);
+
+                if (selector.nodeType)
+                {
+                    this[0]     = selector;
+                    this.length = 1;
+                }
+            },
+            find: function (selector)
+            {
+                var ret = new Select;
+
+                this.each(function ()
+                {
+                    mergeArr(ret, this.querySelectorAll(selector));
+                });
+
+                return ret;
+            },
+            each: function (fn)
+            {
+                each(this, function (element, idx)
+                {
+                    fn.call(element, idx, element);
+                });
+
+                return this;
+            }
+        });
+
+        var rootSelect = new Select(document);
+
+        return Select;
+    })();
+
+    /* ------------------------------ $safeNodes ------------------------------ */
+
+    var $safeNodes;
+
+    _.$safeNodes = (function ()
+    {
+
+        $safeNodes = function (nodes)
+        {
+            if (isStr(nodes)) return new Select(nodes);
+
+            return toArr(nodes);
+        };
+
+        return $safeNodes;
+    })();
+
     /* ------------------------------ $attr ------------------------------ */
 
     var $attr;
@@ -716,7 +925,7 @@ window._ = (function()
 
         $attr = function (nodes, name, val)
         {
-            nodes = toArr(nodes);
+            nodes = $safeNodes(nodes);
 
             var isGetter = isUndef(val) && isStr(name);
             if (isGetter) return getAttr(nodes[0], name);
@@ -733,7 +942,7 @@ window._ = (function()
 
         $attr.remove = function (nodes, names)
         {
-            nodes = toArr(nodes);
+            nodes = $safeNodes(nodes);
             names = toArr(names);
 
             each(nodes, function (node)
@@ -773,7 +982,7 @@ window._ = (function()
 
         $css = function (nodes, name, val)
         {
-            nodes = toArr(nodes);
+            nodes = $safeNodes(nodes);
 
             var isGetter = isUndef(val) && isStr(name);
             if (isGetter) return getCss(nodes[0], name);
@@ -843,7 +1052,7 @@ window._ = (function()
         {
             return function (nodes, val)
             {
-                nodes = toArr(nodes);
+                nodes = $safeNodes(nodes);
 
                 if (isUndef(val)) return nodes[0][name];
 
