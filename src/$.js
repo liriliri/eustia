@@ -1,4 +1,4 @@
-_('Select $offset $show $css $attr $property last $remove $event $class');
+_('Select $offset $show $css $attr $property last $remove $event $class $insert');
 
 $ = function (selector)
 {
@@ -100,5 +100,21 @@ Select.methods({
     hasClass: function (name)
     {
         return $class.has(this, name);
+    },
+    append: function (val)
+    {
+        return $insert.append(this, val);
+    },
+    prepend: function (val)
+    {
+        return $insert.prepend(this, val);
+    },
+    before: function (val)
+    {
+        return $insert.before(this, val);
+    },
+    after: function (val)
+    {
+        return $insert.after(this, val);
     }
 });
