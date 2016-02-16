@@ -1,6 +1,6 @@
 {
     "command": "search",
-    "desc": "Search for utilities.",
+    "desc": "Search for modules.",
     "usage": [
         "search <keyword>"
     ]

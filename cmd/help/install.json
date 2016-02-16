@@ -1,6 +1,6 @@
 {
     "command": "install",
-    "desc": "Install utilities.",
+    "desc": "Install modules.",
     "usage": [
         "install [<utilities>]"
     ]

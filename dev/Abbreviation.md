@@ -7,6 +7,7 @@
 |argument|arg|
 |array|arr|
 |attribute|attr|
+|module|mod|
 |callback|cb|
 |constructor|ctor|
 |context|ctx|

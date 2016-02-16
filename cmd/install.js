@@ -7,9 +7,9 @@ var readRepoData = require('./share/readRepoData'),
 
 function exports(options, cb)
 {
-    if (options.utils.length === 0)
+    if (options.modules.length === 0)
     {
-        _.log.warn('You need to specify at least one function.');
+        _.log.warn('You need to specify at least one module name.');
         return cb();
     }
 
@@ -26,7 +26,7 @@ function exports(options, cb)
 }
 
 exports.defOpts = {
-    utils   : []
+    modules: []
 };
 
 module.exports = exports;

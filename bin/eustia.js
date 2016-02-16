@@ -94,7 +94,7 @@ if (!cmd)
             if (remain.length > 0) options.input = remain[0];
             break;
         }
-        case 'install': options.utils = remain; break;
+        case 'install': options.modules = remain; break;
     }
 
     eustia[cmd](options);

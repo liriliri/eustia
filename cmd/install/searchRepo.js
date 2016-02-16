@@ -4,27 +4,27 @@ var inquirer = require('inquirer'),
 
 module.exports = function (repoData, options, cb)
 {
-    var foundUtils = {},
+    var foundModules = {},
         ret = [],
-        installUtils = options.utils;
+        installModules = options.modules;
 
-    function checkUtil(util, name)
+    function checkModule(mod, name)
     {
         return function (cb)
         {
-            if (util.length === 0)
+            if (mod.length === 0)
             {
                 _.log.warn('Not found: ' + name);
                 return cb();
             }
 
-            if (util.length === 1)
+            if (mod.length === 1)
             {
-                ret.push(util[0]);
+                ret.push(mod[0]);
                 return cb();
             }
 
-            var choices = _.map(util, function (val)
+            var choices = _.map(mod, function (val)
             {
                 return { name: val.name + ': ' + val.desc, value: val }
             });
@@ -32,7 +32,7 @@ module.exports = function (repoData, options, cb)
             inquirer.prompt([{
                 name: name,
                 type: 'list',
-                message: 'Found ' + util.length + ' "' + name +'", which one do you want to install',
+                message: 'Found ' + mod.length + ' "' + name +'", which one do you want to install',
                 choices: choices
             }], function (answer)
             {
@@ -42,23 +42,23 @@ module.exports = function (repoData, options, cb)
         }
     }
 
-    _.each(installUtils, function (utility)
+    _.each(installModules, function (mod)
     {
         var matchRepos = [];
 
         _.each(repoData, function (repo)
         {
-            if (repo.name === utility) matchRepos.push(repo);
+            if (repo.name === mod) matchRepos.push(repo);
         });
 
-        foundUtils[utility] = matchRepos;
+        foundModules[mod] = matchRepos;
     });
 
     var callbacks = [];
 
-    _.each(foundUtils, function (utility, name)
+    _.each(foundModules, function (mod, name)
     {
-        callbacks.push(checkUtil(utility, name));
+        callbacks.push(checkModule(mod, name));
     });
 
     async.waterfall(callbacks, function (err)

@@ -1,3 +1,3 @@
 # Design Principle
 
-1. Provide only the most regular functions and modules.
+1. Provide only the most regular modules.
