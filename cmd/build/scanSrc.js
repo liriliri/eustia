@@ -1,5 +1,5 @@
 var path  = require('path'),
-    _ = require('../util');
+    _ = require('../../lib/util');
 
 var regCommonjs = /require\(.*\)/,
     regEs6 = /import.*from/;

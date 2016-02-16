@@ -2,7 +2,7 @@ var handlebars = require('handlebars'),
     async = require('async'),
     path  = require('path'),
     fs = require('fs'),
-    _  = require('../util');
+    _  = require('../../lib/util');
 
 var tpl = {};
 

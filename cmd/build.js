@@ -6,7 +6,7 @@ var path = require('path'),
     scanSrc = require('./build/scanSrc'),
     genCodes = require('./build/genCodes'),
     output = require('./build/output'),
-    _ = require('./util');
+    _ = require('../lib/util');
 
 function exports(options, cb)
 {

@@ -5,7 +5,7 @@ var async = require('async'),
     readDesc   = require('./docs/readDesc'),
     readTpl    = require('./share/readTpl'),
     output     = require('./docs/output'),
-    _ = require('./util');
+    _ = require('../lib/util');
 
 function exports(options, cb)
 {

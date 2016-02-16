@@ -1,7 +1,7 @@
 var async = require('async'),
     fs = require('fs'),
     path = require('path'),
-    _ = require('../util');
+    _ = require('../../lib/util');
 
 var regDependency = /\s*_\(['"]([\w\s\$]+)['"]\);/;
 

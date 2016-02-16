@@ -1,5 +1,5 @@
 var fs = require('fs'),
-    _ = require('../util');
+    _ = require('../../lib/util');
 
 function breakApart(data)
 {

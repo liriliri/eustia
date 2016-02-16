@@ -17,7 +17,7 @@ var errLogPath = path.resolve(process.cwd(), './eustia-debug.log'),
 
 _.each(commands, function (name)
 {
-    var cmd = require('./lib/' + name);
+    var cmd = require('./cmd/' + name);
 
     exports[name] = function (options, cb)
     {

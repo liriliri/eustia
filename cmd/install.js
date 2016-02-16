@@ -1,24 +1,22 @@
 var async = require('async'),
-    _ = require('./util');
+    _ = require('../lib/util');
 
 var readRepoData = require('./share/readRepoData'),
-    searchRepo = require('./search/searchRepo'),
-    showResult = require('./search/showResult');
+    searchRepo   = require('./install/searchRepo'),
+    downloadFile = require('./install/downloadFile');
 
 function exports(options, cb)
 {
-    if (!options.keyword)
+    if (options.utils.length === 0)
     {
-        _.log.warn('Search keyword is required.');
+        _.log.warn('You need to specify at least one function.');
         return cb();
     }
-
-    _.log.ok('Searching "' + options.keyword + '":');
 
     async.waterfall([
         function (cb) { readRepoData(options, cb) },
         function (repoData, cb) { searchRepo(repoData, options, cb) },
-        showResult
+        function (installRepos, cb) { downloadFile(installRepos, options, cb) }
     ], function (err)
     {
         if (err) return cb(err);
@@ -27,6 +25,8 @@ function exports(options, cb)
     });
 }
 
-exports.defOpts = {};
+exports.defOpts = {
+    utils   : []
+};
 
 module.exports = exports;

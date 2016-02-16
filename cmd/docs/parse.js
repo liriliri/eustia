@@ -1,5 +1,5 @@
 var FnParser = require('./FnParser'),
-    _ = require('../util');
+    _ = require('../../lib/util');
 
 module.exports = function (ast, units, options, cb)
 {

@@ -1,7 +1,7 @@
 var request = require('request'),
     fs      = require('fs'),
     path    = require('path'),
-    _ = require('../util');
+    _ = require('../../lib/util');
 
 module.exports = function (installRepos, options, cb)
 {

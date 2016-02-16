@@ -1,4 +1,4 @@
-var _ = require('../util');
+var _ = require('../../lib/util');
 
 var resultTpl = '{{idx}}.{{#cyan}}{{name}}{{/cyan}}: {{desc}}\nSource: {{src}}';
 

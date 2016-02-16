@@ -1,6 +1,6 @@
 var genCode = require('./genCode'),
     async   = require('async'),
-    _ = require('../util');
+    _ = require('../../lib/util');
 
 module.exports = function (fnList, codeTpl, options, cb)
 {

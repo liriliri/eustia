@@ -1,7 +1,7 @@
 module.exports = {
     util: {
         output: 'lib/util.js',
-        files: ['index.js', 'bin/eustia.js', 'lib/**/*.js'],
+        files: ['index.js', 'bin/eustia.js', 'cmd/**/*.js'],
         pattern: 'commonjs'
     },
     testBrowser: {

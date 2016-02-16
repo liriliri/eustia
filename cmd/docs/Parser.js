@@ -1,4 +1,4 @@
-var _ = require('../util');
+var _ = require('../../lib/util');
 
 const EOF = 'EndOfFile';
 

@@ -1,5 +1,5 @@
 var path = require('path'),
-    _ = require('../util');
+    _ = require('../../lib/util');
 
 module.exports = function (options, cb)
 {

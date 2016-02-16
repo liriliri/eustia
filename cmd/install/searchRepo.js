@@ -1,6 +1,6 @@
 var inquirer = require('inquirer'),
     async    = require('async'),
-    _ = require('../util');
+    _ = require('../../lib/util');
 
 module.exports = function (repoData, options, cb)
 {
