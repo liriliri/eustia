@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('Class isArr each isObj isStr');
+include('Class isArr each isObj isStr');
 
 function removeParameter(url, parameter)
 {

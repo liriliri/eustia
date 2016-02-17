@@ -1,4 +1,4 @@
-_('isStr toArr Select');
+include('isStr toArr Select');
 
 $safeNodes = function (nodes)
 {

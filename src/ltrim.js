@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 var regSpace = /^\s+/;
 

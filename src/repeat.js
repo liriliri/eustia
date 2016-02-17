@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * repeat: Repeat string n-times.

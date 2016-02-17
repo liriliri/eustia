@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * invert: Creates an object composed of the inverted keys and values of object.
@@ -8,7 +8,7 @@
  * assignments of previous values unless multiValue is true.
  */
 
-_('keys each');
+include('keys each');
 
 invert = function (obj)
 {

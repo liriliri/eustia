@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('isObj isArr');
+include('isObj isArr');
 
 isPlainObj = function (obj)
 {

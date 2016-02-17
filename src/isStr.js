@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * isStr: Checks if value is classified as a String primitive or object.
@@ -6,7 +6,7 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-_('_toStr');
+include('_toStr');
 
 isStr = function (value) { return _toStr.call(value) === '[object String]' };
 

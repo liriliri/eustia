@@ -1,4 +1,4 @@
-_('filter');
+include('filter');
 
 function isEqual(a, b) { return a === b }
 

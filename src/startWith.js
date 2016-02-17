@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * startWith: Checks if string starts with the given target string.

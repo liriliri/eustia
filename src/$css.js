@@ -1,4 +1,4 @@
-_('isStr isObj camelize dasherize isUndef contain isNum $safeNodes');
+include('isStr isObj camelize dasherize isUndef contain isNum $safeNodes');
 
 $css = function (nodes, name, val)
 {

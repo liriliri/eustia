@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  *
@@ -9,7 +9,7 @@
  * return(string): Resulted string.
  */
 
-_('repeat');
+include('repeat');
 
 rpad = function (str, len, chars)
 {

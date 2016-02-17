@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('isFn has keys');
+include('isFn has keys');
 
 function deepEq(a, b, aStack, bStack)
 {

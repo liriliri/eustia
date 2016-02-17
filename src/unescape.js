@@ -1,5 +1,5 @@
-// @TODO
+// TODO
 
-_('_createEscaper');
+include('_createEscaper');
 
 unescape = _createEscaper(1);

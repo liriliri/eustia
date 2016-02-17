@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * isObj: Checks if value is the language type of Object.

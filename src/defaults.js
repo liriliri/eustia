@@ -1,5 +1,5 @@
-// @TODO
+// TODO
 
-_('_createAssigner allKeys');
+include('_createAssigner allKeys');
 
 defaults = _createAssigner(allKeys, true);

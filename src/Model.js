@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('Class');
+include('Class');
 
 Model = Class({
 

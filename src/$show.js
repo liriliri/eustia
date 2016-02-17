@@ -1,4 +1,4 @@
-_('each $safeNodes');
+include('each $safeNodes');
 
 $show = function (nodes)
 {

@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('keys isObj isFn isArr each');
+include('keys isObj isFn isArr each');
 
 function mapObject(obj, iteratee)
 {

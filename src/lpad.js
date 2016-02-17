@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * lpad: Pads string on the left side if it's shorter than length.
@@ -7,7 +7,7 @@
  * chars(string): The string used as padding.
  */
 
-_('repeat');
+include('repeat');
 
 lpad = function (str, len, chars)
 {

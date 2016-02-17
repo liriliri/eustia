@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('_cb keys isArrLike');
+include('_cb keys isArrLike');
 
 map = function (obj, iteratee, ctx)
 {

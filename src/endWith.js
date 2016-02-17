@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * endWith: Checks if string ends with the given target string.

@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('_cb each');
+include('_cb each');
 
 filter = function (obj, predicate, ctx)
 {

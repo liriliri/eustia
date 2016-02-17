@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * isFn: Checks if value is classified as a Function object.
@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-_('_toStr');
+include('_toStr');
 
 isFn = function (val) { return _toStr.call(val) === '[object Function]' };

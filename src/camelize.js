@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * camelCase: Convert string to "camelCase" text.

@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('isNum has');
+include('isNum has');
 
 var MAX_ARR_IDX = Math.pow(2, 53) - 1;
 

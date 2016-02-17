@@ -1,4 +1,4 @@
-_('isFn isObj _optimizeCb matcher');
+include('isFn isObj _optimizeCb matcher');
 
 _cb = function (val, ctx, argCount)
 {

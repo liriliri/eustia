@@ -1,10 +1,10 @@
-// @TODO
+// TODO
 
 /* module
  * Cookie: Simple api for handling browser cookies.
  */
 
-_('extend isNum');
+include('extend isNum');
 
 var defOpts = { path: '/' };
 

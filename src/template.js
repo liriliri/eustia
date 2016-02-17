@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 var regEvaluate = /<%([\s\S]+?)%>/g,
     regInterpolate = /<%=([\s\S]+?)%>/g,

@@ -1,4 +1,4 @@
-_('delegate isUndef $safeNodes');
+include('delegate isUndef $safeNodes');
 
 $event = {
     on: eventFactory('add'),

@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('isObj isArr extend');
+include('isObj isArr extend');
 
 clone = function (obj)
 {

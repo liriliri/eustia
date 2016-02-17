@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * last: Gets the last element of array.

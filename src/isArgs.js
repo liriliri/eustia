@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * isArgs: Checks if value is classified as an arguments object.
@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-_('_toStr');
+include('_toStr');
 
 isArgs = function (val) { return _toStr.call(val) === '[object Arguments]' };

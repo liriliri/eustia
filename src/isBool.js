@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * isBool: Checks if value is classified as a boolean primitive or object.

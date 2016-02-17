@@ -1,4 +1,4 @@
-_('Select $offset $show $css $attr $property last $remove $event $class $insert');
+include('Select $offset $show $css $attr $property last $remove $event $class $insert');
 
 $ = function (selector)
 {

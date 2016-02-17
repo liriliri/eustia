@@ -1,4 +1,4 @@
-_('isUndef each $safeNodes');
+include('isUndef each $safeNodes');
 
 $property = {
     html: propFactory('innerHTML'),

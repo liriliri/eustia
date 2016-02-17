@@ -1,5 +1,5 @@
-// @TODO
+// TODO
 
-_('keys _createAssigner');
+include('keys _createAssigner');
 
 extendOwn = _createAssigner(keys);

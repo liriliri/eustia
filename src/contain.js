@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('indexOf isArrLike values');
+include('indexOf isArrLike values');
 
 contain = function (arr, val)
 {

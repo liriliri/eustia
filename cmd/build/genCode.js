@@ -3,15 +3,15 @@ var async = require('async'),
     path = require('path'),
     _ = require('../../lib/util');
 
-var regDependency = /\s*_\(['"]([\w\s\$]+)['"]\);/;
+var regDependency = /\s*(_|include)\(['"]([\w\s\$]+)['"]\);?/;
 
-module.exports = function (fnName, codeTpl, options, cb)
+module.exports = function (modName, codeTpl, options, cb)
 {
-    var percentage = options.shareData.fnPercentage[fnName];
+    var percentage = options.shareData.fnPercentage[modName];
 
     percentage = percentage ? ' (' + percentage + ')' : '';
 
-    _.log({}, 'Generate code {{#cyan}}"' + fnName + '"' + percentage + '{{/cyan}}');
+    _.log({}, 'Generate code {{#cyan}}"' + modName + '"' + percentage + '{{/cyan}}');
 
     var result = {}, paths = [];
 
@@ -19,29 +19,29 @@ module.exports = function (fnName, codeTpl, options, cb)
     {
         _.each(options.extension, function (extension)
         {
-            paths.push(path.resolve(libPath, fnName + '.' + extension));
+            paths.push(path.resolve(libPath, modName + '.' + extension));
         });
     });
 
     async.detect(paths, fs.exists, function (filePath)
     {
-        if (_.isUndef(filePath)) return cb('Not found: ' + fnName);
+        if (_.isUndef(filePath)) return cb('Not found: ' + modName);
 
         fs.readFile(filePath, options.encoding, function (err, data)
         {
             if (err) return cb(err);
 
-            data = transData(filePath, data, options);
+            data = transData(filePath, data, modName, options);
 
             var dependencies = regDependency.exec(data);
-            dependencies = dependencies ? dependencies[1].split(/\s/) : [];
+            dependencies = dependencies ? dependencies[2].split(/\s/) : [];
 
             data = data.replace(regDependency, '');
             data = data.replace(/\r\n|\n/g, '\n    ');
-            data = codeTpl({name: fnName, code: data});
+            data = codeTpl({name: modName, code: data});
 
             result.dependencies = dependencies;
-            result.name = fnName;
+            result.name = modName;
             result.code = data;
 
             cb(null, result);
@@ -49,7 +49,7 @@ module.exports = function (fnName, codeTpl, options, cb)
     });
 };
 
-function transData(filePath, src, options)
+function transData(filePath, src, modName, options)
 {
     var transpiler = options.transpiler;
 
@@ -61,7 +61,7 @@ function transData(filePath, src, options)
         {
             _.each(item.handler, function (handler)
             {
-                src = handler.call(item, src);
+                src = handler.call(item, src, modName);
             });
         }
     });

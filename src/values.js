@@ -8,7 +8,7 @@
  * ```
  */
 
-_('each');
+include('each');
 
 values = function (obj)
 {

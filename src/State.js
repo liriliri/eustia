@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('Emitter each isArr some slice');
+include('Emitter each isArr some slice');
 
 function buildEvent(name, event)
 {

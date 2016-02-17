@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('isArrLike keys');
+include('isArrLike keys');
 
 each = function (obj, iteratee, ctx)
 {

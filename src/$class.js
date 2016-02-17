@@ -1,4 +1,4 @@
-_('toArr some $safeNodes');
+include('toArr some $safeNodes');
 
 $class = {
     add: function (nodes, name)

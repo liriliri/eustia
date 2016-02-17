@@ -1,10 +1,10 @@
-// @TODO
+// TODO
 
 /* class
  * Select: jQuery like dom manipulator.
  */
 
-_('Class isStr each isObj some camelize isNum dasherize');
+include('Class isStr each isObj some camelize isNum dasherize');
 
 function mergeArr(first, second)
 {

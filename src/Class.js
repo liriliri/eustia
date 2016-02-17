@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  *
@@ -8,7 +8,7 @@
  * return(function): Return function used to create instances.
  */
 
-_('extend toArr inherits has');
+include('extend toArr inherits has');
 
 var regCallSuper = /callSuper/;
 

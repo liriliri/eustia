@@ -1,4 +1,4 @@
-_('toArr isObj isStr each isUndef $safeNodes');
+include('toArr isObj isStr each isUndef $safeNodes');
 
 $attr = function (nodes, name, val)
 {

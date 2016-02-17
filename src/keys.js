@@ -4,7 +4,7 @@
  * return(array): Returns the array of property names.
  */
 
-_('has');
+include('has');
 
 keys = Object.keys || function (obj)
 {

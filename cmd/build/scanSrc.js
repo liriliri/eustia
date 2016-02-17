@@ -22,18 +22,40 @@ function extractMethod(options, file)
     return _.unique(ret);
 }
 
+var regModules = {
+    _cache: {},
+    get: function (namespace)
+    {
+        var ret;
+
+        ret = this._cache[namespace];
+        if (ret) return ret;
+
+        ret = this._cache[namespace]
+            = new RegExp('\\b' + namespace + '((\\.[\\$_\\w]+)|(\[[\'"][\\$_\\w]+[\'"]\]))', 'g');
+
+        return ret;
+    }
+};
+
 function extractGlobal(namespace, file)
 {
-    var methods = file.data.match(new RegExp('\\b' + namespace + '\\.[\\$\\w]+', 'g'));
+    var modules = file.data.match(regModules.get(namespace));
 
-    return methods ? _.map(methods, function (val) { return val.substr(namespace.length + 1) }) : [];
+    return modules ? _.map(modules, function (val)
+    {
+        val = val.substr(namespace.length);
+        val = val[0] === '[' ? val.slice(2, -2) : val.slice(1);
+
+        return val;
+    }) : [];
 }
 
 function extractCommonjs(options, file)
 {
     var requirePath = relativePath(file.path, options.output),
-        regRequire  = new RegExp('(\\w+)\\s*=\\s*require\\([\'"]' + requirePath + '(?:\\.js)?[\'"]\\)'),
-        namespace   = file.data.match(regRequire);
+        regRequire = new RegExp('(\\w+)\\s*=\\s*require\\([\'"]' + requirePath + '(?:\\.js)?[\'"]\\)'),
+        namespace = file.data.match(regRequire);
 
     if (namespace) namespace = namespace[1];
 

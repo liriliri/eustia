@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('map');
+include('map');
 
 var requireMarks = _._requireMarks = _._requireMarks || {};
 

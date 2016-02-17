@@ -1,4 +1,4 @@
-_('each $safeNodes');
+include('each $safeNodes');
 
 $insert = {
     before: insertFactory('beforebegin'),

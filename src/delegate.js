@@ -1,4 +1,4 @@
-_('Class contain');
+include('Class contain');
 
 function retTrue()  { return true }
 function retFalse() { return false }

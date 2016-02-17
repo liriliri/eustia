@@ -1,4 +1,4 @@
-_('$safeNodes');
+include('$safeNodes');
 
 $offset = function (nodes)
 {

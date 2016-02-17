@@ -14,7 +14,7 @@
  * ```
  */
 
-_('restArgs');
+include('restArgs');
 
 bind = restArgs(function (fn, ctx, rest)
 {

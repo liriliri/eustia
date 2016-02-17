@@ -1,4 +1,4 @@
-_('isArrLike isStr map isArr');
+include('isArrLike isStr map isArr');
 
 toArr = function (obj)
 {

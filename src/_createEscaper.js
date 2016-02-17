@@ -1,4 +1,4 @@
-_('invert keys');
+include('invert keys');
 
 var escapeMap = {
     '&': '&amp;',

@@ -1,4 +1,4 @@
-_('Class has each slice');
+include('Class has each slice');
 
 Emitter = Class({
     initialize: function ()

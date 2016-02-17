@@ -1,4 +1,4 @@
-_('$attr isStr isObj each');
+include('$attr isStr isObj each');
 
 $data = function (nodes, name, val)
 {

@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * isArr: Check if value is classified as an Array Object
@@ -6,7 +6,7 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-_('_toStr');
+include('_toStr');
 
 var nativeIsArr = Array.isArray;
 

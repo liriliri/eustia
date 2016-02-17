@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * isNum: Checks if value is classified as a Number primitive or object.
@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-_('_toStr');
+include('_toStr');
 
 isNum = function (value) { return _toStr.call(value) === '[object Number]' };

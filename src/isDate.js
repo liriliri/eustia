@@ -1,4 +1,4 @@
-// @TODO
+// TODO
 
 /* function
  * isDate: Checks if value is classified as a Date object.
@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-_('_toStr');
+include('_toStr');
 
 isDate = function (val) { return _toStr.call(val) === '[object Date]' };

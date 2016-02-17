@@ -1,6 +1,6 @@
-// @TODO
+// TODO
 
-_('extendOwn isMatch');
+include('extendOwn isMatch');
 
 matcher = function (attrs)
 {
