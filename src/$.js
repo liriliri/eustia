@@ -1,4 +1,4 @@
-include('Select $offset $show $css $attr $property last $remove $event $class $insert');
+include('Select $offset $show $css $attr $property last $remove $data $event $class $insert');
 
 $ = function (selector)
 {
@@ -33,7 +33,7 @@ Select.methods({
     },
     on: function (event, selector, handler)
     {
-        $event.on(event, selector, handler);
+        $event.on(this, event, selector, handler);
 
         return this;
     },

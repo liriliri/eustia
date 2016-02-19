@@ -1,14 +1,14 @@
 // TODO
 
 /* module
- * Cookie: Simple api for handling browser cookies.
+ * cookie: Simple api for handling browser cookies.
  */
 
 include('extend isNum');
 
 var defOpts = { path: '/' };
 
-var cookie = function (key, val, options)
+function setCookie(key, val, options)
 {
     if (arguments.length > 1)
     {
@@ -32,7 +32,7 @@ var cookie = function (key, val, options)
             options.secure ? '; secure' : ''
         ].join('');
 
-        return Cookie;
+        return cookie;
     }
 
     var cookies = document.cookie ? document.cookie.split('; ') : [],
@@ -40,43 +40,43 @@ var cookie = function (key, val, options)
 
     for (var i = 0, len = cookies.length; i < len; i++)
     {
-        var cookie = cookies[i],
-            parts  = cookie.split('='),
-            name   = decodeURIComponent(parts.shift());
+        var c = cookies[i],
+            parts = c.split('='),
+            name = decodeURIComponent(parts.shift());
 
-        cookie = parts.join('=');
-        cookie = decodeURIComponent(cookie);
+        c = parts.join('=');
+        c = decodeURIComponent(c);
 
         if (key === name)
         {
-            result = cookie;
+            result = c;
             break;
         }
 
-        if (!key) result[name] = cookie;
+        if (!key) result[name] = c;
     }
 
     return result;
-};
+}
 
-Cookie = {
+cookie = {
     /* member
-     * Cookie.get: Read cookie.
+     * cookie.get: Read cookie.
      * key(string): The cookie name.
      * return(string): Returns cookie value if exists, eles undefined.
      */
-    get: cookie,
+    get: setCookie,
     /* member
-     * Cookie.set: Set cookie.
+     * cookie.set: Set cookie.
      * key(string): The cookie name.
      * val(string): The cookie value.
      * options(Object): Options.
      */
-    set: cookie,
+    set: setCookie,
     remove: function (key, options)
     {
         options = options || {};
         options.expires = -1;
-        return cookie(key, '', options);
+        return setCookie(key, '', options);
     }
 };
