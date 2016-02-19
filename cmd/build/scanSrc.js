@@ -32,7 +32,7 @@ var regModules = {
         if (ret) return ret;
 
         ret = this._cache[namespace]
-            = new RegExp('\\b' + namespace + '((\\.[\\$_\\w]+)|(\[[\'"][\\$_\\w]+[\'"]\]))', 'g');
+            = new RegExp('\\b' + namespace + '((\\.[\\$_\\w]+)|(\\[[\'"][\\$_\\w]+[\'"]\\]))', 'g');
 
         return ret;
     }
