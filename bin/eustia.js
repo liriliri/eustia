@@ -41,6 +41,7 @@ var knowOpts = {
     cmd, i, len;
 
 options.enableLog = true;
+_.log.enable();
 
 for (i = 0, len = remain.length; i < len; i++)
 {
@@ -73,9 +74,18 @@ if (!cmd)
                     options = require(cfgPath);
                 }
 
+                var isSingle = _.some(options, function (option)
+                {
+                    return !_.isObj(option);
+                });
+                if (isSingle) return eustia.build(options);
+
                 buildAll(options);
             });
-        } else eustia['help'](options);
+        } else
+        {
+            eustia.help(options);
+        }
     });
 } else
 {
@@ -102,8 +112,12 @@ if (!cmd)
 
 function buildAll(configs)
 {
-    if (remain.length > 0 && configs[remain[0]])
+    var isTaskSpecified = remain.length > 0 && configs[remain[0]];
+
+    if (isTaskSpecified)
     {
+        _.log({}, 'Run task {{#cyan}}"' + remain[0] + '"{{/cyan}}:');
+
         return eustia['build'](_.extend(configs[remain[0]], options));
     }
 
@@ -122,9 +136,9 @@ function buildAll(configs)
 
     function build(config, isWatching)
     {
-        _.log('Run task "' + config.taskName + '":');
+        _.log({}, 'Run task {{#cyan}}"' + config.taskName + '"{{/cyan}}:');
 
-        eustia['build'](config, function ()
+        eustia.build(config, function ()
         {
             if (++i < cfgLen) return build(cfgArr[i], isWatching);
 

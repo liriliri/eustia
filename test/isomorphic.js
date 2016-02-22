@@ -20,7 +20,7 @@
 
     _.inherits = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * inherits: Inherit the prototype methods from one constructor into another.
@@ -72,7 +72,7 @@
 
     _.slice = (function ()
     {
-        // @TODO
+        // TODO
 
         var arrProto = Array.prototype;
 
@@ -90,7 +90,7 @@
 
     _.isObj = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isObj: Checks if value is the language type of Object.
@@ -224,7 +224,7 @@
 
     _.isArr = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isArr: Check if value is classified as an Array Object
@@ -248,7 +248,7 @@
 
     _.isFn = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isFn: Checks if value is classified as a Function object.
@@ -299,7 +299,7 @@
 
     _.extend = (function ()
     {
-        // @TODO
+        // TODO
 
         extend = _createAssigner(allKeys);
 
@@ -423,7 +423,7 @@
 
     _.endWith = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * endWith: Checks if string ends with the given target string.
@@ -448,7 +448,7 @@
 
     _.extendOwn = (function ()
     {
-        // @TODO
+        // TODO
 
         extendOwn = _createAssigner(keys);
 
@@ -461,7 +461,7 @@
 
     _.isNum = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isNum: Checks if value is classified as a Number primitive or object.
@@ -480,7 +480,7 @@
 
     _.isArrLike = (function ()
     {
-        // @TODO
+        // TODO
 
         var MAX_ARR_IDX = Math.pow(2, 53) - 1;
 
@@ -502,7 +502,7 @@
 
     _.each = (function ()
     {
-        // @TODO
+        // TODO
 
         each = function (obj, iteratee, ctx)
         {
@@ -532,7 +532,7 @@
 
     _.invert = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * invert: Creates an object composed of the inverted keys and values of object.
@@ -560,7 +560,7 @@
 
     _.isBool = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isBool: Checks if value is classified as a boolean primitive or object.
@@ -579,7 +579,7 @@
 
     _.isInt = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isInt: Checks if value is classified as a Integer.
@@ -598,7 +598,7 @@
 
     _.isMatch = (function ()
     {
-        // @TODO
+        // TODO
 
         isMatch = function (obj, attrs)
         {
@@ -627,7 +627,7 @@
 
     _.matcher = (function ()
     {
-        // @TODO
+        // TODO
 
         matcher = function (attrs)
         {
@@ -675,7 +675,7 @@
 
     _.some = (function ()
     {
-        // @TODO
+        // TODO
 
         some = function (obj, predicate, ctx)
         {
@@ -702,7 +702,7 @@
 
     _.isStr = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isStr: Checks if value is classified as a String primitive or object.
@@ -721,7 +721,7 @@
 
     _.last = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * last: Gets the last element of array.
@@ -745,7 +745,7 @@
 
     _.repeat = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * repeat: Repeat string n-times.
@@ -779,7 +779,7 @@
 
     _.lpad = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * lpad: Pads string on the left side if it's shorter than length.
@@ -804,7 +804,7 @@
 
     _.ltrim = (function ()
     {
-        // @TODO
+        // TODO
 
         var regSpace = /^\s+/;
 
@@ -847,7 +847,7 @@
 
     _.map = (function ()
     {
-        // @TODO
+        // TODO
 
         map = function (obj, iteratee, ctx)
         {
@@ -894,7 +894,7 @@
 
     _.Class = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          *
@@ -1041,7 +1041,7 @@
 
     _.State = (function ()
     {
-        // @TODO
+        // TODO
 
         function buildEvent(name, event)
         {
@@ -1087,7 +1087,7 @@
 
     _.pad = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * pad: Pads string on the left and right sides if it's shorter than length.
@@ -1113,7 +1113,7 @@
 
     _.random = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * random: Produces a random number between min and max (inclusive).
@@ -1142,7 +1142,7 @@
 
     _.rpad = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          *
@@ -1169,7 +1169,7 @@
 
     _.rtrim = (function ()
     {
-        // @TODO
+        // TODO
 
         var regSpace = /\s+$/;
 
@@ -1211,7 +1211,7 @@
 
     _.startWith = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * startWith: Checks if string starts with the given target string.
@@ -1231,7 +1231,7 @@
 
     _.trim = (function ()
     {
-        // @TODO
+        // TODO
 
         var regSpace = /^\s+|\s+$/g;
 

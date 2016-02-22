@@ -11,7 +11,7 @@ window._ = (function()
 
     _.isObj = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isObj: Checks if value is the language type of Object.
@@ -61,7 +61,7 @@ window._ = (function()
 
     _.camelize = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * camelCase: Convert string to "camelCase" text.
@@ -86,7 +86,7 @@ window._ = (function()
 
     _.dasherize = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          *
@@ -107,7 +107,7 @@ window._ = (function()
 
     _.inherits = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * inherits: Inherit the prototype methods from one constructor into another.
@@ -243,7 +243,7 @@ window._ = (function()
 
     _.isFn = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isFn: Checks if value is classified as a Function object.
@@ -262,7 +262,7 @@ window._ = (function()
 
     _.isNum = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isNum: Checks if value is classified as a Number primitive or object.
@@ -281,7 +281,7 @@ window._ = (function()
 
     _.isStr = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isStr: Checks if value is classified as a String primitive or object.
@@ -332,7 +332,7 @@ window._ = (function()
 
     _.extend = (function ()
     {
-        // @TODO
+        // TODO
 
         extend = _createAssigner(allKeys);
 
@@ -345,15 +345,15 @@ window._ = (function()
 
     _.Cookie = (function ()
     {
-        // @TODO
+        // TODO
 
         /* module
-         * Cookie: Simple api for handling browser cookies.
+         * cookie: Simple api for handling browser cookies.
          */
 
         var defOpts = { path: '/' };
 
-        var cookie = function (key, val, options)
+        function setCookie(key, val, options)
         {
             if (arguments.length > 1)
             {
@@ -377,7 +377,7 @@ window._ = (function()
                     options.secure ? '; secure' : ''
                 ].join('');
 
-                return Cookie;
+                return cookie;
             }
 
             var cookies = document.cookie ? document.cookie.split('; ') : [],
@@ -385,44 +385,44 @@ window._ = (function()
 
             for (var i = 0, len = cookies.length; i < len; i++)
             {
-                var cookie = cookies[i],
-                    parts  = cookie.split('='),
-                    name   = decodeURIComponent(parts.shift());
+                var c = cookies[i],
+                    parts = c.split('='),
+                    name = decodeURIComponent(parts.shift());
 
-                cookie = parts.join('=');
-                cookie = decodeURIComponent(cookie);
+                c = parts.join('=');
+                c = decodeURIComponent(c);
 
                 if (key === name)
                 {
-                    result = cookie;
+                    result = c;
                     break;
                 }
 
-                if (!key) result[name] = cookie;
+                if (!key) result[name] = c;
             }
 
             return result;
-        };
+        }
 
-        Cookie = {
+        cookie = {
             /* member
-             * Cookie.get: Read cookie.
+             * cookie.get: Read cookie.
              * key(string): The cookie name.
              * return(string): Returns cookie value if exists, eles undefined.
              */
-            get: cookie,
+            get: setCookie,
             /* member
-             * Cookie.set: Set cookie.
+             * cookie.set: Set cookie.
              * key(string): The cookie name.
              * val(string): The cookie value.
              * options(Object): Options.
              */
-            set: cookie,
+            set: setCookie,
             remove: function (key, options)
             {
                 options = options || {};
                 options.expires = -1;
-                return cookie(key, '', options);
+                return setCookie(key, '', options);
             }
         };
 
@@ -435,7 +435,7 @@ window._ = (function()
 
     _.indexOf = (function ()
     {
-        // @TODO
+        // TODO
 
         indexOf = function (arr, val)
         {
@@ -451,7 +451,7 @@ window._ = (function()
 
     _.isArrLike = (function ()
     {
-        // @TODO
+        // TODO
 
         var MAX_ARR_IDX = Math.pow(2, 53) - 1;
 
@@ -500,7 +500,7 @@ window._ = (function()
 
     _.each = (function ()
     {
-        // @TODO
+        // TODO
 
         each = function (obj, iteratee, ctx)
         {
@@ -558,7 +558,7 @@ window._ = (function()
 
     _.contain = (function ()
     {
-        // @TODO
+        // TODO
 
         contain = function (arr, val)
         {
@@ -576,7 +576,7 @@ window._ = (function()
 
     _.extendOwn = (function ()
     {
-        // @TODO
+        // TODO
 
         extendOwn = _createAssigner(keys);
 
@@ -589,7 +589,7 @@ window._ = (function()
 
     _.isArr = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          * isArr: Check if value is classified as an Array Object
@@ -613,7 +613,7 @@ window._ = (function()
 
     _.isMatch = (function ()
     {
-        // @TODO
+        // TODO
 
         isMatch = function (obj, attrs)
         {
@@ -642,7 +642,7 @@ window._ = (function()
 
     _.matcher = (function ()
     {
-        // @TODO
+        // TODO
 
         matcher = function (attrs)
         {
@@ -690,7 +690,7 @@ window._ = (function()
 
     _.some = (function ()
     {
-        // @TODO
+        // TODO
 
         some = function (obj, predicate, ctx)
         {
@@ -717,7 +717,7 @@ window._ = (function()
 
     _.map = (function ()
     {
-        // @TODO
+        // TODO
 
         map = function (obj, iteratee, ctx)
         {
@@ -764,7 +764,7 @@ window._ = (function()
 
     _.Class = (function ()
     {
-        // @TODO
+        // TODO
 
         /* function
          *
@@ -838,7 +838,7 @@ window._ = (function()
 
     _.Select = (function ()
     {
-        // @TODO
+        // TODO
 
         /* class
          * Select: jQuery like dom manipulator.

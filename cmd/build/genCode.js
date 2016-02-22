@@ -3,7 +3,7 @@ var async = require('async'),
     path = require('path'),
     _ = require('../../lib/util');
 
-var regDependency = /\s*(_|include)\(['"]([\w\s\$]+)['"]\);?/;
+var regDependency = /\s*include\(['"]([\w\s\$]+)['"]\);?/;
 
 module.exports = function (modName, codeTpl, options, cb)
 {
@@ -34,7 +34,7 @@ module.exports = function (modName, codeTpl, options, cb)
             data = transData(filePath, data, modName, options);
 
             var dependencies = regDependency.exec(data);
-            dependencies = dependencies ? dependencies[2].split(/\s/) : [];
+            dependencies = dependencies ? dependencies[1].split(/\s/) : [];
 
             data = data.replace(regDependency, '');
             data = data.replace(/\r\n|\n/g, '\n    ');
@@ -65,6 +65,18 @@ function transData(filePath, src, modName, options)
             });
         }
     });
+
+    src = correctSyntax(src, modName);
+
+    return src;
+}
+
+// Support _ short for include, module.exports and exports for declaring exported object.
+function correctSyntax(src, modName)
+{
+    src = src.replace(/\s*_\(/, 'include(');
+    src = src.replace(/\bmodule\.exports\b/, modName);
+    src = src.replace(/\bexports\b/g, modName);
 
     return src;
 }
