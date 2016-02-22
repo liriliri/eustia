@@ -91,7 +91,7 @@ delegate = {
         selector ? handlers.splice(handlers.delegateCount++, 0, handler)
                  : handlers.push(handler);
     },
-    remove: function (el, type, fn, selector)
+    remove: function (el, type, selector, fn)
     {
         var events = el.events;
 
