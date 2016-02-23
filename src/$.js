@@ -1,4 +1,4 @@
-include('Select $offset $show $css $attr $property last $remove $data $event $class $insert');
+include('Select $offset $show $css $attr $property last $remove $data $event $class $insert isUndef isStr');
 
 $ = function (selector)
 {
@@ -45,27 +45,51 @@ Select.methods({
     },
     html: function (val)
     {
-        return $property.html(this, val) || this;
+        var result = $property.html(this, val);
+
+        if (isUndef(val)) return result;
+
+        return this;
     },
     text: function (val)
     {
-        return $property.text(this, val) || this;
+        var result = $property.text(this, val);
+
+        if (isUndef(val)) return result;
+
+        return this;
     },
     val: function (val)
     {
-        return $property.val(this, val) || this;
+        var result = $property.val(this, val);
+
+        if (isUndef(val)) return result;
+
+        return this;
     },
     css: function (name, val)
     {
-        return $css(this, name, val) || this;
+        var result = $css(this, name, val);
+
+        if (isGetter(name, val)) return result;
+
+        return this;
     },
     attr: function (name, val)
     {
-        return $attr(this, name, val) || this;
+        var result = $attr(this, name, val);
+
+        if (isGetter(name, val)) return result;
+
+        return this;
     },
     data: function (name, val)
     {
-        return $data(this, name, val) || this;
+        var result = $data(this, name, val);
+
+        if (isGetter(name, val)) return result;
+
+        return this;
     },
     rmAttr: function (name)
     {
@@ -118,3 +142,8 @@ Select.methods({
         return $insert.after(this, val);
     }
 });
+
+function isGetter(name, val)
+{
+    return isUndef(val) && isStr(name);
+}
