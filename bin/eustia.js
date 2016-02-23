@@ -8,20 +8,20 @@ var nopt = require('nopt'),
     _ = require('../lib/util');
 
 var knowOpts = {
-        encoding : String,
+        encoding: String,
         extension: Array,
-        output   : String,
+        output: String,
         namespace: String,
-        ignore   : Array,
-        keyword  : String,
-        library  : Array,
-        exclude  : Array,
-        include  : Array,
-        pattern  : String,
-        raw      : Boolean,
-        title    : String,
-        type     : String,
-        watch    : Boolean,
+        ignore: Array,
+        keyword: String,
+        library: Array,
+        exclude: Array,
+        include: Array,
+        pattern: String,
+        raw: Boolean,
+        title: String,
+        type: String,
+        watch: Boolean,
         description: String
     },
     shortHands = {
@@ -35,25 +35,34 @@ var knowOpts = {
         t: '--title',
         w: '--watch',
         d: '--description'
-    },
-    options = nopt(knowOpts, shortHands, process.argv, 2),
-    remain  = options.argv.remain,
-    cmd, i, len;
+    };
 
-options.enableLog = true;
+var options = nopt(knowOpts, shortHands, process.argv, 2),
+    remain = options.argv.remain;
+
 _.log.enable();
 
-for (i = 0, len = remain.length; i < len; i++)
+var cmd = getCmd();
+cmd ? useCmdLine() : useCfg();
+
+function getCmd()
 {
-    if (_.has(eustia, remain[i]))
+    var i, len, ret;
+
+    for (i = 0, len = remain.length; i < len; i++)
     {
-        cmd = remain[i];
-        remain.splice(i, 1);
-        break;
+        if (_.has(eustia, remain[i]))
+        {
+            ret = remain[i];
+            remain.splice(i, 1);
+            break;
+        }
     }
+
+    return ret;
 }
 
-if (!cmd)
+function useCfg()
 {
     var cfgPath = path.resolve(process.cwd(), '.eustia');
 
@@ -87,7 +96,9 @@ if (!cmd)
             eustia.help(options);
         }
     });
-} else
+}
+
+function useCmdLine()
 {
     switch (cmd)
     {
@@ -178,3 +189,4 @@ function buildAll(configs)
         });
     }
 }
+

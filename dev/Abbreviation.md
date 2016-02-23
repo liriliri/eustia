@@ -3,7 +3,7 @@
 ## Always Use Abbreviation
 
 |Original|Abbreviation|
-|---------------------|
+|--------|------------|
 |argument|arg|
 |array|arr|
 |attribute|attr|
@@ -24,7 +24,8 @@
 ## Use Abbreviation When Compound
 
 |Original|Abbreviation|
-|---------------------|
+|--------|------------|
+|command|cmd|
 |current|cur|
 |delete|del|
 |origin|orig|
