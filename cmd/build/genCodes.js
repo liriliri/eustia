@@ -7,14 +7,14 @@ module.exports = function (fnList, codeTpl, options, cb)
     _.log('Generate codes:');
 
     var codes  = [],
-        fnMark = {},
+        modMark = {},
         i, len;
 
     var excludeRef = options.shareData.excludeRef = [];
 
-    var walker = async.queue(function (fnName, walkerCb)
+    var walker = async.queue(function (modName, walkerCb)
     {
-        genCode(fnName, codeTpl, options, function (err, result)
+        genCode(modName, codeTpl, options, function (err, result)
         {
             if (err) return cb(err);
 
@@ -34,9 +34,9 @@ module.exports = function (fnList, codeTpl, options, cb)
 
                 newDependencies.push(dependency);
 
-                if (fnMark.hasOwnProperty(dependency)) continue;
+                if (modMark.hasOwnProperty(dependency)) continue;
 
-                fnMark[dependency] = true;
+                modMark[dependency] = true;
 
                 walker.push(dependency);
             }
@@ -50,7 +50,7 @@ module.exports = function (fnList, codeTpl, options, cb)
 
     for (i = 0, len = fnList.length; i < len; i++)
     {
-        fnMark[fnList[i]] = true;
+        modMark[fnList[i]] = true;
         walker.push(fnList[i]);
     }
 

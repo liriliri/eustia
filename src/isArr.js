@@ -1,16 +1,12 @@
-// TODO
-
 /* function
- * isArr: Check if value is classified as an Array Object
+ * isArr: Check if value is an array.
  * value(*): The value to check.
- * return(boolean): Returns true if value is correctly classified, else false.
+ * return(boolean): True if value is an array, else false.
  */
 
-include('_toStr');
+include('objToStr');
 
-var nativeIsArr = Array.isArray;
-
-isArr = nativeIsArr || function (val)
+isArr = Array.isArray || function (val)
 {
-    return _toStr.call(val) === '[object Array]';
+    return objToStr(val) === '[object Array]';
 };

@@ -6,7 +6,7 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-include('_toStr');
+include('objToStr');
 
-isStr = function (value) { return _toStr.call(value) === '[object String]' };
+isStr = function (value) { return objToStr(value) === '[object String]' };
 

@@ -127,19 +127,27 @@ Select.methods({
     },
     append: function (val)
     {
-        return $insert.append(this, val);
+        $insert.append(this, val);
+
+        return this;
     },
     prepend: function (val)
     {
-        return $insert.prepend(this, val);
+        $insert.prepend(this, val);
+
+        return this;
     },
     before: function (val)
     {
-        return $insert.before(this, val);
+        $insert.before(this, val);
+
+        return this;
     },
     after: function (val)
     {
-        return $insert.after(this, val);
+        $insert.after(this, val);
+
+        return this;
     }
 });
 

@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-include('_toStr');
+include('objToStr');
 
-isDate = function (val) { return _toStr.call(val) === '[object Date]' };
+isDate = function (val) { return objToStr(val) === '[object Date]' };

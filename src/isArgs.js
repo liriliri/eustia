@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is correctly classified, else false.
  */
 
-include('_toStr');
+include('objToStr');
 
-isArgs = function (val) { return _toStr.call(val) === '[object Arguments]' };
+isArgs = function (val) { return objToStr(val) === '[object Arguments]' };

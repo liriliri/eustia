@@ -1,11 +1,12 @@
-// TODO
-
 /* function
- * isFn: Checks if value is classified as a Function object.
+ * isFn: Check if value is a function.
  * value(*): The value to check.
- * return(boolean): Returns true if value is correctly classified, else false.
+ * return(boolean): True if value is a function, else false.
  */
 
-include('_toStr');
+include('objToStr');
 
-isFn = function (val) { return _toStr.call(val) === '[object Function]' };
+isFn = function (val)
+{
+    return objToStr(val) === '[object Function]';
+};

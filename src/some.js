@@ -1,10 +1,10 @@
 // TODO
 
-include('_cb isArrLike keys');
+include('safeCb isArrLike keys');
 
 some = function (obj, predicate, ctx)
 {
-    predicate = _cb(predicate, ctx);
+    predicate = safeCb(predicate, ctx);
 
     var _keys = !isArrLike(obj) && keys(obj),
         len   = (_keys || obj).length;

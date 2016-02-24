@@ -1,4 +1,4 @@
-_('each');
+include('each');
 
 var async = require('async'),
     fs    = require('fs'),

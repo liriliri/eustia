@@ -1,12 +1,12 @@
 // TODO
 
-include('_cb each');
+include('safeCb each');
 
 filter = function (obj, predicate, ctx)
 {
     var ret = [];
 
-    predicate = _cb(predicate, ctx);
+    predicate = safeCb(predicate, ctx);
 
     each(obj, function (val, idx, list)
     {

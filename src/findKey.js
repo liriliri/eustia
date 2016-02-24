@@ -1,10 +1,10 @@
 // TODO
 
-include('_cb keys');
+include('safeCb keys');
 
 findKey = function (obj, predicate, ctx)
 {
-    predicate = _cb(predicate, ctx);
+    predicate = safeCb(predicate, ctx);
 
     var _keys = keys(obj), key;
 

@@ -153,42 +153,6 @@ window._ = (function()
         return has;
     })();
 
-    /* ------------------------------ _optimizeCb ------------------------------ */
-
-    var _optimizeCb;
-
-    _._optimizeCb = (function ()
-    {
-
-        _optimizeCb = function (func, ctx, argCount)
-        {
-            if (isUndef(ctx)) return func;
-
-            switch (argCount == null ? 3 : argCount)
-            {
-                case 1: return function (val)
-                {
-                    return func.call(ctx, val);
-                };
-                case 3: return function (val, idx, collection)
-                {
-                    return func.call(ctx, val, idx, collection);
-                };
-                case 4: return function (accumulator, val, idx, collection)
-                {
-                    return func.call(ctx, accumulator, val, idx, collection);
-                }
-            }
-
-            return function ()
-            {
-                return func.apply(ctx, arguments);
-            };
-        };
-
-        return _optimizeCb;
-    })();
-
     /* ------------------------------ _createAssigner ------------------------------ */
 
     var _createAssigner;
@@ -226,72 +190,40 @@ window._ = (function()
         return _createAssigner;
     })();
 
-    /* ------------------------------ _toStr ------------------------------ */
+    /* ------------------------------ _optimizeCb ------------------------------ */
 
-    var _toStr;
+    var _optimizeCb;
 
-    _._toStr = (function ()
+    _._optimizeCb = (function ()
     {
-        _toStr = Object.prototype.toString;
 
-        return _toStr;
-    })();
+        _optimizeCb = function (func, ctx, argCount)
+        {
+            if (isUndef(ctx)) return func;
 
-    /* ------------------------------ isFn ------------------------------ */
+            switch (argCount == null ? 3 : argCount)
+            {
+                case 1: return function (val)
+                {
+                    return func.call(ctx, val);
+                };
+                case 3: return function (val, idx, collection)
+                {
+                    return func.call(ctx, val, idx, collection);
+                };
+                case 4: return function (accumulator, val, idx, collection)
+                {
+                    return func.call(ctx, accumulator, val, idx, collection);
+                }
+            }
 
-    var isFn;
+            return function ()
+            {
+                return func.apply(ctx, arguments);
+            };
+        };
 
-    _.isFn = (function ()
-    {
-        // TODO
-
-        /* function
-         * isFn: Checks if value is classified as a Function object.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
-         */
-
-        isFn = function (val) { return _toStr.call(val) === '[object Function]' };
-
-        return isFn;
-    })();
-
-    /* ------------------------------ isNum ------------------------------ */
-
-    var isNum;
-
-    _.isNum = (function ()
-    {
-        // TODO
-
-        /* function
-         * isNum: Checks if value is classified as a Number primitive or object.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
-         */
-
-        isNum = function (value) { return _toStr.call(value) === '[object Number]' };
-
-        return isNum;
-    })();
-
-    /* ------------------------------ isStr ------------------------------ */
-
-    var isStr;
-
-    _.isStr = (function ()
-    {
-        // TODO
-
-        /* function
-         * isStr: Checks if value is classified as a String primitive or object.
-         * value(*): The value to check.
-         * return(boolean): Returns true if value is correctly classified, else false.
-         */
-
-        isStr = function (value) { return _toStr.call(value) === '[object String]' };
-
-        return isStr;
+        return _optimizeCb;
     })();
 
     /* ------------------------------ allKeys ------------------------------ */
@@ -339,11 +271,128 @@ window._ = (function()
         return extend;
     })();
 
-    /* ------------------------------ Cookie ------------------------------ */
+    /* ------------------------------ indexOf ------------------------------ */
 
-    var Cookie;
+    var indexOf;
 
-    _.Cookie = (function ()
+    _.indexOf = (function ()
+    {
+        // TODO
+
+        indexOf = function (arr, val)
+        {
+            return Array.prototype.indexOf.call(arr, val);
+        };
+
+        return indexOf;
+    })();
+
+    /* ------------------------------ keys ------------------------------ */
+
+    var keys;
+
+    _.keys = (function ()
+    {
+        /* function
+         * keys: Creates an array of the own enumerable property names of object.
+         * object(object): The object to query.
+         * return(array): Returns the array of property names.
+         */
+
+        keys = Object.keys || function (obj)
+        {
+            var ret = [], key;
+
+            for (key in obj)
+            {
+                if (has(obj, key)) ret.push(key);
+            }
+
+            return ret;
+        };
+
+        return keys;
+    })();
+
+    /* ------------------------------ extendOwn ------------------------------ */
+
+    var extendOwn;
+
+    _.extendOwn = (function ()
+    {
+        // TODO
+
+        extendOwn = _createAssigner(keys);
+
+        return extendOwn;
+    })();
+
+    /* ------------------------------ objToStr ------------------------------ */
+
+    var objToStr;
+
+    _.objToStr = (function ()
+    {
+        /* function
+         * objToStr: Alias of Object.prototype.toString.
+         * value(*): The source value.
+         * return(string): String representation of the given value.
+         */
+
+        var ObjToStr = Object.prototype.toString;
+
+        objToStr = function (val)
+        {
+            return ObjToStr.call(val);
+        };
+
+        return objToStr;
+    })();
+
+    /* ------------------------------ isArr ------------------------------ */
+
+    var isArr;
+
+    _.isArr = (function ()
+    {
+        /* function
+         * isArr: Check if value is an array.
+         * value(*): The value to check.
+         * return(boolean): True if value is an array, else false.
+         */
+
+        isArr = Array.isArray || function (val)
+        {
+            return objToStr(val) === '[object Array]';
+        };
+
+        return isArr;
+    })();
+
+    /* ------------------------------ isNum ------------------------------ */
+
+    var isNum;
+
+    _.isNum = (function ()
+    {
+        // TODO
+
+        /* function
+         * isNum: Checks if value is classified as a Number primitive or object.
+         * value(*): The value to check.
+         * return(boolean): Returns true if value is correctly classified, else false.
+         */
+
+        isNum = function (value) { return objToStr(value) === '[object Number]' };
+
+        return isNum;
+    })();
+
+    /* ------------------------------ cookie ------------------------------ */
+
+    var cookie;
+
+    _.cookie = (function ()
     {
         // TODO
 
@@ -426,23 +475,7 @@ window._ = (function()
             }
         };
 
-        return Cookie;
-    })();
-
-    /* ------------------------------ indexOf ------------------------------ */
-
-    var indexOf;
-
-    _.indexOf = (function ()
-    {
-        // TODO
-
-        indexOf = function (arr, val)
-        {
-            return Array.prototype.indexOf.call(arr, val);
-        };
-
-        return indexOf;
+        return cookie;
     })();
 
     /* ------------------------------ isArrLike ------------------------------ */
@@ -465,33 +498,6 @@ window._ = (function()
         };
 
         return isArrLike;
-    })();
-
-    /* ------------------------------ keys ------------------------------ */
-
-    var keys;
-
-    _.keys = (function ()
-    {
-        /* function
-         * keys: Creates an array of the own enumerable property names of object.
-         * object(object): The object to query.
-         * return(array): Returns the array of property names.
-         */
-
-        keys = Object.keys || function (obj)
-        {
-            var ret = [], key;
-
-            for (key in obj)
-            {
-                if (has(obj, key)) ret.push(key);
-            }
-
-            return ret;
-        };
-
-        return keys;
     })();
 
     /* ------------------------------ each ------------------------------ */
@@ -570,41 +576,43 @@ window._ = (function()
         return contain;
     })();
 
-    /* ------------------------------ extendOwn ------------------------------ */
+    /* ------------------------------ isStr ------------------------------ */
 
-    var extendOwn;
+    var isStr;
 
-    _.extendOwn = (function ()
-    {
-        // TODO
-
-        extendOwn = _createAssigner(keys);
-
-        return extendOwn;
-    })();
-
-    /* ------------------------------ isArr ------------------------------ */
-
-    var isArr;
-
-    _.isArr = (function ()
+    _.isStr = (function ()
     {
         // TODO
 
         /* function
-         * isArr: Check if value is classified as an Array Object
+         * isStr: Checks if value is classified as a String primitive or object.
          * value(*): The value to check.
          * return(boolean): Returns true if value is correctly classified, else false.
          */
 
-        var nativeIsArr = Array.isArray;
+        isStr = function (value) { return objToStr(value) === '[object String]' };
 
-        isArr = nativeIsArr || function (val)
+        return isStr;
+    })();
+
+    /* ------------------------------ isFn ------------------------------ */
+
+    var isFn;
+
+    _.isFn = (function ()
+    {
+        /* function
+         * isFn: Check if value is a function.
+         * value(*): The value to check.
+         * return(boolean): True if value is a function, else false.
+         */
+
+        isFn = function (val)
         {
-            return _toStr.call(val) === '[object Array]';
+            return objToStr(val) === '[object Function]';
         };
 
-        return isArr;
+        return isFn;
     })();
 
     /* ------------------------------ isMatch ------------------------------ */
@@ -657,14 +665,17 @@ window._ = (function()
         return matcher;
     })();
 
-    /* ------------------------------ _cb ------------------------------ */
+    /* ------------------------------ safeCb ------------------------------ */
 
-    var _cb;
+    var safeCb;
 
-    _._cb = (function ()
+    _.safeCb = (function ()
     {
+        /* function
+         * safeCb: Create callback based on input value.
+         */
 
-        _cb = function (val, ctx, argCount)
+        safeCb = function (val, ctx, argCount)
         {
             if (val == null) return function (val) { return val };
 
@@ -681,34 +692,7 @@ window._ = (function()
             };
         };
 
-        return _cb;
-    })();
-
-    /* ------------------------------ some ------------------------------ */
-
-    var some;
-
-    _.some = (function ()
-    {
-        // TODO
-
-        some = function (obj, predicate, ctx)
-        {
-            predicate = _cb(predicate, ctx);
-
-            var _keys = !isArrLike(obj) && keys(obj),
-                len   = (_keys || obj).length;
-
-            for (var i = 0; i < len; i++)
-            {
-                var key = _keys ? _keys[i] : i;
-                if (predicate(obj[key], key, obj)) return true;
-            }
-
-            return false;
-        };
-
-        return some;
+        return safeCb;
     })();
 
     /* ------------------------------ map ------------------------------ */
@@ -721,7 +705,7 @@ window._ = (function()
 
         map = function (obj, iteratee, ctx)
         {
-            iteratee = _cb(iteratee, ctx);
+            iteratee = safeCb(iteratee, ctx);
 
             var _keys   = !isArrLike(obj) && keys(obj),
                 len     = (_keys || obj).length,
@@ -830,6 +814,33 @@ window._ = (function()
         });
 
         return Class;
+    })();
+
+    /* ------------------------------ some ------------------------------ */
+
+    var some;
+
+    _.some = (function ()
+    {
+        // TODO
+
+        some = function (obj, predicate, ctx)
+        {
+            predicate = safeCb(predicate, ctx);
+
+            var _keys = !isArrLike(obj) && keys(obj),
+                len   = (_keys || obj).length;
+
+            for (var i = 0; i < len; i++)
+            {
+                var key = _keys ? _keys[i] : i;
+                if (predicate(obj[key], key, obj)) return true;
+            }
+
+            return false;
+        };
+
+        return some;
     })();
 
     /* ------------------------------ Select ------------------------------ */

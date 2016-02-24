@@ -1,1 +1,0 @@
-_toStr = Object.prototype.toString;

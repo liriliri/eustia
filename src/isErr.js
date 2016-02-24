@@ -6,6 +6,6 @@
  * return(boolean): Returns true if value is an error object, else false.
  */
 
-include('_toStr');
+include('objToStr');
 
-isErr = function (val) { return _toStr.call(val) === '[object Error]' };
+isErr = function (val) { return objToStr(val) === '[object Error]' };

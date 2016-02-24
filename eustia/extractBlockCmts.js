@@ -1,4 +1,4 @@
-_('map trim');
+include('map trim');
 
 var regBlockCmt = /(\/\*[\s\S]*?\*\/)/mg;
 

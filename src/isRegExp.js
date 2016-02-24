@@ -1,8 +1,8 @@
 // TODO
 
-include('_toStr');
+include('objToStr');
 
 isRegExp = function (value)
 {
-    return _toStr.call(value) === '[object RegExp]';
+    return objToStr(value) === '[object RegExp]';
 };

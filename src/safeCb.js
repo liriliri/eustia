@@ -1,6 +1,10 @@
+/* function
+ * safeCb: Create callback based on input value.
+ */
+
 include('isFn isObj _optimizeCb matcher');
 
-_cb = function (val, ctx, argCount)
+safeCb = function (val, ctx, argCount)
 {
     if (val == null) return function (val) { return val };
 

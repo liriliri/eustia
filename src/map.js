@@ -1,10 +1,10 @@
 // TODO
 
-include('_cb keys isArrLike');
+include('safeCb keys isArrLike');
 
 map = function (obj, iteratee, ctx)
 {
-    iteratee = _cb(iteratee, ctx);
+    iteratee = safeCb(iteratee, ctx);
 
     var _keys   = !isArrLike(obj) && keys(obj),
         len     = (_keys || obj).length,

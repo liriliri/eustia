@@ -1,7 +1,7 @@
-_('rpad each');
+include('rpad each');
 
 var handlebars = require('handlebars'),
-    chalk      = require('chalk');
+    chalk = require('chalk');
 
 handlebars.registerHelper('rapd', function (len, ctx)
 {
