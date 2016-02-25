@@ -47,7 +47,7 @@ Select.methods({
     {
         var result = $property.html(this, val);
 
-        if (isUndef(val)) return result;
+        if (!isUndef(val)) return result;
 
         return this;
     },
@@ -55,7 +55,7 @@ Select.methods({
     {
         var result = $property.text(this, val);
 
-        if (isUndef(val)) return result;
+        if (!isUndef(val)) return result;
 
         return this;
     },
@@ -63,7 +63,7 @@ Select.methods({
     {
         var result = $property.val(this, val);
 
-        if (isUndef(val)) return result;
+        if (!isUndef(val)) return result;
 
         return this;
     },
