@@ -1,16 +1,16 @@
 describe('cookie', function ()
 {
-    var Cookie = _.Cookie;
+    var cookie = _.cookie;
 
     it('set and get', function ()
     {
-        Cookie.set('name', 'eustia');
-        expect(Cookie.get('name')).to.equal('eustia');
+        cookie.set('name', 'eustia');
+        expect(cookie.get('name')).to.equal('eustia');
     });
 
     it('remove', function ()
     {
-        Cookie.remove('name');
-        expect(Cookie.get('name')).to.equal(undefined);
+        cookie.remove('name');
+        expect(cookie.get('name')).to.equal(undefined);
     });
 });
