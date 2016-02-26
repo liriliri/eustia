@@ -35,9 +35,9 @@ $class = {
 
         each(nodes, function (node)
         {
-            if ($class.has(node, name)) return $class.add(node, name);
+            if (!$class.has(node, name)) return $class.add(node, name);
 
-            $class.remove(node);
+            $class.remove(node, name);
         });
     },
     remove: function (nodes, name)
