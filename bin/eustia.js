@@ -17,7 +17,7 @@ var knowOpts = {
         library: Array,
         exclude: Array,
         include: Array,
-        pattern: String,
+        format: String,
         raw: Boolean,
         title: String,
         type: String,
@@ -31,7 +31,7 @@ var knowOpts = {
         l: '--library',
         e: '--exclude',
         n: '--namespace',
-        p: '--pattern',
+        f: '--format',
         t: '--title',
         w: '--watch',
         d: '--description'

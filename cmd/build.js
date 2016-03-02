@@ -26,13 +26,13 @@ function exports(options, cb)
         var startTime = _.now();
 
         async.waterfall([
-            function (cb) { readTpl(['code', 'codes', options.pattern], options, cb) },
+            function (cb) { readTpl(['code', 'codes', options.format], options, cb) },
             function (tpl, cb) { templates = tpl; cb() },
             function (cb) { scanSrc(options, cb) },
             function (fnList, cb) { genCodes(fnList, templates['code'], options, cb) },
             function (codes, cb)
             {
-                output(codes, templates['codes'], templates[options.pattern], options, cb)
+                output(codes, templates['codes'], templates[options.format], options, cb)
             }
         ], function (err)
         {
@@ -69,7 +69,7 @@ function exports(options, cb)
 
 exports.defOpts = {
     namespace: '_',
-    pattern: 'umd',
+    format: 'umd',
     output: './util.js',
     extension: 'js',
     transpiler: [],

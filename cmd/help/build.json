@@ -42,8 +42,8 @@
             "description": "Output path, default to util.js"
         },
         {
-            "shorthand": "-p",
-            "flag": "--pattern",
+            "shorthand": "-f",
+            "flag": "--format",
             "description": "Module pattern, commonjs, umd or global, defaults to umd"
         },
         {

@@ -2,7 +2,7 @@ var fs   = require('fs'),
     path = require('path'),
     _ = require('../../lib/util');
 
-module.exports = function (codes, codesTpl, patternTpl, options, cb)
+module.exports = function (codes, codesTpl, formatTpl, options, cb)
 {
     var code = '',
         dependencyGraph = [],
@@ -51,7 +51,7 @@ module.exports = function (codes, codesTpl, patternTpl, options, cb)
     var codesData = {
         code: code,
         namespace: options.namespace,
-        inBrowser: options.pattern === 'umd' || options.pattern === 'global'
+        inBrowser: options.format === 'umd' || options.format === 'global'
     };
 
     var excludeRef = options.shareData.excludeRef;
@@ -66,7 +66,7 @@ module.exports = function (codes, codesTpl, patternTpl, options, cb)
     result = result.replace(/\n\s*\n/g, '\n\n');
 
     result = options.magicNum + '\n' +
-             patternTpl({
+             formatTpl({
                  namespace: options.namespace,
                  codes: result
              });
