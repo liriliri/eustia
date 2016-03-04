@@ -1,6 +1,6 @@
 include('isUndef');
 
-_optimizeCb = function (func, ctx, argCount)
+optimizeCb = function (func, ctx, argCount)
 {
     if (isUndef(ctx)) return func;
 
