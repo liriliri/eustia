@@ -6,18 +6,12 @@ var regCommonjs = /require\(.*\)/,
 
 function extractMethod(options, file)
 {
-    var ret;
+    var ret = [];
 
-    if (regCommonjs.test(file.data))
-    {
-        ret = extractCommonjs(options, file);
-    } else if (regEs6.test(file.data))
-    {
-        ret = extractEs6(options, file);
-    } else
-    {
-        ret = extractGlobal(options.namespace, file);
-    }
+    // Mixed use of commonjs and es6 module pattern is possible.
+    if (regCommonjs.test(file.data)) ret = ret.concat(extractCommonjs(options, file));
+    if (regEs6.test(file.data)) ret = ret.concat(extractEs6(options, file));
+    ret = ret.concat(extractGlobal(options.namespace, file));
 
     return _.unique(ret);
 }
