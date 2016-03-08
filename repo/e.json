@@ -1,8 +1,11 @@
-[
-    {
-        "name": "extractBlockCmts",
+{
+    "extractBlockCmts": {
         "src": "https://raw.githubusercontent.com/liriliri/eustia/master/eustia/extractBlockCmts.js",
-        "keywords": ["extract", "block", "comment"],
+        "keywords": [
+            "extract",
+            "block",
+            "comment"
+        ],
         "desc": "Extract block comments from source code."
     }
-]
+}

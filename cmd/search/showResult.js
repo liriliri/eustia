@@ -2,9 +2,9 @@ var _ = require('../../lib/util');
 
 var resultTpl = '{{idx}}.{{#cyan}}{{name}}{{/cyan}}: {{desc}}\nSource: {{src}}';
 
-module.exports = function (foundUtils, cb)
+module.exports = function (foundMods, cb)
 {
-    var len = foundUtils.length;
+    var len = foundMods.length;
 
     if (len === 0)
     {
@@ -13,10 +13,10 @@ module.exports = function (foundUtils, cb)
     {
         if (len > 1) _.log(len + ' results is found.');
 
-        _.each(foundUtils, function (utility, idx)
+        _.each(foundMods, function (mod, idx)
         {
-            utility.idx = idx + 1;
-            _.log(utility, resultTpl);
+            mod.idx = idx + 1;
+            _.log(mod, resultTpl);
         });
     }
 

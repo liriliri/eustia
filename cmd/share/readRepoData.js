@@ -9,11 +9,11 @@ module.exports = function (options, cb)
     {
         if (err) return cb(err);
 
-        var repoData = [];
+        var repoData = {};
 
         _.each(files, function (file)
         {
-            repoData = repoData.concat(JSON.parse(file.data));
+            repoData = _.extend(repoData, JSON.parse(file.data));
         });
 
         cb(null, repoData);

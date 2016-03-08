@@ -9,6 +9,8 @@ module.exports = function (installRepos, options, cb)
         repoNames = [],
         i = 0;
 
+    if (len === 0) return;
+
     fs.mkdir(path.resolve(options.cwd, 'eustia/'), function ()
     {
         _.each(installRepos, function (repo)

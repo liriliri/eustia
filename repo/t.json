@@ -1,8 +1,10 @@
-[
-    {
-        "name": "topoSort",
+{
+    "topoSort": {
         "src": "https://raw.githubusercontent.com/liriliri/eustia/master/eustia/topoSort.js",
-        "keywords": ["topological", "sort"],
+        "keywords": [
+            "topological",
+            "sort"
+        ],
         "desc": "Topological sorting algorithm."
     }
-]
+}
