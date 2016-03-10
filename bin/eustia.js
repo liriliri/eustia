@@ -74,22 +74,26 @@ function useCfg()
 
             fs.readFile(cfgPath, 'utf-8', function (err, data)
             {
-                var options;
+                var configs;
 
                 try {
-                    options = JSON.parse(data);
+                    configs = JSON.parse(data);
                 } catch (e)
                 {
-                    options = require(cfgPath);
+                    configs = require(cfgPath);
                 }
 
-                var isSingle = _.some(options, function (option)
+                var isSingle = _.some(configs, function (option)
                 {
                     return !_.isObj(option);
                 });
-                if (isSingle) return eustia.build(options);
+                if (isSingle)
+                {
+                    _.extend(configs, options);
+                    return eustia.build(configs);
+                }
 
-                buildAll(options);
+                buildAll(configs);
             });
         } else
         {

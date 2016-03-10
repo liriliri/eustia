@@ -27,6 +27,10 @@ Select.methods({
     last: function () {
         return $(last(this));
     },
+    get: function (idx)
+    {
+        return this[idx];
+    },
     eq: function (idx)
     {
         return $(idx);
