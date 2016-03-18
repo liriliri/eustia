@@ -7,5 +7,15 @@
             "comment"
         ],
         "desc": "Extract block comments from source code."
+    },
+    "evalCss": {
+        "src": "https://raw.githubusercontent.com/liriliri/eruda/master/eustia/evalCss.js",
+        "keywords": [
+            "eval",
+            "css",
+            "style",
+            "load"
+        ],
+        "desc": "Load css into page."
     }
 }

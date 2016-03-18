@@ -7,5 +7,5 @@
 
 dasherize = function (str)
 {
-    return str.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase();
+    return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 };
