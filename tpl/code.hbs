@@ -1,5 +1,6 @@
 /* ------------------------------ {{name}} ------------------------------ */
 
+{{#if exports}}
 var {{name}};
 
 _.{{name}} = (function ()
@@ -8,3 +9,9 @@ _.{{name}} = (function ()
 
     return {{name}};
 })();
+{{else}}
+(function ()
+{
+    {{code}}
+})();
+{{/if}}

@@ -38,7 +38,11 @@ module.exports = function (modName, codeTpl, options, cb)
 
             data = data.replace(regDependency, '');
             data = data.replace(/\r\n|\n/g, '\n    ');
-            data = codeTpl({name: modName, code: data});
+            data = codeTpl({
+                name: modName,
+                code: data,
+                exports: _.contain(data, modName)
+            });
 
             result.dependencies = dependencies;
             result.name = modName;
