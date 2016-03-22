@@ -41,7 +41,7 @@ module.exports = function (modName, codeTpl, options, cb)
             data = codeTpl({
                 name: modName,
                 code: data,
-                exports: _.contain(data, modName)
+                exports: data.indexOf(modName) > -1
             });
 
             result.dependencies = dependencies;
