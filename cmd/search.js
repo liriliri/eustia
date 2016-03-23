@@ -1,8 +1,7 @@
 var async = require('async'),
     _ = require('../lib/util');
 
-var readRepoData = require('./share/readRepoData'),
-    searchRepo = require('./search/searchRepo'),
+var searchRepo = require('./search/searchRepo'),
     showResult = require('./search/showResult');
 
 function exports(options, cb)
@@ -16,8 +15,7 @@ function exports(options, cb)
     _.log.ok('Searching "' + options.keyword + '":');
 
     async.waterfall([
-        function (cb) { readRepoData(options, cb) },
-        function (repoData, cb) { searchRepo(repoData, options, cb) },
+        function (cb) { searchRepo(options, cb) },
         showResult
     ], function (err)
     {

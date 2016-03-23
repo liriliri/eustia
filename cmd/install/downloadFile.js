@@ -3,6 +3,8 @@ var request = require('request'),
     path    = require('path'),
     _ = require('../../lib/util');
 
+var DOWNLOAD_URL_PREFIX = 'https://raw.githubusercontent.com/liriliri/eris/master/';
+
 module.exports = function (installRepos, options, cb)
 {
     var len = installRepos.length,
@@ -19,7 +21,9 @@ module.exports = function (installRepos, options, cb)
 
             repoNames.push(repo.name);
 
-            request.get(repo.src)
+            var src = DOWNLOAD_URL_PREFIX + repo.name[0].toLowerCase() + '/' + repo.name + '.js';
+
+            request.get(src)
                 .on('response', function (res)
                 {
                     var status = res.statusCode;

@@ -1,8 +1,7 @@
 var async = require('async'),
     _ = require('../lib/util');
 
-var readRepoData = require('./share/readRepoData'),
-    searchRepo   = require('./install/searchRepo'),
+var searchRepo = require('./install/searchRepo'),
     downloadFile = require('./install/downloadFile');
 
 function exports(options, cb)
@@ -14,8 +13,7 @@ function exports(options, cb)
     }
 
     async.waterfall([
-        function (cb) { readRepoData(options, cb) },
-        function (repoData, cb) { searchRepo(repoData, options, cb) },
+        function (cb) { searchRepo(options, cb) },
         function (installRepos, cb) { downloadFile(installRepos, options, cb) }
     ], function (err)
     {

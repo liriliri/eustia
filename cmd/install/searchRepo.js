@@ -1,7 +1,9 @@
 var _ = require('../../lib/util');
 
-module.exports = function (repoData, options, cb)
+module.exports = function (options, cb)
 {
+    var repoData = require('../share/eris.json');
+
     var ret = [],
         installMods = options.modules;
 
