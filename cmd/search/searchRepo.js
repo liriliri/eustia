@@ -1,8 +1,8 @@
 var _ = require('../../lib/util');
 
-module.exports = function (options, cb)
+module.exports = function (repoData, options, cb)
 {
-    var repoData = require('../share/eris.json');
+    _.log('Searching "' + options.keyword + '":');
 
     var foundMods = [],
         keyword = options.keyword;

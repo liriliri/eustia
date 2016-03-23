@@ -3,5 +3,12 @@
     "desc": "Search for modules.",
     "usage": [
         "search <keyword>"
+    ],
+    "options": [
+        {
+            "shorthand": "-u",
+            "flag": "--update",
+            "description": "Update module data before searching."
+        }
     ]
 }

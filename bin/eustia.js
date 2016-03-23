@@ -11,6 +11,7 @@ var knowOpts = {
         encoding: String,
         extension: Array,
         output: String,
+        update: Boolean,
         namespace: String,
         ignore: Array,
         keyword: String,
@@ -34,6 +35,7 @@ var knowOpts = {
         f: '--format',
         t: '--title',
         w: '--watch',
+        u: '--update',
         d: '--description'
     };
 

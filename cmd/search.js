@@ -1,7 +1,8 @@
 var async = require('async'),
     _ = require('../lib/util');
 
-var searchRepo = require('./search/searchRepo'),
+var updateEris = require('./search/updateEris'),
+    searchRepo = require('./search/searchRepo'),
     showResult = require('./search/showResult');
 
 function exports(options, cb)
@@ -12,10 +13,9 @@ function exports(options, cb)
         return cb();
     }
 
-    _.log.ok('Searching "' + options.keyword + '":');
-
     async.waterfall([
-        function (cb) { searchRepo(options, cb) },
+        function (cb) { updateEris(options, cb) },
+        function (repoData, cb) { searchRepo(repoData, options, cb) },
         showResult
     ], function (err)
     {
@@ -25,6 +25,8 @@ function exports(options, cb)
     });
 }
 
-exports.defOpts = {};
+exports.defOpts = {
+    update: false
+};
 
 module.exports = exports;
