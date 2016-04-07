@@ -1,6 +1,0 @@
-// TODO
-
-$animate = function ()
-{
-
-};
