@@ -18,9 +18,9 @@ module.exports = function (ast, template, options, cb)
     {
         if (ast.description) ast.description = marked(ast.description);
 
-        _.each(ast.function, function (val)
+        _.each(ast.docs, function (val, key)
         {
-            if (val.detail) val.detail = marked(val.detail);
+            ast.docs[key] = marked(val);
         });
     }
 

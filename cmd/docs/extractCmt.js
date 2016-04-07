@@ -14,28 +14,21 @@ function process(data)
 
     _.each(data, function (val)
     {
-        var name = val.slice(0, val.indexOf("'")),
+        val = _.trim(val);
+        if (!_.startWith(val, 'var')) return;
+
+        var name = val.slice(4, val.indexOf(";")),
             comments = _.extractBlockCmts(val.slice(val.indexOf('{') + 1, val.lastIndexOf('}')));
 
-        if (comments.length === 0) return;
+        ret[name] = 'No documentation.';
 
-        ret[name] = [];
-
-        _.each(comments, function (comment)
-        {
-            if (_.startWith(comment, 'function'))
-            {
-                return ret[name].push({ type: 'function', value: _.trim(comment.slice(8))});
-            }
-        });
-
-        if (ret[name].length === 0) delete ret[name];
+        if (comments.length > 0) ret[name] = comments[0];
     });
 
     return ret;
 }
 
-module.exports = function (options, cb)
+module.exports = function (ast, options, cb)
 {
     _.log('Extract block comments.');
 
@@ -47,7 +40,9 @@ module.exports = function (options, cb)
         {
             if (err) return cb(err);
 
-            cb(null, process(data));
+            ast['docs'] = process(data);
+
+            cb();
         });
     });
 };

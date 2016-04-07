@@ -668,33 +668,9 @@
         <div class="markdown-body">
             <h1>{{title}}</h1>
             {{description}}
-            {{#each function}}
-                <h2>{{name}}</h2>
-                {{#if return}}
-                    <p>Return({{return.type}}): {{return.desc}}</p>
-                {{/if}}
-                <p>{{desc}}</p>
-                {{#if params}}
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Desc</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each params}}
-                                <tr>
-                                    <td>{{name}}</td>
-                                    <td>{{type}}</td>
-                                    <td>{{desc}}</td>
-                                </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                {{/if}}
-                {{#if detail}}{{detail}}{{/if}}
+            {{#each docs}}
+                <h2>{{@key}}</h2>
+                {{.}}
             {{/each}}
         </div>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>

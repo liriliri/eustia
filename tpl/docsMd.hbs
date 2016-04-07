@@ -3,25 +3,9 @@
 
 {{description}}
 {{/if}}
-{{#each function}}
+{{#each docs}}
 
-## {{name}}
-{{#if return}}
+## {{@key}}
 
-Return({{return.type}}): {{return.desc}}
-{{/if}}
-
-{{desc}}
-
-{{#if params}}
-|Name|Type|Desc|
-|--------------|
-{{#each params}}
-|{{name}}|{{type}}|{{desc}}|
-{{/each}}
-{{/if}}
-{{#if detail}}
-
-{{detail}}
-{{/if}}
+{{.}}
 {{/each}}

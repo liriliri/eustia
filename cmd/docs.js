@@ -1,10 +1,9 @@
 var async = require('async'),
     path  = require('path'),
     extractCmt = require('./docs/extractCmt'),
-    parse      = require('./docs/parse'),
-    readDesc   = require('./docs/readDesc'),
-    readTpl    = require('./share/readTpl'),
-    output     = require('./docs/output'),
+    readDesc = require('./docs/readDesc'),
+    readTpl = require('./share/readTpl'),
+    output = require('./docs/output'),
     _ = require('../lib/util');
 
 function exports(options, cb)
@@ -24,8 +23,7 @@ function exports(options, cb)
     async.waterfall([
         function (cb) { readTpl([docsTpl], options, cb) },
         function (tpl, cb) { template = tpl[docsTpl]; cb() },
-        function (cb) { extractCmt(options, cb) },
-        function (units, cb) { parse(ast, units, options, cb)},
+        function (cb) { extractCmt(ast, options, cb) },
         function (cb) { readDesc(ast, options, cb) },
         function (cb) { output(ast, template, options, cb) }
     ], function (err)
@@ -39,11 +37,10 @@ function exports(options, cb)
 }
 
 exports.defOpts = {
-    input : 'util.js',
+    input: 'util.js',
     output: 'docs.html',
-    title : 'Eustia Documentation',
-    type  : 'html',
-    raw   : false
+    title: 'Eustia Documentation',
+    type: 'html'
 };
 
 module.exports = exports;
