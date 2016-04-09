@@ -1,9 +1,7 @@
 /.idea/
 /eustia/
-/test/
+/src/*.js
 .gitignore
 .npmignore
 .eustia
 .eslintrc
-karma.conf.js
-README.md

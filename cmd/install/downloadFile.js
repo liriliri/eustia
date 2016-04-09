@@ -1,9 +1,7 @@
-var request = require('request'),
-    fs      = require('fs'),
-    path    = require('path'),
+var fs = require('fs'),
+    path = require('path'),
+    downloadMod = require('../share/downloadMod'),
     _ = require('../../lib/util');
-
-var DOWNLOAD_URL_PREFIX = 'https://raw.githubusercontent.com/liriliri/eris/master/';
 
 module.exports = function (installRepos, options, cb)
 {
@@ -17,31 +15,20 @@ module.exports = function (installRepos, options, cb)
     {
         _.each(installRepos, function (repo)
         {
-            var downloadPath = path.resolve(options.cwd, 'eustia/' + repo + '.js');
+            var downloadDest = path.resolve(options.cwd, 'eustia/' + repo + '.js');
 
             repoNames.push(repo);
 
-            var src = DOWNLOAD_URL_PREFIX + repo[0].toLowerCase() + '/' + repo + '.js';
+            downloadMod(repo, downloadDest, function (err)
+            {
+                if (err) return cb(err);
 
-            request.get(src)
-                .on('response', function (res)
-                {
-                    var status = res.statusCode;
+                _.log.ok(repo + ' installed.');
 
-                    if (status < 200 || status >= 300)
-                    {
-                        return cb('Error downloading ' + repo + ': ' + status);
-                    }
-                })
-                .pipe(fs.createWriteStream(downloadPath))
-                .on('close', function ()
-                {
-                    _.log.ok(repo + ' installed.');
-                    if (++i === len) cb();
-                })
-                .on('error', function (err) { cb(err) });
+                if (++i === len) cb();
+            });
         });
 
-        _.log('Installing ' + repoNames.join(', ') + '.');
+        _.log('Install ' + repoNames.join(', ') + '.');
     });
 };

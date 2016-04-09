@@ -6,6 +6,7 @@ var cwd = process.cwd();
 
 var defOpts = {
     cwd: cwd,
+    dirname: __dirname,
     // Prepend to generated file to prevent being scanned again.
     magicNum: '// Built by eustia.',
     shareData: {},

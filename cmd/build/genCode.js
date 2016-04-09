@@ -1,6 +1,7 @@
 var async = require('async'),
     fs = require('fs'),
     path = require('path'),
+    downloadMod = require('../share/downloadMod'),
     _ = require('../../lib/util');
 
 var regDependency = /\s*include\(['"]([\w\s\$]+)['"]\);?/;
@@ -13,7 +14,9 @@ module.exports = function (modName, codeTpl, options, cb)
 
     _.log({}, 'Generate code {{#cyan}}"' + modName + '"' + percentage + '{{/cyan}}');
 
-    var result = {}, paths = [];
+    var result = {},
+        hasTryDownload = false,
+        paths = [];
 
     _.each(options.libPaths, function (libPath)
     {
@@ -23,34 +26,60 @@ module.exports = function (modName, codeTpl, options, cb)
         });
     });
 
-    async.detect(paths, fs.exists, function (filePath)
+    function detectAndGenCode()
     {
-        if (_.isUndef(filePath)) return cb('Not found: ' + modName);
-
-        fs.readFile(filePath, options.encoding, function (err, data)
+        async.detect(paths, fs.exists, function (filePath)
         {
-            if (err) return cb(err);
+            if (_.isUndef(filePath))
+            {
+                if (!hasTryDownload)
+                {
+                    hasTryDownload = true;
 
-            data = transData(filePath, data, modName, options);
+                    _.log('Install ' + modName + '.');
 
-            var dependencies = regDependency.exec(data);
-            dependencies = dependencies ? dependencies[1].split(/\s/) : [];
+                    var dest = path.resolve(options.dirname, 'src', modName + '.js');
 
-            data = data.replace(regDependency, '');
-            data = data.replace(/\r\n|\n/g, '\n    ');
-            data = codeTpl({
-                name: modName,
-                code: data,
-                exports: data.indexOf(modName) > -1
+                    return downloadMod(modName, dest, function (err)
+                    {
+                        if (err) return cb(err);
+
+                        _.log.ok(modName + ' installed.');
+
+                        detectAndGenCode();
+                    });
+                }
+
+                return cb('Not found: ' + modName);
+            }
+
+            fs.readFile(filePath, options.encoding, function (err, data)
+            {
+                if (err) return cb(err);
+
+                data = transData(filePath, data, modName, options);
+
+                var dependencies = regDependency.exec(data);
+                dependencies = dependencies ? dependencies[1].split(/\s/) : [];
+
+                data = data.replace(regDependency, '');
+                data = data.replace(/\r\n|\n/g, '\n    ');
+                data = codeTpl({
+                    name: modName,
+                    code: data,
+                    exports: data.indexOf(modName) > -1
+                });
+
+                result.dependencies = dependencies;
+                result.name = modName;
+                result.code = data;
+
+                cb(null, result);
             });
-
-            result.dependencies = dependencies;
-            result.name = modName;
-            result.code = data;
-
-            cb(null, result);
         });
-    });
+    }
+
+    detectAndGenCode();
 };
 
 function transData(filePath, src, modName, options)
