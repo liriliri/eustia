@@ -13,8 +13,7 @@ module.exports = function (options, cb)
 
         if (repo)
         {
-            repo.name = mod;
-            ret.push(repo);
+            ret.push(mod);
             return;
         }
 

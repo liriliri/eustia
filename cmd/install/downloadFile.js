@@ -17,11 +17,11 @@ module.exports = function (installRepos, options, cb)
     {
         _.each(installRepos, function (repo)
         {
-            var downloadPath = path.resolve(options.cwd, 'eustia/' + repo.name + '.js');
+            var downloadPath = path.resolve(options.cwd, 'eustia/' + repo + '.js');
 
-            repoNames.push(repo.name);
+            repoNames.push(repo);
 
-            var src = DOWNLOAD_URL_PREFIX + repo.name[0].toLowerCase() + '/' + repo.name + '.js';
+            var src = DOWNLOAD_URL_PREFIX + repo[0].toLowerCase() + '/' + repo + '.js';
 
             request.get(src)
                 .on('response', function (res)
@@ -30,13 +30,13 @@ module.exports = function (installRepos, options, cb)
 
                     if (status < 200 || status >= 300)
                     {
-                        return cb('Error downloading ' + repo.name + ': ' + status);
+                        return cb('Error downloading ' + repo + ': ' + status);
                     }
                 })
                 .pipe(fs.createWriteStream(downloadPath))
                 .on('close', function ()
                 {
-                    _.log.ok(repo.name + ' installed.');
+                    _.log.ok(repo + ' installed.');
                     if (++i === len) cb();
                 })
                 .on('error', function (err) { cb(err) });
