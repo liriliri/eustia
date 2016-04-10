@@ -1,16 +1,5 @@
 module.exports = {
-    util: {
-        output: 'lib/util.js',
-        files: ['index.js', 'bin/eustia.js', 'cmd/**/*.js'],
-        pattern: 'commonjs'
-    },
-    testBrowser: {
-        files: 'test/browser/*.js',
-        output: 'test/browser.js',
-        pattern: 'global'
-    },
-    testIsomorphic: {
-        files: 'test/isomorphic/*.js',
-        output: 'test/isomorphic.js'
-    }
+    output: 'lib/util.js',
+    files: ['index.js', 'bin/eustia.js', 'cmd/**/*.js'],
+    pattern: 'commonjs'
 };

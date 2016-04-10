@@ -74,7 +74,7 @@ function useCfg()
         {
             _.log.ok('Using configuration file: ' + cfgPath);
 
-            fs.readFile(cfgPath, 'utf-8', function (err, data)
+            return fs.readFile(cfgPath, 'utf-8', function (err, data)
             {
                 var configs;
 
@@ -97,10 +97,9 @@ function useCfg()
 
                 buildAll(configs);
             });
-        } else
-        {
-            eustia.help(options);
         }
+
+        eustia.help(options);
     });
 }
 
