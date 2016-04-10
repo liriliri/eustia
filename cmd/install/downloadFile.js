@@ -1,6 +1,6 @@
 var fs = require('fs'),
     path = require('path'),
-    downloadMod = require('../share/downloadMod'),
+    downloadMod = require('../../lib/downloadMod'),
     _ = require('../../lib/util');
 
 module.exports = function (installRepos, options, cb)

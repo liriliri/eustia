@@ -1,7 +1,7 @@
 var async = require('async'),
     fs = require('fs'),
     path = require('path'),
-    downloadMod = require('../share/downloadMod'),
+    downloadMod = require('../../lib/downloadMod'),
     _ = require('../../lib/util');
 
 var regDependency = /\s*include\(['"]([\w\s\$]+)['"]\);?/;
