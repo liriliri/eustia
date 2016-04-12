@@ -62,11 +62,10 @@ module.exports = function (modName, codeTpl, options, cb)
                 var dependencies = regDependency.exec(data);
                 dependencies = dependencies ? dependencies[1].split(/\s/) : [];
 
-                data = data.replace(regDependency, '');
-                data = data.replace(/\r\n|\n/g, '\n    ');
+                data = data.replace(regDependency, '').replace(/\r\n|\n/g, '\n    ');
                 data = codeTpl({
                     name: modName,
-                    code: data,
+                    code: _.trim(data),
                     exports: data.indexOf(modName) > -1
                 });
 
