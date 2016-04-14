@@ -4,7 +4,7 @@ var async = require('async'),
     downloadMod = require('../../lib/downloadMod'),
     _ = require('../../lib/util');
 
-var regDependency = /\s*include\(['"]([\w\s\$]+)['"]\);?/;
+var regDependency = /\s*\b_\(['"]([\w\s\$]+)['"]\);?/;
 
 module.exports = function (modName, codeTpl, options, cb)
 {
