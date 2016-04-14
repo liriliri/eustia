@@ -98,16 +98,6 @@ function transData(filePath, src, modName, options)
         }
     });
 
-    src = correctSyntax(src, modName);
-
     return src;
 }
 
-// Support _ short for include, module.exports and exports for declaring exported object.
-function correctSyntax(src, modName)
-{
-    src = src.replace(/\bmodule\.exports\b/, modName);
-    src = src.replace(/\bexports\b/g, modName);
-
-    return src;
-}
