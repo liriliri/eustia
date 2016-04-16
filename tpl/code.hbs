@@ -1,14 +1,12 @@
 /* ------------------------------ {{name}} ------------------------------ */
 
 {{#if exports}}
-var {{name}};
-
-_.{{name}} = (function ()
+var {{name}} = _.{{name}} = (function (exports)
 {
     {{code}}
 
-    return {{name}};
-})();
+    return exports;
+})({});
 {{else}}
 (function ()
 {

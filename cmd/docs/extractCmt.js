@@ -17,7 +17,7 @@ function process(data)
         val = _.trim(val);
         if (!_.startWith(val, 'var')) return;
 
-        var name = val.slice(4, val.indexOf(";")),
+        var name = val.slice(4, val.indexOf("=")),
             comments = _.extractBlockCmts(val.slice(val.indexOf('{') + 1, val.lastIndexOf('}')));
 
         ret[name] = 'No documentation.';

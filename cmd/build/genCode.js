@@ -66,7 +66,7 @@ module.exports = function (modName, codeTpl, options, cb)
                 data = codeTpl({
                     name: modName,
                     code: _.trim(data),
-                    exports: data.indexOf(modName) > -1
+                    exports: /\bexports\b/.test(data)
                 });
 
                 result.dependencies = dependencies;
