@@ -1,4 +1,4 @@
-include('rpad each');
+_('rpad each');
 
 var handlebars = require('handlebars'),
     chalk = require('chalk');
@@ -18,7 +18,7 @@ each(['yellow', 'green', 'cyan', 'red', 'white', 'magenta'], function (color)
 
 var msgs = [], enabled = false;
 
-log = function (msg, tpl)
+var log = function (msg, tpl)
 {
     if (!enabled) return;
 
@@ -45,3 +45,5 @@ log.get = function () { return msgs };
 
 log.enable = function () { enabled = true };
 log.disable = function () { enabled = false };
+
+exports = log;

@@ -1,4 +1,4 @@
-include('each');
+_('each');
 
 var async = require('async'),
     fs    = require('fs'),
@@ -27,7 +27,7 @@ function expandPaths(paths, options, cb)
     walker.drain = function () { cb(null, files) };
 }
 
-readPaths = function (paths, options, cb)
+exports = function (paths, options, cb)
 {
     expandPaths(paths, options, function (err, files)
     {
