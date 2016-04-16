@@ -8,7 +8,7 @@ var regDependency = /\s*\b_\(['"]([\w\s\$]+)['"]\);?/;
 
 module.exports = function (modName, codeTpl, options, cb)
 {
-    var percentage = options.shareData.fnPercentage[modName];
+    var percentage = _.has(options.shareData.fnPercentage, modName);
 
     percentage = percentage ? ' (' + percentage + ')' : '';
 
@@ -60,7 +60,7 @@ module.exports = function (modName, codeTpl, options, cb)
                 data = transData(filePath, data, modName, options);
 
                 var dependencies = regDependency.exec(data);
-                dependencies = dependencies ? dependencies[1].split(/\s/) : [];
+                dependencies = dependencies ? _.trim(dependencies[1]).split(/\s/) : [];
 
                 data = data.replace(regDependency, '').replace(/\r\n|\n/g, '\n    ');
                 data = codeTpl({
