@@ -8,7 +8,7 @@ Eustia is a tool for generating JavaScript utility libraries. It scans
 your code to generate libraries containing only methods needed on the 
 fly.
 
-![screen shot](http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia_screenshot.gif)
+<img src="http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia_screenshot.gif" style="width: 100%">
 
 ## Installation
 
@@ -114,5 +114,5 @@ Now you can use **compareVersion** anywhere in your project.
 
 Note: Using option **library** allows you to search functions in other 
 paths, quite useful when sharing functions among several projects. 
-Besides, **Lodash**** functions is available by using 
+Besides, **Lodash** functions is available by using 
 [eustia-lodash](https://github.com/liriliri/eustia-lodash).
