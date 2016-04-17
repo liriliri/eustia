@@ -47,7 +47,7 @@ function exports(options, cb)
             cb();
         });
     }
-    build();
+    build(options.watch);
 
     if (options.watch)
     {
