@@ -8,7 +8,7 @@ Eustia is a tool for generating JavaScript utility libraries. It scans
 your code to generate libraries containing only methods needed on the 
 fly.
 
-<img src="http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia_screenshot.gif" style="width: 100%">
+![screen shot](http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia_screenshot.gif)
 
 ## Installation
 
@@ -89,9 +89,9 @@ just a different way of passing options.
 Materials must be prepared first to cook a good meal. Right now, our 
 materials is a bunch of small modules. Eustia provides many 
 [utilities](http://liriliri.github.io/eustia/eris.html) itself
-(still under development). Still, there are times you want to add your 
-own ones. To achieve that, create a directory named **eustia** in the 
-root directory.
+(currently under development). Still, there are times you want to add 
+your own ones. To achieve that, create a directory named **eustia** in 
+the root directory.
 
 Now, let's say I want to have a function to compare version numbers. The 
 first step is to create a js file named **compareVersion.js** in 
