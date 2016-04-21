@@ -33,7 +33,7 @@ function cmdFactory(cmdName)
             if (err)
             {
                 _.log.err(err);
-                var errLogs = _.stripColorCodes(_.log.get().join('\n'));
+                var errLogs = _.stripColor(_.log.get().join('\n'));
                 // Need to exit immediately, so async fs is not used.
                 fs.writeFileSync(errLogPath, errLogs, 'utf-8');
                 process.exit();
