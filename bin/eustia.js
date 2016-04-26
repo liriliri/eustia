@@ -21,7 +21,6 @@ var knowOpts = {
         format: String,
         raw: Boolean,
         title: String,
-        type: String,
         watch: Boolean,
         description: String
     },

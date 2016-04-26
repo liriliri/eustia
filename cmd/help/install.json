@@ -2,6 +2,6 @@
     "command": "install",
     "desc": "Install modules.",
     "usage": [
-        "install [<utilities>]"
+        "install [<modules>]"
     ]
 }

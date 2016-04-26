@@ -132,7 +132,7 @@ module.exports = function (options, cb)
 
             if (_.startWith(file.data, options.magicNum)) continue;
 
-            file.data = _.stripCmts(file.data);
+            file.data = _.stripCmt(file.data);
 
             fnList = fnList.concat(extractMethod(options, file));
         }

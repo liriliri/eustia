@@ -40,7 +40,7 @@ exports.defOpts = {
     input: 'util.js',
     output: 'docs.html',
     title: 'Eustia Documentation',
-    type: 'html'
+    format: 'html'
 };
 
 module.exports = exports;

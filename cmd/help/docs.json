@@ -22,8 +22,8 @@
             "description": "Documentation title"
         },
         {
-            "flag": "--type",
-            "description": "Output type, html, json or markdown, defaults to html"
+            "flag": "--format",
+            "description": "Output format, html, json or markdown, defaults to html"
         }
     ]
 }
