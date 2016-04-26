@@ -1,4 +1,4 @@
-// Built by eustia. 2015-12-30 18:36:35
+// Built by eustia.
 (function(root, factory)
 {
     if (typeof define === 'function' && define.amd)
@@ -12,170 +12,821 @@
 {
     var _ = {};
 
-    function _define(name, requires, method)
+    if (typeof window === 'object' && window._) _ = window._;
+
+    /* ------------------------------ last ------------------------------ */
+
+    var last = _.last = (function (exports)
     {
-        _[name] = {
-            requires: requires,
-            body    : method
+        /* Get the last element of array.
+         *
+         * |Name  |Type |Desc                     |
+         * |--------------------------------------|
+         * |arr   |array|The array to query       |
+         * |return|*    |The last element of array|
+         *
+         * ```javascript
+         * last([1, 2]); // -> 2
+         * ```
+         */
+
+        exports = function (arr)
+        {
+            var len = arr ? arr.length : 0;
+
+            if (len) return arr[len - 1];
         };
 
-        delete requireMarks[name];
-    }
+        return exports;
+    })({});
 
-    function _init(methods)
+    /* ------------------------------ isUndef ------------------------------ */
+
+    var isUndef = _.isUndef = (function (exports)
     {
-        for (var i = 0, len = methods.length; i < len; i++) _require(methods[i]);
-    }
+        /* Check if value is undefined.
+         *
+         * |Name  |Type   |Desc                      |
+         * |-----------------------------------------|
+         * |val   |*      |The value to check        |
+         * |return|boolean|True if value is undefined|
+         *
+         * ```javascript
+         * isUndef(void 0); // -> true
+         * isUndef(null); // -> false
+         * ```
+         */
 
-    var requireMarks = {};
-
-    function _require(name)
-    {
-        if (requireMarks.hasOwnProperty(name)) return _[name];
-
-        var requires = _[name].requires,
-            body     = _[name].body,
-            len      = requires.length;
-
-        for (var i = 0; i < len; i++) requires[i] = _require(requires[i]);
-
-        requires.push(_);
-
-        var exports = body.apply(_, requires);
-        if (exports) _[name] = exports;
-
-        requireMarks[name] = true;
-
-        return _[name];
-    }
-
-    _define('$', ['Select', '$offset', '$show', 'Delegate'], function (Select, $offset, $show, Delegate)
-    {
-        var $;
-
-        Select.methods({
-            offset: function () { return $offset(this[0]) },
-            hide  : function () { return this.css('display', 'none') },
-            show  : function () { return this.each(function () { $show(this) }) },
-            first : function () { return $(this[0]) },
-            last  : function () { return $(this[this.length - 1]) },
-            on: function (type, selector, fn)
-            {
-                if (fn == null)
-                {
-                    fn = selector;
-                    selector = undefined;
-                }
-
-                return this.each(function ()
-                {
-                    Delegate.add(this, type, selector, fn);
-                });
-            },
-            off: function (type, selector, fn)
-            {
-                if (fn == null)
-                {
-                    fn = selector;
-                    selector = undefined;
-                }
-
-                return this.each(function ()
-                {
-                    Delegate.remove(this, type, fn, selector);
-                });
-            },
-            html: function (val)
-            {
-                if (val == null) return this[0].innerHTML;
-
-                return this.each(function () { this.innerHTML = val });
-            },
-            text: function (val)
-            {
-                if (val == null) return this[0].textContent;
-
-                return this.each(function () { this.textContent = val });
-            },
-            val: function (val)
-            {
-                if (val == null) return this[0].value;
-
-                return this.each(function () { this.value = val });
-            },
-            remove: function ()
-            {
-                var parent;
-
-                return this.each(function ()
-                {
-                    parent = this.parentNode;
-                    if (parent != null) parent.removeChild(this);
-                });
-            }
-        });
-
-        $ = function (selector) { return new Select(selector) };
-
-        _.$ = $;
-    });
-
-    _define('$offset', [], function ()
-    {
-        var $offset;
-
-        $offset = function (el)
+        exports = function (val)
         {
-            var clientRect = el.getBoundingClientRect();
+            return val === void 0;
+        };
 
-            return {
-                left: clientRect.left + window.pageXOffset,
-                top : clientRect.top  + window.pageYOffset,
-                width : Math.round(clientRect.width),
-                height: Math.round(clientRect.height)
+        return exports;
+    })({});
+
+    /* ------------------------------ isObj ------------------------------ */
+
+    var isObj = _.isObj = (function (exports)
+    {
+        /* Check if value is the language type of Object.
+         *
+         * |Name  |Type   |Desc                      |
+         * |-----------------------------------------|
+         * |val   |*      |The value to check        |
+         * |return|boolean|True if value is an object|
+         *
+         * [Language Spec](http://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-language-types)
+         *
+         * ```javascript
+         * isObj({}); // -> true
+         * isObj([]); // -> true
+         * ```
+         */
+
+        exports = function (val)
+        {
+            var type = typeof val;
+
+            return !!val && (type === 'function' || type === 'object');
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ camelCase ------------------------------ */
+
+    var camelCase = _.camelCase = (function (exports)
+    {
+        /* Convert string to "camelCase" text.
+         *
+         * |Name  |Type  |Desc                  |
+         * |------------------------------------|
+         * |str   |string|The string to convert |
+         * |return|string|The camel cased string|
+         *
+         * ```javascript
+         * camelCase('foo-bar'); // -> fooBar
+         * camelCase('foo bar'); // -> fooBar
+         * camelCase('foo_bar'); // -> fooBar
+         * camelCase('foo.bar'); // -> fooBar
+         * ```
+         */
+
+        exports = function (str)
+        {
+            return str.replace(/^[_.\- ]+/, '')
+                      .toLowerCase()
+                      .replace(/[_.\- ]+(\w|$)/g, function (m, p1)
+                      {
+                          return p1.toUpperCase();
+                      });
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ dasherize ------------------------------ */
+
+    var dasherize = _.dasherize = (function (exports)
+    {
+        /* Convert string to "dashCase".
+         */
+
+        exports = function (str)
+        {
+            return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ inherits ------------------------------ */
+
+    var inherits = _.inherits = (function (exports)
+    {
+        /* Inherit the prototype methods from one constructor into another.
+         *
+         * |Name      |Type    |Desc       |
+         * |-------------------------------|
+         * |Class     |function|Child Class|
+         * |SuperClass|function|Super Class|
+         *
+         * ```javascript
+         * function People(name)
+         * {
+         *     this._name = name;
+         * }
+         * People.prototype = {
+         *     getName: function ()
+         *     {
+         *         return this._name;
+         *     }
+         * };
+         * function Student(name)
+         * {
+         *     this._name = name;
+         * }
+         * inherits(Student, People);
+         * var s = new Student('RedHood');
+         * s.getName(); // -> 'RedHood'
+         * ```
+         */
+
+        var objCreate = Object.create;
+
+        function noop() {}
+
+        exports = function (Class, SuperClass)
+        {
+            if (objCreate) return Class.prototype = objCreate(SuperClass.prototype);
+
+            noop.prototype  = SuperClass.prototype;
+            Class.prototype = new noop();
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ has ------------------------------ */
+
+    var has = _.has = (function (exports)
+    {
+        /* Checks if key is a direct property.
+         *
+         * |Name  |Type   |Desc                            |
+         * |-----------------------------------------------|
+         * |obj   |object |The object to query             |
+         * |key   |string |The path to check               |
+         * |return|boolean|True if key is a direct property|
+         *
+         * ```javascript
+         * has({one: 1}, 'one'); // -> true
+         * ```
+         */
+
+        var hasOwnProp = Object.prototype.hasOwnProperty;
+
+        exports = function (obj, key)
+        {
+            return hasOwnProp.call(obj, key);
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ allKeys ------------------------------ */
+
+    var allKeys = _.allKeys = (function (exports)
+    {
+        /* Retrieve all the names of object's own and inherited properties.
+         *
+         * |Name  |Type  |Desc                           |
+         * |---------------------------------------------|
+         * |obj   |object|The object to query            |
+         * |return|array |The array of all property names|
+         *
+         * > Members of Object's prototype won't be retrieved.
+         *
+         * ```javascript
+         * var obj = Object.create({zero: 0});
+         * obj.one = 1;
+         * allKeys(obj) // -> ['zero', 'one']
+         * ```
+         */
+
+        exports = function (obj)
+        {
+            var ret = [], key;
+
+            for (key in obj) ret.push(key);
+
+            return ret;
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ idxOf ------------------------------ */
+
+    var idxOf = _.idxOf = (function (exports)
+    {
+        /* Get the index at which the first occurrence of value.
+         *
+         * |Name       |Type  |Desc                |
+         * |---------------------------------------|
+         * |arr        |array |Array to search     |
+         * |val        |*     |Value to search for |
+         * |[fromIdx=0]|number|Index to search from|
+         *
+         * ```javascript
+         * idxOf([1, 2, 1, 2], 2, 2); // -> 3
+         * ```
+         */
+
+        exports = function (arr, val, fromIdx)
+        {
+            return Array.prototype.indexOf.call(arr, val);
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ keys ------------------------------ */
+
+    var keys = _.keys = (function (exports)
+    {
+        /* Create an array of the own enumerable property names of object.
+         *
+         * |Name  |Type  |Desc                       |
+         * |-----------------------------------------|
+         * |obj   |object|The object to query        |
+         * |return|array |The array of property names|
+         */
+
+        exports = Object.keys || function (obj)
+        {
+            var ret = [], key;
+
+            for (key in obj)
+            {
+                if (has(obj, key)) ret.push(key);
+            }
+
+            return ret;
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ identity ------------------------------ */
+
+    var identity = _.identity = (function (exports)
+    {
+        /* Return the first argument given.
+         *
+         * |Name  |Type|Desc       |
+         * |-----------------------|
+         * |val   |*   |Any value  |
+         * |return|*   |Given value|
+         *
+         * ```javascript
+         * identity('a'); // -> 'a'
+         * ```
+         */
+
+        exports = function (val)
+        {
+            return val;
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ objToStr ------------------------------ */
+
+    var objToStr = _.objToStr = (function (exports)
+    {
+        /* Alias of Object.prototype.toString.
+         *
+         * |Name  |Type  |Desc                                    |
+         * |------------------------------------------------------|
+         * |value |*     |Source value                            |
+         * |return|string|String representation of the given value|
+         */
+
+        var ObjToStr = Object.prototype.toString;
+
+        exports = function (val)
+        {
+            return ObjToStr.call(val);
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ isArr ------------------------------ */
+
+    var isArr = _.isArr = (function (exports)
+    {
+        /* Check if value is an `Array` object.
+         *
+         * |Name  |Type   |Desc                              |
+         * |-------------------------------------------------|
+         * |val   |*      |The value to check                |
+         * |return|boolean|True if value is an `Array` object|
+         *
+         * ```javascript
+         * isArr([]); // -> true
+         * isArr({}); // -> false
+         * ```
+         */
+
+        exports = Array.isArray || function (val)
+        {
+            return objToStr(val) === '[object Array]';
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ isNum ------------------------------ */
+
+    var isNum = _.isNum = (function (exports)
+    {
+        /* Checks if value is classified as a Number primitive or object.
+         *
+         * |Name|Type|Desc|
+         * |--------------|
+         * |value|*|The value to check|
+         * |return|boolean|True if value is correctly classified, else false|
+         */
+
+        exports = function (val)
+        {
+            return objToStr(val) === '[object Number]';
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ isArrLike ------------------------------ */
+
+    var isArrLike = _.isArrLike = (function (exports)
+    {
+        // TODO
+
+        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
+
+        exports = function (val)
+        {
+            if (!has(val, 'length')) return false;
+
+            var len = val.length;
+
+            return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ each ------------------------------ */
+
+    var each = _.each = (function (exports)
+    {
+        /* Iterates over elements of collection and invokes iteratee for each element.
+         *
+         * |Name    |Type         |Desc                          |
+         * |-----------------------------------------------------|
+         * |obj     |object\|array|Collection to iterate over    |
+         * |iteratee|function     |Function invoked per iteration|
+         * |[ctx]   |*            |Function context              |
+         *
+         * ```javascript
+         * each({'a': 1, 'b': 2}, function (val, key) {});
+         * ```
+         */
+
+        exports = function (obj, iteratee, ctx)
+        {
+            var i, len;
+
+            if (isArrLike(obj))
+            {
+                for (i = 0, len = obj.length; i < len; i++) iteratee.call(ctx, obj[i], i, obj);
+            } else
+            {
+                var _keys = keys(obj);
+                for (i = 0, len = _keys.length; i < len; i++)
+                {
+                    iteratee.call(ctx, obj[_keys[i]], _keys[i], obj);
+                }
+            }
+
+            return obj;
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ createAssigner ------------------------------ */
+
+    var createAssigner = _.createAssigner = (function (exports)
+    {
+        /* Used to create extend, extendOwn and defaults.
+         *
+         * |Name    |Type    |Desc                          |
+         * |------------------------------------------------|
+         * |keysFn  |function|Function to get object keys   |
+         * |defaults|boolean |No override when set to true  |
+         * |return  |function|The result function, extend...|
+         */
+
+        exports = function (keysFn, defaults)
+        {
+            return function (obj)
+            {
+                each(arguments, function (src, idx)
+                {
+                    if (idx === 0) return;
+
+                    var keys = keysFn(src);
+
+                    each(keys, function (key)
+                    {
+                        if (!defaults || isUndef(obj[key])) obj[key] = src[key];
+                    });
+                });
+
+                return obj;
             };
         };
 
-        _.$offset = $offset;
-    });
+        return exports;
+    })({});
 
-    _define('$show', [], function ()
+    /* ------------------------------ extend ------------------------------ */
+
+    var extend = _.extend = (function (exports)
     {
-        var $show;
+        /* Copy all of the properties in the source objects over to the destination object.
+         *
+         * |Name  |Type  |Desc              |
+         * |--------------------------------|
+         * |obj   |object|Destination object|
+         * |*src  |object|Sources objects   |
+         * |return|object|Destination object|
+         *
+         * ```javascript
+         * extend({name: 'RedHood'}, {age: 24}); // -> {name: 'RedHood', age: 24}
+         * ```
+         */
 
-        var elDisplay = {};
+        exports = createAssigner(allKeys);
 
-        function defDisplay(nodeName)
+        return exports;
+    })({});
+
+    /* ------------------------------ extendOwn ------------------------------ */
+
+    var extendOwn = _.extendOwn = (function (exports)
+    {
+        /* Like extend, but only copies own properties over to the destination object.
+         *
+         * |Name  |Type  |Desc              |
+         * |--------------------------------|
+         * |obj   |object|Destination object|
+         * |*src  |object|Sources objects   |
+         * |return|object|Destination object|
+         *
+         * ```javascript
+         * extendOwn({name: 'RedHood'}, {age: 24}); // -> {name: 'RedHood', age: 24}
+         * ```
+         */
+
+        exports = createAssigner(keys);
+
+        return exports;
+    })({});
+
+    /* ------------------------------ values ------------------------------ */
+
+    var values = _.values = (function (exports)
+    {
+        /* Creates an array of the own enumerable property values of object.
+         *
+         * |Name  |Type  |Desc                    |
+         * |--------------------------------------|
+         * |obj   |object|Object to query         |
+         * |return|array |Array of property values|
+         *
+         * ```javascript
+         * values({one: 1, two: 2}); // -> [1, 2]
+         * ```
+         */
+
+        exports = function (obj)
         {
-            var el, display;
+            var ret = [];
 
-            if (!elDisplay[nodeName])
-            {
-                el = document.createElement(nodeName);
-                document.body.appendChild(el);
-                display = getComputedStyle(el, '').getPropertyValue("display");
-                el.parentNode.removeChild(el);
-                display == "none" && (display = "block");
-                elDisplay[nodeName] = display;
-            }
+            each(obj, function (val) { ret.push(val) });
 
-            return elDisplay[nodeName];
-        }
-
-        $show = function (el)
-        {
-            if (getComputedStyle(el, '').getPropertyValue('display') == 'none')
-            {
-                el.style.display = defDisplay(el.nodeName);
-            }
+            return ret;
         };
 
-        _.$show = $show;
-    });
+        return exports;
+    })({});
 
-    _define('Class', ['extend', 'toArray', 'inherits', 'has'], function (extend, toArray, inherits, has)
+    /* ------------------------------ contain ------------------------------ */
+
+    var contain = _.contain = (function (exports)
     {
-        var Class;
+        // TODO
+
+        exports = function (arr, val)
+        {
+            if (!isArrLike(arr)) arr = values(arr);
+
+            return idxOf(arr, val) >= 0;
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ isStr ------------------------------ */
+
+    var isStr = _.isStr = (function (exports)
+    {
+        /* Check if value is a string primitive.
+         *
+         * |Name  |Type   |Desc                               |
+         * |--------------------------------------------------|
+         * |val   |*      |The value to check                 |
+         * |return|boolean|True if value is a string primitive|
+         *
+         * ```javascript
+         * isStr('eris'); // -> true
+         * ```
+         */
+
+        exports = function (val)
+        {
+            return objToStr(val) === '[object String]';
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ isFn ------------------------------ */
+
+    var isFn = _.isFn = (function (exports)
+    {
+        /* Check if value is a function.
+         *
+         * |Name  |Type   |Desc                       |
+         * |------------------------------------------|
+         * |val   |*      |The value to check         |
+         * |return|boolean|True if value is a function|
+         *
+         * Generator function is also classified as true.
+         *
+         * ```javascript
+         * isFn(function() {}); // -> true
+         * isFn(function*() {}); // -> true
+         * ```
+         */
+
+        exports = function (val)
+        {
+            var objStr = objToStr(val);
+
+            return objStr === '[object Function]' || objStr === '[object GeneratorFunction]';
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ isMatch ------------------------------ */
+
+    var isMatch = _.isMatch = (function (exports)
+    {
+        /* Check if keys and values in src are contained in obj.
+         *
+         * |Name  |Type  |Desc                               |
+         * |-------------------------------------------------|
+         * |obj   |object |Object to inspect                 |
+         * |src   |object |Object of property values to match|
+         * |return|boolean|True if object is match           |
+         *
+         * ```javascript
+         * isMatch({a: 1, b: 2}, {a: 1}); // -> true
+         * ```
+         */
+
+        exports = function (obj, src)
+        {
+            var _keys = keys(src),
+                len = _keys.length;
+
+            if (obj == null) return !len;
+
+            obj = Object(obj);
+
+            for (var i = 0; i < len; i++)
+            {
+                var key = _keys[i];
+                if (src[key] !== obj[key] || !(key in obj)) return false;
+            }
+
+            return true;
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ matcher ------------------------------ */
+
+    var matcher = _.matcher = (function (exports)
+    {
+        // TODO
+
+        exports = function (attrs)
+        {
+            attrs = extendOwn({}, attrs);
+
+            return function (obj)
+            {
+                return isMatch(obj, attrs);
+            };
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ optimizeCb ------------------------------ */
+
+    var optimizeCb = _.optimizeCb = (function (exports)
+    {
+        exports = function (func, ctx, argCount)
+        {
+            if (isUndef(ctx)) return func;
+
+            switch (argCount == null ? 3 : argCount)
+            {
+                case 1: return function (val)
+                {
+                    return func.call(ctx, val);
+                };
+                case 3: return function (val, idx, collection)
+                {
+                    return func.call(ctx, val, idx, collection);
+                };
+                case 4: return function (accumulator, val, idx, collection)
+                {
+                    return func.call(ctx, accumulator, val, idx, collection);
+                }
+            }
+
+            return function ()
+            {
+                return func.apply(ctx, arguments);
+            };
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ safeCb ------------------------------ */
+
+    var safeCb = _.safeCb = (function (exports)
+    {
+        /* function
+         * safeCb: Create callback based on input value.
+         */
+
+        exports = function (val, ctx, argCount)
+        {
+            if (val == null) return identity;
+
+            if (isFn(val)) return optimizeCb(val, ctx, argCount);
+
+            if (isObj(val)) return matcher(val);
+
+            return function (key)
+            {
+                return function (obj)
+                {
+                    return obj == null ? undefined : obj[key];
+                }
+            };
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ map ------------------------------ */
+
+    var map = _.map = (function (exports)
+    {
+        /* Create an array of values by running each element in collection through iteratee.
+         *
+         * |Name    |Type         |Desc                          |
+         * |-----------------------------------------------------|
+         * |obj     |array\|object|Collection to iterate over    |
+         * |iteratee|function     |Function invoked per iteration|
+         * |[ctx]   |*            |Function context              |
+         * |return  |array        |New mapped array              |
+         *
+         * ```javascript
+         * map([4, 8], function (n) { return n * n; }); // -> [16, 64]
+         * ```
+         */
+
+        exports = function (obj, iteratee, ctx)
+        {
+            iteratee = safeCb(iteratee, ctx);
+
+            var _keys = !isArrLike(obj) && keys(obj),
+                len = (_keys || obj).length,
+                results = Array(len);
+
+            for (var i = 0; i < len; i++)
+            {
+                var curKey = _keys ? _keys[i] : i;
+                results[i] = iteratee(obj[curKey], curKey, obj);
+            }
+
+            return results;
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ toArr ------------------------------ */
+
+    var toArr = _.toArr = (function (exports)
+    {
+        /* Convert value to an array.
+         *
+         * |Name  |Type |Desc            |
+         * |-----------------------------|
+         * |val   |*    |Value to convert|
+         * |return|array|Converted array |
+         *
+         * ```javascript
+         * toArr({a: 1, b: 2}); // -> [{a: 1, b: 2}]
+         * toArr('abc'); // -> ['abc']
+         * toArr(1); // -> []
+         * toArr(null); // -> []
+         * ```
+         */
+
+        exports = function (val)
+        {
+            if (!val) return [];
+
+            if (isArr(val)) return val;
+
+            if (isArrLike(val) && !isStr(val)) return map(val);
+
+            return [val];
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ Class ------------------------------ */
+
+    var Class = _.Class = (function (exports)
+    {
+        /* Create JavaScript class.
+         *
+         * |Name   |Type    |Desc                                    |
+         * |---------------------------------------------------------|
+         * |methods|object  |Public methods                          |
+         * |statics|object  |Static methods                          |
+         * |return |function|Return function used to create instances|
+         */
 
         var regCallSuper = /callSuper/;
 
@@ -185,7 +836,7 @@
 
             var ctor = function ()
             {
-                var args = toArray(arguments);
+                var args = toArr(arguments);
 
                 if (has(ctor.prototype, 'initialize') &&
                     !regCallSuper.test(this.initialize.toString()) &&
@@ -214,9 +865,9 @@
             return ctor;
         }
 
-        Class = function (methods, statics) { return Base.extend(methods, statics) };
+        exports = function (methods, statics) { return Base.extend(methods, statics) };
 
-        var Base = Class.Base = makeClass(Object, {
+        var Base = exports.Base = makeClass(Object, {
             className: 'Base',
             callSuper: function (name)
             {
@@ -224,7 +875,7 @@
 
                 if (!superMethod) return;
 
-                return superMethod.apply(this, toArray(arguments).slice(1));
+                return superMethod.apply(this, toArr(arguments).slice(1));
             },
             toString: function ()
             {
@@ -232,13 +883,367 @@
             }
         });
 
-        _.Class = Class;
-    });
+        return exports;
+    })({});
 
-    _define('Delegate', ['Class', 'contains'], function (Class, contains)
+    /* ------------------------------ Select ------------------------------ */
+
+    var Select = _.Select = (function (exports)
     {
-        var Delegate;
+        /* jQuery like dom manipulator.
+         */
 
+        function mergeArr(first, second)
+        {
+            var len = second.length,
+                i   = first.length;
+
+            for (var j = 0; j < len; j++) first[i++] = second[j];
+
+            first.length = i;
+
+            return first;
+        }
+
+        exports = Class({
+            className: 'Select',
+            initialize: function (selector)
+            {
+                this.length = 0;
+
+                if (!selector) return this;
+
+                if (isStr(selector)) return rootSelect.find(selector);
+
+                if (selector.nodeType)
+                {
+                    this[0]     = selector;
+                    this.length = 1;
+                }
+            },
+            find: function (selector)
+            {
+                var ret = new Select;
+
+                this.each(function ()
+                {
+                    mergeArr(ret, this.querySelectorAll(selector));
+                });
+
+                return ret;
+            },
+            each: function (fn)
+            {
+                each(this, function (element, idx)
+                {
+                    fn.call(element, idx, element);
+                });
+
+                return this;
+            }
+        });
+
+        var rootSelect = new exports(document);
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $safeNodes ------------------------------ */
+
+    var $safeNodes = _.$safeNodes = (function (exports)
+    {
+        exports = function (nodes)
+        {
+            if (isStr(nodes)) return new Select(nodes);
+
+            return toArr(nodes);
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $attr ------------------------------ */
+
+    var $attr = _.$attr = (function (exports)
+    {
+        exports = function (nodes, name, val)
+        {
+            nodes = $safeNodes(nodes);
+
+            var isGetter = isUndef(val) && isStr(name);
+            if (isGetter) return getAttr(nodes[0], name);
+
+            var attrs = name;
+            if (!isObj(attrs))
+            {
+                attrs = {};
+                attrs[name] = val;
+            }
+
+            setAttr(nodes, attrs);
+        };
+
+        exports.remove = function (nodes, names)
+        {
+            nodes = $safeNodes(nodes);
+            names = toArr(names);
+
+            each(nodes, function (node)
+            {
+                each(names, function (name)
+                {
+                    node.removeAttribute(name);
+                });
+            });
+        };
+
+        function getAttr(node, name)
+        {
+            return node.getAttribute(name);
+        }
+
+        function setAttr(nodes, attrs)
+        {
+            each(nodes, function (node)
+            {
+                each(attrs, function (val, name)
+                {
+                    node.setAttribute(name, val);
+                });
+            })
+        }
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $data ------------------------------ */
+
+    var $data = _.$data = (function (exports)
+    {
+        exports = function (nodes, name, val)
+        {
+            var dataName = name;
+
+            if (isStr(name)) dataName = 'data-' + name;
+            if (isObj(name))
+            {
+                dataName = {};
+                each(name, function (val, key)
+                {
+                    dataName['data-' + key] = val;
+                });
+            }
+
+            return $attr(nodes, dataName, val);
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $css ------------------------------ */
+
+    var $css = _.$css = (function (exports)
+    {
+        exports = function (nodes, name, val)
+        {
+            nodes = $safeNodes(nodes);
+
+            var isGetter = isUndef(val) && isStr(name);
+            if (isGetter) return getCss(nodes[0], name);
+
+            var css = name;
+            if (!isObj(css))
+            {
+                css = {};
+                css[name] = val;
+            }
+
+            setCss(nodes, css);
+        };
+
+        function getCss(node, name)
+        {
+            return node.style[camelCase(name)];
+        }
+
+        function setCss(nodes, css)
+        {
+            each(nodes, function (node)
+            {
+                var cssText = ';';
+                each(css, function (val, key)
+                {
+                    cssText += dasherize(key) + ':' + addPx(key, val) + ';';
+                });
+                node.style.cssText += cssText;
+            });
+        }
+
+        var cssNumProps = [
+            'column-count',
+            'columns',
+            'font-weight',
+            'line-weight',
+            'opacity',
+            'z-index',
+            'zoom'
+        ];
+
+        function addPx(key, val)
+        {
+            var needPx = isNum(val) && !contain(cssNumProps, dasherize(key));
+
+            return needPx ? val + 'px' : val;
+        }
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $insert ------------------------------ */
+
+    var $insert = _.$insert = (function (exports)
+    {
+        exports = {
+            before: insertFactory('beforebegin'),
+            after: insertFactory('afterend'),
+            append: insertFactory('beforeend'),
+            prepend: insertFactory('afterbegin')
+        };
+
+        function insertFactory(type)
+        {
+            return function (nodes, val)
+            {
+                nodes = $safeNodes(nodes);
+
+                each(nodes, function (node)
+                {
+                    node.insertAdjacentHTML(type, val);
+                });
+            };
+        }
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $offset ------------------------------ */
+
+    var $offset = _.$offset = (function (exports)
+    {
+        exports = function (nodes)
+        {
+            nodes = $safeNodes(nodes);
+
+            var node = nodes[0];
+
+            var clientRect = node.getBoundingClientRect();
+
+            return {
+                left: clientRect.left + window.pageXOffset,
+                top : clientRect.top  + window.pageYOffset,
+                width : Math.round(clientRect.width),
+                height: Math.round(clientRect.height)
+            };
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $property ------------------------------ */
+
+    var $property = _.$property = (function (exports)
+    {
+        exports = {
+            html: propFactory('innerHTML'),
+            text: propFactory('textContent'),
+            val: propFactory('value')
+        };
+
+        function propFactory(name)
+        {
+            return function (nodes, val)
+            {
+                nodes = $safeNodes(nodes);
+
+                if (isUndef(val)) return nodes[0][name];
+
+                each(nodes, function (node)
+                {
+                    node[name] = val;
+                });
+            };
+        }
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $remove ------------------------------ */
+
+    var $remove = _.$remove = (function (exports)
+    {
+        exports = function (nodes)
+        {
+            nodes = $safeNodes(nodes);
+
+            each(nodes, function (node)
+            {
+                var parent = node.parentNode;
+
+                if (parent) parent.removeChild(node);
+            });
+        };
+
+        return exports;
+    })({});
+
+    /* ------------------------------ $show ------------------------------ */
+
+    var $show = _.$show = (function (exports)
+    {
+        exports = function (nodes)
+        {
+            nodes = $safeNodes(nodes);
+
+            each(nodes, function (node)
+            {
+                if (isHidden(node))
+                {
+                    node.style.display = getDefDisplay(node.nodeName);
+                }
+            });
+        };
+
+        function isHidden(node)
+        {
+            return getComputedStyle(node, '').getPropertyValue('display') == 'none';
+        }
+
+        var elDisplay = {};
+
+        function getDefDisplay(nodeName)
+        {
+            var el, display;
+
+            if (!elDisplay[nodeName])
+            {
+                el = document.createElement(nodeName);
+                document.body.appendChild(el);
+                display = getComputedStyle(el, '').getPropertyValue("display");
+                el.parentNode.removeChild(el);
+                display == "none" && (display = "block");
+                elDisplay[nodeName] = display;
+            }
+
+            return elDisplay[nodeName];
+        }
+
+        return exports;
+    })({});
+
+    /* ------------------------------ delegate ------------------------------ */
+
+    var delegate = _.delegate = (function (exports)
+    {
         function retTrue()  { return true }
         function retFalse() { return false }
 
@@ -248,7 +1253,7 @@
                 handler,
                 handlerQueue = formatHandlers.call(this, e, handlers);
 
-            e = new Delegate.Event(e);
+            e = new delegate.Event(e);
 
             var i = 0, j, matched, ret;
 
@@ -287,7 +1292,7 @@
                         selector = handler.selector + ' ';
                         if (matches[selector] === undefined)
                         {
-                            matches[selector] = contains(this.querySelectorAll(selector), current);
+                            matches[selector] = contain(this.querySelectorAll(selector), current);
                         }
                         if (matches[selector]) matches.push(handler);
                     }
@@ -306,7 +1311,7 @@
             return ret;
         }
 
-        Delegate = {
+        exports = {
             add: function (el, type, selector, fn)
             {
                 var handler = {
@@ -330,7 +1335,7 @@
                 selector ? handlers.splice(handlers.delegateCount++, 0, handler)
                          : handlers.push(handler);
             },
-            remove: function (el, type, fn, selector)
+            remove: function (el, type, selector, fn)
             {
                 var events = el.events;
 
@@ -385,645 +1390,49 @@
             })
         };
 
-        _.Delegate = Delegate;
-    });
+        return exports;
+    })({});
 
-    _define('Select', ['Class', 'isStr', 'each', 'isObj', 'some', 'camelize', 'isNum', 'dasherize'], function (Class, isStr, each, isObj, some, camelize, isNum, dasherize)
+    /* ------------------------------ $event ------------------------------ */
+
+    var $event = _.$event = (function (exports)
     {
-        var Select;
+        exports = {
+            on: eventFactory('add'),
+            off: eventFactory('remove')
+        };
 
-        function mergeArr(first, second)
+        function eventFactory(type)
         {
-            var len = second.length,
-                i   = first.length;
+            return function (nodes, event, selector, handler)
+            {
+                nodes = $safeNodes(nodes);
 
-            for (var j = 0; j < len; j++) first[i++] = second[j];
+                if (isUndef(handler))
+                {
+                    handler = selector;
+                    selector = undefined;
+                }
 
-            first.length = i;
-
-            return first;
+                each(nodes, function (node)
+                {
+                    delegate[type](node, event, selector, handler);
+                });
+            };
         }
 
-        function setAttr(node, name, val)
+        return exports;
+    })({});
+
+    /* ------------------------------ some ------------------------------ */
+
+    var some = _.some = (function (exports)
+    {
+        // TODO
+
+        exports = function (obj, predicate, ctx)
         {
-            val == null ? node.removeAttribute(name) : node.setAttribute(name, val);
-        }
-
-        var cssNumber = {
-            'column-count': 1,
-            'columns'     : 1,
-            'font-weight' : 1,
-            'line-weight' : 1,
-            'opacity'     : 1,
-            'z-index'     : 1,
-            'zoom'        : 1
-        };
-
-        function addPx(name, val)
-        {
-            if (isNum(val) && !cssNumber[dasherize(name)]) return val + 'px';
-
-            return val;
-        }
-
-        Select = Class({
-            className: 'Select',
-            initialize: function (selector)
-            {
-                this.length = 0;
-
-                if (!selector) return this;
-
-                if (isStr(selector)) return rootSelect.find(selector);
-
-                if (selector.nodeType)
-                {
-                    this[0]     = selector;
-                    this.length = 1;
-                }
-            },
-            find: function (selector)
-            {
-                var ret = new Select;
-
-                this.each(function ()
-                {
-                    mergeArr(ret, this.querySelectorAll(selector));
-                });
-
-                return ret;
-            },
-            each: function (fn)
-            {
-                each(this, function (element, idx)
-                {
-                    fn.call(element, idx, element);
-                });
-
-                return this;
-            },
-            css: function (name, val)
-            {
-                if (val == null && isStr(name))
-                {
-                    return this[0].style[camelize(name)];
-                }
-
-                var css = '';
-
-                if (isStr(name))
-                {
-                    css = dasherize(name) + ':' + addPx(name, val) + ';';
-                } else
-                {
-                    each(name, function (val, key)
-                    {
-                        css += dasherize(key) + ':' + addPx(key, val) + ';';
-                    });
-                }
-
-                return this.each(function ()
-                {
-                    this.style.cssText += ';' + css;
-                });
-            },
-            rmAttr: function (name)
-            {
-                return this.each(function ()
-                {
-                    setAttr(this, name);
-                });
-            },
-            attr: function (name, val)
-            {
-                if (val == null && isStr(name))
-                {
-                    return this[0].getAttribute(name);
-                }
-
-                return this.each(function ()
-                {
-                    var self = this;
-
-                    if (isObj(name))
-                    {
-                        each(name, function (val, key) { setAttr(self, key, val) });
-                    } else
-                    {
-                        setAttr(this, name, val);
-                    }
-                });
-            },
-            data: function (name, val)
-            {
-                var newName = name;
-
-                if (isStr(name)) newName = 'data-' + name;
-                if (isObj(name))
-                {
-                    newName = {};
-                    each(name, function (val, key) { newName['data-' + key] = val });
-                }
-
-                return this.attr(newName, val);
-            },
-            hasClass: function (name)
-            {
-                return some(this, function (el)
-                {
-                    return this.test(el.className);
-                }, new RegExp('(^|\\s)' + name + '(\\s|$)'));
-            },
-            addClass: function (name)
-            {
-                var newName = name.split(/\s+/g);
-
-                return this.each(function ()
-                {
-                    var classList = [],
-                        $this = new Select(this);
-                    each(newName, function (val)
-                    {
-                        if (!$this.hasClass(val)) classList.push(val);
-                    });
-                    if (classList.length !== 0) this.className += ' ' + classList.join(' ');
-                });
-            },
-            toggleClass: function (name)
-            {
-                return this.hasClass(name) ? this.rmClass(name) : this.addClass(name);
-            },
-            rmClass: function (name)
-            {
-                return this.each(function () { this.classList.remove(name) });
-            },
-            append: function (val)
-            {
-                return this.each(function ()
-                {
-                    this.insertAdjacentHTML('beforeend', val);
-                });
-            },
-            before: function (val)
-            {
-                return this.each(function ()
-                {
-                    this.insertAdjacentHTML('beforebegin', val);
-                });
-            },
-            prepend: function (val)
-            {
-                return this.each(function ()
-                {
-                    this.insertAdjacentHTML('afterbegin', val);
-                });
-            }
-        });
-
-        var rootSelect = new Select(document);
-
-        _.Select = Select;
-    });
-
-    _define('_cb', ['identity', 'isFn', 'isObj', '_optimizeCb', 'matcher'], function (identity, isFn, isObj, _optimizeCb, matcher)
-    {
-        var _cb;
-
-        _cb = function (val, ctx, argCount)
-        {
-            if (val == null) return identity;
-
-            if (isFn(val)) return _optimizeCb(val, ctx, argCount);
-
-            if (isObj(val)) return matcher(val);
-
-            return function (key)
-            {
-                return function (obj)
-                {
-                    return obj == null ? undefined : obj[key];
-                }
-            };
-        };
-
-        _._cb = _cb;
-    });
-
-    _define('_createAssigner', ['isUndef'], function (isUndef)
-    {
-        var _createAssigner;
-
-        _createAssigner = function (keysFunc, defaults)
-        {
-            return function (obj)
-            {
-                var len = arguments.length;
-
-                if (defaults) obj = Object(obj);
-
-                if (len < 2 || obj == null) return obj;
-
-                for (var i = 1; i < len; i++)
-                {
-                    var src     = arguments[i],
-                        keys    = keysFunc(src),
-                        keysLen = keys.length;
-
-                    for (var j = 0; j < keysLen; j++)
-                    {
-                        var key = keys[j];
-                        if (!defaults || isUndef(obj[key])) obj[key] = src[key];
-                    }
-                }
-
-                return obj;
-            };
-        };
-
-        _._createAssigner = _createAssigner;
-    });
-
-    _define('_optimizeCb', ['isUndef'], function (isUndef)
-    {
-        var _optimizeCb;
-
-        _optimizeCb = function (func, ctx, argCount)
-        {
-            if (isUndef(ctx)) return func;
-
-            switch (argCount == null ? 3 : argCount)
-            {
-                case 1: return function (val)
-                {
-                    return func.call(ctx, val);
-                };
-                case 3: return function (val, idx, collection)
-                {
-                    return func.call(ctx, val, idx, collection);
-                };
-                case 4: return function (accumulator, val, idx, collection)
-                {
-                    return func.call(ctx, accumulator, val, idx, collection);
-                }
-            }
-
-            return function ()
-            {
-                return func.apply(ctx, arguments);
-            };
-        };
-
-        _._optimizeCb = _optimizeCb;
-    });
-
-    _define('_toStr', [], function ()
-    {
-        var _toStr;
-
-        _toStr = Object.prototype.toString;
-
-        _._toStr = _toStr;
-    });
-
-    _define('allKeys', [], function ()
-    {
-        var allKeys;
-
-        allKeys = function (obj)
-        {
-            var keys = [], key;
-
-            for (key in obj) keys.push(key);
-
-            return keys;
-        };
-
-        _.allKeys = allKeys;
-    });
-
-    _define('camelize', [], function ()
-    {
-        var camelize;
-
-        camelize = function (str)
-        {
-            return str.replace(/-+(.)?/g, function (match, char)
-            {
-                return char ? char.toUpperCase() : '';
-            });
-        };
-
-        _.camelize = camelize;
-    });
-
-    _define('contains', ['indexOf', 'isArrLike', 'values'], function (indexOf, isArrLike, values)
-    {
-        var contains;
-
-        contains = function (arr, val)
-        {
-            if (!isArrLike(arr)) arr = values(arr);
-
-            return indexOf(arr, val) >= 0;
-        };
-
-        _.contains = contains;
-    });
-
-    _define('dasherize', [], function ()
-    {
-        var dasherize;
-
-        dasherize = function (str)
-        {
-            return str.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase();
-        };
-
-        _.dasherize = dasherize;
-    });
-
-    _define('each', ['isArrLike', 'keys'], function (isArrLike, keys)
-    {
-        var each;
-
-        each = function (obj, iteratee, ctx)
-        {
-            var i, len;
-
-            if (isArrLike(obj))
-            {
-                for (i = 0, len = obj.length; i < len; i++) iteratee.call(ctx, obj[i], i, obj);
-            } else
-            {
-                var _keys = keys(obj);
-                for (i = 0, len = _keys.length; i < len; i++)
-                {
-                    iteratee.call(ctx, obj[_keys[i]], _keys[i], obj);
-                }
-            }
-
-            return obj;
-        };
-
-        _.each = each;
-    });
-
-    _define('extend', ['_createAssigner', 'allKeys'], function (_createAssigner, allKeys)
-    {
-        var extend;
-
-        extend = _createAssigner(allKeys);
-
-        _.extend = extend;
-    });
-
-    _define('extendOwn', ['keys', '_createAssigner'], function (keys, _createAssigner)
-    {
-        var extendOwn;
-
-        extendOwn = _createAssigner(keys);
-
-        _.extendOwn = extendOwn;
-    });
-
-    _define('has', [], function ()
-    {
-        var has;
-
-        var hasOwnProp = Object.prototype.hasOwnProperty;
-
-        has = function (obj, key) { return hasOwnProp.call(obj, key) };
-
-        _.has = has;
-    });
-
-    _define('identity', [], function ()
-    {
-        var identity;
-
-        identity = function (value) { return value };
-
-        _.identity = identity;
-    });
-
-    _define('indexOf', [], function ()
-    {
-        var indexOf;
-
-        indexOf = function (arr, val)
-        {
-            return Array.prototype.indexOf.call(arr, val);
-        };
-
-        _.indexOf = indexOf;
-    });
-
-    _define('inherits', [], function ()
-    {
-        var inherits;
-
-        var objCreate = Object.create;
-
-        function noop() {}
-
-        inherits = function (Class, SuperClass)
-        {
-            if (objCreate) return Class.prototype = objCreate(SuperClass.prototype);
-
-            noop.prototype  = SuperClass.prototype;
-            Class.prototype = new noop();
-        };
-
-        _.inherits = inherits;
-    });
-
-    _define('isArr', ['_toStr'], function (_toStr)
-    {
-        var isArr;
-
-        var nativeIsArr = Array.isArray;
-
-        isArr = nativeIsArr || function (val)
-        {
-            return _toStr.call(val) === '[object Array]';
-        };
-
-        _.isArr = isArr;
-    });
-
-    _define('isArrLike', ['isNum', 'has'], function (isNum, has)
-    {
-        var isArrLike;
-
-        var MAX_ARR_IDX = Math.pow(2, 53) - 1;
-
-        isArrLike = function (val)
-        {
-            if (!has(val, 'length')) return false;
-
-            var len = val.length;
-
-            return isNum(len) && len >= 0 && len <= MAX_ARR_IDX;
-        };
-
-        _.isArrLike = isArrLike;
-    });
-
-    _define('isFn', ['_toStr'], function (_toStr)
-    {
-        var isFn;
-
-        isFn = function (val) { return _toStr.call(val) === '[object Function]' };
-
-        _.isFn = isFn;
-    });
-
-    _define('isMatch', ['keys'], function (keys)
-    {
-        var isMatch;
-
-        isMatch = function (obj, attrs)
-        {
-            var _keys = keys(attrs),
-                len   = _keys.length;
-
-            if (obj == null) return !len;
-
-            obj = Object(obj);
-
-            for (var i = 0; i < len; i++)
-            {
-                var key = keys[i];
-                if (attrs[key] !== obj[key] || !(key in obj)) return false;
-            }
-
-            return true;
-        };
-
-        _.isMatch = isMatch;
-    });
-
-    _define('isNum', ['_toStr'], function (_toStr)
-    {
-        var isNum;
-
-        isNum = function (value) { return _toStr.call(value) === '[object Number]' };
-
-        _.isNum = isNum;
-    });
-
-    _define('isObj', [], function ()
-    {
-        var isObj;
-
-        isObj = function (val)
-        {
-            var type = typeof val;
-
-            return type === 'function' || type === 'object';
-        };
-
-        _.isObj = isObj;
-    });
-
-    _define('isStr', ['_toStr'], function (_toStr)
-    {
-        var isStr;
-
-        isStr = function (value) { return _toStr.call(value) === '[object String]' };
-
-        _.isStr = isStr;
-    });
-
-    _define('isUndef', [], function ()
-    {
-        var isUndef;
-
-        isUndef = function (value) { return value === void 0 };
-
-        _.isUndef = isUndef;
-    });
-
-    _define('keys', ['isObj', 'has'], function (isObj, has)
-    {
-        var keys;
-
-        var nativeKeys = Object.keys;
-
-        keys = nativeKeys || function (obj)
-        {
-            var keys = [];
-
-            for (var key in obj) { if (has(obj, key)) keys.push(key) }
-
-            return keys;
-        };
-
-        _.keys = keys;
-    });
-
-    _define('map', ['_cb', 'keys', 'isArrLike'], function (_cb, keys, isArrLike)
-    {
-        var map;
-
-        map = function (obj, iteratee, ctx)
-        {
-            iteratee = _cb(iteratee, ctx);
-
-            var _keys   = !isArrLike(obj) && keys(obj),
-                len     = (_keys || obj).length,
-                results = Array(len);
-
-            for (var i = 0; i < len; i++)
-            {
-                var curKey = _keys ? _keys[i] : i;
-                results[i] = iteratee(obj[curKey], curKey, obj);
-            }
-
-            return results;
-        };
-
-        _.map = map;
-    });
-
-    _define('matcher', ['extendOwn', 'isMatch'], function (extendOwn, isMatch)
-    {
-        var matcher;
-
-        matcher = function (attrs)
-        {
-            attrs = extendOwn({}, attrs);
-
-            return function (obj)
-            {
-                return isMatch(obj, attrs);
-            };
-        };
-
-        _.matcher = matcher;
-    });
-
-    _define('slice', [], function ()
-    {
-        var slice;
-
-        var arrProto = Array.prototype;
-
-        slice = function (arr, start, end)
-        {
-            return arrProto.slice.call(arr, start, end);
-        };
-
-        _.slice = slice;
-    });
-
-    _define('some', ['_cb', 'isArrLike', 'keys'], function (_cb, isArrLike, keys)
-    {
-        var some;
-
-        some = function (obj, predicate, ctx)
-        {
-            predicate = _cb(predicate, ctx);
+            predicate = safeCb(predicate, ctx);
 
             var _keys = !isArrLike(obj) && keys(obj),
                 len   = (_keys || obj).length;
@@ -1037,38 +1446,274 @@
             return false;
         };
 
-        _.some = some;
-    });
+        return exports;
+    })({});
 
-    _define('toArray', ['isArr', 'slice', 'isStr', 'isArrLike', 'map', 'identity', 'values'], function (isArr, slice, isStr, isArrLike, map, identity, values)
+    /* ------------------------------ $class ------------------------------ */
+
+    var $class = _.$class = (function (exports)
     {
-        var toArray;
+        exports = {
+            add: function (nodes, name)
+            {
+                nodes = $safeNodes(nodes);
+                var names = toArr(name);
 
-        var regReStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
+                each(nodes, function (node)
+                {
+                    var classList = [];
 
-        toArray = function (obj)
-        {
-            if (!obj) return [];
+                    each(names, function (name)
+                    {
+                        if (!exports.has(node, name)) classList.push(name);
+                    });
 
-            if (isArr(obj)) return slice(obj);
+                    if (classList.length !== 0) node.className += ' ' + classList.join(' ');
+                });
+            },
+            has: function (nodes, name)
+            {
+                nodes = $safeNodes(nodes);
 
-            if (isStr(obj)) return obj ? obj.match(regReStrSymbol) : [];
+                var regName = new RegExp('(^|\\s)' + name + '(\\s|$)');
 
-            if (isArrLike(obj)) return map(obj, identity);
+                return some(nodes, function (node)
+                {
+                    return regName.test(node.className);
+                });
+            },
+            toggle: function (nodes, name)
+            {
+                nodes = $safeNodes(nodes);
 
-            return values(obj);
+                each(nodes, function (node)
+                {
+                    if (!exports.has(node, name)) return exports.add(node, name);
+
+                    exports.remove(node, name);
+                });
+            },
+            remove: function (nodes, name)
+            {
+                nodes = $safeNodes(nodes);
+                var names = toArr(name);
+
+                each(nodes, function (node)
+                {
+                    each(names, function (name)
+                    {
+                        node.classList.remove(name);
+                    });
+                });
+            }
         };
 
-        _.toArray = toArray;
-    });
+        return exports;
+    })({});
 
-    _define('use', ['map'], function (map)
+    /* ------------------------------ $ ------------------------------ */
+
+    var $ = _.$ = (function (exports)
     {
-        var use;
+        /* jQuery like style dom manipulator.
+         */
 
-        var self = this;
+        exports = function (selector)
+        {
+            return new Select(selector);
+        };
 
-        use = function (requires, method)
+        Select.methods({
+            offset: function ()
+            {
+                return $offset(this);
+            },
+            hide: function ()
+            {
+                return this.css('display', 'none');
+            },
+            show: function ()
+            {
+                $show(this);
+
+                return this;
+            },
+            first: function ()
+            {
+                return $(this[0]);
+            },
+            last: function () {
+                return $(last(this));
+            },
+            get: function (idx)
+            {
+                return this[idx];
+            },
+            eq: function (idx)
+            {
+                return $(this[idx]);
+            },
+            on: function (event, selector, handler)
+            {
+                $event.on(this, event, selector, handler);
+
+                return this;
+            },
+            off: function (event, selector, handler)
+            {
+                $event.off(this, event, selector, handler);
+
+                return this;
+            },
+            html: function (val)
+            {
+                var result = $property.html(this, val);
+
+                if (isUndef(val)) return result;
+
+                return this;
+            },
+            text: function (val)
+            {
+                var result = $property.text(this, val);
+
+                if (isUndef(val)) return result;
+
+                return this;
+            },
+            val: function (val)
+            {
+                var result = $property.val(this, val);
+
+                if (isUndef(val)) return result;
+
+                return this;
+            },
+            css: function (name, val)
+            {
+                var result = $css(this, name, val);
+
+                if (isGetter(name, val)) return result;
+
+                return this;
+            },
+            attr: function (name, val)
+            {
+                var result = $attr(this, name, val);
+
+                if (isGetter(name, val)) return result;
+
+                return this;
+            },
+            data: function (name, val)
+            {
+                var result = $data(this, name, val);
+
+                if (isGetter(name, val)) return result;
+
+                return this;
+            },
+            rmAttr: function (name)
+            {
+                $attr.remove(this, name);
+
+                return this;
+            },
+            remove: function ()
+            {
+                $remove(this);
+
+                return this;
+            },
+            addClass: function (name)
+            {
+                $class.add(this, name);
+
+                return this;
+            },
+            rmClass: function (name)
+            {
+                $class.remove(this, name);
+
+                return this;
+            },
+            toggleClass: function (name)
+            {
+                $class.toggle(this, name);
+
+                return this;
+            },
+            hasClass: function (name)
+            {
+                return $class.has(this, name);
+            },
+            parent: function ()
+            {
+                return $(this[0].parentNode);
+            },
+            append: function (val)
+            {
+                $insert.append(this, val);
+
+                return this;
+            },
+            prepend: function (val)
+            {
+                $insert.prepend(this, val);
+
+                return this;
+            },
+            before: function (val)
+            {
+                $insert.before(this, val);
+
+                return this;
+            },
+            after: function (val)
+            {
+                $insert.after(this, val);
+
+                return this;
+            }
+        });
+
+        function isGetter(name, val)
+        {
+            return isUndef(val) && isStr(name);
+        }
+
+        return exports;
+    })({});
+
+    /* ------------------------------ use ------------------------------ */
+
+    var use = _.use = (function (exports)
+    {
+        // TODO
+
+        var requireMarks = _._requireMarks = _._requireMarks || {};
+
+        function _require(name)
+        {
+            if (requireMarks.hasOwnProperty(name)) return _[name];
+
+            var requires = _[name].requires,
+                body     = _[name].body,
+                len      = requires.length;
+
+            for (var i = 0; i < len; i++) requires[i] = _require(requires[i]);
+
+            requires.push(_);
+
+            var exports = body.apply(_, requires);
+            if (exports) _[name] = exports;
+
+            requireMarks[name] = true;
+
+            return _[name];
+        }
+
+        exports = function (requires, method)
         {
             if (method == null)
             {
@@ -1077,71 +1722,12 @@
             }
 
             requires = map(requires, function (val) { return _require(val) });
-            requires.push(self);
 
-            method.apply(self, requires);
+            method.apply(null, requires);
         };
 
-        _.use = use;
-    });
-
-    _define('values', ['keys'], function (keys)
-    {
-        var values;
-
-        values = function (obj)
-        {
-            var _keys = keys(obj),
-                len   = _keys.length,
-                ret   = Array(len);
-
-            for (var i = 0; i < len; i++) ret[i] = obj[_keys[i]];
-
-            return ret;
-        };
-
-        _.values = values;
-    });
-
-    _init([
-        '$',
-        '$offset',
-        '$show',
-        'Class',
-        'Delegate',
-        'Select',
-        '_cb',
-        '_createAssigner',
-        '_optimizeCb',
-        '_toStr',
-        'allKeys',
-        'camelize',
-        'contains',
-        'dasherize',
-        'each',
-        'extend',
-        'extendOwn',
-        'has',
-        'identity',
-        'indexOf',
-        'inherits',
-        'isArr',
-        'isArrLike',
-        'isFn',
-        'isMatch',
-        'isNum',
-        'isObj',
-        'isStr',
-        'isUndef',
-        'keys',
-        'map',
-        'matcher',
-        'slice',
-        'some',
-        'toArray',
-        'use',
-        'values'
-    ]);
+        return exports;
+    })({});
 
     return _;
 }));

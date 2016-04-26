@@ -1,50 +1,40 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Eustia: A Tool for Generating JavaScript Utility Libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
 {
     _.$('nav').toggleClass('collapsed');
-});</script><ul><li><a href="http://liriliri.github.io/eustia/eris.html">MODULE</a></li><li><a href="http://liriliri.github.io/eustia/guide.html">GUIDE</a></li><li><a href="http://liriliri.github.io/eustia/api.html">API</a></li><li><a href="http://liriliri.github.io/eustia/function.html">FUNCTION</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="banner"><h1>A Tool for Generating JavaScript Utility Libraries:)</h1><a href="http://liriliri.github.io/eustia/guide.html" class="btn second">GET STARTED</a><div class="glow hidden"></div></div><div class="procedure"><div class="container"><ul><li><h2>Step 1</h2><p>Break utilities in pieces.</p></li><li><h2>Step 2</h2><p>Scan code to generate libraries.</p></li><li><h2>Step 3</h2><p>Use the generated library.
-</p></li></ul></div></div><div class="md container mobile intro"><h2 id="what-s-the-goal">What&#39;s the Goal</h2>
-<p><strong>Eustia</strong> is a tool for building your own JavaScript utility libraries. When we
-create a new project, usually the first thing we do is choosing a JavaScript
-library that provides useful programming helpers to make our lives easier. At
-this point, we think of open source JavaScript libraries such as
-<strong>underscore.js</strong> or <strong>lodash</strong>. However, there are times that we just want to
-use one or two of its functions. Moreover, the function helper we just need
-doesn&#39;t exist in it. And most of the time, we ended up extracting code from
-those libraries and writing extra helpers ourselves. This is the problem Eustia
-is trying to solve.</p>
-<h2 id="how-it-works">How it Works</h2>
-<p>The tool will scan your source code to find strings that match the pattern
-<strong>util.method</strong>, <strong>util = require(&#39;./util&#39;)</strong> or <strong>import {...} from &#39;./util&#39;</strong>,
+});</script><ul><li><a href="http://liriliri.github.io/eustia/docs.html">DOCS</a></li><li><a href="http://liriliri.github.io/eustia/eris.html">MODULE</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="banner"><h1>A Tool for Generating JavaScript Utility Libraries:)</h1><a href="http://liriliri.github.io/eustia/docs.html" class="btn second">GET STARTED</a><div class="glow hidden"></div></div><div class="procedure"><div class="container"><ul><li><h2>Easy to Use</h2><p>5 Minutes is Good Enough to Master it</p></li><li><h2>Rich Modules</h2><p>Number of Modules Growing Everyday</p></li><li><h2>Extensible</h2><p>Collect and Build Your Module libraries
+</p></li></ul></div></div><div class="md container mobile intro"><p><strong>Eustia</strong> will scan your source code to find strings that match the pattern
+<strong>util.method</strong>, <strong>util = require(&apos;./util&apos;)</strong> or <strong>import {...} from &apos;./util&apos;</strong>,
 then generates a JavaScript library containing only the methods you have used.
-It provides most of underscore&#39;s functions and some other useful small
-libraries, for example, Class, cookie helpers. You can also collect your own
-modules and functions to create libraries for multiple projects.</p>
-<h2 id="the-benefits">The Benefits</h2>
-<h3 id="1-no-more-copying-and-pasting-">1. No more copying and Pasting.</h3>
-<p>When creating a new project with a util module, you don&#39;t have to copy the code
-manually from the other old projects you have written. Just run a command, and
-everything will be just ready for you.</p>
-<h3 id="2-reusable-code-">2. Reusable code.</h3>
-<p>Util functions are reusable in this case since the whole idea is to break the
-utility library into small LEGO bricks. With those, you&#39;re able to construct any
-library you want. Besides, you can even share your LEGO with other folks,
-reducing pain for everybody.</p>
-<h3 id="3-share-the-same-piece-of-code-both-in-server-side-and-client-side-">3. Share the same piece of code both in server side and client side.</h3>
-<p>The generated library follows the UMD(Universal Module Definition) patterns so
-that it can used both in server side(Node.js) and client side(Browser). Using
-the same utility library not only makes code reusable but also keeps consistency
-between two sides.</p>
-<h3 id="4-keep-it-small-">4. Keep it small.</h3>
-<p>While developing in the mobile platform, the size of JavaScript library do
-matter. Since the tool scan the source code and only generates what you need,
-the result is definitely the smallest one with no redundant code.</p>
-<h3 id="5-provide-many-useful-utilities-in-default-">5. Provide many useful utilities in default.</h3>
-<p>Eustia is a tool for generating libraries. However, it also provides a lot of
-common helpers in default. You can check the full list of
-<a href="http://liriliri.github.io/eustia/function.html">functions</a>,
-<a href="http://liriliri.github.io/eustia/module.html">modules</a> and
-<a href="http://liriliri.github.io/eustia/class.html">classes</a> to choose what you really
-need.</p>
+It provides most of underscore&apos;s functions and some other useful small
+modules, for example, Class, cookie helpers. You can also collect and build your
+own modules to create libraries for multiple projects.</p>
+<p><img src="http://7xn2zy.com1.z0.glb.clouddn.com/eustia_screenshot.gif" alt="Eustia screen shot"></p>
+<h2 id="installation">Installation</h2>
+<p>You can install Eustia using Node Package Manager(<strong>npm</strong>).</p>
+<pre><code class="language-bash">npm <span class="token function">install</span> -g eustia
+</code></pre>
+<h2 id="quick-example">Quick Example</h2>
+<p>Suppose you want to use trim function in index.html, just write the code
+down as follows:</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>utf-8<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Eustia<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>util.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+    <span class="token keyword">var</span> projectName <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos; Eustia &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Some code...</span>
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>Run command:</p>
+<pre><code class="language-bash">eustia build
+</code></pre>
+<p>The tool will scan you html code and generate a file name <strong>util.js</strong>
+(Default output file name). And that is it, everything is just done!</p>
 </div><script>// Banner glow effect.
 _.use(function ()
 {
@@ -84,4 +74,4 @@ _.use(function ()
     $glow.show();
 
     window.onresize = onResize;
-});</script></div><footer>Built for <a href="https://github.com/liriliri">Liriliri</a> project 2014-2015</footer></body></html>
+});</script></div><footer>Built for <a href="https://github.com/liriliri">Liriliri</a> project 2014-2016</footer></body></html>

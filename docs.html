@@ -1,0 +1,322 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Guide - Eustia: A Tool for Generating JavaScript Utility Libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
+{
+    _.$('nav').toggleClass('collapsed');
+});</script><ul><li><a href="http://liriliri.github.io/eustia/docs.html">DOCS</a></li><li><a href="http://liriliri.github.io/eustia/eris.html">MODULE</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="md container mobile intro"><h1 id="table-of-contents">Table of Contents</h1>
+<div class="toc" markdown="1">
+
+<ul>
+    <li>
+        <a href="#basic-usage">1. Basic Usage</a>
+        <ul>
+            <li><a href="#install-via-npm">1.1 Install via npm</a></li>
+            <li><a href="#syntax-supported">1.2 Syntax supported</a></li>
+            <li><a href="#run-in-command-prompt">1.3 Run in command prompt</a></li>
+            <li><a href="#run-through-configuration-file">1.4 Run through configuration file</a></li>
+            <li><a href="#use-in-javascript">1.5 Use in JavaScript</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#commands">2. Commands</a>
+        <ul>
+            <li><a href="#build-command">2.1 Build command</a></li>
+            <li><a href="#search-command">2.2 Search command</a></li>
+            <li><a href="#install-command">2.3 Install command</a></li>
+            <li><a href="#docs-command">2.4 Docs command</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#create-module">3. Create Module</a>
+    </li>
+    <li>
+        <a href="#relative-projects">4. Relative Projects</a>
+    </li>
+</ul>
+
+</div>
+
+<h2 id="basic-usage">Basic Usage</h2>
+<h3 id="install-via-npm">Install via npm</h3>
+<p>You can install Eustia using Node Package Manager(<strong>npm</strong>).</p>
+<pre><code class="language-bash">npm <span class="token function">install</span> -g eustia
+</code></pre>
+<h3 id="syntax-supported">Syntax supported</h3>
+<p>Eustia scans code files to find the modules you need with three types of syntax
+supported, <strong>global</strong>, <strong>commonjs</strong> and <strong>es6</strong>.</p>
+<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    ...
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>util.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+    <span class="token keyword">var</span> projectName <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos; Eustia &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Some code...</span>
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<pre><code class="language-javascript"><span class="token keyword">var</span> util <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./util&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> projectName <span class="token operator">=</span> util<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos; Eustia &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// Some code...</span>
+</code></pre>
+<pre><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span>trim<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./util&apos;</span>
+
+<span class="token keyword">var</span> projectName <span class="token operator">=</span> <span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos; Eustia &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// Some code...</span>
+</code></pre>
+<h3 id="run-in-command-prompt">Run in command prompt</h3>
+<p>You can use Eustia with command lines totally. It usually follows the same
+pattern described below:</p>
+<pre><code class="language-bash">eustia <span class="token operator">&lt;</span>command<span class="token operator">&gt;</span> <span class="token punctuation">[</span><span class="token operator">&lt;</span>options<span class="token operator">&gt;</span><span class="token punctuation">]</span>
+</code></pre>
+<p>For example:</p>
+<pre><code class="language-bash">eustia build -o util.js index.html *.js <span class="token punctuation">..</span>.<span class="token operator">&lt;</span>list of files to be scanned<span class="token operator">&gt;</span>
+</code></pre>
+<h3 id="run-through-configuration-file">Run through configuration file</h3>
+<p>It&apos;s also possible to use a configuration file to save settings. This is pretty
+helpful especially when you want to generate multiple utility libraries for
+different sections of your website.</p>
+<p>Just create a file named .eustia in your project root.</p>
+<pre><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token keys">&quot;files&quot;</span><span class="token punctuation">:</span> &quot;./layout/**/*.jade&quot;<span class="token punctuation">,</span>
+    <span class="token keys">&quot;output&quot;</span><span class="token punctuation">:</span> &quot;./static/js/eustia.js&quot;
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Running Eustia without any sub commands, the tool will find <strong>.eustia</strong> under
+current working directory to read configuration to generate libraries. It is
+almost the same as running <a href="#build-command">build command</a> from console, just 
+a different way of passing options.</p>
+<p>Configuration can be written in json format or js format.</p>
+<pre><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    page<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        files<span class="token punctuation">:</span> &quot;<span class="token punctuation">.</span><span class="token operator">/</span>layout<span class="token comment" spellcheck="true">/**/</span><span class="token operator">*</span><span class="token punctuation">.</span>jade&quot;<span class="token punctuation">,</span>
+        output<span class="token punctuation">:</span> <span class="token string">&quot;./static/js/eustia.js&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    node<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        files<span class="token punctuation">:</span> <span class="token punctuation">[</span>&quot;<span class="token punctuation">.</span><span class="token operator">/</span>lib<span class="token comment" spellcheck="true">/*.js&quot;, &quot;./tool/**/</span><span class="token operator">*</span><span class="token punctuation">.</span>js&quot;<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        output<span class="token punctuation">:</span> <span class="token string">&quot;./lib/util.js&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Obviously, multiple configuration is also supported. To specify which task to
+run, just append the task name after command name.</p>
+<pre><code class="language-bash">eustia <span class="token operator">&lt;</span>task-name<span class="token operator">&gt;</span>
+</code></pre>
+<blockquote>
+<p>Configuration could be overwritten by command line options.</p>
+</blockquote>
+<h3 id="use-in-javascript">Use in JavaScript</h3>
+<p>To use Eustia from JavaScript(NodeJs), install it locally first.</p>
+<pre><code class="language-bash">npm <span class="token function">install</span> eustia --save-dev
+</code></pre>
+<p>Then require and run it by passing options just the same as a configuration file.</p>
+<pre><code class="language-javascript"><span class="token keyword">var</span> eustia <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;eustia&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+eustia<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    files<span class="token punctuation">:</span> &apos;<span class="token punctuation">.</span><span class="token operator">/</span>layout<span class="token comment" spellcheck="true">/**/</span><span class="token operator">*</span><span class="token punctuation">.</span>jade&apos;<span class="token punctuation">,</span>
+    output<span class="token punctuation">:</span> <span class="token string">&apos;./static/js/eustia.js&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// callback</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="commands">Commands</h2>
+<h3 id="build-command">Build command</h3>
+<p>Build JavaScript libraries by scanning files. When used in command line, the
+rest arguments will be treated as files.</p>
+<pre><code class="language-bash">eustia build <span class="token punctuation">[</span><span class="token operator">&lt;</span>options<span class="token operator">&gt;</span><span class="token punctuation">]</span>
+eustia build index.html
+eustia build index.html src/*.js
+eusita build index.html src/*.js -o lib.js
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>shorthand</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encoding</td>
+<td></td>
+<td>utf-8</td>
+<td>Input file encoding</td>
+</tr>
+<tr>
+<td>exclude</td>
+<td>e</td>
+<td></td>
+<td>Functions excluded</td>
+</tr>
+<tr>
+<td>extension</td>
+<td></td>
+<td>js</td>
+<td>Module extension, useful for transpilers</td>
+</tr>
+<tr>
+<td>files</td>
+<td></td>
+<td>[&apos;*.html&apos;, &apos;*.js&apos;]</td>
+<td>Files to scan</td>
+</tr>
+<tr>
+<td>format</td>
+<td>f</td>
+<td>umd</td>
+<td>Module pattern, commonjs, umd or global</td>
+</tr>
+<tr>
+<td>include</td>
+<td>i</td>
+<td></td>
+<td>Functions included</td>
+</tr>
+<tr>
+<td>ignore</td>
+<td></td>
+<td></td>
+<td>Files excluded</td>
+</tr>
+<tr>
+<td>library</td>
+<td>l</td>
+<td></td>
+<td>External library paths</td>
+</tr>
+<tr>
+<td>namespace</td>
+<td>n</td>
+<td>_</td>
+<td>Namespace of generated library</td>
+</tr>
+<tr>
+<td>output</td>
+<td>o</td>
+<td>util.js</td>
+<td>Output path</td>
+</tr>
+<tr>
+<td>transpilers</td>
+<td></td>
+<td></td>
+<td>Use for writing modules in different formats</td>
+</tr>
+<tr>
+<td>watch</td>
+<td>w</td>
+<td>false</td>
+<td>Watch files to regenerate automatically</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Transpilers</strong> and <strong>extension</strong> are not available via command line
+arguments, use them only in configurations.</p>
+</blockquote>
+<h3 id="search-command">Search command</h3>
+<p>Search for <a href="http://liriliri.github.io/eustia/eris.html">modules</a> directly
+through command line.</p>
+<pre><code class="language-bash">eustia search <span class="token operator">&lt;</span>keyword<span class="token operator">&gt;</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>shorthand</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>update</td>
+<td>u</td>
+<td>false</td>
+<td>Update module data before searching</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-command">Install command</h3>
+<p>Install module in current project directory.</p>
+<pre><code class="language-bash">eustia <span class="token function">install</span> <span class="token punctuation">[</span><span class="token operator">&lt;</span>modules<span class="token operator">&gt;</span><span class="token punctuation">]</span>
+</code></pre>
+<h3 id="docs-command">Docs command</h3>
+<p>Generate documentation from generated utiltiy libraries.</p>
+<pre><code class="language-bash">eustia docs <span class="token punctuation">[</span><span class="token operator">&lt;</span>options<span class="token operator">&gt;</span><span class="token punctuation">]</span>
+eustia docs util.js -o docs.html
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>shorthand</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>description</td>
+<td>d</td>
+<td></td>
+<td>Extra description markdown file path</td>
+</tr>
+<tr>
+<td>format</td>
+<td>f</td>
+<td>html</td>
+<td>Output format, html, json or markdown</td>
+</tr>
+<tr>
+<td>output</td>
+<td>o</td>
+<td>docs.html</td>
+<td>Output path</td>
+</tr>
+<tr>
+<td>title</td>
+<td>t</td>
+<td>Eustia Documentation</td>
+<td>Documentation title</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create-module">Create Module</h2>
+<p>Materials must be prepared first to cook a good meal. Right now, our materials 
+is a bunch of small modules. Eustia provides many 
+<a href="http://liriliri.github.io/eustia/eris.html">utilities</a> itself(currently under 
+development). Still, there are times you want to add your own ones. 
+To achieve that, create a directory named <strong>eustia</strong> in the root directory.</p>
+<p>Now, let&apos;s say I want to have a function to compare version numbers. The first 
+step is to create a js file named <strong>compareVersion.js</strong> in <strong>eustia</strong> directory. 
+Then fills it with actual codes to finish the procedure.</p>
+<pre><code class="language-javascript"><span class="token comment" spellcheck="true">// eustia/compareVersion.js</span>
+<span class="token function">_</span><span class="token punctuation">(</span><span class="token string">&apos;isStr each&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// dependencies</span>
+
+<span class="token comment" spellcheck="true">// export object</span>
+exports <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>v1<span class="token punctuation">,</span> v2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isStr</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">isStr</span><span class="token punctuation">(</span>v2<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Now you can use <strong>compareVersion</strong> anywhere in your project.</p>
+<blockquote>
+<p>Using option <strong>library</strong> allows you to search functions in other paths, 
+quite useful when sharing functions among several projects. Besides, <strong>Lodash</strong> 
+functions is available by using 
+<a href="https://github.com/liriliri/eustia-lodash">eustia-lodash</a>.</p>
+</blockquote>
+<h2 id="relative-projects">Relative Projects</h2>
+<p><a href="https://github.com/liriliri/eustia-babel">eustia-babel: Allow modules to be written in es6.</a></p>
+<p><a href="https://github.com/liriliri/eustia-component">eustia-component: Allow modules to be written in html-like style.</a></p>
+<p><a href="https://github.com/liriliri/eustia-json">eustia-json: Allow modules to be writen in json format.</a></p>
+<p><a href="https://github.com/liriliri/eustia-lodash">eustia-lodash: Allow using lodash functions.</a>x</p>
+</div></div><footer>Built for <a href="https://github.com/liriliri">Liriliri</a> project 2014-2016</footer></body></html>
