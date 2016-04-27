@@ -85,7 +85,7 @@ different sections of your website.</p>
 </code></pre>
 <p>Running Eustia without any sub commands, the tool will find <strong>.eustia</strong> under
 current working directory to read configuration to generate libraries. It is
-almost the same as running <a href="#build-command">build command</a> from console, just
+almost the same as running <a href="#build-command">build command</a> from console, just 
 a different way of passing options.</p>
 <p>Configuration can be written in json format or js format.</p>
 <pre><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -289,13 +289,13 @@ eustia docs util.js -o docs.html
 </tbody>
 </table>
 <h2 id="create-module">Create Module</h2>
-<p>Materials must be prepared first to cook a good meal. Right now, our materials
-is a bunch of small modules. Eustia provides many
-<a href="http://liriliri.github.io/eustia/eris.html">utilities</a> itself(currently under
-development). Still, there are times you want to add your own ones.
+<p>Materials must be prepared first to cook a good meal. Right now, our materials 
+is a bunch of small modules. Eustia provides many 
+<a href="http://liriliri.github.io/eustia/eris.html">utilities</a> itself(currently under 
+development). Still, there are times you want to add your own ones. 
 To achieve that, create a directory named <strong>eustia</strong> in the root directory.</p>
-<p>Now, let&apos;s say I want to have a function to compare version numbers. The first
-step is to create a js file named <strong>compareVersion.js</strong> in <strong>eustia</strong> directory.
+<p>Now, let&apos;s say I want to have a function to compare version numbers. The first 
+step is to create a js file named <strong>compareVersion.js</strong> in <strong>eustia</strong> directory. 
 Then fills it with actual codes to finish the procedure.</p>
 <pre><code class="language-javascript"><span class="token comment" spellcheck="true">// eustia/compareVersion.js</span>
 <span class="token function">_</span><span class="token punctuation">(</span><span class="token string">&apos;isStr each&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// dependencies</span>
@@ -309,9 +309,9 @@ exports <span class="token operator">=</span> <span class="token keyword">functi
 </code></pre>
 <p>Now you can use <strong>compareVersion</strong> anywhere in your project.</p>
 <blockquote>
-<p>Using option <strong>library</strong> allows you to search functions in other paths,
-quite useful when sharing functions among several projects. Besides, <strong>Lodash</strong>
-functions is available by using
+<p>Using option <strong>library</strong> allows you to search functions in other paths, 
+quite useful when sharing functions among several projects. Besides, <strong>Lodash</strong> 
+functions is available by using 
 <a href="https://github.com/liriliri/eustia-lodash">eustia-lodash</a>.</p>
 </blockquote>
 <h2 id="relative-projects">Relative Projects</h2>
