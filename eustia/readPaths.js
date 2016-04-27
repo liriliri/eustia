@@ -1,8 +1,8 @@
 _('each');
 
 var async = require('async'),
-    fs    = require('fs'),
-    glob  = require('glob');
+    fs = require('fs'),
+    glob = require('glob');
 
 function expandPaths(paths, options, cb)
 {

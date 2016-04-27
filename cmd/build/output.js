@@ -61,7 +61,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         codesData.excludeRef = _.unique(excludeRef);
     }
 
-    var result = codesTpl(codesData).replace(/\r\n|\n/g, '\n    ');
+    var result = _.indent(codesTpl(codesData));
 
     result = result.replace(/\n\s*\n/g, '\n\n');
 

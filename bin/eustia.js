@@ -19,7 +19,6 @@ var knowOpts = {
         exclude: Array,
         include: Array,
         format: String,
-        raw: Boolean,
         title: String,
         watch: Boolean,
         description: String
@@ -177,14 +176,14 @@ function buildAll(configs)
         });
 
         chokidar.watch(watchPaths, {
-            persistent    : true,
-            ignored       : outputs,
+            persistent: true,
+            ignored: outputs,
             ignoreInitial : true,
             followSymlinks: true,
-            usePolling    : true,
-            alwaysStat    : false,
-            interval      : 100,
-            atomic        : true,
+            usePolling: true,
+            alwaysStat: false,
+            interval: 100,
+            atomic: true,
             ignorePermissionErrors: false
         }).on('change', function ()
         {
