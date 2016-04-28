@@ -81,7 +81,7 @@ almost the same as running build command from console, just a different way of
 passing options.
 
 > For a full list of options can be used, please check
-[API](http://liriliri.github.io/eustia/api.html) page.
+[document](http://liriliri.github.io/eustia/docs.html#commands) page.
 
 ## Prepare Modules
 
