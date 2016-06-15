@@ -8,7 +8,10 @@ var regDependency = /\s*\b_\(['"]([\w\s\$]+)['"]\);?/;
 
 module.exports = function (modName, codeTpl, options, cb)
 {
-    var percentage = _.has(options.shareData.fnPercentage, modName);
+    var fnPercentage = options.shareData.fnPercentage,
+        percentage;
+
+    if(_.has(fnPercentage, modName)) percentage = fnPercentage[modName];
 
     percentage = percentage ? ' (' + percentage + ')' : '';
 
