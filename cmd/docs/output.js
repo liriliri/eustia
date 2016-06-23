@@ -14,7 +14,7 @@ module.exports = function (ast, template, options, cb)
     ast.title = options.title;
 
     // If the output type is not markdown, convert data in markdown format.
-    if (options.type !== 'md')
+    if (options.format !== 'md')
     {
         if (ast.description) ast.description = marked(ast.description);
 
@@ -24,7 +24,7 @@ module.exports = function (ast, template, options, cb)
         });
     }
 
-    var data = options.type === 'json' ? JSON.stringify(ast, null, 4) : template(ast);
+    var data = options.format === 'json' ? JSON.stringify(ast, null, 4) : template(ast);
 
     fs.writeFile(options.output, data, options.encoding, function (err)
     {

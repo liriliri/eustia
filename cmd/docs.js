@@ -18,7 +18,7 @@ function exports(options, cb)
 
     var docsTpl = 'docs';
 
-    if (options.type === 'md') docsTpl = 'docsMd';
+    if (options.format === 'md') docsTpl = 'docsMd';
 
     async.waterfall([
         function (cb) { readTpl([docsTpl], options, cb) },
