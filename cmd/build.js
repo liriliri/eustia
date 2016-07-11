@@ -143,7 +143,7 @@ function resolvePaths(options)
     var libPaths = [];
     libPaths.push(path.resolve(options.cwd, 'eustia'));
     _.each(options.library, function (library) { libPaths.push(path.resolve(library)) });
-    libPaths.push(path.resolve(__dirname, '../src'));
+    libPaths.push(path.resolve(__dirname, '../cache'));
 
     options.libPaths = libPaths;
 

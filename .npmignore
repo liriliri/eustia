@@ -1,6 +1,6 @@
 /.idea/
 /eustia/
-/src/*.js
+/cache/*.js
 .gitignore
 .npmignore
 .eustia

@@ -41,7 +41,7 @@ module.exports = function (modName, codeTpl, options, cb)
 
                     _.log('Install ' + modName + '.');
 
-                    var dest = path.resolve(options.dirname, 'src', modName + '.js');
+                    var dest = path.resolve(options.dirname, 'cache', modName + '.js');
 
                     return downloadMod(modName, dest, function (err)
                     {

@@ -10,6 +10,9 @@
   "bin": {
     "eustia": "./bin/eustia.js"
   },
+  "scripts": {
+    "clearCache": "rm -rf src/*.js"
+  },
   "keywords": [
     "utility",
     "library",
