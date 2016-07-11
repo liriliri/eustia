@@ -111,7 +111,7 @@ module.exports = function (options, cb)
     {
         _.log('File list is empty, use include option only.');
         _.log({}, 'Modules found: {{#cyan}}' + JSON.stringify(options.include) + '{{/cyan}}');
-        options.shareData.fnPercentage = {};
+        options.data.fnPercentage = {};
         return cb(null, options.include);
     }
 
@@ -139,7 +139,7 @@ module.exports = function (options, cb)
 
         fnList = _.map(fnList, function (fnName) { return _.trim(fnName) });
 
-        options.shareData.fnPercentage = getFnPercentage(fnList, files.length);
+        options.data.fnPercentage = getFnPercentage(fnList, files.length);
 
         fnList = _.filter(_.unique(fnList), function (fnName)
         {

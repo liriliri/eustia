@@ -1,21 +1,25 @@
 var path = require('path'),
-    fs = require('fs'),
-    _ = require('./lib/util');
+    fs = require('fs');
 
-var cwd = process.cwd();
+var util = require('./lib/util'),
+    logger = require('./lib/logger');
 
-var defOpts = {
-    cwd: cwd,
-    dirname: __dirname,
-    // Prepend to generated file to prevent being scanned again.
-    magicNum: '// Built by eustia.',
-    shareData: {},
-    enableLog: false,
-    encoding: 'utf-8',
-    packInfo: require('./package.json')
-};
+var cwd = process.cwd(),
+    defOpts = {
+        cwd: cwd,
+        dirname: __dirname,
+        // Prepend to generated file to prevent being scanned again.
+        magicNum: '// Built by eustia.',
+        data: {},
+        enableLog: false,
+        debug: false,
+        encoding: 'utf-8',
+        errorLog: false,
+        packInfo: require('./package.json')
+    },
+    errLogPath = path.resolve(cwd, './eustia-debug.log');
 
-var errLogPath = path.resolve(cwd, './eustia-debug.log');
+exportCmd();
 
 function cmdFactory(cmdName)
 {
@@ -23,37 +27,43 @@ function cmdFactory(cmdName)
 
     return function (options, cb)
     {
-        cb = cb || _.noop;
-        options = _.defaults(options, defOpts, cmd.defOpts);
+        cb = cb || util.noop;
+        options = util.defaults(options, defOpts, cmd.defOpts);
 
-        if (options.enableLog) _.log.enable();
+        if (options.enableLog) logger.enable();
+        if (options.debug) logger.debug = true;
 
         cmd(options, function (err)
         {
             if (err)
             {
-                _.log.err(err);
-                var errLogs = _.stripColor(_.log.get().join('\n'));
-                // Need to exit immediately, so async fs is not used.
-                fs.writeFileSync(errLogPath, errLogs, 'utf-8');
-                process.exit();
+                logger.error(err);
+                if (options.errorLog)
+                {
+                    // Need to exit immediately, so async fs is not used.
+                    fs.writeFileSync(errLogPath, logger.history(), 'utf-8');
+                    process.exit();
+                }
             }
 
-            fs.exists(errLogPath, function (result)
+            if (options.errorLog)
             {
-                if (result) fs.unlink(errLogPath);
-            });
+                fs.exists(errLogPath, function (result)
+                {
+                    if (result) fs.unlink(errLogPath);
+                });
+            }
 
-            cb();
+            cb(err);
         });
     };
 }
 
-module.exports = {
-    build: cmdFactory('build'),
-    docs: cmdFactory('docs'),
-    search: cmdFactory('search'),
-    install: cmdFactory('install'),
-    help: cmdFactory('help'),
-    version: cmdFactory('version')
-};
+function exportCmd()
+{
+    const COMMANDS = ['build', 'docs', 'search', 'install', 'help', 'version'];
+    COMMANDS.forEach(function (cmd)
+    {
+        exports[cmd] = cmdFactory(cmd);
+    });
+}

@@ -3,8 +3,10 @@
 var nopt = require('nopt'),
     path = require('path'),
     fs = require('fs'),
-    chokidar = require('chokidar'),
-    eustia = require('../index'),
+    chokidar = require('chokidar');
+
+var eustia = require('../index'),
+    logger = require('../lib/logger'),
     _ = require('../lib/util');
 
 var knowOpts = {
@@ -21,6 +23,7 @@ var knowOpts = {
         format: String,
         title: String,
         watch: Boolean,
+        debug: Boolean,
         description: String
     },
     shortHands = {
@@ -35,12 +38,12 @@ var knowOpts = {
         w: '--watch',
         u: '--update',
         d: '--description'
-    };
-
-var options = nopt(knowOpts, shortHands, process.argv, 2),
+    },
+    options = nopt(knowOpts, shortHands, process.argv, 2),
     remain = options.argv.remain;
 
-_.log.enable();
+options.enableLog = true;
+options.errLog = true;
 
 var cmd = getCmd();
 cmd ? useCmdLine() : useCfg();
@@ -70,7 +73,7 @@ function useCfg()
     {
         if (exists)
         {
-            _.log.ok('Using configuration file: ' + cfgPath);
+            logger.info('Using configuration file: ' + cfgPath);
 
             return fs.readFile(cfgPath, 'utf-8', function (err, data)
             {
@@ -130,7 +133,7 @@ function buildAll(configs)
 
     if (isTaskSpecified)
     {
-        _.log({}, 'Run task {{#cyan}}"' + remain[0] + '"{{/cyan}}:');
+        logger.tpl({}, 'Run task {{#cyan}}"' + remain[0] + '"{{/cyan}}:');
 
         return eustia['build'](_.extend(configs[remain[0]], options));
     }
@@ -150,7 +153,7 @@ function buildAll(configs)
 
     function build(config, isWatching)
     {
-        _.log({}, 'Run task {{#cyan}}"' + config.taskName + '"{{/cyan}}:');
+        logger.tpl({}, 'Run task {{#cyan}}"' + config.taskName + '"{{/cyan}}:');
 
         eustia.build(config, function ()
         {

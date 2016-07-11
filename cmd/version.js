@@ -1,8 +1,8 @@
-var _ = require('../lib/util');
+var logger = require('../lib/logger');
 
 function exports(options, cb)
 {
-    _.log('eustia ' + options.packInfo.version);
+    logger.log('eustia ' + options.packInfo.version);
 
     cb();
 }

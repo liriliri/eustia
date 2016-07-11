@@ -10,7 +10,7 @@ module.exports = function (fnList, codeTpl, options, cb)
         modMark = {},
         i, len;
 
-    var excludeRef = options.shareData.excludeRef = [];
+    var excludeRef = options.data.excludeRef = [];
 
     var walker = async.queue(function (modName, walkerCb)
     {

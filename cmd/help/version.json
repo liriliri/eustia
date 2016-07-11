@@ -1,6 +1,6 @@
 {
     "command": "version",
-    "desc": "Display version info",
+    "desc": "Display version info.",
     "usage": [
         "version"
     ]

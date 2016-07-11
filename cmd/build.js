@@ -21,7 +21,7 @@ function exports(options, cb)
 
     function build(isWatching)
     {
-        options.shareData = {};
+        options.data = {};
 
         var startTime = _.now();
 

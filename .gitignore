@@ -1,4 +1,4 @@
 /.idea/
 /node_modules/
-/test/playground/
+/playground/
 /cache/*.js

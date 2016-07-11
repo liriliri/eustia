@@ -54,7 +54,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         inBrowser: options.format === 'umd' || options.format === 'global'
     };
 
-    var excludeRef = options.shareData.excludeRef;
+    var excludeRef = options.data.excludeRef;
     if (excludeRef.length > 0)
     {
         excludeRef = excludeRef.sort();

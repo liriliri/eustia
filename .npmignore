@@ -1,6 +1,7 @@
 /.idea/
 /eustia/
 /test/
+/playground/
 /cache/*.js
 .gitignore
 .npmignore

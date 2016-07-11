@@ -1,6 +1,6 @@
 {
     "command": "build",
-    "desc": "Build JavaScript libraries by scanning files.",
+    "desc": "Build JavaScript libraries.",
     "usage": [
         "build [<options>]",
         "build index.html",
@@ -11,7 +11,7 @@
         {
             "shorthand": "-e",
             "flag": "--exclude",
-            "description": "Functions excluded"
+            "description": "Modules excluded"
         },
         {
             "flag": "--encoding",
@@ -25,7 +25,7 @@
         {
             "shorthand": "-i",
             "flag": "--include",
-            "description": "Functions included"
+            "description": "Modules included"
         },
         {
             "flag": "--ignore",
