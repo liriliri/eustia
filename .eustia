@@ -1,5 +1,5 @@
 module.exports = {
     output: 'lib/util.js',
-    files: ['index.js', 'bin/eustia.js', 'cmd/**/*.js'],
+    files: ['index.js', 'bin/eustia.js', 'cmd/**/*.js', 'lib/*.js'],
     format: 'commonjs'
 };
