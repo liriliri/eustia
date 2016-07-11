@@ -19,7 +19,14 @@ var cwd = process.cwd(),
     },
     errLogPath = path.resolve(cwd, './eustia-debug.log');
 
-exportCmd();
+module.exports = {
+    build: cmdFactory('build'),
+    doc: cmdFactory('doc'),
+    search: cmdFactory('search'),
+    install: cmdFactory('install'),
+    help: cmdFactory('help'),
+    version: cmdFactory('version')
+};
 
 function cmdFactory(cmdName)
 {
@@ -57,13 +64,4 @@ function cmdFactory(cmdName)
             cb(err);
         });
     };
-}
-
-function exportCmd()
-{
-    const COMMANDS = ['build', 'docs', 'search', 'install', 'help', 'version'];
-    COMMANDS.forEach(function (cmd)
-    {
-        exports[cmd] = cmdFactory(cmd);
-    });
 }

@@ -1,9 +1,9 @@
 {
-    "command": "docs",
+    "command": "doc",
     "desc": "Generate documentation.",
     "usage": [
-        "docs [<options>]",
-        "docs util.js -o docs.html"
+        "doc [<options>]",
+        "doc util.js -o docs.html"
     ],
     "options": [
         {

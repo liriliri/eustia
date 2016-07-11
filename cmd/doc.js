@@ -1,9 +1,9 @@
 var async = require('async'),
     path  = require('path'),
-    extractCmt = require('./docs/extractCmt'),
-    readDesc = require('./docs/readDesc'),
+    extractCmt = require('./doc/extractCmt'),
+    readDesc = require('./doc/readDesc'),
     readTpl = require('./share/readTpl'),
-    output = require('./docs/output'),
+    output = require('./doc/output'),
     _ = require('../lib/util');
 
 function exports(options, cb)
