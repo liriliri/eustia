@@ -42,8 +42,6 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         return cb(e);
     }
 
-    logger.tpl({}, 'Modules generated: {{#cyan}}' + JSON.stringify(codesOrder) + '{{/cyan}}');
-
     for (var i = 0, len = codesOrder.length; i < len; i++)
     {
         code += codesMap[codesOrder[i]];
@@ -73,7 +71,13 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
                  codes: result
              });
 
-    logger.tpl({}, 'Output file: {{#cyan}}' + options.output + '{{/cyan}}');
+    logger.tpl({
+        data: codesOrder.sort().join(' ')
+    }, 'MODULES GENERATED\n{{#cyan}}{{{data}}}{{/cyan}}');
+
+    logger.tpl({
+        output: options.output
+    }, 'OUTPUT FILE {{#cyan}}{{{output}}}{{/cyan}}');
 
     fs.writeFile(options.output, result, options.encoding, function (err)
     {

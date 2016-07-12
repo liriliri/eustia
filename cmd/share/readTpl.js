@@ -1,9 +1,9 @@
 var handlebars = require('handlebars'),
     async = require('async'),
-    path  = require('path'),
-    fs = require('fs'),
-    logger = require('../../lib/logger'),
-    _  = require('../../lib/util');
+    path = require('path'),
+    fs = require('fs');
+
+var logger = require('../../lib/logger');
 
 var tpl = {};
 
@@ -26,9 +26,12 @@ function readTpl(tplName)
     };
 }
 
-module.exports = function (templates, options, cb)
+module.exports = function (templates, cb)
 {
-    var callbacks = _.map(templates, function (val) { return readTpl(val) });
+    var callbacks = templates.map(function (val)
+    {
+        return readTpl(val);
+    });
 
     async.parallel(callbacks, function (err)
     {

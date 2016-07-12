@@ -17,8 +17,6 @@ module.exports = function (modName, codeTpl, options, cb)
 
     percentage = percentage ? ' (' + percentage + ')' : '';
 
-    logger.tpl({}, 'Generate code {{#cyan}}"' + modName + '"' + percentage + '{{/cyan}}');
-
     var result = {},
         hasTryDownload = false,
         paths = [];
@@ -77,6 +75,12 @@ module.exports = function (modName, codeTpl, options, cb)
                 result.dependencies = dependencies;
                 result.name = modName;
                 result.code = data;
+
+                logger.tpl({
+                    modName: modName,
+                    percentage: percentage,
+                    dependencies: util.isEmpty(dependencies) ? '' : ' <= ' + dependencies.join(' ')
+                }, 'BUILD MODULE {{#cyan}}{{{modName}}}{{/cyan}}{{{dependencies}}}{{{percentage}}}');
 
                 cb(null, result);
             });

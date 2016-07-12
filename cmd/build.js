@@ -5,7 +5,7 @@ var path = require('path'),
 
 var readTpl = require('./share/readTpl'),
     scanSrc = require('./build/scanSrc'),
-    genCodes = require('./build/genCodes'),
+    buildMods = require('./build/buildMods'),
     output = require('./build/output'),
     logger = require('../lib/logger'),
     util = require('../lib/util');
@@ -19,47 +19,6 @@ function exports(options, cb)
 
     var templates;
 
-    function build(isWatching)
-    {
-        options.data = {};
-
-        var startTime = util.now();
-
-        async.waterfall([
-            function (cb)
-            {
-                readTpl(['code', 'codes', options.format], options, cb);
-            },
-            function (tpl, cb)
-            {
-                templates = tpl;
-                cb();
-            },
-            function (cb)
-            {
-                scanSrc(options, cb);
-            },
-            function (fnList, cb)
-            {
-                genCodes(fnList, templates['code'], options, cb);
-            },
-            function (codes, cb)
-            {
-                output(codes, templates['codes'], templates[options.format], options, cb)
-            }
-        ], function (err)
-        {
-            if (err)
-            {
-                if (isWatching) return util.log.err(err);
-                return cb(err);
-            }
-
-            logger.info('Done, cost ' + (util.now() - startTime) + 'ms.');
-
-            cb();
-        });
-    }
     build(options.watch);
 
     if (options.watch)
@@ -81,6 +40,48 @@ function exports(options, cb)
             build(true);
         });
     }
+
+    function build(isWatching)
+    {
+        options.data = {};
+
+        var startTime = util.now();
+
+        async.waterfall([
+            function (cb)
+            {
+                readTpl(['code', 'codes', options.format], cb);
+            },
+            function (tpl, cb)
+            {
+                templates = tpl;
+                cb();
+            },
+            function (cb)
+            {
+                scanSrc(options, cb);
+            },
+            function (fnList, cb)
+            {
+                buildMods(fnList, templates['code'], options, cb);
+            },
+            function (codes, cb)
+            {
+                output(codes, templates['codes'], templates[options.format], options, cb)
+            }
+        ], function (err)
+        {
+            if (err)
+            {
+                if (isWatching) return logger.error(err);
+                return cb(err);
+            }
+
+            logger.info('TIME COST ' + (util.now() - startTime) + 'ms.');
+
+            cb();
+        });
+    }
 }
 
 exports.defOpts = {
@@ -99,8 +100,11 @@ exports.defOpts = {
 
 function transArrOpts(options)
 {
-    ['library', 'include', 'exclude', 'ignore', 'files',
-     'extension', 'transpiler'].forEach(function (key)
+    const ARR_OPTIONS = [
+        'library', 'include', 'exclude', 'ignore',
+        'files', 'extension', 'transpiler'
+    ];
+    ARR_OPTIONS.forEach(function (key)
     {
         options[key] = util.toArr(options[key]);
     });
@@ -110,9 +114,9 @@ function transTranspilerOpt(options, cb)
 {
     var cwd = options.cwd;
 
-    util.each(options.transpiler, function (transpiler)
+    options.transpiler.forEach(function (transpiler)
     {
-        if (!util.isArr(transpiler.handler)) transpiler.handler = [transpiler.handler];
+        transpiler.handler = util.toArr(transpiler.handler);
 
         var handlers = transpiler.handler;
 
@@ -141,7 +145,7 @@ function transTranspilerOpt(options, cb)
 function handleEmptyFiles(options)
 {
     // If files are empty, scan html and js files in current working directory.
-    if (options.files.length === 0 && options.include.length === 0)
+    if (util.isEmpty(options.files) && util.isEmpty(options.include))
     {
         options.files = ['./*.html', './*.js'];
     }
@@ -149,22 +153,25 @@ function handleEmptyFiles(options)
 
 function resolvePaths(options)
 {
-    util.each(options.files, function (val, idx)
+    options.files = options.files.map(function (val)
     {
-        options.files[idx] = path.resolve(options.cwd, val);
+        return path.resolve(options.cwd, val);
     });
 
     options.output = path.resolve(options.cwd, options.output);
 
     var libPaths = [];
     libPaths.push(path.resolve(options.cwd, 'eustia'));
-    util.each(options.library, function (library) { libPaths.push(path.resolve(library)) });
+    options.library.forEach(function (library)
+    {
+        libPaths.push(path.resolve(library));
+    });
     libPaths.push(path.resolve(__dirname, '../cache'));
 
     options.libPaths = libPaths;
 
-    util.log('Library paths:');
-    util.log.color(libPaths.join('\n'), 'cyan');
+    logger.log('LIBRARY PATHS');
+    logger.color(libPaths.join('\n'), 'cyan');
 }
 
 module.exports = exports;

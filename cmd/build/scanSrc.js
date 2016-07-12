@@ -6,59 +6,48 @@ var util = require('../../lib/util'),
 
 function exports (options, cb)
 {
-    if (options.files.length === 0)
-    {
-        logger.log('File list is empty, use include option only.');
-        logger.tpl({}, 'Modules found: {{#cyan}}' + JSON.stringify(options.include) + '{{/cyan}}');
-        options.data.fnPercentage = {};
-        return cb(null, options.include);
-    }
+    if (util.isEmpty(options.files)) return cb(null, options.include.sort());
 
-    logger.log('Scan source code: ');
+    logger.log('SCAN FILES');
     logger.color(options.files.join('\n'), 'cyan');
 
     var files = options.files,
-        modList = options.include,
-        i, len;
+        modList = options.include;
 
     readPaths(files, options, function (err, files)
     {
         if (err) return cb(err);
 
-        for (i = 0, len = files.length; i < len; i++)
+        files.forEach(function (file)
         {
-            var file = files[i];
-
-            if (util.startWith(file.data, options.magicNum)) continue;
+            if (util.startWith(file.data, options.magicNum)) return;
 
             file.data = util.stripCmt(file.data);
 
-            var modules = extractModule(options, file);
+            var modules = extractModule(file, options);
 
             if (modules.length !== 0) logger.debug('File', file.path, 'has', modules);
 
             modList = modList.concat(modules);
-        }
+        });
 
-        modList = util.map(modList, function (fnName) { return util.trim(fnName) });
+        modList = modList.map(function (fnName) { return util.trim(fnName) });
 
         options.data.fnPercentage = getFnPercentage(modList, files.length);
 
-        modList = util.filter(util.unique(modList), function (fnName)
+        modList = util.unique(modList).filter(function (fnName)
         {
             return !util.contain(options.exclude, fnName);
         });
 
-        logger.tpl({}, 'Modules found: {{#cyan}}' + JSON.stringify(modList) + '{{/cyan}}');
-
-        cb(null, modList);
+        cb(null, modList.sort());
     });
 }
 
 var regCommonjs = /require\(.*\)/,
     regEs6 = /import.*from/;
 
-function extractModule(options, file)
+function extractModule(file, options)
 {
     var ret = [];
 
@@ -146,7 +135,7 @@ function getFnPercentage(fnList, filesNum)
 {
     var ret = {};
 
-    util.each(fnList, function (fnName)
+    fnList.forEach(function (fnName)
     {
         ret[fnName] = ret[fnName] !== undefined ? ret[fnName] + 1 : 1;
     });

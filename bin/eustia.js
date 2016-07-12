@@ -42,6 +42,7 @@ var knowOpts = {
     options = nopt(knowOpts, shortHands, process.argv, 2),
     remain = options.argv.remain;
 
+logger.enable();
 options.enableLog = true;
 options.errLog = true;
 
@@ -73,7 +74,7 @@ function useCfg()
     {
         if (exists)
         {
-            logger.info('Using configuration file: ' + cfgPath);
+            logger.tpl({data: cfgPath}, 'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}');
 
             return fs.readFile(cfgPath, 'utf-8', function (err, data)
             {

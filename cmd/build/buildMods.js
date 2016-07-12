@@ -1,14 +1,18 @@
-var genCode = require('./genCode'),
-    async = require('async');
+var async = require('async');
 
 var util = require('../../lib/util'),
+    buildMod = require('./buildMod'),
     logger = require('../../lib/logger');
 
-module.exports = function (fnList, codeTpl, options, cb)
+module.exports = function (modList, codeTpl, options, cb)
 {
+    logger.tpl({
+        data: modList.join(' ')
+    }, 'MODULES FOUND\n{{#cyan}}{{{data}}}{{/cyan}}');
+
     logger.singleLine = true;
 
-    var codes  = [],
+    var codes = [],
         modMark = {},
         i, len;
 
@@ -16,7 +20,7 @@ module.exports = function (fnList, codeTpl, options, cb)
 
     var walker = async.queue(function (modName, walkerCb)
     {
-        genCode(modName, codeTpl, options, function (err, result)
+        buildMod(modName, codeTpl, options, function (err, result)
         {
             if (err) return cb(err);
 
@@ -50,10 +54,10 @@ module.exports = function (fnList, codeTpl, options, cb)
         });
     }, 50);
 
-    for (i = 0, len = fnList.length; i < len; i++)
+    for (i = 0, len = modList.length; i < len; i++)
     {
-        modMark[fnList[i]] = true;
-        walker.push(fnList[i]);
+        modMark[modList[i]] = true;
+        walker.push(modList[i]);
     }
 
     if (len === 0) cb(null, codes);
