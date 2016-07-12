@@ -1,65 +1,46 @@
-var _     = require('../lib/util'),
-    fs    = require('fs'),
-    async = require('async'),
-    path  = require('path');
+var async = require('async');
 
-var templates = {};
-
-function readTpl(tplName)
-{
-    var tplPath = path.resolve(__dirname, '../tpl/' + tplName + '.hbs');
-
-    return function (cb)
-    {
-        fs.readFile(tplPath, 'utf-8', function (err, data)
-        {
-            if (err) return cb(err);
-
-            templates[tplName] = data;
-
-            cb();
-        });
-    };
-}
-
-function outputAll(cb)
-{
-    var data = require('./help/all.json');
-
-    _.log(data, templates['help']);
-
-    cb();
-}
-
-function output(name, cb)
-{
-    try {
-        var data = require('./help/' + name + '.json');
-    } catch(e)
-    {
-        return cb('Command not found: ' + name);
-    }
-
-    _.log(data, templates['helpCmd']);
-
-    cb();
-}
+var logger = require('../lib/logger'),
+    readTpl = require('./share/readTpl');
 
 function exports(options, cb)
 {
     async.waterfall([
-        readTpl('help'),
-        readTpl('helpCmd')
+        function (cb)
+        {
+            readTpl(['help', 'helpCmd'], options.format, cb);
+        },
+        function (tpl, cb)
+        {
+            options.command ? output(options.command, tpl['helpCmd'], cb)
+                            : outputAll(tpl['help'], cb);
+        }
     ], function (err)
     {
-        if (err) return cb(err);
-
-        if (options.command) return output(options.command, cb);
-
-        outputAll(cb);
+        return err ? cb(err) : cb();
     });
 }
 
-exports.defOpts = {};
+function outputAll(tpl, cb)
+{
+    logger.log(tpl(require('./help/all.json')));
+
+    cb();
+}
+
+function output(name, tpl, cb)
+{
+    try
+    {
+        var data = require('./help/' + name + '.json');
+    } catch(e)
+    {
+        return cb(new Error('Command not found: ' + name));
+    }
+
+    logger.log(tpl(data));
+
+    cb();
+}
 
 module.exports = exports;

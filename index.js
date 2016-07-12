@@ -14,7 +14,7 @@ var cwd = process.cwd(),
         enableLog: false,
         debug: false,
         encoding: 'utf-8',
-        errorLog: false,
+        errLog: false,
         packInfo: require('./package.json')
     },
     errLogPath = path.resolve(cwd, './eustia-debug.log');
@@ -35,7 +35,7 @@ function cmdFactory(cmdName)
     return function (options, cb)
     {
         cb = cb || util.noop;
-        options = util.defaults(options, defOpts, cmd.defOpts);
+        options = util.defaults(options, defOpts, cmd.defOpts || {});
 
         if (options.enableLog) logger.enable();
         if (options.debug) logger.debug = true;
@@ -45,7 +45,7 @@ function cmdFactory(cmdName)
             if (err)
             {
                 logger.error(err);
-                if (options.errorLog)
+                if (options.errLog)
                 {
                     // Need to exit immediately, so async fs is not used.
                     fs.writeFileSync(errLogPath, logger.history(), 'utf-8');
@@ -53,7 +53,7 @@ function cmdFactory(cmdName)
                 }
             }
 
-            if (options.errorLog)
+            if (options.errLog)
             {
                 fs.exists(errLogPath, function (result)
                 {
