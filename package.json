@@ -11,7 +11,7 @@
     "eustia": "./bin/eustia.js"
   },
   "scripts": {
-    "clearCache": "rm -rf src/*.js"
+    "clearCache": "rm -rf cache/*.js"
   },
   "keywords": [
     "utility",

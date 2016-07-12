@@ -1,10 +1,64 @@
-var path  = require('path'),
-    _ = require('../../lib/util');
+var path = require('path');
+
+var util = require('../../lib/util'),
+    readPaths = require('../../lib/readPaths'),
+    logger = require('../../lib/logger');
+
+function exports (options, cb)
+{
+    if (options.files.length === 0)
+    {
+        logger.log('File list is empty, use include option only.');
+        logger.tpl({}, 'Modules found: {{#cyan}}' + JSON.stringify(options.include) + '{{/cyan}}');
+        options.data.fnPercentage = {};
+        return cb(null, options.include);
+    }
+
+    logger.log('Scan source code: ');
+    logger.color(options.files.join('\n'), 'cyan');
+
+    var files = options.files,
+        modList = options.include,
+        i, len;
+
+    readPaths(files, options, function (err, files)
+    {
+        if (err) return cb(err);
+
+        for (i = 0, len = files.length; i < len; i++)
+        {
+            var file = files[i];
+
+            if (util.startWith(file.data, options.magicNum)) continue;
+
+            file.data = util.stripCmt(file.data);
+
+            var modules = extractModule(options, file);
+
+            if (modules.length !== 0) logger.debug('File', file.path, 'has', modules);
+
+            modList = modList.concat(modules);
+        }
+
+        modList = util.map(modList, function (fnName) { return util.trim(fnName) });
+
+        options.data.fnPercentage = getFnPercentage(modList, files.length);
+
+        modList = util.filter(util.unique(modList), function (fnName)
+        {
+            return !util.contain(options.exclude, fnName);
+        });
+
+        logger.tpl({}, 'Modules found: {{#cyan}}' + JSON.stringify(modList) + '{{/cyan}}');
+
+        cb(null, modList);
+    });
+}
 
 var regCommonjs = /require\(.*\)/,
     regEs6 = /import.*from/;
 
-function extractMethod(options, file)
+function extractModule(options, file)
 {
     var ret = [];
 
@@ -13,7 +67,7 @@ function extractMethod(options, file)
     if (regEs6.test(file.data)) ret = ret.concat(extractEs6(options, file));
     ret = ret.concat(extractGlobal(options.namespace, file));
 
-    return _.unique(ret);
+    return util.unique(ret);
 }
 
 var regModules = {
@@ -36,7 +90,7 @@ function extractGlobal(namespace, file)
 {
     var modules = file.data.match(regModules.get(namespace));
 
-    return modules ? _.map(modules, function (val)
+    return modules ? util.map(modules, function (val)
     {
         val = val.substr(namespace.length);
         val = val[0] === '[' ? val.slice(2, -2) : val.slice(1);
@@ -63,7 +117,7 @@ function relativePath(from, to)
                   .replace(/\.js$/, '')
                   .replace(/\./g, '\\.');
 
-    if (!_.startWith(ret, '\\.')) ret = '\\./' + ret;
+    if (!util.startWith(ret, '\\.')) ret = '\\./' + ret;
 
     return ret;
 }
@@ -92,12 +146,12 @@ function getFnPercentage(fnList, filesNum)
 {
     var ret = {};
 
-    _.each(fnList, function (fnName)
+    util.each(fnList, function (fnName)
     {
         ret[fnName] = ret[fnName] !== undefined ? ret[fnName] + 1 : 1;
     });
 
-    _.each(ret, function (val, key)
+    util.each(ret, function (val, key)
     {
         ret[key] = (val / filesNum * 100).toFixed(2) + '%';
     });
@@ -105,49 +159,4 @@ function getFnPercentage(fnList, filesNum)
     return ret;
 }
 
-module.exports = function (options, cb)
-{
-    if (options.files.length === 0)
-    {
-        _.log('File list is empty, use include option only.');
-        _.log({}, 'Modules found: {{#cyan}}' + JSON.stringify(options.include) + '{{/cyan}}');
-        options.data.fnPercentage = {};
-        return cb(null, options.include);
-    }
-
-    _.log('Scan source code: ');
-    _.log.color(options.files.join('\n'), 'cyan');
-
-    var files  = options.files,
-        fnList = options.include,
-        i, len;
-
-    _.readPaths(files, options, function (err, files)
-    {
-        if (err) return cb(err);
-
-        for (i = 0, len = files.length; i < len; i++)
-        {
-            var file = files[i];
-
-            if (_.startWith(file.data, options.magicNum)) continue;
-
-            file.data = _.stripCmt(file.data);
-
-            fnList = fnList.concat(extractMethod(options, file));
-        }
-
-        fnList = _.map(fnList, function (fnName) { return _.trim(fnName) });
-
-        options.data.fnPercentage = getFnPercentage(fnList, files.length);
-
-        fnList = _.filter(_.unique(fnList), function (fnName)
-        {
-            return !_.contain(options.exclude, fnName);
-        });
-
-        _.log({}, 'Modules found: {{#cyan}}' + JSON.stringify(fnList) + '{{/cyan}}');
-
-        cb(null, fnList);
-    });
-};
+module.exports = exports;

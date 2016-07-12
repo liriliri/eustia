@@ -1,10 +1,12 @@
 var genCode = require('./genCode'),
-    async   = require('async'),
-    _ = require('../../lib/util');
+    async = require('async');
+
+var util = require('../../lib/util'),
+    logger = require('../../lib/logger');
 
 module.exports = function (fnList, codeTpl, options, cb)
 {
-    _.log('Generate codes:');
+    logger.singleLine = true;
 
     var codes  = [],
         modMark = {},
@@ -26,7 +28,7 @@ module.exports = function (fnList, codeTpl, options, cb)
             {
                 dependency = dependencies[i];
 
-                if (_.contain(options.exclude, dependency))
+                if (util.contain(options.exclude, dependency))
                 {
                     excludeRef.push(dependency);
                     continue;

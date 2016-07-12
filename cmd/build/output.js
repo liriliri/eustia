@@ -1,6 +1,8 @@
-var fs   = require('fs'),
-    path = require('path'),
-    _ = require('../../lib/util');
+var fs = require('fs'),
+    path = require('path');
+
+var util = require('../../lib/util'),
+    logger = require('../../lib/logger');
 
 module.exports = function (codes, codesTpl, formatTpl, options, cb)
 {
@@ -18,12 +20,12 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         return 0;
     });
 
-    _.each(codes, function (code)
+    util.each(codes, function (code)
     {
         var dependencies = code.dependencies;
 
         dependencyGraph.push(['', code.name]);
-        _.each(dependencies, function (dependency)
+        util.each(dependencies, function (dependency)
         {
             dependencyGraph.push([dependency, code.name]);
         });
@@ -32,15 +34,15 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
     });
 
     try {
-        var codesOrder = _.topoSort(dependencyGraph);
+        var codesOrder = util.topoSort(dependencyGraph);
         // The first one is just a empty string, need to exclude it.
         codesOrder.shift();
     } catch(e)
     {
-        _.log.err(e.message);
+        return cb(e);
     }
 
-    _.log({}, 'Modules generated: {{#cyan}}' + JSON.stringify(codesOrder) + '{{/cyan}}');
+    logger.tpl({}, 'Modules generated: {{#cyan}}' + JSON.stringify(codesOrder) + '{{/cyan}}');
 
     for (var i = 0, len = codesOrder.length; i < len; i++)
     {
@@ -58,10 +60,10 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
     if (excludeRef.length > 0)
     {
         excludeRef = excludeRef.sort();
-        codesData.excludeRef = _.unique(excludeRef);
+        codesData.excludeRef = util.unique(excludeRef);
     }
 
-    var result = _.indent(codesTpl(codesData));
+    var result = util.indent(codesTpl(codesData));
 
     result = result.replace(/\n\s*\n/g, '\n\n');
 
@@ -71,7 +73,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
                  codes: result
              });
 
-    _.log({}, 'Output file: {{#cyan}}' + options.output + '{{/cyan}}');
+    logger.tpl({}, 'Output file: {{#cyan}}' + options.output + '{{/cyan}}');
 
     fs.writeFile(options.output, result, options.encoding, function (err)
     {

@@ -1,19 +1,19 @@
 var path = require('path'),
     async = require('async'),
     chokidar = require('chokidar'),
-    qs = require('qs'),
-    readTpl = require('./share/readTpl'),
+    qs = require('qs');
+
+var readTpl = require('./share/readTpl'),
     scanSrc = require('./build/scanSrc'),
     genCodes = require('./build/genCodes'),
     output = require('./build/output'),
-    _ = require('../lib/util');
+    logger = require('../lib/logger'),
+    util = require('../lib/util');
 
 function exports(options, cb)
 {
-    cb = cb || _.noop;
-
-    transArrOptions(options);
-    transTranspilerOption(options, cb);
+    transArrOpts(options);
+    transTranspilerOpt(options, cb);
     handleEmptyFiles(options);
     resolvePaths(options);
 
@@ -23,13 +23,26 @@ function exports(options, cb)
     {
         options.data = {};
 
-        var startTime = _.now();
+        var startTime = util.now();
 
         async.waterfall([
-            function (cb) { readTpl(['code', 'codes', options.format], options, cb) },
-            function (tpl, cb) { templates = tpl; cb() },
-            function (cb) { scanSrc(options, cb) },
-            function (fnList, cb) { genCodes(fnList, templates['code'], options, cb) },
+            function (cb)
+            {
+                readTpl(['code', 'codes', options.format], options, cb);
+            },
+            function (tpl, cb)
+            {
+                templates = tpl;
+                cb();
+            },
+            function (cb)
+            {
+                scanSrc(options, cb);
+            },
+            function (fnList, cb)
+            {
+                genCodes(fnList, templates['code'], options, cb);
+            },
             function (codes, cb)
             {
                 output(codes, templates['codes'], templates[options.format], options, cb)
@@ -38,11 +51,11 @@ function exports(options, cb)
         {
             if (err)
             {
-                if (isWatching) return _.log.err(err);
+                if (isWatching) return util.log.err(err);
                 return cb(err);
             }
 
-            _.log.ok('Done, cost ' + (_.now() - startTime) + 'ms.');
+            logger.info('Done, cost ' + (util.now() - startTime) + 'ms.');
 
             cb();
         });
@@ -54,23 +67,26 @@ function exports(options, cb)
         var watchPaths = options.files.concat(options.libPaths);
 
         chokidar.watch(watchPaths, {
-            persistent    : true,
-            ignored       : options.output,
-            ignoreInitial : true,
+            persistent: true,
+            ignored: options.output,
+            ignoreInitial: true,
             followSymlinks: true,
-            usePolling    : true,
-            alwaysStat    : false,
-            interval      : 100,
-            atomic        : true,
+            usePolling: true,
+            alwaysStat: false,
+            interval: 100,
+            atomic: true,
             ignorePermissionErrors: false
-        }).on('change', function () { build(true) });
+        }).on('change', function ()
+        {
+            build(true);
+        });
     }
 }
 
 exports.defOpts = {
     namespace: '_',
     format: 'umd',
-    output: './util.js',
+    output: './util' + '.js', // Split it to avoid being scanned.
     extension: 'js',
     transpiler: [],
     files: [],
@@ -81,28 +97,28 @@ exports.defOpts = {
     watch: false
 };
 
-function transArrOptions(options)
+function transArrOpts(options)
 {
     ['library', 'include', 'exclude', 'ignore', 'files',
-     'extension', 'transpiler'].forEach(function (val)
+     'extension', 'transpiler'].forEach(function (key)
     {
-        if (!_.isArr(options[val])) options[val] = [options[val]];
+        options[key] = util.toArr(options[key]);
     });
 }
 
-function transTranspilerOption(options, cb)
+function transTranspilerOpt(options, cb)
 {
     var cwd = options.cwd;
 
-    _.each(options.transpiler, function (transpiler)
+    util.each(options.transpiler, function (transpiler)
     {
-        if (!_.isArr(transpiler.handler)) transpiler.handler = [transpiler.handler];
+        if (!util.isArr(transpiler.handler)) transpiler.handler = [transpiler.handler];
 
         var handlers = transpiler.handler;
 
-        _.each(handlers, function (handler, idx)
+        util.each(handlers, function (handler, idx)
         {
-            if (_.isStr(handler))
+            if (util.isStr(handler))
             {
                 handler = handler.split('?');
                 var handlerName = handler[0],
@@ -133,7 +149,7 @@ function handleEmptyFiles(options)
 
 function resolvePaths(options)
 {
-    _.each(options.files, function (val, idx)
+    util.each(options.files, function (val, idx)
     {
         options.files[idx] = path.resolve(options.cwd, val);
     });
@@ -142,13 +158,13 @@ function resolvePaths(options)
 
     var libPaths = [];
     libPaths.push(path.resolve(options.cwd, 'eustia'));
-    _.each(options.library, function (library) { libPaths.push(path.resolve(library)) });
+    util.each(options.library, function (library) { libPaths.push(path.resolve(library)) });
     libPaths.push(path.resolve(__dirname, '../cache'));
 
     options.libPaths = libPaths;
 
-    _.log('Library paths:');
-    _.log.color(libPaths.join('\n'), 'cyan');
+    util.log('Library paths:');
+    util.log.color(libPaths.join('\n'), 'cyan');
 }
 
 module.exports = exports;

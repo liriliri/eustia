@@ -2,6 +2,7 @@ var handlebars = require('handlebars'),
     async = require('async'),
     path  = require('path'),
     fs = require('fs'),
+    logger = require('../../lib/logger'),
     _  = require('../../lib/util');
 
 var tpl = {};
@@ -12,6 +13,8 @@ function readTpl(tplName)
 
     return function (cb)
     {
+        logger.debug('Read tpl', tplPath);
+
         fs.readFile(tplPath, 'utf-8', function (err, data)
         {
             if (err) return cb(err);

@@ -38,7 +38,9 @@ function cmdFactory(cmdName)
         options = util.defaults(options, defOpts, cmd.defOpts || {});
 
         if (options.enableLog) logger.enable();
-        if (options.debug) logger.debug = true;
+        if (options.debug) logger.isDebug = true;
+
+        logger.debug('Options', options);
 
         cmd(options, function (err)
         {
