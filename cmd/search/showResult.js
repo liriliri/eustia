@@ -1,4 +1,5 @@
-var _ = require('../../lib/util');
+var util = require('../../lib/util'),
+    logger = require('../../lib/logger');
 
 var resultTpl = '{{idx}}.{{#cyan}}{{name}}{{/cyan}}: {{desc}}\nSource: {{src}}';
 
@@ -8,15 +9,15 @@ module.exports = function (foundMods, cb)
 
     if (len === 0)
     {
-        _.log('Nothing is found:(');
+        logger.log('Nothing is found:(');
     } else
     {
-        if (len > 1) _.log(len + ' results is found.');
+        if (len > 1) logger.log(len + ' results is found.');
 
-        _.each(foundMods, function (mod, idx)
+        util.each(foundMods, function (mod, idx)
         {
             mod.idx = idx + 1;
-            _.log(mod, resultTpl);
+            logger.tpl(mod, resultTpl);
         });
     }
 

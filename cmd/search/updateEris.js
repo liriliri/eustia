@@ -1,7 +1,8 @@
 var request = require('request'),
     path = require('path'),
-    fs = require('fs'),
-    _ = require('../../lib/util');
+    fs = require('fs');
+
+var logger = require('../../lib/logger');
 
 var DOWNLOAD_PATH = 'https://raw.githubusercontent.com/liriliri/eris/master/eris.json',
     ERIS_PATH = path.resolve(__dirname, '../share/eris.json');
@@ -10,7 +11,7 @@ module.exports = function (options, cb)
 {
     if (!options.update) return cb(null, require('../share/eris.json'));
 
-    _.log('Updating eris.json:');
+    logger.log('Updating eris.json:');
 
     request.get(DOWNLOAD_PATH)
         .on('response', function (res)
@@ -25,7 +26,7 @@ module.exports = function (options, cb)
         .pipe(fs.createWriteStream(ERIS_PATH))
         .on('close', function ()
         {
-            _.log.ok('Updated successfully!');
+            logger.info('Updated successfully!');
             fs.readFile(ERIS_PATH, 'utf-8', function (err, data)
             {
                 if (err) return cb(err);

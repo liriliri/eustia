@@ -1,4 +1,5 @@
-var _ = require('../../lib/util');
+var util = require('../../lib/util'),
+    logger = require('../../lib/logger');
 
 module.exports = function (options, cb)
 {
@@ -7,7 +8,7 @@ module.exports = function (options, cb)
     var ret = [],
         installMods = options.modules;
 
-    _.each(installMods, function (mod)
+    util.each(installMods, function (mod)
     {
         var repo = repoData[mod];
 
@@ -17,7 +18,7 @@ module.exports = function (options, cb)
             return;
         }
 
-        _.log.warn('Not found: ' + mod);
+        logger.warn('Not found: ' + mod);
     });
 
     cb(null, ret);

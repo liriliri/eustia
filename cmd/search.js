@@ -1,7 +1,7 @@
-var async = require('async'),
-    _ = require('../lib/util');
+var async = require('async');
 
-var updateEris = require('./search/updateEris'),
+var logger = require('../lib/logger'),
+    updateEris = require('./search/updateEris'),
     searchRepo = require('./search/searchRepo'),
     showResult = require('./search/showResult');
 
@@ -9,7 +9,7 @@ function exports(options, cb)
 {
     if (!options.keyword)
     {
-        _.log.warn('Search keyword is required.');
+        logger.warn('Search keyword is required.');
         return cb();
     }
 

@@ -1,5 +1,6 @@
-var fs = require('fs'),
-    _ = require('../../lib/util');
+var fs = require('fs');
+
+var util = require('../../lib/util');
 
 function breakApart(data)
 {
@@ -12,13 +13,13 @@ function process(data)
 
     data = breakApart(data);
 
-    _.each(data, function (val)
+    util.each(data, function (val)
     {
-        val = _.trim(val);
-        if (!_.startWith(val, 'var')) return;
+        val = util.trim(val);
+        if (!util.startWith(val, 'var')) return;
 
         var name = val.slice(4, val.indexOf("=")),
-            comments = _.extractBlockCmts(val.slice(val.indexOf('{') + 1, val.lastIndexOf('}')));
+            comments = util.extractBlockCmts(val.slice(val.indexOf('{') + 1, val.lastIndexOf('}')));
 
         ret[name] = 'No documentation.';
 
@@ -30,8 +31,6 @@ function process(data)
 
 module.exports = function (ast, options, cb)
 {
-    _.log('Extract block comments.');
-
     fs.exists(options.input, function (result)
     {
         if (!result) return cb('Not found: ' + options.input);

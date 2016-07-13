@@ -1,7 +1,9 @@
 var fs = require('fs'),
-    path = require('path'),
-    downloadMod = require('../../lib/downloadMod'),
-    _ = require('../../lib/util');
+    path = require('path');
+
+var downloadMod = require('../../lib/downloadMod'),
+    logger = require('../../lib/logger'),
+    util = require('../../lib/util');
 
 module.exports = function (installRepos, options, cb)
 {
@@ -13,7 +15,7 @@ module.exports = function (installRepos, options, cb)
 
     fs.mkdir(path.resolve(options.cwd, 'eustia/'), function ()
     {
-        _.each(installRepos, function (repo)
+        util.each(installRepos, function (repo)
         {
             var downloadDest = path.resolve(options.cwd, 'eustia/' + repo + '.js');
 
@@ -23,12 +25,12 @@ module.exports = function (installRepos, options, cb)
             {
                 if (err) return cb(err);
 
-                _.log.ok(repo + ' installed.');
+                logger.info(repo + ' installed.');
 
                 if (++i === len) cb();
             });
         });
 
-        _.log('Install ' + repoNames.join(', ') + '.');
+        logger.info('Install ' + repoNames.join(', ') + '.');
     });
 };

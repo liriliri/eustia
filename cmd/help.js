@@ -8,7 +8,7 @@ function exports(options, cb)
     async.waterfall([
         function (cb)
         {
-            readTpl(['help', 'helpCmd'], options.format, cb);
+            readTpl(['help', 'helpCmd'], cb);
         },
         function (tpl, cb)
         {
