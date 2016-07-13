@@ -1,6 +1,6 @@
 /.idea/
-/eustia/
 /test/
+/dev/
 /playground/
 /cache/*.js
 .gitignore
