@@ -1,6 +1,7 @@
 var async = require('async');
 
 var logger = require('../lib/logger'),
+    util = require('../lib/util'),
     searchRepo = require('./install/searchRepo'),
     downloadFile = require('./install/downloadFile');
 

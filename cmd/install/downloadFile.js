@@ -25,12 +25,10 @@ module.exports = function (installRepos, options, cb)
             {
                 if (err) return cb(err);
 
-                logger.info(repo + ' installed.');
+                logger.info(repo + ' INSTALLED');
 
                 if (++i === len) cb();
             });
         });
-
-        logger.info('Install ' + repoNames.join(', ') + '.');
     });
 };

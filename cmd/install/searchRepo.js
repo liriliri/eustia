@@ -18,7 +18,7 @@ module.exports = function (options, cb)
             return;
         }
 
-        logger.warn('Not found: ' + mod);
+        logger.warn(mod + ' not found');
     });
 
     cb(null, ret);
