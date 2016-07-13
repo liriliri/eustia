@@ -18,7 +18,6 @@ module.exports = function (modName, codeTpl, options, cb)
     percentage = percentage ? ' (' + percentage + ')' : '';
 
     var result = {},
-        hasTryDownload = false,
         paths = [];
 
     util.each(options.libPaths, function (libPath)
@@ -35,25 +34,14 @@ module.exports = function (modName, codeTpl, options, cb)
         {
             if (util.isUndef(filePath))
             {
-                if (!hasTryDownload)
+                var dest = path.resolve(options.dirname, 'cache', modName + '.js');
+
+                return downloadMod(modName, dest, function (err)
                 {
-                    hasTryDownload = true;
+                    if (err) return cb(err);
 
-                    logger.log('Install ' + modName + '.');
-
-                    var dest = path.resolve(options.dirname, 'cache', modName + '.js');
-
-                    return downloadMod(modName, dest, function (err)
-                    {
-                        if (err) return cb(err);
-
-                        logger.info(modName + ' installed.');
-
-                        detectAndGenCode();
-                    });
-                }
-
-                return cb('Not found: ' + modName);
+                    detectAndGenCode();
+                });
             }
 
             fs.readFile(filePath, options.encoding, function (err, data)

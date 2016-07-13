@@ -1,7 +1,7 @@
 var util = require('../../lib/util'),
     logger = require('../../lib/logger');
 
-var resultTpl = '{{idx}}.{{#cyan}}{{name}}{{/cyan}}: {{desc}}\nSource: {{src}}';
+var resultTpl = '{{idx}}. {{#cyan}}{{name}}{{/cyan}}: {{desc}}';
 
 module.exports = function (foundMods, cb)
 {
@@ -12,7 +12,7 @@ module.exports = function (foundMods, cb)
         logger.log('Nothing is found:(');
     } else
     {
-        if (len > 1) logger.log(len + ' results is found.');
+        if (len > 1) logger.log(len + ' RESULTS FOUND');
 
         util.each(foundMods, function (mod, idx)
         {

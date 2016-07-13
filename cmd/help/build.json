@@ -11,49 +11,49 @@
         {
             "shorthand": "-e",
             "flag": "--exclude",
-            "description": "Modules excluded"
+            "desc": "Modules excluded"
         },
         {
             "flag": "--encoding",
-            "description": "Input file encoding, default to utf-8"
+            "desc": "Input file encoding, default to utf-8"
         },
         {
             "shorthand": "-l",
             "flag": "--library",
-            "description": "External library paths"
+            "desc": "External library paths"
         },
         {
             "shorthand": "-i",
             "flag": "--include",
-            "description": "Modules included"
+            "desc": "Modules included"
         },
         {
             "flag": "--ignore",
-            "description": "Files excluded"
+            "desc": "Files excluded"
         },
         {
             "shorthand": "-n",
             "flag": "--namespace",
-            "description": "Namespace of the generated library, default to _"
+            "desc": "Namespace of the generated library, default to _"
         },
         {
             "shorthand": "-o",
             "flag": "--output",
-            "description": "Output path, default to util.js"
+            "desc": "Output path, default to util.js"
         },
         {
             "shorthand": "-f",
             "flag": "--format",
-            "description": "Module pattern, commonjs, umd or global, defaults to umd"
+            "desc": "Module pattern, commonjs, umd or global, defaults to umd"
         },
         {
             "flag": "--transpiler",
-            "description": "Transpiler to transform code, not accessible through command line"
+            "desc": "Transpiler to transform code, not accessible through command line"
         },
         {
             "shorthand": "-w",
             "flag": "--watch",
-            "description": "Watch files to regenerate automatically"
+            "desc": "Watch files to regenerate automatically"
         }
     ]
 }

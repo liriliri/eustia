@@ -9,21 +9,21 @@
         {
             "shorthand": "-d",
             "flag": "--description",
-            "description": "Extra description markdown file path."
+            "desc": "Extra description markdown file path."
         },
         {
             "shorthand": "-o",
             "flag": "--output",
-            "description": "Output path, default to docs.html"
+            "desc": "Output path, default to docs.html"
         },
         {
             "shorthand": "-t",
             "flag": "--title",
-            "description": "Documentation title"
+            "desc": "Documentation title"
         },
         {
             "flag": "--format",
-            "description": "Output format, html, json or markdown, defaults to html"
+            "desc": "Output format, html, json or markdown, defaults to html"
         }
     ]
 }

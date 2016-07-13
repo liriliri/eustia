@@ -11,7 +11,7 @@ module.exports = function (options, cb)
 {
     if (!options.update) return cb(null, require('../share/eris.json'));
 
-    logger.log('Updating eris.json:');
+    logger.tpl({}, 'UPDATE {{#cyan}}eris.json{{/cyan}}');
 
     request.get(DOWNLOAD_PATH)
         .on('response', function (res)
@@ -20,13 +20,12 @@ module.exports = function (options, cb)
 
             if (status < 200 || status >= 300)
             {
-                return cb('Error downloading eris.json: ' + status);
+                return cb(new Error('Error downloading eris.json: ' + status));
             }
         })
         .pipe(fs.createWriteStream(ERIS_PATH))
         .on('close', function ()
         {
-            logger.info('Updated successfully!');
             fs.readFile(ERIS_PATH, 'utf-8', function (err, data)
             {
                 if (err) return cb(err);

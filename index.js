@@ -24,6 +24,7 @@ module.exports = {
     doc: cmdFactory('doc'),
     search: cmdFactory('search'),
     install: cmdFactory('install'),
+    cache: cmdFactory('cache'),
     help: cmdFactory('help'),
     version: cmdFactory('version')
 };

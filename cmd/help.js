@@ -17,7 +17,7 @@ function exports(options, cb)
         }
     ], function (err)
     {
-        return err ? cb(err) : cb();
+        cb(err);
     });
 }
 

@@ -5,13 +5,11 @@ var extractCmt = require('./doc/extractCmt'),
     readDesc = require('./doc/readDesc'),
     readTpl = require('./share/readTpl'),
     output = require('./doc/output'),
-    logger = require('../lib/logger'),
-    util = require('../lib/util');
+    logger = require('../lib/logger');
 
 function exports(options, cb)
 {
-    var startTime = util.now(),
-        template, ast = {};
+    var template, ast = {};
 
     options.output = path.resolve(options.cwd, options.output);
     if (options.description) options.description = path.resolve(options.cwd, options.description);
@@ -43,17 +41,13 @@ function exports(options, cb)
         }
     ], function (err)
     {
-        if (err) return cb(err);
-
-        logger.info('TIME COST ' + (util.now() - startTime) + 'ms.');
-
-        cb();
+        cb(err);
     });
 }
 
 exports.defOpts = {
     input: 'util' + '.js',
-    output: 'docs.html',
+    output: 'doc.html',
     title: 'Eustia Documentation',
     format: 'html'
 };

@@ -23,9 +23,7 @@ function exports(options, cb)
         }
     ], function (err)
     {
-        if (err) return cb(err);
-
-        cb();
+        cb(err);
     });
 }
 

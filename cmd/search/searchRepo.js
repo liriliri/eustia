@@ -1,10 +1,7 @@
-var util = require('../../lib/util'),
-    logger = require('../../lib/logger');
+var util = require('../../lib/util');
 
 module.exports = function (repoData, options, cb)
 {
-    logger.log('Searching "' + options.keyword + '":');
-
     var foundMods = [],
         keyword = options.keyword;
 

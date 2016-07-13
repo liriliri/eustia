@@ -8,7 +8,7 @@
         {
             "shorthand": "-u",
             "flag": "--update",
-            "description": "Update module data before searching."
+            "desc": "Update module data before searching."
         }
     ]
 }

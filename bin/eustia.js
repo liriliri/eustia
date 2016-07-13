@@ -7,7 +7,7 @@ var nopt = require('nopt'),
 
 var eustia = require('../index'),
     logger = require('../lib/logger'),
-    _ = require('../lib/util');
+    util = require('../lib/util');
 
 var knowOpts = {
         encoding: String,
@@ -55,7 +55,7 @@ function getCmd()
 
     for (i = 0, len = remain.length; i < len; i++)
     {
-        if (_.has(eustia, remain[i]))
+        if (util.has(eustia, remain[i]))
         {
             ret = remain[i];
             remain.splice(i, 1);
@@ -87,13 +87,13 @@ function useCfg()
                     configs = require(cfgPath);
                 }
 
-                var isSingle = _.some(configs, function (option)
+                var isSingle = util.some(configs, function (option)
                 {
-                    return !_.isObj(option);
+                    return !util.isObj(option);
                 });
                 if (isSingle)
                 {
-                    _.extend(configs, options);
+                    util.extend(configs, options);
                     return eustia.build(configs);
                 }
 
@@ -107,22 +107,24 @@ function useCfg()
 
 function useCmdLine()
 {
+    var hasRemain = !util.isEmpty(remain);
+
     switch (cmd)
     {
         case 'build': options.files = remain; break;
-        case 'search': {
-            if (remain.length > 0) options.keyword = remain[0];
+        case 'search':
+            if (hasRemain) options.keyword = remain[0];
             break;
-        }
-        case 'help': {
-            if (remain.length > 0) options.command = remain[0];
+        case 'help':
+            if (hasRemain) options.command = remain[0];
             break;
-        }
-        case 'docs': {
-            if (remain.length > 0) options.input = remain[0];
+        case 'docs':
+            if (hasRemain) options.input = remain[0];
             break;
-        }
         case 'install': options.modules = remain; break;
+        case 'cache':
+            if (hasRemain) options.subCmd = remain[0];
+            break;
     }
 
     eustia[cmd](options);
@@ -136,18 +138,18 @@ function buildAll(configs)
     {
         logger.tpl({}, 'Run task {{#cyan}}"' + remain[0] + '"{{/cyan}}:');
 
-        return eustia['build'](_.extend(configs[remain[0]], options));
+        return eustia['build'](util.extend(configs[remain[0]], options));
     }
 
     var cfgArr = [],
         watch = options.watch;
     options.watch = false;
 
-    _.each(configs, function (val, key)
+    util.each(configs, function (val, key)
     {
         val.taskName = key;
         cfgArr.push(val);
-        configs[key] = _.extend(val, options);
+        configs[key] = util.extend(val, options);
     });
 
     var cfgLen = cfgArr.length, i = 0;
@@ -172,7 +174,7 @@ function buildAll(configs)
     {
         var watchPaths = [], outputs = [];
 
-        _.each(cfgArr, function (config)
+        util.each(cfgArr, function (config)
         {
             outputs = outputs.concat(config.output);
             watchPaths = watchPaths.concat(config.files);

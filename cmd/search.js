@@ -9,19 +9,23 @@ function exports(options, cb)
 {
     if (!options.keyword)
     {
-        logger.warn('Search keyword is required.');
+        logger.warn('Search keyword is required');
         return cb();
     }
 
     async.waterfall([
-        function (cb) { updateEris(options, cb) },
-        function (repoData, cb) { searchRepo(repoData, options, cb) },
+        function (cb)
+        {
+            updateEris(options, cb);
+        },
+        function (repoData, cb)
+        {
+            searchRepo(repoData, options, cb);
+        },
         showResult
     ], function (err)
     {
-        if (err) return cb(err);
-
-        cb();
+        cb(err);
     });
 }
 
