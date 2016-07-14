@@ -11,6 +11,7 @@
     "eustia": "./bin/eustia.js"
   },
   "scripts": {
+    "test": "mocha",
     "clearCache": "rm -rf cache/*.js"
   },
   "keywords": [
