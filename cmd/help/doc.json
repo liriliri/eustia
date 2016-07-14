@@ -22,6 +22,7 @@
             "desc": "Documentation title"
         },
         {
+            "shorthand": "-f",
             "flag": "--format",
             "desc": "Output format, html, json or markdown, defaults to html"
         }

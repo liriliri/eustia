@@ -1,6 +1,6 @@
 {
   "name": "eustia",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Tool for generating utility libraries",
   "main": "index.js",
   "repository": {
@@ -11,8 +11,7 @@
     "eustia": "./bin/eustia.js"
   },
   "scripts": {
-    "test": "mocha",
-    "clearCache": "rm -rf cache/*.js"
+    "test": "mocha"
   },
   "keywords": [
     "utility",

@@ -14,17 +14,17 @@ function exports(options, cb)
     options.output = path.resolve(options.cwd, options.output);
     if (options.description) options.description = path.resolve(options.cwd, options.description);
 
-    var docsTpl = 'docs';
-    if (options.format === 'md') docsTpl = 'docsMd';
+    var docTpl = 'doc';
+    if (options.format === 'md') docTpl = 'docMd';
 
     async.waterfall([
         function (cb)
         {
-            readTpl([docsTpl], cb);
+            readTpl([docTpl], cb);
         },
         function (tpl, cb)
         {
-            template = tpl[docsTpl];
+            template = tpl[docTpl];
             cb();
         },
         function (cb)

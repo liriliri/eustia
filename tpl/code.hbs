@@ -1,12 +1,12 @@
 /* ------------------------------ {{name}} ------------------------------ */
 
-{{#if exports}}
-var {{name}} = _.{{name}} = (function (exports)
+{{#if hasExports}}
+var {{name}} = _.{{name}} = (function ({{#if noFnExports}}exports{{/if}})
 {
     {{code}}
 
     return exports;
-})({});
+})({{#if noFnExports}}{}{{/if}});
 {{else}}
 (function ()
 {

@@ -6,7 +6,11 @@ var util = require('../../lib/util'),
 
 function exports (options, cb)
 {
-    if (util.isEmpty(options.files)) return cb(null, options.include.sort());
+    if (util.isEmpty(options.files))
+    {
+        options.data.fnPercentage = {};
+        return cb(null, options.include.sort());
+    }
 
     logger.log('SCAN FILES');
     logger.color(options.files.join('\n'), 'cyan');
