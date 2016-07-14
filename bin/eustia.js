@@ -118,7 +118,7 @@ function useCmdLine()
         case 'help':
             if (hasRemain) options.command = remain[0];
             break;
-        case 'docs':
+        case 'doc':
             if (hasRemain) options.input = remain[0];
             break;
         case 'install': options.modules = remain; break;

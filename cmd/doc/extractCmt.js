@@ -2,10 +2,22 @@ var fs = require('fs');
 
 var util = require('../../lib/util');
 
-function breakApart(data)
+module.exports = function (ast, options, cb)
 {
-    return data.split(/\/\* -{30} [\$\w]+ -{30} \*\//).slice(1);
-}
+    fs.exists(options.input, function (result)
+    {
+        if (!result) return cb('Not found: ' + options.input);
+
+        fs.readFile(options.input, options.encoding, function (err, data)
+        {
+            if (err) return cb(err);
+
+            ast['docs'] = process(data);
+
+            cb();
+        });
+    });
+};
 
 function process(data)
 {
@@ -23,25 +35,22 @@ function process(data)
 
         ret[name] = 'No documentation.';
 
-        if (comments.length > 0) ret[name] = comments[0];
+        if (!util.isEmpty(comments)) ret[name] = indentOneSpace(comments[0]);
     });
 
     return ret;
 }
 
-module.exports = function (ast, options, cb)
+var regSeparator = /\/\* -{30} [\$\w]+ -{30} \*\//;
+
+function breakApart(data)
 {
-    fs.exists(options.input, function (result)
-    {
-        if (!result) return cb('Not found: ' + options.input);
+    return data.split(regSeparator).slice(1);
+}
 
-        fs.readFile(options.input, options.encoding, function (err, data)
-        {
-            if (err) return cb(err);
+var regStartOneSpace = /^ /mg;
 
-            ast['docs'] = process(data);
-
-            cb();
-        });
-    });
-};
+function indentOneSpace(data)
+{
+    return data.replace(regStartOneSpace, '');
+}
