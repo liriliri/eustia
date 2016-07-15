@@ -24,10 +24,11 @@ ga('send', 'pageview');</script></head><body><div class="content-wrapper"><div c
     <li>
         <a href="#commands">2. Commands</a>
         <ul>
-            <li><a href="#build-command">2.1 Build command</a></li>
-            <li><a href="#search-command">2.2 Search command</a></li>
-            <li><a href="#install-command">2.3 Install command</a></li>
-            <li><a href="#docs-command">2.4 Docs command</a></li>
+            <li><a href="#build-command">2.1 Build Command</a></li>
+            <li><a href="#search-command">2.2 Search Command</a></li>
+            <li><a href="#install-command">2.3 Install Command</a></li>
+            <li><a href="#doc-command">2.4 Doc Command</a></li>
+            <li><a href="#cache-command">2.5 Cache Command</a></li>
         </ul>
     </li>
     <li>
@@ -130,7 +131,7 @@ eustia<span class="token punctuation">.</span><span class="token function">build
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="commands">Commands</h2>
-<h3 id="build-command">Build command</h3>
+<h3 id="build-command">Build Command</h3>
 <p>Build JavaScript libraries by scanning files. When used in command line, the
 rest arguments will be treated as files.</p>
 <pre><code class="language-bash">eustia build <span class="token punctuation">[</span><span class="token operator">&lt;</span>options<span class="token operator">&gt;</span><span class="token punctuation">]</span>
@@ -226,7 +227,7 @@ eusita build index.html src/*.js -o lib.js
 <p><strong>Transpilers</strong> and <strong>extension</strong> are not available via command line
 arguments, use them only in configurations.</p>
 </blockquote>
-<h3 id="search-command">Search command</h3>
+<h3 id="search-command">Search Command</h3>
 <p>Search for <a href="http://liriliri.github.io/eustia/eris.html">modules</a> directly
 through command line.</p>
 <pre><code class="language-bash">eustia search <span class="token operator">&lt;</span>keyword<span class="token operator">&gt;</span>
@@ -249,14 +250,14 @@ through command line.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="install-command">Install command</h3>
+<h3 id="install-command">Install Command</h3>
 <p>Install module in current project directory.</p>
 <pre><code class="language-bash">eustia <span class="token function">install</span> <span class="token punctuation">[</span><span class="token operator">&lt;</span>modules<span class="token operator">&gt;</span><span class="token punctuation">]</span>
 </code></pre>
-<h3 id="docs-command">Docs command</h3>
+<h3 id="doc-command">Doc Command</h3>
 <p>Generate documentation from generated utiltiy libraries.</p>
-<pre><code class="language-bash">eustia docs <span class="token punctuation">[</span><span class="token operator">&lt;</span>options<span class="token operator">&gt;</span><span class="token punctuation">]</span>
-eustia docs util.js -o docs.html
+<pre><code class="language-bash">eustia doc <span class="token punctuation">[</span><span class="token operator">&lt;</span>options<span class="token operator">&gt;</span><span class="token punctuation">]</span>
+eustia doc util.js -o doc.html
 </code></pre>
 <table>
 <thead>
@@ -294,6 +295,10 @@ eustia docs util.js -o docs.html
 </tr>
 </tbody>
 </table>
+<h3 id="cache-command">Cache Command</h3>
+<p>Clear module cache.</p>
+<pre><code class="language-bash">eustia cache <span class="token function">clear</span>
+</code></pre>
 <h2 id="create-module">Create Module</h2>
 <p>Materials must be prepared first to cook a good meal. Right now, our materials 
 is a bunch of small modules. Eustia provides many 
