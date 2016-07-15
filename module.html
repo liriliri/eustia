@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Eustia: A Tool for Generating JavaScript Utility Libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Guide - Eustia: A Tool for Generating JavaScript Utility Libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q || []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
@@ -7,4 +7,2818 @@ ga('create', 'UA-52367952-2', 'auto');
 ga('send', 'pageview');</script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
 {
     _.$('nav').toggleClass('collapsed');
-});</script><ul><li><a href="http://liriliri.github.io/eustia/docs.html">DOCS</a></li><li><a href="http://liriliri.github.io/eustia/eris.html">MODULE</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="container mobile"><p>building:)</p></div></div><footer>Built for <a href="https://github.com/liriliri">Liriliri</a> project 2014-2016</footer></body></html>
+});</script><ul><li><a href="http://liriliri.github.io/eustia/docs.html">DOCS</a></li><li><a href="http://liriliri.github.io/eustia/module.html">MODULE</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="md container mobile intro"><h1 id="eustia-documentation">Eustia Documentation</h1>
+<h2 id="last">last</h2>
+<p>Get the last element of array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>array</td>
+<td>The array to query</td>
+</tr>
+<tr>
+<td>return</td>
+<td>*</td>
+<td>The last element of array</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">last</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 2</span>
+</code></pre>
+<h2 id="isundef">isUndef</h2>
+<p>Check if value is undefined.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is undefined</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isUndef</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isUndef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; false</span>
+</code></pre>
+<h2 id="isobj">isObj</h2>
+<p>Check if value is the language type of Object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is an object</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-language-types">Language Spec</a></p>
+<pre><code class="language-javascript"><span class="token function">isObj</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isObj</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="inherits">inherits</h2>
+<p>Inherit the prototype methods from one constructor into another.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Class</td>
+<td>function</td>
+<td>Child Class</td>
+</tr>
+<tr>
+<td>SuperClass</td>
+<td>function</td>
+<td>Super Class</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">People</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+People<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token punctuation">{</span>
+    getName<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">Student</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">inherits</span><span class="token punctuation">(</span>Student<span class="token punctuation">,</span> People<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token string">&apos;RedHood&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+s<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;RedHood&apos;</span>
+</code></pre>
+<h2 id="has">has</h2>
+<p>Checks if key is a direct property.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>The object to query</td>
+</tr>
+<tr>
+<td>key</td>
+<td>string</td>
+<td>The path to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if key is a direct property</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">has</span><span class="token punctuation">(</span><span class="token punctuation">{</span>one<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">&apos;one&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="slice">slice</h2>
+<p>No documentation.</p>
+<h2 id="after">after</h2>
+<p>Create a function that invokes once it&apos;s called n or more times.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>number</td>
+<td>Number of calls before fn is invoked</td>
+</tr>
+<tr>
+<td>fn</td>
+<td>function</td>
+<td>Function to restrict</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>The new restricted function</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> fn <span class="token operator">=</span> <span class="token function">after</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// -&gt; Only invoke after fn is called 5 times.</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="allkeys">allKeys</h2>
+<p>Retrieve all the names of object&apos;s own and inherited properties.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>The object to query</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>The array of all property names</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Members of Object&apos;s prototype won&apos;t be retrieved.</p>
+</blockquote>
+<pre><code class="language-javascript"><span class="token keyword">var</span> obj <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>zero<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span>one <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token function">allKeys</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;zero&apos;, &apos;one&apos;]</span>
+</code></pre>
+<h2 id="before">before</h2>
+<p>Create a function that invokes less than n times.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>number</td>
+<td>Number of calls at which fn is no longer invoked</td>
+</tr>
+<tr>
+<td>fn</td>
+<td>function</td>
+<td>Function to restrict</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>New restricted function</td>
+</tr>
+</tbody>
+</table>
+<p>Subsequent calls to the created function return the result of the last fn invocation.</p>
+<pre><code class="language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;click&apos;</span><span class="token punctuation">,</span> <span class="token function">before</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// -&gt; allow function to be call 4 times at last.</span>
+</code></pre>
+<h2 id="restargs">restArgs</h2>
+<p>This accumulates the arguments passed into an array, after a given index.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>function</td>
+<td>function</td>
+<td>Function that needs rest parameters</td>
+</tr>
+<tr>
+<td>startIndex</td>
+<td>number</td>
+<td>The start index to accumulates</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>Generated function with rest parameters</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> paramArr <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">restArgs</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>rest<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> rest <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">paramArr</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [1, 2, 3, 4]</span>
+</code></pre>
+<h2 id="bind">bind</h2>
+<p>Create a function bound to a given object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fn</td>
+<td>function</td>
+<td>Function to bind</td>
+</tr>
+<tr>
+<td>ctx</td>
+<td>*</td>
+<td>This binding of given function</td>
+</tr>
+<tr>
+<td>[rest]</td>
+<td>...*</td>
+<td>Optional arguments</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>New bound function</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> fn <span class="token operator">=</span> <span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>msg<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">&apos;:&apos;</span> <span class="token operator">+</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;eustia&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">&apos;I am a utility library.&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;eustia: I am a utility library.&apos;</span>
+</code></pre>
+<h2 id="splitcase">splitCase</h2>
+<p>Split different string case to an array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to split</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>Result array</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">splitCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo-bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;foo&apos;, &apos;bar&apos;]</span>
+<span class="token function">splitCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;foo&apos;, &apos;bar&apos;]</span>
+<span class="token function">splitCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo_bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;foo&apos;, &apos;bar&apos;]</span>
+<span class="token function">splitCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo.bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;foo&apos;, &apos;bar&apos;]</span>
+<span class="token function">splitCase</span><span class="token punctuation">(</span><span class="token string">&apos;fooBar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;foo&apos;, &apos;bar&apos;]</span>
+<span class="token function">splitCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo-Bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;foo&apos;, &apos;bar&apos;]</span>
+</code></pre>
+<h2 id="camelcase">camelCase</h2>
+<p>Convert string to &quot;camelCase&quot;.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Camel cased string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">camelCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo-bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; fooBar</span>
+<span class="token function">camelCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; fooBar</span>
+<span class="token function">camelCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo_bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; fooBar</span>
+<span class="token function">camelCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo.bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; fooBar</span>
+</code></pre>
+<h2 id="kebabcase">kebabCase</h2>
+<p>Convert string to &quot;kebabCase&quot;.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Kebab cased string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">kebabCase</span><span class="token punctuation">(</span><span class="token string">&apos;fooBar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo-bar</span>
+<span class="token function">kebabCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo-bar</span>
+<span class="token function">kebabCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo_bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo-bar</span>
+<span class="token function">kebabCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo.bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo-bar</span>
+</code></pre>
+<h2 id="capitalize">capitalize</h2>
+<p>Convert the first character to upper case and the remaining to lower case.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>The string to capitalize</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>The capitalized string</td>
+</tr>
+</tbody>
+</table>
+<pre><code>capitalize(&apos;rED&apos;); // -&gt; Red
+</code></pre><h2 id="keys">keys</h2>
+<p>Create an array of the own enumerable property names of object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>The object to query</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>The array of property names</td>
+</tr>
+</tbody>
+</table>
+<h2 id="idxof">idxOf</h2>
+<p>Get the index at which the first occurrence of value.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>array</td>
+<td>Array to search</td>
+</tr>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to search for</td>
+</tr>
+<tr>
+<td>[fromIdx=0]</td>
+<td>number</td>
+<td>Index to search from</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">idxOf</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 3</span>
+</code></pre>
+<h2 id="define">define</h2>
+<p>No documentation.</p>
+<h2 id="delay">delay</h2>
+<p>Invoke function after certain milliseconds.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fn</td>
+<td>function</td>
+<td>Function to delay</td>
+</tr>
+<tr>
+<td>wait</td>
+<td>number</td>
+<td>Number of milliseconds to delay invocation</td>
+</tr>
+<tr>
+<td>[args]</td>
+<td>...*</td>
+<td>Arguments to invoke fn with</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">delay</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token string">&apos;later&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// -&gt; Logs &apos;later&apos; after one second</span>
+</code></pre>
+<h2 id="dotcase">dotCase</h2>
+<p>Convert string to &quot;dotCase&quot;.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Dot cased string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">dotCase</span><span class="token punctuation">(</span><span class="token string">&apos;fooBar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo.bar</span>
+<span class="token function">dotCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo.bar</span>
+</code></pre>
+<h2 id="endwith">endWith</h2>
+<p>Check if string ends with the given target string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>The string to search</td>
+</tr>
+<tr>
+<td>suffix</td>
+<td>string</td>
+<td>String suffix</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if string ends with target</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">endWith</span><span class="token punctuation">(</span><span class="token string">&apos;ab&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;b&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="escape">escape</h2>
+<p>Escapes a string for insertion into HTML, replacing &amp;, &lt;, &gt;, &quot;, `, and &apos; characters.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to escape</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Escaped string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">escape</span><span class="token punctuation">(</span><span class="token string">&apos;You &amp; Me&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;You &amp;amp; Me&apos;</span>
+</code></pre>
+<h2 id="escaperegexp">escapeRegExp</h2>
+<p>Escape special chars to be used as literals in RegExp constructors.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>string to escape</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Escaped string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">escapeRegExp</span><span class="token punctuation">(</span><span class="token string">&apos;[eris]&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;\\[eris\\]&apos;</span>
+</code></pre>
+<h2 id="evalcss">evalCss</h2>
+<p>Load css into page.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>css</td>
+<td>string</td>
+<td>Css code</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">evalCss</span><span class="token punctuation">(</span><span class="token string">&apos;body{background:#08c}&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="identity">identity</h2>
+<p>Return the first argument given.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Any value</td>
+</tr>
+<tr>
+<td>return</td>
+<td>*</td>
+<td>Given value</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">identity</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;a&apos;</span>
+</code></pre>
+<h2 id="repeat">repeat</h2>
+<p>Repeat string n-times.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>The string to repeat</td>
+</tr>
+<tr>
+<td>n</td>
+<td>number</td>
+<td>Repeat times</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Repeated string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">repeat</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;aaa&apos;</span>
+<span class="token function">repeat</span><span class="token punctuation">(</span><span class="token string">&apos;ab&apos;</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abab&apos;</span>
+<span class="token function">repeat</span><span class="token punctuation">(</span><span class="token string">&apos;*&apos;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;&apos;</span>
+</code></pre>
+<h2 id="objtostr">objToStr</h2>
+<p>Alias of Object.prototype.toString.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>*</td>
+<td>Source value</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>String representation of the given value</td>
+</tr>
+</tbody>
+</table>
+<h2 id="isargs">isArgs</h2>
+<p>Check if value is classified as an arguments object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>*</td>
+<td>Value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is an arguments object</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">isArgs</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="isarr">isArr</h2>
+<p>Check if value is an <code>Array</code> object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is an <code>Array</code> object</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isArr</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isArr</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; false</span>
+</code></pre>
+<h2 id="flatten">flatten</h2>
+<p>Recursively flatten an array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>array</td>
+<td>Array to flatten</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>New flattened array</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">flatten</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;b&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;c&apos;</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">&apos;d&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;e&apos;</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;]</span>
+</code></pre>
+<h2 id="isplainobj">isPlainObj</h2>
+<p>No documentation.</p>
+<h2 id="isfn">isFn</h2>
+<p>Check if value is a function.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a function</td>
+</tr>
+</tbody>
+</table>
+<p>Generator function is also classified as true.</p>
+<pre><code class="language-javascript"><span class="token function">isFn</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isFn</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isnum">isNum</h2>
+<p>Checks if value is classified as a Number primitive or object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is correctly classified, else false</td>
+</tr>
+</tbody>
+</table>
+<h2 id="indent">indent</h2>
+<p>Indent each line in a string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to indent</td>
+</tr>
+<tr>
+<td>[char]</td>
+<td>string</td>
+<td>Character to prepend</td>
+</tr>
+<tr>
+<td>[len]</td>
+<td>number</td>
+<td>Indent length</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Indented string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">indent</span><span class="token punctuation">(</span><span class="token string">&apos;foo\nbar&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos; &apos;</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;foo\n    bar&apos;</span>
+</code></pre>
+<h2 id="isarrlike">isArrLike</h2>
+<p>No documentation.</p>
+<h2 id="each">each</h2>
+<p>Iterates over elements of collection and invokes iteratee for each element.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object array</td>
+<td>Collection to iterate over</td>
+</tr>
+<tr>
+<td>iteratee</td>
+<td>function</td>
+<td>Function invoked per iteration</td>
+</tr>
+<tr>
+<td>[ctx]</td>
+<td>*</td>
+<td>Function context</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">each</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">&apos;b&apos;</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>val<span class="token punctuation">,</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="clonedeep">cloneDeep</h2>
+<p>No documentation.</p>
+<h2 id="createassigner">createAssigner</h2>
+<p>Used to create extend, extendOwn and defaults.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keysFn</td>
+<td>function</td>
+<td>Function to get object keys</td>
+</tr>
+<tr>
+<td>defaults</td>
+<td>boolean</td>
+<td>No override when set to true</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>The result function, extend...</td>
+</tr>
+</tbody>
+</table>
+<h2 id="defaults">defaults</h2>
+<p>Fill in undefined properties in object with the first value present in the following list of defaults objects.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>Destination object</td>
+</tr>
+<tr>
+<td>*src</td>
+<td>object</td>
+<td>Sources objects</td>
+</tr>
+<tr>
+<td>return</td>
+<td>object</td>
+<td>Destination object</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">defaults</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;RedHood&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;Unknown&apos;</span><span class="token punctuation">,</span> age<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; {name: &apos;RedHood&apos;, age: 24}</span>
+</code></pre>
+<h2 id="cookie">cookie</h2>
+<p>Simple api for handling browser cookies.</p>
+<h2 id="get-get-cookie-value-">get: get cookie value.</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>string</td>
+<td>Cookie key</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Corresponding cookie value</td>
+</tr>
+</tbody>
+</table>
+<h2 id="set-set-cookie-value-">set: set cookie value.</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>string</td>
+<td>Cookie key</td>
+</tr>
+<tr>
+<td>val</td>
+<td>string</td>
+<td>Cookie value</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>object</td>
+<td>Cookie options</td>
+</tr>
+<tr>
+<td>return</td>
+<td>exports</td>
+<td>Module cookie</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remove-remove-cookie-value-">remove: remove cookie value.</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>string</td>
+<td>Cookie key</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td>object</td>
+<td>Cookie options</td>
+</tr>
+<tr>
+<td>return</td>
+<td>exports</td>
+<td>Module cookie</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript">cookie<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;1&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>path<span class="token punctuation">:</span> <span class="token string">&apos;/&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+cookie<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;1&apos;</span>
+cookie<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="extend">extend</h2>
+<p>Copy all of the properties in the source objects over to the destination object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>Destination object</td>
+</tr>
+<tr>
+<td>*src</td>
+<td>object</td>
+<td>Sources objects</td>
+</tr>
+<tr>
+<td>return</td>
+<td>object</td>
+<td>Destination object</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;RedHood&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>age<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; {name: &apos;RedHood&apos;, age: 24}</span>
+</code></pre>
+<h2 id="clone">clone</h2>
+<p>No documentation.</p>
+<h2 id="extendown">extendOwn</h2>
+<p>Like extend, but only copies own properties over to the destination object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>Destination object</td>
+</tr>
+<tr>
+<td>*src</td>
+<td>object</td>
+<td>Sources objects</td>
+</tr>
+<tr>
+<td>return</td>
+<td>object</td>
+<td>Destination object</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">extendOwn</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;RedHood&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>age<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; {name: &apos;RedHood&apos;, age: 24}</span>
+</code></pre>
+<h2 id="extenddeep">extendDeep</h2>
+<p>No documentation.</p>
+<h2 id="invert">invert</h2>
+<p>Create an object composed of the inverted keys and values of object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>Object to invert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>object</td>
+<td>New inverted object</td>
+</tr>
+</tbody>
+</table>
+<p>If object contains duplicate values, subsequent values overwrite property
+assignments of previous values unless multiValue is true.</p>
+<pre><code class="language-javascript"><span class="token function">invert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token string">&apos;b&apos;</span><span class="token punctuation">,</span> c<span class="token punctuation">:</span> <span class="token string">&apos;d&apos;</span><span class="token punctuation">,</span> e<span class="token punctuation">:</span> <span class="token string">&apos;f&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; {b: &apos;a&apos;, d: &apos;c&apos;, f: &apos;e&apos;}</span>
+</code></pre>
+<h2 id="values">values</h2>
+<p>Creates an array of the own enumerable property values of object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>Object to query</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>Array of property values</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">values</span><span class="token punctuation">(</span><span class="token punctuation">{</span>one<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> two<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [1, 2]</span>
+</code></pre>
+<h2 id="contain">contain</h2>
+<p>No documentation.</p>
+<h2 id="isstr">isStr</h2>
+<p>Check if value is a string primitive.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a string primitive</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isStr</span><span class="token punctuation">(</span><span class="token string">&apos;eris&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isbool">isBool</h2>
+<p>Check if value is a boolean primitive.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a boolean</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isBool</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isBool</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isBool</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; false</span>
+</code></pre>
+<h2 id="isbuffer">isBuffer</h2>
+<p>Check if value is a buffer.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a buffer</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isBuffer</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Buffer</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isdate">isDate</h2>
+<p>Check if value is classified as a Date object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a Date object</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isDate</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isel">isEl</h2>
+<p>Check if value is a DOM element.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a DOM element</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isEl</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isempty">isEmpty</h2>
+<p>Check if value is an empty object or array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is empty</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isequal">isEqual</h2>
+<p>No documentation.</p>
+<h2 id="iserr">isErr</h2>
+<p>Check if value is an error.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is an error</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isErr</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="root">root</h2>
+<p>Root object reference, <code>global</code> in nodeJs, <code>window</code> in browser.</p>
+<h2 id="isfinite">isFinite</h2>
+<p>Check if value is a finite primitive number.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a finite number</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isFinite</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isFinite</span><span class="token punctuation">(</span><span class="token number">Infinity</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; false</span>
+</code></pre>
+<h2 id="isint">isInt</h2>
+<p>Checks if value is classified as a Integer.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is correctly classified, else false</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ismatch">isMatch</h2>
+<p>Check if keys and values in src are contained in obj.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>Object to inspect</td>
+</tr>
+<tr>
+<td>src</td>
+<td>object</td>
+<td>Object of property values to match</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if object is match</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isMatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="ismobile">isMobile</h2>
+<p>Check whether client is using a mobile browser using ua.</p>
+<h2 id="isnan">isNaN</h2>
+<p>Check if value is an NaN.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is an NaN</td>
+</tr>
+</tbody>
+</table>
+<p>Undefined is not an NaN, different from global isNaN function.</p>
+<pre><code class="language-javascript"><span class="token function">isNaN</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; false</span>
+<span class="token function">isNaN</span><span class="token punctuation">(</span><span class="token number">NaN</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isprimitive">isPrimitive</h2>
+<p>Check if value is string, number, boolean or null.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a primitive</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isregexp">isRegExp</h2>
+<p>Check if value is a regular expression.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>The value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is a regular expression</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isRegExp</span><span class="token punctuation">(</span><span class="token regex">/a/</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isrelative">isRelative</h2>
+<p>Check if path appears to be relative.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>Path to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if path appears to be relative</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isRelative</span><span class="token punctuation">(</span><span class="token string">&apos;README.md&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="loadjs">loadJs</h2>
+<p>Inject script tag into page with given src value.</p>
+<h2 id="size">size</h2>
+<p>Get size of object, length of array like object or the number of keys.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>array object</td>
+<td>Collection to inspect</td>
+</tr>
+<tr>
+<td>return</td>
+<td>number</td>
+<td>Collection size</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 2</span>
+<span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 3</span>
+</code></pre>
+<h2 id="longest">longest</h2>
+<p>Get the longest item in an array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>array</td>
+<td>Array to inspect</td>
+</tr>
+<tr>
+<td>return</td>
+<td>*</td>
+<td>Longest item</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">longest</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;abcde&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;abc&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abcde&apos;</span>
+</code></pre>
+<h2 id="lpad">lpad</h2>
+<p>Pad string on the left side if it&apos;s shorter than length.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>The string to pad</td>
+</tr>
+<tr>
+<td>len</td>
+<td>number</td>
+<td>The padding length</td>
+</tr>
+<tr>
+<td>chars</td>
+<td>string</td>
+<td>The string used as padding</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Resulted string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">lpad</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;    a&apos;</span>
+<span class="token function">lpad</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">&apos;-&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;----a&apos;</span>
+<span class="token function">lpad</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">&apos;-&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abc&apos;</span>
+<span class="token function">lpad</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">&apos;ab&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;ababc&apos;</span>
+</code></pre>
+<h2 id="ltrim">ltrim</h2>
+<p>Remove chars or white-spaces from beginning of string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to trim</td>
+</tr>
+<tr>
+<td>chars</td>
+<td>string array</td>
+<td>Characters to trim</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Trimmed string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">ltrim</span><span class="token punctuation">(</span><span class="token string">&apos; abc  &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abc  &apos;</span>
+<span class="token function">ltrim</span><span class="token punctuation">(</span><span class="token string">&apos;_abc_&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;_&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abc_&apos;</span>
+<span class="token function">ltrim</span><span class="token punctuation">(</span><span class="token string">&apos;_abc_&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;_&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;bc_&apos;</span>
+</code></pre>
+<h2 id="matcher">matcher</h2>
+<p>No documentation.</p>
+<h2 id="negate">negate</h2>
+<p>Create a function that negates the result of the predicate function.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>predicate</td>
+<td>function</td>
+<td>Predicate to negate</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>New function</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">even</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span> <span class="token punctuation">}</span>
+<span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token function">negate</span><span class="token punctuation">(</span>even<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [1, 3, 5]</span>
+</code></pre>
+<h2 id="noop">noop</h2>
+<p>A no-operation function.</p>
+<h2 id="now">now</h2>
+<p>Gets the number of milliseconds that have elapsed since the Unix epoch.</p>
+<h2 id="optimizecb">optimizeCb</h2>
+<p>No documentation.</p>
+<h2 id="safecb">safeCb</h2>
+<p>function
+safeCb: Create callback based on input value.</p>
+<h2 id="every">every</h2>
+<p>Check if predicate return truthy for all elements.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>array object</td>
+<td>Collection to iterate over</td>
+</tr>
+<tr>
+<td>predicate</td>
+<td>function</td>
+<td>Function invoked per iteration</td>
+</tr>
+<tr>
+<td>ctx</td>
+<td>*</td>
+<td>Predicate context</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if all elements pass the predicate check</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">every</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> val <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; false</span>
+</code></pre>
+<h2 id="filter">filter</h2>
+<p>Iterates over elements of collection, returning an array of all the values that pass a truth test.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>array</td>
+<td>Collection to iterate over</td>
+</tr>
+<tr>
+<td>predicate</td>
+<td>function</td>
+<td>Function invoked per iteration</td>
+</tr>
+<tr>
+<td>[ctx]</td>
+<td>*</td>
+<td>Predicate context</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>Array of all values that pass predicate</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> val <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [2, 4]</span>
+</code></pre>
+<h2 id="difference">difference</h2>
+<p>Create an array of unique array values not included in the other given array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>array</td>
+<td>Array to inspect</td>
+</tr>
+<tr>
+<td>[rest]</td>
+<td>...array</td>
+<td>Values to exclude</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>New array of filtered values</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">difference</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [3, 1]</span>
+</code></pre>
+<h2 id="findkey">findKey</h2>
+<p>Return the key where the predicate truth test passes or undefined.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>Object to search</td>
+</tr>
+<tr>
+<td>predicate</td>
+<td>function</td>
+<td>Function invoked per iteration</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>The key of matched element</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">findKey</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> val <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; a</span>
+</code></pre>
+<h2 id="map">map</h2>
+<p>Create an array of values by running each element in collection through iteratee.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>array object</td>
+<td>Collection to iterate over</td>
+</tr>
+<tr>
+<td>iteratee</td>
+<td>function</td>
+<td>Function invoked per iteration</td>
+</tr>
+<tr>
+<td>[ctx]</td>
+<td>*</td>
+<td>Function context</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>New mapped array</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> n <span class="token operator">*</span> n<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [16, 64]</span>
+</code></pre>
+<h2 id="toarr">toArr</h2>
+<p>Convert value to an array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>Converted array</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">toArr</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [{a: 1, b: 2}]</span>
+<span class="token function">toArr</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;abc&apos;]</span>
+<span class="token function">toArr</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; []</span>
+<span class="token function">toArr</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; []</span>
+</code></pre>
+<h2 id="class">Class</h2>
+<p>Create JavaScript class.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>methods</td>
+<td>object</td>
+<td>Public methods</td>
+</tr>
+<tr>
+<td>statics</td>
+<td>object</td>
+<td>Static methods</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>Function used to create instances</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> People <span class="token operator">=</span> <span class="token function">Class</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    initialize<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    introduce<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&apos;I am &apos;</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">&apos;, &apos;</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">+</span> <span class="token string">&apos; years old.&apos;</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> Student <span class="token operator">=</span> People<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    initialize<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">,</span> school<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">callSuper</span><span class="token punctuation">(</span><span class="token string">&apos;initialize&apos;</span><span class="token punctuation">,</span> name<span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>school <span class="token operator">=</span> school<span class="token punctuation">.</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    introduce<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">callSuper</span><span class="token punctuation">(</span><span class="token string">&apos;introduce&apos;</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&apos;\n I study at &apos;</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>school <span class="token operator">+</span> <span class="token string">&apos;.&apos;</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    is<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> obj <span class="token keyword">instanceof</span> <span class="token class-name">Student</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token string">&apos;allen&apos;</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">,</span> <span class="token string">&apos;Hogwarts&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+a<span class="token punctuation">.</span><span class="token function">introduce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;I am allen, 17 years old. \n I study at Hogwarts.&apos;</span>
+Student<span class="token punctuation">.</span><span class="token function">is</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="emitter">Emitter</h2>
+<p>No documentation.</p>
+<h2 id="select">Select</h2>
+<p>jQuery like dom manipulator.</p>
+<h2 id="-safenodes">$safeNodes</h2>
+<p>No documentation.</p>
+<h2 id="-attr">$attr</h2>
+<p>No documentation.</p>
+<h2 id="-data">$data</h2>
+<p>No documentation.</p>
+<h2 id="-css">$css</h2>
+<p>No documentation.</p>
+<h2 id="-insert">$insert</h2>
+<p>No documentation.</p>
+<h2 id="-offset">$offset</h2>
+<p>No documentation.</p>
+<h2 id="-property">$property</h2>
+<p>No documentation.</p>
+<h2 id="-remove">$remove</h2>
+<p>No documentation.</p>
+<h2 id="-show">$show</h2>
+<p>No documentation.</p>
+<h2 id="uri">Uri</h2>
+<p>No documentation.</p>
+<h2 id="delegate">delegate</h2>
+<p>No documentation.</p>
+<h2 id="-event">$event</h2>
+<p>No documentation.</p>
+<h2 id="max">max</h2>
+<p>Get maximum value of given numbers.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>...number</td>
+<td>Numbers to calculate</td>
+</tr>
+<tr>
+<td>return</td>
+<td>number</td>
+<td>Maximum value</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">2.3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4.5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 4.5</span>
+</code></pre>
+<h2 id="min">min</h2>
+<p>Get minimum value of given numbers.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>...number</td>
+<td>Numbers to calculate</td>
+</tr>
+<tr>
+<td>return</td>
+<td>number</td>
+<td>Minimum value</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">min</span><span class="token punctuation">(</span><span class="token number">2.3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4.5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1</span>
+</code></pre>
+<h2 id="partial">partial</h2>
+<p>Partially apply a function by filling in given arguments.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fn</td>
+<td>function</td>
+<td>Function to partially apply arguments to</td>
+</tr>
+<tr>
+<td>partials</td>
+<td>...*</td>
+<td>Arguments to be partially applied</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>New partially applied function</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> sub5 <span class="token operator">=</span> <span class="token function">partial</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> b <span class="token operator">-</span> a <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">sub</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 15</span>
+</code></pre>
+<h2 id="once">once</h2>
+<p>Create a function that invokes once.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fn</td>
+<td>function</td>
+<td>Function to restrict</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>New restricted function</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> initOnce <span class="token operator">=</span> <span class="token function">once</span><span class="token punctuation">(</span>init<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">initOnce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">initOnce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; init is invoked once</span>
+</code></pre>
+<h2 id="some">some</h2>
+<p>Check if predicate return truthy for any element.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>array object</td>
+<td>Collection to iterate over</td>
+</tr>
+<tr>
+<td>predicate</td>
+<td>function</td>
+<td>Function to invoked per iteration</td>
+</tr>
+<tr>
+<td>ctx</td>
+<td>*</td>
+<td>Predicate context</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if any element passes the predicate check</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">some</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> val <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="-class">$class</h2>
+<p>No documentation.</p>
+<h2 id="-">$</h2>
+<p>jQuery like style dom manipulator.</p>
+<h2 id="state">State</h2>
+<p>No documentation.</p>
+<h2 id="pad">pad</h2>
+<p>Pad string on the left and right sides if it&apos;s shorter than length.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>The string to pad</td>
+</tr>
+<tr>
+<td>len</td>
+<td>number</td>
+<td>The padding length</td>
+</tr>
+<tr>
+<td>chars</td>
+<td>string</td>
+<td>The string used as padding</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Resulted string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">pad</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;  a  &apos;</span>
+<span class="token function">pad</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">&apos;-&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;--a--&apos;</span>
+<span class="token function">pad</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">&apos;-&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abc&apos;</span>
+<span class="token function">pad</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">&apos;ab&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;babca&apos;</span>
+<span class="token function">pad</span><span class="token punctuation">(</span><span class="token string">&apos;ab&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">&apos;ab&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;ababa&apos;</span>
+</code></pre>
+<h2 id="upperfirst">upperFirst</h2>
+<p>Convert the first character of string to upper case.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Converted string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">upperFirst</span><span class="token punctuation">(</span><span class="token string">&apos;red&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; RED</span>
+</code></pre>
+<h2 id="pascalcase">pascalCase</h2>
+<p>Convert string to &quot;pascalCase&quot;.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Pascal cased string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">pascalCase</span><span class="token punctuation">(</span><span class="token string">&apos;fooBar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; FooBar</span>
+<span class="token function">pascalCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; FooBar</span>
+<span class="token function">pascalCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo_bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; FooBar</span>
+<span class="token function">pascalCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo.bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; FooBar</span>
+</code></pre>
+<h2 id="random">random</h2>
+<p>Produces a random number between min and max(inclusive).</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min</td>
+<td>number</td>
+<td>The minimum possible value</td>
+</tr>
+<tr>
+<td>max</td>
+<td>number</td>
+<td>The maximum possible value</td>
+</tr>
+<tr>
+<td>return</td>
+<td>number</td>
+<td>The random number</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">random</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; an integer between 0 and 5</span>
+<span class="token function">random</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; an integer between 0 and 5</span>
+<span class="token function">random</span><span class="token punctuation">(</span><span class="token number">1.2</span><span class="token punctuation">,</span> <span class="token number">5.2</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/// -&gt; a floating-point number between 1.2 and 5.2</span>
+</code></pre>
+<h2 id="rpad">rpad</h2>
+<p>Pad string on the right side if it&apos;s shorter than length.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>The string to pad</td>
+</tr>
+<tr>
+<td>len</td>
+<td>number</td>
+<td>Padding length</td>
+</tr>
+<tr>
+<td>chars</td>
+<td>string</td>
+<td>String used as padding</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Resulted string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">rpad</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;a    &apos;</span>
+<span class="token function">rpad</span><span class="token punctuation">(</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">&apos;-&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;a----&apos;</span>
+<span class="token function">rpad</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">&apos;-&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abc&apos;</span>
+<span class="token function">rpad</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">&apos;ab&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abcab&apos;</span>
+</code></pre>
+<h2 id="rtrim">rtrim</h2>
+<p>Remove chars or white-spaces from end of string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to trim</td>
+</tr>
+<tr>
+<td>chars</td>
+<td>string array</td>
+<td>Characters to trim</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Trimmed string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">rtrim</span><span class="token punctuation">(</span><span class="token string">&apos; abc  &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos; abc&apos;</span>
+<span class="token function">rtrim</span><span class="token punctuation">(</span><span class="token string">&apos;_abc_&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;_&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;_abc&apos;</span>
+<span class="token function">rtrim</span><span class="token punctuation">(</span><span class="token string">&apos;_abc_&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;c&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;_&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;_ab&apos;</span>
+</code></pre>
+<h2 id="trim">trim</h2>
+<p>Remove chars or white-spaces from beginning end of string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to trim</td>
+</tr>
+<tr>
+<td>chars</td>
+<td>string array</td>
+<td>Characters to trim</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Trimmed string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos; abc  &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abc&apos;</span>
+<span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos;_abc_&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;_&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;abc&apos;</span>
+<span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos;_abc_&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;c&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;_&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;b&apos;</span>
+</code></pre>
+<h2 id="extractblockcmts">extractBlockCmts</h2>
+<p>Extract block comments from source code.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to extract</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>Block comments</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">extractBlockCmts</span><span class="token punctuation">(</span><span class="token string">&apos;\/*eris*\/&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;eris&apos;]</span>
+</code></pre>
+<h2 id="snakecase">snakeCase</h2>
+<p>Convert string to &quot;snakeCase&quot;.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Snake cased string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">snakeCase</span><span class="token punctuation">(</span><span class="token string">&apos;fooBar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo_bar</span>
+<span class="token function">snakeCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo_bar</span>
+<span class="token function">snakeCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo.bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo_bar</span>
+</code></pre>
+<h2 id="spacecase">spaceCase</h2>
+<p>Convert string to &quot;spaceCase&quot;.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Space cased string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">spaceCase</span><span class="token punctuation">(</span><span class="token string">&apos;fooBar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo bar</span>
+<span class="token function">spaceCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo.bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo bar</span>
+<span class="token function">spaceCase</span><span class="token punctuation">(</span><span class="token string">&apos;foo.bar&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; foo bar</span>
+</code></pre>
+<h2 id="startwith">startWith</h2>
+<p>Check if string starts with the given target string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>The string to search</td>
+</tr>
+<tr>
+<td>prefix</td>
+<td>string</td>
+<td>String prefix</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if string starts with prefix</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">startWith</span><span class="token punctuation">(</span><span class="token string">&apos;ab&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;a&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="stripansi">stripAnsi</h2>
+<p>Strip ansi codes from a string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to strip</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Resulted string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">stripAnsi</span><span class="token punctuation">(</span><span class="token string">&apos;\u001b[4mcake\u001b[0m&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;cake&apos;</span>
+</code></pre>
+<h2 id="stripcmt">stripCmt</h2>
+<p>Strip comments from source code.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>Source code</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Code without comments</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">stripCmts</span><span class="token punctuation">(</span>&apos;<span class="token comment" spellcheck="true">// comment \n var a = 5; /* comment2\n * comment3\n *\/&apos;); // -&gt; &apos; var a = 5; &apos;</span>
+</code></pre>
+<h2 id="stripcolor">stripColor</h2>
+<p>Strip ansi color codes from a string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to strip</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Resulted string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">stripColor</span><span class="token punctuation">(</span><span class="token string">&apos;\u001b[31mred\u001b[39m&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;red&apos;</span>
+</code></pre>
+<h2 id="striphtmltag">stripHtmlTag</h2>
+<p>Strip html tags from a string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to strip</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Resulted string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">stripHtmlTag</span><span class="token punctuation">(</span><span class="token string">&apos;&lt;p&gt;Hello&lt;/p&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;Hello&apos;</span>
+</code></pre>
+<h2 id="template">template</h2>
+<p>No documentation.</p>
+<h2 id="tonum">toNum</h2>
+<p>Convert value to a number.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to process</td>
+</tr>
+<tr>
+<td>return</td>
+<td>number</td>
+<td>Resulted number</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">toNum</span><span class="token punctuation">(</span><span class="token string">&apos;5&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 5</span>
+</code></pre>
+<h2 id="toint">toInt</h2>
+<p>Convert value to an integer.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>number</td>
+<td>Converted integer</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">toInt</span><span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 1</span>
+</code></pre>
+<h2 id="tostr">toStr</h2>
+<p>Convert value to a string.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>*</td>
+<td>Value to convert</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Resulted string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">toStr</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;&apos;</span>
+<span class="token function">toStr</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;1&apos;</span>
+<span class="token function">toStr</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;false&apos;</span>
+<span class="token function">toStr</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;1,2,3&apos;</span>
+</code></pre>
+<h2 id="toposort">topoSort</h2>
+<p>Topological sorting algorithm.</p>
+<h2 id="unescape">unescape</h2>
+<p>Convert HTML entities back, the inverse of escape.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>String to unescape</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>unescaped string</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">unescape</span><span class="token punctuation">(</span><span class="token string">&apos;You &amp;amp; Me&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;You &amp; Me&apos;</span>
+</code></pre>
+<h2 id="unique">unique</h2>
+<p>Create duplicate-free version of an array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>array</td>
+<td>Array to inspect</td>
+</tr>
+<tr>
+<td>[compare]</td>
+<td>function</td>
+<td>Function for comparing values</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>New duplicate free array</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">unique</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [1, 2, 3]</span>
+</code></pre>
+<h2 id="union">union</h2>
+<p>Create an array of unique values, in order, from all given arrays.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>...array</td>
+<td>Arrays to inspect</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>New array of combined values</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">union</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [2, 1, 4]</span>
+</code></pre>
+<h2 id="uniqid">uniqId</h2>
+<p>Generate a globally-unique id.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prefix</td>
+<td>string</td>
+<td>Id prefix</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Globally-unique id</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">uniqueId</span><span class="token punctuation">(</span><span class="token string">&apos;eusita_&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;eustia_xxx&apos;</span>
+</code></pre>
+<h2 id="use">use</h2>
+<p>No documentation.</p>
+<h2 id="wrap">wrap</h2>
+<p>Wrap the function inside a wrapper function, passing it as the first argument.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fn</td>
+<td>*</td>
+<td>Function to wrap</td>
+</tr>
+<tr>
+<td>wrapper</td>
+<td>function</td>
+<td>Wrapper function</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>New function</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> p <span class="token operator">=</span> <span class="token function">wrap</span><span class="token punctuation">(</span>escape<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> text<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">&apos;&lt;p&gt;&apos;</span> <span class="token operator">+</span> <span class="token function">fn</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&apos;&lt;/p&gt;&apos;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">p</span><span class="token punctuation">(</span><span class="token string">&apos;You &amp; Me&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;&lt;p&gt;You &amp;amp; Me&lt;/p&gt;&apos;</span>
+</code></pre>
+</div></div><footer>Built for <a href="https://github.com/liriliri">Liriliri</a> project 2014-2016</footer></body></html>
