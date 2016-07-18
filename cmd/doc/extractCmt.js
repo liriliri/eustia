@@ -38,7 +38,7 @@ function process(data)
         if (!util.isEmpty(comments)) ret[name] = indentOneSpace(comments[0]);
     });
 
-    return ret;
+    return sortKeys(ret);
 }
 
 var regSeparator = /\/\* -{30} [\$\w]+ -{30} \*\//;
@@ -53,4 +53,32 @@ var regStartOneSpace = /^ /mg;
 function indentOneSpace(data)
 {
     return data.replace(regStartOneSpace, '');
+}
+
+function sortKeys(data)
+{
+    var arr = [],
+        ret = {};
+
+    util.each(data, function (val, key)
+    {
+        arr.push({
+            key: key,
+            val: val
+        });
+    });
+
+    arr.sort(function (a, b)
+    {
+        if (a.key === b.key) return 0;
+        if (a.key > b.key) return 1;
+        return -1;
+    });
+
+    arr.forEach(function (val)
+    {
+        ret[val.key] = val.val;
+    });
+
+    return ret;
 }
