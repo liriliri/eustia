@@ -87,7 +87,7 @@ passing options.
 
 Materials must be prepared first to cook a good meal. Right now, our materials 
 is a bunch of small modules. Eustia provides many 
-[utilities](http://liriliri.github.io/eustia/eris.html) itself(currently under 
+[utilities](http://liriliri.github.io/eustia/module.html) itself(currently under 
 development). Still, there are times you want to add your own ones. 
 To achieve that, create a directory named **eustia** in the root directory.
 
