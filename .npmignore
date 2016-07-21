@@ -2,6 +2,7 @@
 /test/
 /dev/
 /playground/
+/doc/
 /cache/*.js
 .gitignore
 .npmignore

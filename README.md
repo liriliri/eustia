@@ -2,7 +2,11 @@
     <img src="http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia.jpg">
 </a>
 
+[中文](https://github.com/liriliri/eustia/blob/master/doc/Readme_CH.md)
+
 # Eustia
+
+[![npm version](https://badge.fury.io/js/eustia.svg)](https://badge.fury.io/js/eustia)
 
 Eustia is a tool for generating JavaScript utility libraries. It scans your code 
 to generate libraries containing only methods needed on the fly.
@@ -100,11 +104,11 @@ Then fills it with actual codes to finish the procedure.
 _('isStr each'); // dependencies
 
 // export object
-exports = function (v1, v2)
+function exports(v1, v2)
 {
     if (!isStr(v1) || !isStr(v2)) return;
     ...
-};
+}
 ```
 
 Now you can use **compareVersion** anywhere in your project.
