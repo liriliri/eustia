@@ -405,8 +405,9 @@ $property<span class="token punctuation">.</span><span class="token function">ht
 </tr>
 </tbody>
 </table>
-<pre><code>$safeEls(&apos;.test&apos;); // -&gt; Array of elements with test class
-</code></pre><h2 id="-show">$show</h2>
+<pre><code class="language-javascript"><span class="token function">$safeEls</span><span class="token punctuation">(</span><span class="token string">&apos;.test&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; Array of elements with test class</span>
+</code></pre>
+<h2 id="-show">$show</h2>
 <p>Show elements.</p>
 <table>
 <thead>
@@ -489,7 +490,80 @@ a<span class="token punctuation">.</span><span class="token function">introduce<
 Student<span class="token punctuation">.</span><span class="token function">is</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 </code></pre>
 <h2 id="emitter">Emitter</h2>
-<p>TODO</p>
+<p>Event emitter class which provides observer pattern.</p>
+<h3 id="on">on</h3>
+<p>Bind event.</p>
+<h3 id="off">off</h3>
+<p>Unbind event.</p>
+<h3 id="once">once</h3>
+<p>Bind event that trigger once.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+<td>string</td>
+<td>Event name</td>
+</tr>
+<tr>
+<td>listener</td>
+<td>function</td>
+<td>Event listener</td>
+</tr>
+</tbody>
+</table>
+<h3 id="emit">emit</h3>
+<p>Emit event.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+<td>string</td>
+<td>Event name</td>
+</tr>
+<tr>
+<td>...args</td>
+<td>*</td>
+<td>Arguments passed to listener</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mixin">mixin</h3>
+<p>[static] Mixin object class methods.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>object</td>
+<td>Object to mixin</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> event <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Emitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+event<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;test&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;test&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+event<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">&apos;test&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Logs out &apos;test&apos;.</span>
+Emitter<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="select">Select</h2>
 <p>Simple wrapper of querySelectorAll to make dom selection easier.</p>
 <h3 id="constructor">Constructor</h3>
@@ -908,7 +982,43 @@ cookie<span class="token punctuation">.</span><span class="token function">remov
 <pre><code class="language-javascript"><span class="token function">defaults</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;RedHood&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;Unknown&apos;</span><span class="token punctuation">,</span> age<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; {name: &apos;RedHood&apos;, age: 24}</span>
 </code></pre>
 <h2 id="define">define</h2>
-<p>TODO</p>
+<p>Define a module, should be used along with use.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Module name</td>
+</tr>
+<tr>
+<td>[requires]</td>
+<td>array</td>
+<td>Dependencies</td>
+</tr>
+<tr>
+<td>method</td>
+<td>function</td>
+<td>Module body</td>
+</tr>
+</tbody>
+</table>
+<p>The module won&apos;t be executed until it&apos;s used by use function.</p>
+<pre><code class="language-javascript"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string">&apos;A&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">&apos;A&apos;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">define</span><span class="token punctuation">(</span><span class="token string">&apos;B&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;A&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>A<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">&apos;B&apos;</span> <span class="token operator">+</span> A<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="delay">delay</h2>
 <p>Invoke function after certain milliseconds.</p>
 <table>
@@ -2340,8 +2450,8 @@ assignments of previous values unless multiValue is true.</p>
 </thead>
 <tbody>
 <tr>
-<td>num</td>
-<td>...number</td>
+<td>...num</td>
+<td>number</td>
 <td>Numbers to calculate</td>
 </tr>
 <tr>
@@ -3338,7 +3448,37 @@ assignments of previous values unless multiValue is true.</p>
 <pre><code class="language-javascript"><span class="token function">upperFirst</span><span class="token punctuation">(</span><span class="token string">&apos;red&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; RED</span>
 </code></pre>
 <h2 id="use">use</h2>
-<p>TODO</p>
+<p>Use modules that is created by define.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[requires]</td>
+<td>array</td>
+<td>Dependencies</td>
+</tr>
+<tr>
+<td>method</td>
+<td>function</td>
+<td>Codes to be executed</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string">&apos;A&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">&apos;A&apos;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">use</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;A&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>A<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>A <span class="token operator">+</span> <span class="token string">&apos;B&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;AB&apos;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="values">values</h2>
 <p>Creates an array of the own enumerable property values of object.</p>
 <table>
