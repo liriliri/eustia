@@ -14,6 +14,14 @@ describe('build', function ()
         ignore: '**/*.ignore.js',
         include: 'stripColor',
         exclude: 'endWith',
+        extension: ['js', 'txt'],
+        transpiler: {
+            test: /\.txt$/,
+            handler: function (src)
+            {
+                return 'exports = "' + src + '";';
+            }
+        },
         library: path.resolve(__dirname, 'build/eustia'),
         format: 'commonjs'
     });
@@ -124,6 +132,18 @@ describe('build', function ()
             expect(util.trim).to.be.a('function');
             expect(util.ltrim).to.be.a('function');
             expect(util.rtrim).to.be.a('function');
+
+            done();
+        });
+    });
+
+    it('transpiler', function (done)
+    {
+        buildBasic(function (err, util)
+        {
+            if (err) return done(err);
+
+            expect(util.eustiaStr).to.equal('eustia');
 
             done();
         });
