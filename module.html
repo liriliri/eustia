@@ -313,7 +313,7 @@ $<span class="token keyword">class</span><span class="token punctuation">.</span
 <span class="token function">$css</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;color&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; #fff</span>
 </code></pre>
 <h2 id="-data">$data</h2>
-<p>Data manipulation TODO</p>
+<p>Wrapper of $attr, adds data- prefix to keys.</p>
 <pre><code class="language-javascript"><span class="token function">$data</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;attr1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;eustia&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="-event">$event</h2>
@@ -324,8 +324,45 @@ $<span class="token keyword">class</span><span class="token punctuation">.</span
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="-insert">$insert</h2>
-<p>Insert html on different position. TODO</p>
-<pre><code class="language-javascript">$insert<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;&lt;div&gt;test&lt;/div&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>Insert html on different position.</p>
+<h3 id="before">before</h3>
+<p>Insert content before elements.</p>
+<h3 id="after">after</h3>
+<p>Insert content after elements.</p>
+<h3 id="prepend">prepend</h3>
+<p>Insert content to the beginning of elements.</p>
+<h3 id="append">append</h3>
+<p>Insert content to the end of elements.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>element</td>
+<td>string array element</td>
+<td>Elements to manipulate</td>
+</tr>
+<tr>
+<td>content</td>
+<td>string</td>
+<td>Html strings</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token comment" spellcheck="true">// &lt;div id=&quot;test&quot;&gt;&lt;div class=&quot;mark&quot;&gt;&lt;/div&gt;&lt;/div&gt;</span>
+$insert<span class="token punctuation">.</span><span class="token function">before</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;&lt;div&gt;eris&lt;/div&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// -&gt; &lt;div&gt;eris&lt;/div&gt;&lt;div id=&quot;test&quot;&gt;&lt;div class=&quot;mark&quot;&gt;&lt;/div&gt;&lt;/div&gt;</span>
+$insert<span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;&lt;div&gt;eris&lt;/div&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// -&gt; &lt;div id=&quot;test&quot;&gt;&lt;div class=&quot;mark&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;eris&lt;/div&gt;</span>
+$insert<span class="token punctuation">.</span><span class="token function">prepend</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;&lt;div&gt;eris&lt;/div&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// -&gt; &lt;div id=&quot;test&quot;&gt;&lt;div&gt;eris&lt;/div&gt;&lt;div class=&quot;mark&quot;&gt;&lt;/div&gt;&lt;/div&gt;</span>
+$insert<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;&lt;div&gt;eris&lt;/div&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// -&gt; &lt;div id=&quot;test&quot;&gt;&lt;div class=&quot;mark&quot;&gt;&lt;/div&gt;&lt;div&gt;eris&lt;/div&gt;&lt;/div&gt;</span>
 </code></pre>
 <h2 id="-offset">$offset</h2>
 <p>Get the position of the element in document.</p>
@@ -566,7 +603,7 @@ Emitter<span class="token punctuation">.</span><span class="token function">mixi
 </code></pre>
 <h2 id="select">Select</h2>
 <p>Simple wrapper of querySelectorAll to make dom selection easier.</p>
-<h3 id="constructor">Constructor</h3>
+<h3 id="constructor">constructor</h3>
 <table>
 <thead>
 <tr>
@@ -583,10 +620,116 @@ Emitter<span class="token punctuation">.</span><span class="token function">mixi
 </tr>
 </tbody>
 </table>
-<pre><code class="language-javascript"><span class="token keyword">var</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Select</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3 id="find">find</h3>
+<p>Get desdendants of current matched elements.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td>string</td>
+<td>Dom selector string</td>
+</tr>
+</tbody>
+</table>
+<h3 id="each">each</h3>
+<p>Iterate over matched elements.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fn</td>
+<td>function</td>
+<td>Function to execute for each element</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> $test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Select</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+$test<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">&apos;.test&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>idx<span class="token punctuation">,</span> element<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Manipulate dom nodes</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="state">State</h2>
-<p>TODO</p>
+<p>Simple state machine.</p>
+<p>Extends from Emitter.</p>
+<h3 id="constructor">constructor</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>initial</td>
+<td>string</td>
+<td>Initial state</td>
+</tr>
+<tr>
+<td>events</td>
+<td>string</td>
+<td>Events to change state</td>
+</tr>
+</tbody>
+</table>
+<h3 id="is">is</h3>
+<p>Check current state.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>string</td>
+<td>State to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if current state equals given value</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token keyword">var</span> state <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">State</span><span class="token punctuation">(</span><span class="token string">&apos;empty&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    load<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token string">&apos;empty&apos;</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">&apos;pause&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    play<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token string">&apos;pause&apos;</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">&apos;play&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    pause<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;play&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;empty&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">&apos;pause&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    unload<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;play&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;pause&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">&apos;empty&apos;</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+state<span class="token punctuation">.</span><span class="token function">is</span><span class="token punctuation">(</span><span class="token string">&apos;empty&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+state<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+state<span class="token punctuation">.</span><span class="token function">is</span><span class="token punctuation">(</span><span class="token string">&apos;pause&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+state<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;play&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>src<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;eustia&apos;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+state<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;error&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>err<span class="token punctuation">,</span> event<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Error handler</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+state<span class="token punctuation">.</span><span class="token function">play</span><span class="token punctuation">(</span><span class="token string">&apos;eustia&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="uri">Uri</h2>
 <p>TODO</p>
 <h2 id="after">after</h2>
@@ -620,6 +763,117 @@ Emitter<span class="token punctuation">.</span><span class="token function">mixi
 <pre><code class="language-javascript"><span class="token keyword">var</span> fn <span class="token operator">=</span> <span class="token function">after</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">// -&gt; Only invoke after fn is called 5 times.</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="ajax">ajax</h2>
+<p>Perform an asynchronous HTTP request.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td>object</td>
+<td>Ajax options</td>
+</tr>
+</tbody>
+</table>
+<p>Available options:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Request url</td>
+</tr>
+<tr>
+<td>data</td>
+<td>string object</td>
+<td>Request data</td>
+</tr>
+<tr>
+<td>dataType=json</td>
+<td>string</td>
+<td>Response type</td>
+</tr>
+<tr>
+<td>success</td>
+<td>function</td>
+<td>Success callback</td>
+</tr>
+<tr>
+<td>error</td>
+<td>function</td>
+<td>Error callback</td>
+</tr>
+<tr>
+<td>complete</td>
+<td>function</td>
+<td>Callback after request</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get">get</h3>
+<p>Shortcut for type = GET;</p>
+<h3 id="post">post</h3>
+<p>Shortcut for type = POST;</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Request url</td>
+</tr>
+<tr>
+<td>data</td>
+<td>string object</td>
+<td>Request data</td>
+</tr>
+<tr>
+<td>success</td>
+<td>function</td>
+<td>Success callback</td>
+</tr>
+<tr>
+<td>dataType</td>
+<td>function</td>
+<td>Response type</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> <span class="token string">&apos;http://example.com&apos;</span><span class="token punctuation">,</span>
+    data<span class="token punctuation">:</span> <span class="token punctuation">{</span>test<span class="token punctuation">:</span> <span class="token string">&apos;true&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    error<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    success<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    dataType<span class="token punctuation">:</span> <span class="token string">&apos;json&apos;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ajax<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">&apos;http://example.com&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="allkeys">allKeys</h2>
@@ -1726,6 +1980,9 @@ assignments of previous values unless multiValue is true.</p>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>Function returns false.</p>
+</blockquote>
 <pre><code class="language-javascript"><span class="token function">isArrLike</span><span class="token punctuation">(</span><span class="token string">&apos;test&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 <span class="token function">isArrLike</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>children<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true;</span>
 <span class="token function">isArrLike</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
@@ -1753,8 +2010,8 @@ assignments of previous values unless multiValue is true.</p>
 </tr>
 </tbody>
 </table>
-<pre><code class="language-javascript"><span class="token function">isBool</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
-<span class="token function">isBool</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<pre><code class="language-javascript"><span class="token function">isBool</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isBool</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 <span class="token function">isBool</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; false</span>
 </code></pre>
 <h2 id="isbuffer">isBuffer</h2>
@@ -2020,7 +2277,30 @@ assignments of previous values unless multiValue is true.</p>
 <pre><code class="language-javascript"><span class="token function">isMatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 </code></pre>
 <h2 id="ismobile">isMobile</h2>
-<p>Check whether client is using a mobile browser using ua. TODO</p>
+<p>Check whether client is using a mobile browser using ua.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ua</td>
+<td>string</td>
+<td>User agent</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if ua belongs to mobile browsers</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isMobile</span><span class="token punctuation">(</span>navigator<span class="token punctuation">.</span>userAgent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="isnan">isNaN</h2>
 <p>Check if value is an NaN.</p>
 <table>
@@ -2047,6 +2327,31 @@ assignments of previous values unless multiValue is true.</p>
 <p>Undefined is not an NaN, different from global isNaN function.</p>
 <pre><code class="language-javascript"><span class="token function">isNaN</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; false</span>
 <span class="token function">isNaN</span><span class="token punctuation">(</span><span class="token number">NaN</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+</code></pre>
+<h2 id="isnull">isNull</h2>
+<p>Check if value is an Null.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>*</td>
+<td>Value to check</td>
+</tr>
+<tr>
+<td>return</td>
+<td>boolean</td>
+<td>True if value is an Null</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">isNull</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 </code></pre>
 <h2 id="isnum">isNum</h2>
 <p>Checks if value is classified as a Number primitive or object.</p>
@@ -2125,7 +2430,7 @@ assignments of previous values unless multiValue is true.</p>
 </table>
 <pre><code class="language-javascript"><span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 <span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
-<span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 </code></pre>
 <h2 id="isregexp">isRegExp</h2>
 <p>Check if value is a regular expression.</p>
@@ -2488,6 +2793,40 @@ assignments of previous values unless multiValue is true.</p>
 </table>
 <pre><code class="language-javascript"><span class="token function">min</span><span class="token punctuation">(</span><span class="token number">2.3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4.5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1</span>
 </code></pre>
+<h2 id="mkdir">mkdir</h2>
+<p>Recursively create directories.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dir</td>
+<td>string</td>
+<td>Directory to create</td>
+</tr>
+<tr>
+<td>[mode=0777]</td>
+<td>number</td>
+<td>Directory mode</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>function</td>
+<td>Callback</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">mkdir</span><span class="token punctuation">(</span><span class="token string">&apos;/tmp/foo/bar/baz&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Done&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="negate">negate</h2>
 <p>Create a function that negates the result of the predicate function.</p>
 <table>
@@ -2705,7 +3044,7 @@ assignments of previous values unless multiValue is true.</p>
 </table>
 <pre><code class="language-javascript"><span class="token function">random</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; an integer between 0 and 5</span>
 <span class="token function">random</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; an integer between 0 and 5</span>
-<span class="token function">random</span><span class="token punctuation">(</span><span class="token number">1.2</span><span class="token punctuation">,</span> <span class="token number">5.2</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/// -&gt; a floating-point number between 1.2 and 5.2</span>
+<span class="token function">random</span><span class="token punctuation">(</span><span class="token number">1.2</span><span class="token punctuation">,</span> <span class="token number">5.2</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/// -&gt; a floating-point number between 1.2 and 5.2</span>
 </code></pre>
 <h2 id="repeat">repeat</h2>
 <p>Repeat string n-times.</p>
@@ -3257,7 +3596,7 @@ assignments of previous values unless multiValue is true.</p>
 </table>
 <pre><code class="language-javascript"><span class="token function">toStr</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;&apos;</span>
 <span class="token function">toStr</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;1&apos;</span>
-<span class="token function">toStr</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;false&apos;</span>
+<span class="token function">toStr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;false&apos;</span>
 <span class="token function">toStr</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;1,2,3&apos;</span>
 </code></pre>
 <h2 id="toposort">topoSort</h2>
@@ -3390,7 +3729,7 @@ assignments of previous values unless multiValue is true.</p>
 </tr>
 </tbody>
 </table>
-<pre><code class="language-javascript"><span class="token function">uniqueId</span><span class="token punctuation">(</span><span class="token string">&apos;eusita_&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;eustia_xxx&apos;</span>
+<pre><code class="language-javascript"><span class="token function">uniqId</span><span class="token punctuation">(</span><span class="token string">&apos;eusita_&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;eustia_xxx&apos;</span>
 </code></pre>
 <h2 id="unique">unique</h2>
 <p>Create duplicate-free version of an array.</p>
