@@ -1096,6 +1096,40 @@ obj<span class="token punctuation">.</span>one <span class="token operator">=</s
 </code></pre>
 <h2 id="clonedeep">cloneDeep</h2>
 <p>TODO</p>
+<h2 id="cmpversion">cmpVersion</h2>
+<p>Compare version strings.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1</td>
+<td>string</td>
+<td>Version to compare</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>string</td>
+<td>Version to compare</td>
+</tr>
+<tr>
+<td>return</td>
+<td>number</td>
+<td>Comparison result</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">cmpVersion</span><span class="token punctuation">(</span><span class="token string">&apos;1.1.8&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;1.0.4&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 1</span>
+<span class="token function">cmpVersion</span><span class="token punctuation">(</span><span class="token string">&apos;1.0.2&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;1.0.2&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 0</span>
+<span class="token function">cmpVersion</span><span class="token punctuation">(</span><span class="token string">&apos;2.0&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;2.0.0&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 0</span>
+<span class="token function">cmpVersion</span><span class="token punctuation">(</span><span class="token string">&apos;3.0.1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;3.0.0.2&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 1</span>
+<span class="token function">cmpVersion</span><span class="token punctuation">(</span><span class="token string">&apos;1.1.1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;1.2.3&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; -1</span>
+</code></pre>
 <h2 id="compact">compact</h2>
 <p>Return a copy of the array with all falsy values removed.</p>
 <p>The values false, null, 0, &quot;&quot;, undefined, and NaN are falsey.</p>
@@ -4021,7 +4055,32 @@ assignments of previous values unless multiValue is true.</p>
 <pre><code class="language-javascript"><span class="token function">stripHtmlTag</span><span class="token punctuation">(</span><span class="token string">&apos;&lt;p&gt;Hello&lt;/p&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;Hello&apos;</span>
 </code></pre>
 <h2 id="template">template</h2>
-<p>TODO</p>
+<p>Compile JavaScript template into function that can be evaluated for rendering.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>String</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>string</td>
+<td>Template string</td>
+</tr>
+<tr>
+<td>return</td>
+<td>function</td>
+<td>Compiled template function</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">template</span><span class="token punctuation">(</span><span class="token string">&apos;Hello &lt;%= name %&gt;!&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;eris&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;Hello eris!&apos;</span>
+<span class="token function">template</span><span class="token punctuation">(</span><span class="token string">&apos;&lt;p&gt;&lt;%- name %&gt;&lt;/p&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token string">&apos;&lt;eris&gt;&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;&lt;p&gt;&amp;lt;eris&amp;gt;&lt;/p&gt;&apos;</span>
+<span class="token function">template</span><span class="token punctuation">(</span><span class="token string">&apos;&lt;%if (echo) {%&gt;Hello eris!&lt;%}%&gt;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">{</span>echo<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;Hello eris!&apos;</span>
+</code></pre>
 <h2 id="throttle">throttle</h2>
 <p>Return a new throttled version of the passed function.</p>
 <table>
@@ -4137,6 +4196,7 @@ assignments of previous values unless multiValue is true.</p>
 </tbody>
 </table>
 <pre><code class="language-javascript"><span class="token function">toInt</span><span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 1</span>
+<span class="token function">toInt</span><span class="token punctuation">(</span>undefined<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 0</span>
 </code></pre>
 <h2 id="tonum">toNum</h2>
 <p>Convert value to a number.</p>
