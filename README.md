@@ -2,7 +2,7 @@
     <img src="http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia.jpg">
 </a>
 
-[中文](https://github.com/liriliri/eustia/blob/master/doc/Readme_CH.md)
+[中文](https://github.com/liriliri/eustia/blob/master/doc/README_CH.md)
 
 # Eustia
 
