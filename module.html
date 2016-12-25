@@ -1455,6 +1455,31 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </table>
 <pre><code class="language-javascript"><span class="token function">compact</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">false</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [1, 2, 3]</span>
 </code></pre>
+<h2 id="concat">concat</h2>
+<p>Concat multiple arrays into a single array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>...arr</td>
+<td>array</td>
+<td>Arrays to concat</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>Concatenated array</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">concat</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [1, 2, 3, 4, 5]</span>
+</code></pre>
 <h2 id="contain">contain</h2>
 <p>Check if the value is present in the list.</p>
 <table>
@@ -2212,7 +2237,7 @@ delegate<span class="token punctuation">.</span><span class="token function">rem
 <td>Destination object</td>
 </tr>
 <tr>
-<td>*src</td>
+<td>...src</td>
 <td>object</td>
 <td>Sources objects</td>
 </tr>
@@ -2242,7 +2267,7 @@ delegate<span class="token punctuation">.</span><span class="token function">rem
 <td>Destination object</td>
 </tr>
 <tr>
-<td>*src</td>
+<td>...src</td>
 <td>object</td>
 <td>Sources objects</td>
 </tr>
@@ -4509,6 +4534,62 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token function">safeSet</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> <span class="token string">&apos;a.aa.aaa&apos;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// obj = {a: {aa: {aaa: 1}}}</span>
 <span class="token function">safeSet</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;aa&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// obj = {a: {aa: 2}}</span>
 <span class="token function">safeSet</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> <span class="token string">&apos;a.b&apos;</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// obj = {a: {aa: 2, b: 3}}</span>
+</code></pre>
+<h2 id="sample">sample</h2>
+<p>Sample random values from a collection.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td>array object</td>
+<td>Collection to sample</td>
+</tr>
+<tr>
+<td>n</td>
+<td>number</td>
+<td>Number of values</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>Array of sample values</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">sample</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [2, 3]</span>
+<span class="token function">sample</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> c<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [2]</span>
+</code></pre>
+<h2 id="shuffle">shuffle</h2>
+<p>Randomize the order of the elements in a given array.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>array</td>
+<td>Array to randomize</td>
+</tr>
+<tr>
+<td>return</td>
+<td>array</td>
+<td>Randomized Array</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">shuffle</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [3, 1, 2]</span>
 </code></pre>
 <h2 id="size">size</h2>
 <p>Get size of object, length of array like object or the number of keys.</p>
