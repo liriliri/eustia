@@ -15,12 +15,10 @@ It provides most of underscore&apos;s functions and some other useful small
 modules, for example, Class, cookie helpers. You can also collect and build your
 own modules to create libraries for multiple projects.</p>
 <p><img src="http://7xn2zy.com1.z0.glb.clouddn.com/eustia_screenshot.gif" alt="Eustia screen shot"></p>
-<h2 id="installation">Installation</h2>
-<p>You can install Eustia using Node Package Manager(<strong>npm</strong>).</p>
+<h2 id="installation">Installation</h2><p>You can install Eustia using Node Package Manager(<strong>npm</strong>).</p>
 <pre><code class="language-bash">npm <span class="token function">install</span> -g eustia
 </code></pre>
-<h2 id="quick-example">Quick Example</h2>
-<p>Suppose you want to use trim function in index.html, just write the code
+<h2 id="quick-example">Quick Example</h2><p>Suppose you want to use trim function in index.html, just write the code
 down as follows:</p>
 <pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
@@ -46,9 +44,9 @@ _.use(function ()
 {
     var $glow = _.$('.glow');
 
-    var imgWidth  = 1828,
+    var imgWidth = 1828,
         imgHeight = 360,
-        imgRatio  = imgWidth / imgHeight;
+        imgRatio = imgWidth / imgHeight;
 
     var bannerWidth, bannerHeight = 360, bannerRatio;
 
@@ -56,23 +54,23 @@ _.use(function ()
     {
         var width, height;
 
-        bannerWidth  = window.innerWidth;
+        bannerWidth = window.innerWidth;
         bannerRatio = bannerWidth / bannerHeight;
 
         if (bannerRatio > imgRatio)
         {
-            width  = bannerWidth;
+            width = bannerWidth;
             height = width / imgRatio;
         } else
         {
             height = bannerHeight;
-            width  = height * imgRatio;
+            width = height * imgRatio;
         }
 
         var x = width * (297 / imgWidth) - 10,
             y = height * (272 / imgHeight) - 10;
 
-        $glow.css({ top : y, left: x });
+        $glow.css({top : y, left: x});
     }
 
     onResize();
