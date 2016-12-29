@@ -130,6 +130,7 @@ ga('send', 'pageview');</script></head><body><div class="content-wrapper"><div c
 <li><a href="#pluck">pluck</a></li>
 <li><a href="#property">property</a></li>
 <li><a href="#query">query</a></li>
+<li><a href="#raf">raf</a></li>
 <li><a href="#random">random</a></li>
 <li><a href="#randombytes">randomBytes</a></li>
 <li><a href="#range">range</a></li>
@@ -180,8 +181,8 @@ ga('send', 'pageview');</script></head><body><div class="content-wrapper"><div c
 <li><a href="#wrap">wrap</a></li>
 <li><a href="#zip">zip</a></li>
 </ul>
-</div><div class="md doc-container"><h1 id="eustia-documentation">Eustia Documentation</h1><h2 id="dollar-">$</h2><p>jQuery like style dom manipulator.</p>
-<h3 id="available-methods">Available methods</h3><p>offset, hide, show, first, last, get, eq, on, off, html, text, val, css, attr,
+</div><div class="md doc-container"><h1>Eustia Documentation</h1><h2 id="dollar-">$</h2><p>jQuery like style dom manipulator.</p>
+<h3>Available methods</h3><p>offset, hide, show, first, last, get, eq, on, off, html, text, val, css, attr,
 data, rmAttr, remove, addClass, rmClass, toggleClass, hasClass, append, prepend,
 before, after</p>
 <pre><code class="language-javascript"><span class="token keyword">var</span> $btn <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">&apos;#btn&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -269,7 +270,7 @@ $btn<span class="token punctuation">.</span><span class="token function">on</spa
 </tr>
 </tbody>
 </table>
-<h3 id="remove">remove</h3><p>Remove an attribute from each element in the set of matched elements.</p>
+<h3>remove</h3><p>Remove an attribute from each element in the set of matched elements.</p>
 <table>
 <thead>
 <tr>
@@ -300,7 +301,7 @@ $attr<span class="token punctuation">.</span><span class="token function">remove
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="dollar-class">$class</h2><p>Element class manipulations.</p>
-<h3 id="add">add</h3><p>Add the specified class(es) to each element in the set of matched elements.</p>
+<h3>add</h3><p>Add the specified class(es) to each element in the set of matched elements.</p>
 <table>
 <thead>
 <tr>
@@ -322,7 +323,7 @@ $attr<span class="token punctuation">.</span><span class="token function">remove
 </tr>
 </tbody>
 </table>
-<h3 id="has">has</h3><p>Determine whether any of the matched elements are assigned the given class.</p>
+<h3>has</h3><p>Determine whether any of the matched elements are assigned the given class.</p>
 <table>
 <thead>
 <tr>
@@ -349,7 +350,7 @@ $attr<span class="token punctuation">.</span><span class="token function">remove
 </tr>
 </tbody>
 </table>
-<h3 id="toggle">toggle</h3><p>Add or remove one or more classes from each element in the set of matched elements, depending on either the class&apos;s presence or the value of the state argument.</p>
+<h3>toggle</h3><p>Add or remove one or more classes from each element in the set of matched elements, depending on either the class&apos;s presence or the value of the state argument.</p>
 <table>
 <thead>
 <tr>
@@ -371,7 +372,7 @@ $attr<span class="token punctuation">.</span><span class="token function">remove
 </tr>
 </tbody>
 </table>
-<h3 id="remove">remove</h3><p>Remove a single class, multiple classes, or all classes from each element in the set of matched elements.</p>
+<h3>remove</h3><p>Remove a single class, multiple classes, or all classes from each element in the set of matched elements.</p>
 <table>
 <thead>
 <tr>
@@ -496,10 +497,10 @@ $event<span class="token punctuation">.</span><span class="token function">on</s
 $event<span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;click&apos;</span><span class="token punctuation">,</span> clickHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="dollar-insert">$insert</h2><p>Insert html on different position.</p>
-<h3 id="before">before</h3><p>Insert content before elements.</p>
-<h3 id="after">after</h3><p>Insert content after elements.</p>
-<h3 id="prepend">prepend</h3><p>Insert content to the beginning of elements.</p>
-<h3 id="append">append</h3><p>Insert content to the end of elements.</p>
+<h3>before</h3><p>Insert content before elements.</p>
+<h3>after</h3><p>Insert content after elements.</p>
+<h3>prepend</h3><p>Insert content to the beginning of elements.</p>
+<h3>append</h3><p>Insert content to the end of elements.</p>
 <table>
 <thead>
 <tr>
@@ -551,12 +552,12 @@ $insert<span class="token punctuation">.</span><span class="token function">appe
 <pre><code class="language-javascript"><span class="token function">$offset</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; {left: 0, top: 0, width: 0, height: 0}</span>
 </code></pre>
 <h2 id="dollar-property">$property</h2><p>Element property html, text, val getter and setter.</p>
-<h3 id="html">html</h3><p>Get the HTML contents of the first element in the set of matched elements or
+<h3>html</h3><p>Get the HTML contents of the first element in the set of matched elements or
 set the HTML contents of every matched element.</p>
-<h3 id="text">text</h3><p>Get the combined text contents of each element in the set of matched
+<h3>text</h3><p>Get the combined text contents of each element in the set of matched
 elements, including their descendants, or set the text contents of the
 matched elements.</p>
-<h3 id="val">val</h3><p>Get the current value of the first element in the set of matched elements or
+<h3>val</h3><p>Get the current value of the first element in the set of matched elements or
 set the value of every matched element.</p>
 <pre><code class="language-javascript">$property<span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;eris&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 $property<span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token string">&apos;#test&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; eris</span>
@@ -685,7 +686,7 @@ a<span class="token punctuation">.</span><span class="token function">introduce<
 Student<span class="token punctuation">.</span><span class="token function">is</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 </code></pre>
 <h2 id="color">Color</h2><p>Color converter.</p>
-<h3 id="constructor">constructor</h3><table>
+<h3>constructor</h3><table>
 <thead>
 <tr>
 <th>Name</th>
@@ -701,10 +702,10 @@ Student<span class="token punctuation">.</span><span class="token function">is</
 </tr>
 </tbody>
 </table>
-<h3 id="torgb">toRgb</h3><p>Get color rgb string format.</p>
-<h3 id="tohex">toHex</h3><p>Get color hex string format.</p>
-<h3 id="tohsl">toHsl</h3><p>Get color hsl string format.</p>
-<h3 id="parse">parse</h3><p>[static] Parse color string into object containing value and model.</p>
+<h3>toRgb</h3><p>Get color rgb string format.</p>
+<h3>toHex</h3><p>Get color hex string format.</p>
+<h3>toHsl</h3><p>Get color hsl string format.</p>
+<h3>parse</h3><p>[static] Parse color string into object containing value and model.</p>
 <table>
 <thead>
 <tr>
@@ -732,9 +733,9 @@ color<span class="token punctuation">.</span><span class="token function">toRgb<
 color<span class="token punctuation">.</span><span class="token function">toHsl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;hsl(210, 25%, 73%)&apos;</span>
 </code></pre>
 <h2 id="emitter">Emitter</h2><p>Event emitter class which provides observer pattern.</p>
-<h3 id="on">on</h3><p>Bind event.</p>
-<h3 id="off">off</h3><p>Unbind event.</p>
-<h3 id="once">once</h3><p>Bind event that trigger once.</p>
+<h3>on</h3><p>Bind event.</p>
+<h3>off</h3><p>Unbind event.</p>
+<h3>once</h3><p>Bind event that trigger once.</p>
 <table>
 <thead>
 <tr>
@@ -756,7 +757,7 @@ color<span class="token punctuation">.</span><span class="token function">toHsl<
 </tr>
 </tbody>
 </table>
-<h3 id="emit">emit</h3><p>Emit event.</p>
+<h3>emit</h3><p>Emit event.</p>
 <table>
 <thead>
 <tr>
@@ -778,7 +779,7 @@ color<span class="token punctuation">.</span><span class="token function">toHsl<
 </tr>
 </tbody>
 </table>
-<h3 id="mixin">mixin</h3><p>[static] Mixin object class methods.</p>
+<h3>mixin</h3><p>[static] Mixin object class methods.</p>
 <table>
 <thead>
 <tr>
@@ -801,7 +802,7 @@ event<span class="token punctuation">.</span><span class="token function">emit</
 Emitter<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="select">Select</h2><p>Simple wrapper of querySelectorAll to make dom selection easier.</p>
-<h3 id="constructor">constructor</h3><table>
+<h3>constructor</h3><table>
 <thead>
 <tr>
 <th>Name</th>
@@ -817,7 +818,7 @@ Emitter<span class="token punctuation">.</span><span class="token function">mixi
 </tr>
 </tbody>
 </table>
-<h3 id="find">find</h3><p>Get desdendants of current matched elements.</p>
+<h3>find</h3><p>Get desdendants of current matched elements.</p>
 <table>
 <thead>
 <tr>
@@ -834,7 +835,7 @@ Emitter<span class="token punctuation">.</span><span class="token function">mixi
 </tr>
 </tbody>
 </table>
-<h3 id="each">each</h3><p>Iterate over matched elements.</p>
+<h3>each</h3><p>Iterate over matched elements.</p>
 <table>
 <thead>
 <tr>
@@ -859,7 +860,7 @@ $test<span class="token punctuation">.</span><span class="token function">find</
 </code></pre>
 <h2 id="state">State</h2><p>Simple state machine.</p>
 <p>Extends from Emitter.</p>
-<h3 id="constructor">constructor</h3><table>
+<h3>constructor</h3><table>
 <thead>
 <tr>
 <th>Name</th>
@@ -880,7 +881,7 @@ $test<span class="token punctuation">.</span><span class="token function">find</
 </tr>
 </tbody>
 </table>
-<h3 id="is">is</h3><p>Check current state.</p>
+<h3>is</h3><p>Check current state.</p>
 <table>
 <thead>
 <tr>
@@ -923,7 +924,7 @@ state<span class="token punctuation">.</span><span class="token function">on</sp
 state<span class="token punctuation">.</span><span class="token function">play</span><span class="token punctuation">(</span><span class="token string">&apos;eustia&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="url">Url</h2><p>Simple url manipulator.</p>
-<h3 id="constructor">constructor</h3><table>
+<h3>constructor</h3><table>
 <thead>
 <tr>
 <th>Name</th>
@@ -939,7 +940,7 @@ state<span class="token punctuation">.</span><span class="token function">play</
 </tr>
 </tbody>
 </table>
-<h3 id="setquery">setQuery</h3><p>Set query value.</p>
+<h3>setQuery</h3><p>Set query value.</p>
 <table>
 <thead>
 <tr>
@@ -987,7 +988,7 @@ state<span class="token punctuation">.</span><span class="token function">play</
 </tr>
 </tbody>
 </table>
-<h3 id="rmquery">rmQuery</h3><p>Remove query value.</p>
+<h3>rmQuery</h3><p>Remove query value.</p>
 <table>
 <thead>
 <tr>
@@ -1009,7 +1010,7 @@ state<span class="token punctuation">.</span><span class="token function">play</
 </tr>
 </tbody>
 </table>
-<h3 id="parse">parse</h3><p>[static] Parse url into an object.</p>
+<h3>parse</h3><p>[static] Parse url into an object.</p>
 <table>
 <thead>
 <tr>
@@ -1031,7 +1032,7 @@ state<span class="token punctuation">.</span><span class="token function">play</
 </tr>
 </tbody>
 </table>
-<h3 id="stringify">stringify</h3><p>[static] Stringify url object into a string.</p>
+<h3>stringify</h3><p>[static] Stringify url object into a string.</p>
 <table>
 <thead>
 <tr>
@@ -1193,8 +1194,8 @@ utl<span class="token punctuation">.</span><span class="token function">toString
 </tr>
 </tbody>
 </table>
-<h3 id="get">get</h3><p>Shortcut for type = GET;</p>
-<h3 id="post">post</h3><p>Shortcut for type = POST;</p>
+<h3>get</h3><p>Shortcut for type = GET;</p>
+<h3>post</h3><p>Shortcut for type = POST;</p>
 <table>
 <thead>
 <tr>
@@ -1296,7 +1297,7 @@ obj<span class="token punctuation">.</span>one <span class="token operator">=</s
 <pre><code class="language-javascript"><span class="token function">average</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 3</span>
 </code></pre>
 <h2 id="base64">base64</h2><p>Basic base64 encoding and decoding.</p>
-<h3 id="encode">encode</h3><p>Turn a byte array into a base64 string.</p>
+<h3>encode</h3><p>Turn a byte array into a base64 string.</p>
 <table>
 <thead>
 <tr>
@@ -1320,7 +1321,7 @@ obj<span class="token punctuation">.</span>one <span class="token operator">=</s
 </table>
 <pre><code class="language-javascript">base64<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">168</span><span class="token punctuation">,</span> <span class="token number">174</span><span class="token punctuation">,</span> <span class="token number">155</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;qK6b/w==&apos;</span>
 </code></pre>
-<h3 id="decode">decode</h3><p>Turn a base64 string into a byte array.</p>
+<h3>decode</h3><p>Turn a base64 string into a byte array.</p>
 <table>
 <thead>
 <tr>
@@ -1700,7 +1701,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token function">convertBase</span><span class="token punctuation">(</span><span class="token string">&apos;ff&apos;</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;11111111&apos;</span>
 </code></pre>
 <h2 id="cookie">cookie</h2><p>Simple api for handling browser cookies.</p>
-<h3 id="get">get</h3><p>Get cookie value.</p>
+<h3>get</h3><p>Get cookie value.</p>
 <table>
 <thead>
 <tr>
@@ -1722,7 +1723,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </tr>
 </tbody>
 </table>
-<h3 id="set">set</h3><p>Set cookie value.</p>
+<h3>set</h3><p>Set cookie value.</p>
 <table>
 <thead>
 <tr>
@@ -1754,7 +1755,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </tr>
 </tbody>
 </table>
-<h3 id="remove">remove</h3><p>Remove cookie value.</p>
+<h3>remove</h3><p>Remove cookie value.</p>
 <table>
 <thead>
 <tr>
@@ -2095,7 +2096,7 @@ cookie<span class="token punctuation">.</span><span class="token function">remov
 <span class="token comment" spellcheck="true">// -&gt; Logs &apos;later&apos; after one second</span>
 </code></pre>
 <h2 id="delegate">delegate</h2><p>Event delegation.</p>
-<h3 id="add">add</h3><p>Add event delegation.</p>
+<h3>add</h3><p>Add event delegation.</p>
 <table>
 <thead>
 <tr>
@@ -2127,7 +2128,7 @@ cookie<span class="token punctuation">.</span><span class="token function">remov
 </tr>
 </tbody>
 </table>
-<h3 id="remove">remove</h3><p>Remove event delegation.</p>
+<h3>remove</h3><p>Remove event delegation.</p>
 <pre><code class="language-javascript"><span class="token keyword">var</span> container <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&apos;container&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">function</span> <span class="token function">clickHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -4166,7 +4167,7 @@ assignments of previous values unless multiValue is true.</p>
 <span class="token function">property</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;a&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;b&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; 1</span>
 </code></pre>
 <h2 id="query">query</h2><p>Parse and stringify url query strings.</p>
-<h3 id="parse">parse</h3><p>Parse a query string into an object.</p>
+<h3>parse</h3><p>Parse a query string into an object.</p>
 <table>
 <thead>
 <tr>
@@ -4188,7 +4189,7 @@ assignments of previous values unless multiValue is true.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="stringify">stringify</h3><p>Stringify an object into a query string.</p>
+<h3>stringify</h3><p>Stringify an object into a query string.</p>
 <table>
 <thead>
 <tr>
@@ -4213,6 +4214,15 @@ assignments of previous values unless multiValue is true.</p>
 <pre><code class="language-javascript">query<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token string">&apos;foo=bar&amp;eruda=true&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; {foo: &apos;bar&apos;, eruda: &apos;true&apos;}</span>
 query<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token punctuation">{</span>foo<span class="token punctuation">:</span> <span class="token string">&apos;bar&apos;</span><span class="token punctuation">,</span> eruda<span class="token punctuation">:</span> <span class="token string">&apos;true&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; &apos;foo=bar&amp;eruda=true&apos;</span>
 query<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token string">&apos;name=eruda&amp;name=eustia&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; {name: [&apos;eruda&apos;, &apos;eustia&apos;]}</span>
+</code></pre>
+<h2 id="raf">raf</h2><p>Shortcut for requestAnimationFrame.</p>
+<p>Use setTimeout if native requestAnimationFrame is not supported.</p>
+<pre><code class="language-javascript"><span class="token keyword">var</span> id <span class="token operator">=</span> <span class="token function">raf</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">tick</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Animation stuff</span>
+    <span class="token function">raf</span><span class="token punctuation">(</span>tick<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+raf<span class="token punctuation">.</span><span class="token function">cancel</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="random">random</h2><p>Produces a random number between min and max(inclusive).</p>
 <table>
