@@ -1,5 +1,4 @@
 /.idea/
 /node_modules/
-/playground/
 /test/build/eustia.js
 /cache/*.js

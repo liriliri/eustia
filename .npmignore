@@ -1,7 +1,6 @@
 /.idea/
 /test/
-/dev/
-/playground/
+/script/
 /doc/
 /cache/*.js
 .gitignore
