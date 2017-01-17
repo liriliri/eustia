@@ -123,7 +123,3 @@ quite useful when sharing functions among several projects. Besides,
 **Lodash** functions is available by using 
 [eustia-lodash](https://github.com/liriliri/eustia-lodash).
 
-## License
-
-Eustia is released under the MIT license. Please see
-[LICENSE](https://opensource.org/licenses/MIT) for full details.
