@@ -6,7 +6,12 @@
 
 # Eustia
 
-[![npm version](https://badge.fury.io/js/eustia.svg)](https://badge.fury.io/js/eustia)
+[![NPM version][npm-image]][npm-url]
+[![License][license-image]][npm-url]
+
+[npm-image]: https://img.shields.io/npm/v/eustia.svg
+[npm-url]: https://npmjs.org/package/eustia
+[license-image]: https://img.shields.io/npm/l/eustia.svg
 
 Eustia is a tool for generating JavaScript utility libraries. It scans your code 
 to generate libraries containing only methods needed on the fly.
