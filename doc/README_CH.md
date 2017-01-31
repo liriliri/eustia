@@ -97,5 +97,5 @@ function exports(v1, v2)
 
 之后你就可以在项目中的任何文件中使用compareVersion函数了。
 
-> 使用library选项可以指定函数查找路径，这对于项目间共享工具函数十分有用。另外你还可以通过[eustia-lodash](https://github.com/liriliri/eustia-lodash)插件使用lodash方法。
+使用library选项可以指定函数查找路径，这对于项目间共享工具函数十分有用。另外你还可以通过[eustia-lodash](https://github.com/liriliri/eustia-lodash)插件使用lodash方法。
 

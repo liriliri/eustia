@@ -92,7 +92,7 @@ current working directory to read configuration to generate libraries. It is
 almost the same as running build command from console, just a different way of 
 passing options.
 
-> For a full list of options can be used, please check
+For a full list of options can be used, please check
 [document](http://liriliri.github.io/eustia/docs.html#commands) page.
 
 ## Prepare Modules
@@ -121,7 +121,7 @@ function exports(v1, v2)
 
 Now you can use **compareVersion** anywhere in your project.
 
-> Using option **library** allows you to search functions in other paths, 
+Using option **library** allows you to search functions in other paths, 
 quite useful when sharing functions among several projects. Besides, 
 **Lodash** functions is available by using 
 [eustia-lodash](https://github.com/liriliri/eustia-lodash).
