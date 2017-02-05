@@ -4,3 +4,6 @@ node_js:
   - "6.1"
 before_script:
   - npm install -g mocha
+  - npm install -g eslint
+script:
+  - bash script/ci.sh

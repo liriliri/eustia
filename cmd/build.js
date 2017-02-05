@@ -100,7 +100,7 @@ exports.defOpts = {
 
 function transArrOpts(options)
 {
-    const ARR_OPTIONS = [
+    var ARR_OPTIONS = [
         'library', 'include', 'exclude', 'ignore',
         'files', 'extension', 'transpiler'
     ];

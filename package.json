@@ -12,7 +12,9 @@
   },
   "scripts": {
     "test": "mocha",
-    "updateEris": "node script/updateEris"
+    "lint": "eslint lib cmd",
+    "updateEris": "node script/updateEris",
+    "cov": "istanbul cover ./node_modules/mocha/bin/_mocha"
   },
   "keywords": [
     "utility",
@@ -39,6 +41,7 @@
     "request": "^2.67.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }

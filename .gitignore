@@ -1,4 +1,5 @@
 /.idea/
 /node_modules/
+/coverage/
 /test/build/eustia.js
 /cache/*.js

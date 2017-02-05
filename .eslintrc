@@ -1,8 +1,11 @@
 {
+    "env": {
+        "node": true
+    },
+    "extends": "eslint:recommended",
     "rules": {
-        "no-alert": 1,
-        "no-caller": 1,
-        "no-extra-semi": 1,
-        "no-else-return": 1
-    }
+        "no-unused-vars": [
+            "off"
+        ]
+,    }
 }
