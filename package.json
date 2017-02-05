@@ -14,7 +14,7 @@
     "test": "mocha",
     "lint": "eslint lib cmd",
     "updateEris": "node script/updateEris",
-    "cov": "istanbul cover ./node_modules/mocha/bin/_mocha"
+    "cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly"
   },
   "keywords": [
     "utility",
