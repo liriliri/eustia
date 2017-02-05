@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - "0.12"
-  - "6.1"
+  - "6"
+  - "7"
 before_script:
   - npm install -g mocha
   - npm install -g eslint
