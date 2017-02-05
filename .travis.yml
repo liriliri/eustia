@@ -9,3 +9,6 @@ before_script:
   - npm install -g codecov
 script:
   - bash script/ci.sh
+after_script:
+  - npm run cov
+  - codecov
