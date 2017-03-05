@@ -56,6 +56,8 @@ ga('send', 'pageview');</script></head><body><div class="content-wrapper"><div c
 <li><a href="#define">define</a></li>
 <li><a href="#delay">delay</a></li>
 <li><a href="#delegate">delegate</a></li>
+<li><a href="#detectbrowser">detectBrowser</a></li>
+<li><a href="#detectos">detectOs</a></li>
 <li><a href="#difference">difference</a></li>
 <li><a href="#dotcase">dotCase</a></li>
 <li><a href="#each">each</a></li>
@@ -137,6 +139,7 @@ ga('send', 'pageview');</script></head><body><div class="content-wrapper"><div c
 <li><a href="#optimizecb">optimizeCb</a></li>
 <li><a href="#pad">pad</a></li>
 <li><a href="#pairs">pairs</a></li>
+<li><a href="#parallel">parallel</a></li>
 <li><a href="#partial">partial</a></li>
 <li><a href="#pascalcase">pascalCase</a></li>
 <li><a href="#pluck">pluck</a></li>
@@ -1995,7 +1998,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <tbody>
 <tr>
 <td>array</td>
-<td>array</td>
+<td>array object</td>
 <td>Target list</td>
 </tr>
 <tr>
@@ -2011,6 +2014,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </tbody>
 </table>
 <pre><code class="language-javascript"><span class="token function">contain</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">contain</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 </code></pre>
 <h2 id="convertbase">convertBase</h2><p>Convert base of a number.</p>
 <table>
@@ -2509,6 +2513,63 @@ cookie<span class="token punctuation">.</span><span class="token function">remov
 <span class="token punctuation">}</span>
 delegate<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>container<span class="token punctuation">,</span> <span class="token string">&apos;click&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;.children&apos;</span><span class="token punctuation">,</span> clickHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
 delegate<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>container<span class="token punctuation">,</span> <span class="token string">&apos;click&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;.children&apos;</span><span class="token punctuation">,</span> clickHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="detectbrowser">detectBrowser</h2><p>Detect browser info using ua.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[ua=navigator.userAgent]</td>
+<td>string</td>
+<td>Browser userAgent</td>
+</tr>
+<tr>
+<td>return</td>
+<td>object</td>
+<td>Object containing name and version</td>
+</tr>
+</tbody>
+</table>
+<p>Browsers supported: ie, chrome, edge, firefox, opera, safari, ios(mobile safari), android(android browser)</p>
+<pre><code class="language-javascript"><span class="token keyword">var</span> browser <span class="token operator">=</span> <span class="token function">detectBrowser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>browser<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">&apos;ie&apos;</span> <span class="token operator">&amp;&amp;</span> browser<span class="token punctuation">.</span>version <span class="token operator">&lt;</span> <span class="token number">9</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Do something about old IE...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="detectos">detectOs</h2><p>Detect operating system using ua.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[ua=navigator.userAgent]</td>
+<td>string</td>
+<td>Browser userAgent</td>
+</tr>
+<tr>
+<td>return</td>
+<td>string</td>
+<td>Operating system name</td>
+</tr>
+</tbody>
+</table>
+<p>Supported os: windows, os x, linux, ios, android, windows phone</p>
+<pre><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">detectOs</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&apos;ios&apos;</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Do something about ios...</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="difference">difference</h2><p>Create an array of unique array values not included in the other given array.</p>
 <table>
@@ -3466,6 +3527,7 @@ assignments of previous values unless multiValue is true.</p>
 </table>
 <pre><code class="language-javascript"><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 <span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
+<span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token string">&apos;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; true</span>
 </code></pre>
 <h2 id="isequal">isEqual</h2><p>Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.</p>
 <table>
@@ -4573,6 +4635,42 @@ localStorage<span class="token punctuation">.</span><span class="token function"
 </table>
 <pre><code class="language-javascript"><span class="token function">pairs</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [[&apos;a&apos;, 1], [&apos;b&apos;, 2]]</span>
 </code></pre>
+<h2 id="parallel">parallel</h2><p>Run an array of functions in parallel.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tasks</td>
+<td>array</td>
+<td>Array of functions</td>
+</tr>
+<tr>
+<td>[cb]</td>
+<td>function</td>
+<td>Callback once completed</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-javascript"><span class="token function">parallel</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token keyword">function</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">cb</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">&apos;one&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token keyword">function</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">cb</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">&apos;two&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>err<span class="token punctuation">,</span> results<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// results -&gt; [&apos;one&apos;, &apos;two&apos;]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="partial">partial</h2><p>Partially apply a function by filling in given arguments.</p>
 <table>
 <thead>
@@ -5637,7 +5735,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </table>
 <pre><code class="language-javascript"><span class="token function">toArr</span><span class="token punctuation">(</span><span class="token punctuation">{</span>a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [{a: 1, b: 2}]</span>
 <span class="token function">toArr</span><span class="token punctuation">(</span><span class="token string">&apos;abc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [&apos;abc&apos;]</span>
-<span class="token function">toArr</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; []</span>
+<span class="token function">toArr</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; [1]</span>
 <span class="token function">toArr</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; []</span>
 </code></pre>
 <h2 id="toel">toEl</h2><p>Convert html string to dom elements.</p>
@@ -6058,7 +6156,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
     <span class="token punctuation">{</span>
         <span class="token function">cb</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">&apos;one&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token keyword">function</span> <span class="token punctuation">(</span>arg1<span class="token punctuation">)</span>
+    <span class="token keyword">function</span> <span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> cb<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">// arg1 -&gt; &apos;one&apos;</span>
         <span class="token function">cb</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">&apos;done&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
