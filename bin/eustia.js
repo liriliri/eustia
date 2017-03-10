@@ -22,6 +22,7 @@ var knowOpts = {
         include: Array,
         format: String,
         title: String,
+        config: String,
         watch: Boolean,
         debug: Boolean,
         description: String
@@ -37,6 +38,7 @@ var knowOpts = {
         t: '--title',
         w: '--watch',
         u: '--update',
+        c: '--config',
         d: '--description'
     },
     options = nopt(knowOpts, shortHands, process.argv, 2),
@@ -68,7 +70,7 @@ function getCmd()
 
 function useCfg()
 {
-    var cfgPath = path.resolve(process.cwd(), '.eustia');
+    var cfgPath = path.resolve(process.cwd(), options.config || '.eustia');
 
     fs.exists(cfgPath, function (exists)
     {
