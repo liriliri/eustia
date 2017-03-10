@@ -39,7 +39,7 @@ function cmdFactory(cmdName)
         options = util.defaults(options, defOpts, cmd.defOpts || {});
 
         if (options.enableLog) logger.enable();
-        if (options.debug) logger.isDebug = true;
+        if (options.verbose) logger.isDebug = true;
 
         logger.debug('Options', options);
 

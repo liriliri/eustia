@@ -16,6 +16,11 @@
     "updateEris": "node script/updateEris",
     "cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly"
   },
+  "eustia": {
+    "output": "lib/util.js",
+    "files": ["index.js", "bin/eustia.js", "cmd/**/*.js", "lib/*.js"],
+    "format": "commonjs"
+  },
   "keywords": [
     "utility",
     "library",

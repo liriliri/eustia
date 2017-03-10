@@ -24,7 +24,7 @@ var knowOpts = {
         title: String,
         config: String,
         watch: Boolean,
-        debug: Boolean,
+        verbose: Boolean,
         description: String
     },
     shortHands = {
@@ -70,7 +70,8 @@ function getCmd()
 
 function useCfg()
 {
-    var cfgPath = path.resolve(process.cwd(), options.config || '.eustia');
+    var cfgPath = path.resolve(process.cwd(), options.config || '.eustia'),
+        configs;
 
     fs.exists(cfgPath, function (exists)
     {
@@ -80,7 +81,6 @@ function useCfg()
 
             return fs.readFile(cfgPath, 'utf-8', function (err, data)
             {
-                var configs;
 
                 try {
                     configs = JSON.parse(data);
@@ -89,21 +89,19 @@ function useCfg()
                     configs = require(cfgPath);
                 }
 
-                var isSingle = util.some(configs, function (option)
-                {
-                    return !util.isObj(option);
-                });
-                if (isSingle)
-                {
-                    util.extend(configs, options);
-                    return eustia.build(configs);
-                }
-
-                buildAll(configs);
+                build(configs);
             });
         }
 
-        eustia.help(options);
+        try 
+        {
+            logger.tpl({data: 'package.json'}, 'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}');
+            var pkgInfo = require(path.resolve(process.cwd(), 'package.json'));
+            if (pkgInfo.eustia) build(pkgInfo.eustia);
+        } catch (e) 
+        {
+            eustia.help(options);
+        }
     });
 }
 
@@ -130,6 +128,21 @@ function useCmdLine()
     }
 
     eustia[cmd](options);
+}
+
+function build(configs) 
+{
+    var isSingle = util.some(configs, function (option)
+    {
+        return !util.isObj(option);
+    });
+    if (isSingle)
+    {
+        util.extend(configs, options);
+        return eustia.build(configs);
+    }
+
+    buildAll(configs);
 }
 
 function buildAll(configs)
