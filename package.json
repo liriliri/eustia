@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "lint": "eslint lib cmd",
+    "lint": "eslint lib cmd bin",
     "updateEris": "node script/updateEris",
     "cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly"
   },

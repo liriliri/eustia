@@ -134,7 +134,7 @@ function build(configs)
 {
     var isSingle = util.some(configs, function (option)
     {
-        return !util.isObj(option);
+        return !util.isPlainObj(option);
     });
     if (isSingle)
     {

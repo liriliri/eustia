@@ -1,5 +1,4 @@
-var async = require('async'),
-    glob = require('glob');
+var async = require('async');
 
 var logger = require('../lib/logger'),
     clear = require('./cache/clear');

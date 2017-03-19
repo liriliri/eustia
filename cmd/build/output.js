@@ -1,5 +1,4 @@
-var fs = require('fs'),
-    path = require('path');
+var fs = require('fs');
 
 var util = require('../../lib/util'),
     logger = require('../../lib/logger');
@@ -8,6 +7,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
 {
     var code = '',
         dependencyGraph = [],
+        allDependencies = [],
         codesMap = {};
 
     // Sort codes first so that the generated file stays the same
@@ -28,10 +28,13 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         util.each(dependencies, function (dependency)
         {
             dependencyGraph.push([dependency, code.name]);
+            allDependencies.push(dependency);
         });
 
         codesMap[code.name] = code.code
     });
+
+    allDependencies = util.unique(allDependencies);
 
     try {
         var codesOrder = util.topoSort(dependencyGraph);
@@ -44,7 +47,15 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
 
     for (var i = 0, len = codesOrder.length; i < len; i++)
     {
-        code += codesMap[codesOrder[i]];
+        var name = codesOrder[i],
+            c = codesMap[name];
+
+        if (!util.contain(allDependencies, name))
+        {
+            c = util.trim(c.replace('var ' + name + ' = ', ''));
+        }
+
+        code += c;
         if (i !== len - 1) code += '\n\n';
     }
 

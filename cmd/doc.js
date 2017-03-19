@@ -4,8 +4,7 @@ var async = require('async'),
 var extractCmt = require('./doc/extractCmt'),
     readDesc = require('./doc/readDesc'),
     readTpl = require('./share/readTpl'),
-    output = require('./doc/output'),
-    logger = require('../lib/logger');
+    output = require('./doc/output');
 
 function exports(options, cb)
 {

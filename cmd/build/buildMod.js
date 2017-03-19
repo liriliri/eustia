@@ -55,7 +55,7 @@ module.exports = function (modName, codeTpl, options, cb)
                 var dependencies = regDependency.exec(data);
                 dependencies = dependencies ? util.trim(dependencies[1]).split(/\s/) : [];
 
-                data = util.indent(data.replace(regDependency, ''));
+                data = util.indent(data.replace(regDependency, '\n\n/* dependencies\n * $1 \n */'));
                 data = codeTpl({
                     name: modName,
                     code: util.trim(data),
