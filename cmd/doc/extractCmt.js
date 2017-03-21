@@ -27,11 +27,22 @@ function process(data)
 
     util.each(data, function (val)
     {
-        val = util.trim(val);
-        if (!util.startWith(val, 'var')) return;
+        var name;
 
-        var name = val.slice(4, val.indexOf("=")),
-            comments = util.extractBlockCmts(val.slice(val.indexOf('{') + 1, val.lastIndexOf('}')));
+        val = util.trim(val);
+
+        if (util.startWith(val, 'var')) 
+        {
+            name = val.slice(4, val.indexOf('='));
+        } else if (util.startWith(val, '_.')) 
+        {
+            name = val.slice(2, val.indexOf('='));
+        } else 
+        {
+            return;
+        }
+
+        var comments = util.extractBlockCmts(val.slice(val.indexOf('{') + 1, val.lastIndexOf('}')));
 
         ret[name] = 'No documentation.';
 
