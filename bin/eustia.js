@@ -97,7 +97,13 @@ function useCfg()
         {
             logger.tpl({data: 'package.json'}, 'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}');
             var pkgInfo = require(path.resolve(process.cwd(), 'package.json'));
-            if (pkgInfo.eustia) build(pkgInfo.eustia);
+            if (pkgInfo.eustia)
+            {
+                build(pkgInfo.eustia);
+            } else
+            {
+                eustia.help(options);
+            }
         } catch (e) 
         {
             eustia.help(options);
