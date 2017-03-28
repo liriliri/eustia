@@ -1,81 +1,11 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Eustia: A Tool for Generating JavaScript Utility Libraries:)</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link rel="stylesheet" href="http://liriliri.github.io/eustia/style.css"><script src="http://liriliri.github.io/eustia/static/js/eustia.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q || []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-52367952-2', 'auto');
-ga('send', 'pageview');</script></head><body><div class="content-wrapper"><div class="hidden"><img src="http://7xn2zy.com1.z0.glb.clouddn.com/blog_eustia.jpg"></div><header><nav class="container collapsed"><a href="http://liriliri.github.io/eustia/" class="site-logo"><span class="first-letter">E</span><span>ustia</span></a><button class="toggle-nav"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><script>_.$('.toggle-nav').on('click', function ()
-{
-    _.$('nav').toggleClass('collapsed');
-});</script><ul><li><a href="http://liriliri.github.io/eustia/docs.html">DOCS</a></li><li><a href="http://liriliri.github.io/eustia/module.html">MODULE</a></li><li><a href="https://github.com/liriliri/eustia">GITHUB</a></li></ul></nav></header><div class="banner"><h1>A Tool for Generating JavaScript Utility Libraries:)</h1><a href="http://liriliri.github.io/eustia/docs.html" class="btn second">GET STARTED</a><div class="glow hidden"></div></div><div class="procedure"><div class="container"><ul><li><h2>Easy to Use</h2><p>5 Minutes is Good Enough to Master it</p></li><li><h2>Rich Modules</h2><p>Number of Modules Growing Everyday</p></li><li><h2>Extensible</h2><p>Collect and Build Your Module Libraries
-</p></li></ul></div></div><div class="md container mobile intro"><p><strong>Eustia</strong> will scan your source code to find strings that match the pattern
-<strong>util.method</strong>, <strong>util = require(&apos;./util&apos;)</strong> or <strong>import {...} from &apos;./util&apos;</strong>,
-then generates a JavaScript library containing only the methods you have used.
-It provides most of underscore&apos;s functions and some other useful small
-modules, for example, Class, cookie helpers. You can also collect and build your
-own modules to create libraries for multiple projects.</p>
-<p><img src="http://7xn2zy.com1.z0.glb.clouddn.com/eustia_screenshot.gif" alt="Eustia screen shot"></p>
-<h2 id="installation">Installation</h2><p>You can install Eustia using Node Package Manager(<strong>npm</strong>).</p>
-<pre><code class="language-bash">npm <span class="token function">install</span> -g eustia
-</code></pre>
-<h2 id="quick-example">Quick Example</h2><p>Suppose you want to use trim function in index.html, just write the code
-down as follows:</p>
-<pre><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>utf-8<span class="token punctuation">&quot;</span></span><span class="token punctuation">/&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Eustia<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>util.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
-    <span class="token keyword">var</span> projectName <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token string">&apos; Eustia &apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// Some code...</span>
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-<p>Run command:</p>
-<pre><code class="language-bash">eustia build
-</code></pre>
-<p>The tool will scan you html code and generate a file name <strong>util.js</strong>
-(Default output file name). And that is it, everything is just done!</p>
-</div><script>// Banner glow effect.
-_.use(function ()
-{
-    var $glow = _.$('.glow');
-
-    var imgWidth = 1828,
-        imgHeight = 360,
-        imgRatio = imgWidth / imgHeight;
-
-    var bannerWidth, bannerHeight = 360, bannerRatio;
-
-    function onResize()
-    {
-        var width, height;
-
-        bannerWidth = window.innerWidth;
-        bannerRatio = bannerWidth / bannerHeight;
-
-        if (bannerRatio > imgRatio)
-        {
-            width = bannerWidth;
-            height = width / imgRatio;
-        } else
-        {
-            height = bannerHeight;
-            width = height * imgRatio;
-        }
-
-        var x = width * (297 / imgWidth) - 10,
-            y = height * (272 / imgHeight) - 10;
-
-        $glow.css({top : y, left: x});
-    }
-
-    onResize();
-
-    $glow.show();
-
-    window.onresize = onResize;
-});</script></div><footer>Built for <a href="https://github.com/liriliri">Liriliri</a> project 2014-2016</footer></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirect</title>
+    <meta http-equiv="refresh" content="0; url=http://eustia.liriliri.io/" />
+</head>
+<body>
+    Redirect to http://eustia.liriliri.io/...
+</body>
+</html>
