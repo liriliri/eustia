@@ -6,7 +6,7 @@ var downloadMod = require('../../lib/downloadMod'),
     logger = require('../../lib/logger'),
     util = require('../../lib/util');
 
-var regDependency = /\s*\b_\(['"]([\w\s\$]+)['"]\);?/,
+var regDependency = /\s*\b_\(['"]([\w\s$]+)['"]\);?/,
     regExports = /\bexports\b/,
     regFnExports = /function\s+exports\s*\(/;
 
@@ -53,7 +53,7 @@ module.exports = function (modName, codeTpl, options, cb)
                 data = transData(filePath, data, modName, options);
 
                 var dependencies = regDependency.exec(data);
-                dependencies = dependencies ? util.trim(dependencies[1]).split(/\s/) : [];
+                dependencies = dependencies ? util.trim(dependencies[1]).split(/\s+/) : [];
 
                 data = util.indent(data.replace(regDependency, '\n\n/* dependencies\n * $1 \n */'));
                 data = codeTpl({
