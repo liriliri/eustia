@@ -1,7 +1,0 @@
-{
-    "command": "install",
-    "desc": "Install modules.",
-    "usage": [
-        "install [<modules>]"
-    ]
-}

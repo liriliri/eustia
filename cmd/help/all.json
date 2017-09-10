@@ -5,8 +5,6 @@
     "commands": {
         "build": "Build JavaScript libraries",
         "doc": "Generate documentation",
-        "search": "Search modules",
-        "install": "Install modules",
         "cache": "Cache control",
         "help": "Display help information",
         "version": "Display version info"

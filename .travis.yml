@@ -2,13 +2,8 @@ language: node_js
 node_js:
   - "6"
   - "7"
-before_script:
-  - npm install -g mocha
-  - npm install -g eslint
-  - npm install -g istanbul
-  - npm install -g codecov
 script:
-  - bash script/ci.sh
+  - npm run ci
 after_script:
   - npm run cov
   - codecov

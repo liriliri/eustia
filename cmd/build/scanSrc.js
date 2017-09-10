@@ -127,7 +127,7 @@ function extractEs6(options, file)
         return extractGlobal(namespace, file);
     }
 
-    var regImportMembers = new RegExp('import\\s*\{([\\w,\\s]+)\}\\s*from\\s*[\'"]' + requirePath + '[\'"]'),
+    var regImportMembers = new RegExp('import\\s*{([\\w,\\s]+)}\\s*from\\s*[\'"]' + requirePath + '[\'"]'),
         methods = file.data.match(regImportMembers);
 
     if (methods) return methods[1].split(',');

@@ -1,11 +1,9 @@
 /.idea/
 /test/
-/script/
 /doc/
 /coverage/
 /cache/*.js
 .gitignore
 .npmignore
-.eustia
 .eslintrc
 LICENSE

@@ -11,14 +11,19 @@
     "eustia": "./bin/eustia.js"
   },
   "scripts": {
+    "ci": "npm run lint && npm test",
     "test": "mocha",
     "lint": "eslint lib cmd bin",
-    "updateEris": "node script/updateEris",
     "cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly"
   },
   "eustia": {
     "output": "lib/util.js",
-    "files": ["index.js", "bin/eustia.js", "cmd/**/*.js", "lib/*.js"],
+    "files": [
+      "index.js",
+      "bin/eustia.js",
+      "cmd/**/*.js",
+      "lib/*.js"
+    ],
     "format": "commonjs"
   },
   "keywords": [
@@ -47,6 +52,9 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "codecov": "^2.3.0",
+    "eslint": "^4.6.1",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
   }
 }

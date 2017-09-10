@@ -52,7 +52,7 @@ function process(data)
     return sortKeys(ret);
 }
 
-var regSeparator = /\/\* -{30} [\$\w]+ -{30} \*\//;
+var regSeparator = /\/\* -{30} [$\w]+ -{30} \*\//;
 
 function breakApart(data)
 {

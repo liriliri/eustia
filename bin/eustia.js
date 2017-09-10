@@ -95,10 +95,10 @@ function useCfg()
 
         try 
         {
-            logger.tpl({data: 'package.json'}, 'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}');
             var pkgInfo = require(path.resolve(process.cwd(), 'package.json'));
             if (pkgInfo.eustia)
             {
+                logger.tpl({data: 'package.json'}, 'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}');
                 build(pkgInfo.eustia);
             } else
             {
