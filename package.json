@@ -52,7 +52,6 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "codecov": "^2.3.0",
     "eslint": "^4.6.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0"

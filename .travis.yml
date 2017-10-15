@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "6"
   - "7"
+before_script:
+  - npm install -g codecov  
 script:
   - npm run ci
 after_script:
