@@ -25,6 +25,8 @@ var knowOpts = {
         config: String,
         watch: Boolean,
         verbose: Boolean,
+        help: Boolean,
+        version: Boolean,
         description: String
     },
     shortHands = {
@@ -39,6 +41,8 @@ var knowOpts = {
         w: '--watch',
         u: '--update',
         c: '--config',
+        h: '--help',
+        v: '--version',
         d: '--description'
     },
     options = nopt(knowOpts, shortHands, process.argv, 2),
@@ -62,6 +66,17 @@ function getCmd()
             ret = remain[i];
             remain.splice(i, 1);
             break;
+        }
+    }
+
+    if (!ret) 
+    {
+        if (options.help) 
+        {
+            ret = 'help';
+        } else if (options.version) 
+        {
+            ret = 'version';
         }
     }
 
