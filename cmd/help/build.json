@@ -54,6 +54,11 @@
             "shorthand": "-w",
             "flag": "--watch",
             "desc": "Watch files to regenerate automatically"
+        },
+        {
+            "shorthand": "-s",
+            "flag": "--strict",
+            "desc": "Use es5 strict mode"
         }
     ]
 }

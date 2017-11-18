@@ -62,6 +62,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
     var codesData = {
         code: code,
         namespace: options.namespace,
+        strict: options.strict,
         inBrowser: options.format === 'umd' || options.format === 'global'
     };
 

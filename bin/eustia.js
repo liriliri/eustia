@@ -26,6 +26,7 @@ var knowOpts = {
         watch: Boolean,
         verbose: Boolean,
         help: Boolean,
+        strict: Boolean,
         version: Boolean,
         description: String
     },
@@ -37,6 +38,7 @@ var knowOpts = {
         e: '--exclude',
         n: '--namespace',
         f: '--format',
+        s: '--strict',
         t: '--title',
         w: '--watch',
         u: '--update',

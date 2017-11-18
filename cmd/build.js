@@ -89,6 +89,7 @@ exports.defOpts = {
     format: 'umd',
     output: './util' + '.js', // Split it to avoid being scanned.
     extension: 'js',
+    strict: true,
     transpiler: [],
     files: [],
     ignore: [],
