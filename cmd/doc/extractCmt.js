@@ -37,6 +37,8 @@ function process(data)
         } else if (util.startWith(val, '_.')) 
         {
             name = val.slice(2, val.indexOf('='));
+        } else if (util.startWith(val, 'export')) {
+            name = val.slice(11, val.indexOf('='));
         } else 
         {
             return;
@@ -45,6 +47,12 @@ function process(data)
         var comments = util.extractBlockCmts(val.slice(val.indexOf('{') + 1, val.lastIndexOf('}')));
 
         ret[name] = 'No documentation.';
+        comments = util.filter(comments, function (comment) 
+        {
+            if (util.startWith(comment, 'module') || util.startWith(comment, 'dependencies')) return false;
+
+            return true;
+        });
 
         if (!util.isEmpty(comments)) ret[name] = indentOneSpace(comments[0]);
     });
