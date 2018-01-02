@@ -13,4 +13,4 @@ if (typeof window === 'object' && window.{{namespace}}) _ = window.{{namespace}}
 
 {{code}}
 
-return _;
+{{#if commonjs}}module.exports = _;{{else}}return _;{{/if}}

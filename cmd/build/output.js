@@ -63,6 +63,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         code: code,
         namespace: options.namespace,
         strict: options.strict,
+        commonjs: options.format === 'commonjs',
         inBrowser: options.format === 'umd' || options.format === 'global'
     };
 
@@ -73,15 +74,19 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         codesData.excludeRef = util.unique(excludeRef);
     }
 
-    var result = util.indent(codesTpl(codesData));
+    var result = codesTpl(codesData);
 
     result = result.replace(/\n\s*\n/g, '\n\n');
 
-    result = options.magicNum + '\n' +
-             formatTpl({
-                 namespace: options.namespace,
-                 codes: result
-             });
+    if (options.format !== 'commonjs') {
+        result = util.indent(result);
+        result = formatTpl({
+            namespace: options.namespace,
+            codes: result
+        });
+    }
+
+    result = options.magicNum + '\n' + result;
 
     logger.tpl({
         data: codesOrder.sort().join(' ')

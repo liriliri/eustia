@@ -50,7 +50,12 @@ function exports(options, cb)
         async.waterfall([
             function (cb)
             {
-                readTpl(['code', 'codes', options.format], cb);
+                var tplList = ['code', 'codes'];
+
+                var format = options.format;
+                if (format !== 'commonjs') tplList.push(format);
+
+                readTpl(tplList, cb);
             },
             function (tpl, cb)
             {
