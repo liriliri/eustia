@@ -59,6 +59,7 @@ module.exports = function (modName, codeTpl, options, cb)
                 data = codeTpl({
                     name: modName,
                     code: util.trim(data),
+                    es: options.format === 'es',
                     noFnExports: !regFnExports.test(data),
                     hasExports: regExports.test(data)
                 });

@@ -1,7 +1,7 @@
 /* ------------------------------ {{name}} ------------------------------ */
 
 {{#if hasExports}}
-var {{name}} = _.{{name}} = (function ({{#if noFnExports}}exports{{/if}})
+{{#if es}}export {{/if}}var {{name}} = _.{{name}} = (function ({{#if noFnExports}}exports{{/if}})
 {
     {{code}}
 

@@ -50,7 +50,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         var name = codesOrder[i],
             c = codesMap[name];
 
-        if (!util.contain(allDependencies, name))
+        if (!util.contain(allDependencies, name) && options.format !== 'es')
         {
             c = util.trim(c.replace('var ' + name + ' = ', ''));
         }
@@ -64,6 +64,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         namespace: options.namespace,
         strict: options.strict,
         commonjs: options.format === 'commonjs',
+        es: options.format === 'es',
         inBrowser: options.format === 'umd' || options.format === 'global'
     };
 
@@ -78,7 +79,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
 
     result = result.replace(/\n\s*\n/g, '\n\n');
 
-    if (options.format !== 'commonjs') {
+    if (options.format !== 'commonjs' && options.format !== 'es') {
         result = util.indent(result);
         result = formatTpl({
             namespace: options.namespace,

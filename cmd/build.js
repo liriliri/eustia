@@ -53,7 +53,7 @@ function exports(options, cb)
                 var tplList = ['code', 'codes'];
 
                 var format = options.format;
-                if (format !== 'commonjs') tplList.push(format);
+                if (format !== 'commonjs' && format !== 'es') tplList.push(format);
 
                 readTpl(tplList, cb);
             },
