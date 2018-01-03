@@ -49,7 +49,7 @@ function exports (options, cb)
 }
 
 var regCommonjs = /require\(.*\)/,
-    regEs6 = /import.*from/;
+    regEs6 = /\bimport\b/;
 
 function extractModule(file, options)
 {
@@ -117,6 +117,8 @@ function relativePath(from, to)
 
 function extractEs6(options, file)
 {
+    var ret = [];
+
     var requirePath = relativePath(file.path, options.output),
         regImport = new RegExp('import\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'),
         namespace = file.data.match(regImport);
@@ -124,15 +126,15 @@ function extractEs6(options, file)
     if (namespace)
     {
         namespace = namespace[1];
-        return extractGlobal(namespace, file);
+        ret = ret.concat(extractGlobal(namespace, file));
     }
 
-    var regImportMembers = new RegExp('import\\s*{([\\w,\\s]+)}\\s*from\\s*[\'"]' + requirePath + '[\'"]'),
+    var regImportMembers = new RegExp('import\\s*{([\\w,\\$\\s]+)}\\s*from\\s*[\'"]' + requirePath + '[\'"]'),
         methods = file.data.match(regImportMembers);
 
-    if (methods) return methods[1].split(',');
+    if (methods) ret = ret.concat(methods[1].split(','));
 
-    return extractGlobal(options.namespace, file);
+    return ret;
 }
 
 function getFnPercentage(fnList, filesNum)
