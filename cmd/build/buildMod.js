@@ -32,7 +32,13 @@ module.exports = function (modName, codeTpl, options, cb)
 
     function detectAndGenCode()
     {
-        async.detect(paths, fs.exists, function (filePath)
+        async.detect(paths, function (filePath, callback) 
+        {
+            fs.access(filePath, function(err) 
+            {
+                callback(null, !err)
+            });
+        }, function (err, filePath)
         {
             if (util.isUndef(filePath))
             {
