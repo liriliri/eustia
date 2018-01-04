@@ -3,3 +3,4 @@
 /coverage/
 /test/build/eustia.js
 /cache/*.js
+package-lock.json
