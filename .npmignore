@@ -6,4 +6,4 @@
 .gitignore
 .npmignore
 .eslintrc
-LICENSE
+.travis.yml
