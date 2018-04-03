@@ -15,7 +15,7 @@ function readTpl(tplName)
     {
         logger.debug('Read tpl', tplPath);
 
-        fs.readFile(tplPath, 'utf-8', function (err, data)
+        fs.readFile(tplPath, 'utf8', function (err, data)
         {
             if (err) return cb(err);
 

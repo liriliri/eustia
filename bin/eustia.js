@@ -96,7 +96,7 @@ function useCfg()
         {
             logger.tpl({data: cfgPath}, 'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}');
 
-            return fs.readFile(cfgPath, 'utf-8', function (err, data)
+            return fs.readFile(cfgPath, 'utf8', function (err, data)
             {
 
                 try {

@@ -13,7 +13,7 @@ var cwd = process.cwd(),
         data: {},
         enableLog: false,
         debug: false,
-        encoding: 'utf-8',
+        encoding: 'utf8',
         errLog: false,
         packInfo: require('./package.json')
     },

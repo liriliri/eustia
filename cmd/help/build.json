@@ -15,7 +15,7 @@
         },
         {
             "flag": "--encoding",
-            "desc": "Input file encoding, default to utf-8"
+            "desc": "Input file encoding, default to utf8"
         },
         {
             "shorthand": "-l",
