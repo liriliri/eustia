@@ -1,4 +1,4 @@
-<a href="http://liriliri.github.io/eustia/" target="_blank">
+<a href="https://eustia.github.io/" target="_blank">
     <img src="http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia.jpg">
 </a>
 
@@ -75,11 +75,11 @@ eustia build -o util.js index.html *.js ...<list of files to be scanned>
 
 如果不传入子命令，Eustia会在当前目录下寻找配置文件执行build命令。
 
-> 关于所有可用的配置项，请查看[相关文档](http://liriliri.github.io/eustia/docs.html#commands)。
+> 关于所有可用的配置项，请查看[相关文档](https://eustia.liriliri.github.io/docs.html#commands)。
 
 ## 编写模块
 
-Eustia本身自带了多个常用的[工具函数](http://liriliri.github.io/eustia/module.html)。
+Eustia本身自带了多个常用的[工具函数](https://eustia.liriliri.github.io/module.html)。
 如果需要添加其它函数，请在根目录下创建名为eustia的文件夹。
 
 比如说，我想要一个能比较版本号大小的函数。首先在eustia文件夹下边创建名为compareVersion的文件，然后再在里面编写实际的代码。
