@@ -59,6 +59,10 @@
             "shorthand": "-s",
             "flag": "--strict",
             "desc": "Use es5 strict mode"
+        },
+        {
+            "flag": "--proxy",
+            "desc": "Request proxy"
         }
     ]
 }

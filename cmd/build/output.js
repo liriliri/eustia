@@ -52,7 +52,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
 
         if (!util.contain(allDependencies, name) && options.format !== 'es')
         {
-            c = util.trim(c.replace('var ' + name + ' = ', ''));
+            c = util.trim(c.replace(new RegExp('^\\s*var ' + util.escapeRegExp(name) + ' = '), ''));
         }
 
         code += c;

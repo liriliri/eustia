@@ -28,7 +28,8 @@ var knowOpts = {
         help: Boolean,
         strict: Boolean,
         version: Boolean,
-        description: String
+        description: String,
+        proxy: String
     },
     shortHands = {
         o: '--output',

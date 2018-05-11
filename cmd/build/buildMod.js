@@ -44,7 +44,7 @@ module.exports = function (modName, codeTpl, options, cb)
             {
                 var dest = path.resolve(options.dirname, 'cache', modName + '.js');
 
-                return downloadMod(modName, dest, function (err)
+                return downloadMod(modName, dest, options, function (err)
                 {
                     if (err) return cb(err);
 
