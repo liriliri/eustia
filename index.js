@@ -27,12 +27,10 @@ module.exports = {
     version: cmdFactory('version')
 };
 
-function cmdFactory(cmdName)
-{
+function cmdFactory(cmdName) {
     var cmd = require('./cmd/' + cmdName);
 
-    return function (options, cb)
-    {
+    return function(options, cb) {
         cb = cb || util.noop;
         options = util.defaults(options, defOpts, cmd.defOpts || {});
 
@@ -41,23 +39,18 @@ function cmdFactory(cmdName)
 
         logger.debug('Options', options);
 
-        cmd(options, function (err)
-        {
-            if (err)
-            {
+        cmd(options, function(err) {
+            if (err) {
                 logger.error(err);
-                if (options.errLog)
-                {
+                if (options.errLog) {
                     // Need to exit immediately, so async fs is not used.
                     fs.writeFileSync(errLogPath, logger.history(), 'utf-8');
                     process.exit();
                 }
             }
 
-            if (options.errLog)
-            {
-                fs.exists(errLogPath, function (result)
-                {
+            if (options.errLog) {
+                fs.exists(errLogPath, function(result) {
                     if (result) fs.unlink(errLogPath);
                 });
             }

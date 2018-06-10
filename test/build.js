@@ -5,8 +5,7 @@ var eustia = require('../index');
 
 var expect = chai.expect;
 
-describe('build', function ()
-{
+describe('build', function() {
     var buildBasic = buildFactory({
         cwd: __dirname,
         files: './build/basic.*',
@@ -17,8 +16,7 @@ describe('build', function ()
         extension: ['js', 'txt'],
         transpiler: {
             test: /\.txt$/,
-            handler: function (src)
-            {
+            handler: function(src) {
                 return 'exports = "' + src + '";';
             }
         },
@@ -26,10 +24,8 @@ describe('build', function ()
         format: 'commonjs'
     });
 
-    it('global module pattern', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('global module pattern', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.capitalize).to.be.a('function');
@@ -38,10 +34,8 @@ describe('build', function ()
         });
     });
 
-    it('commonjs module pattern', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('commonjs module pattern', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.now).to.be.a('function');
@@ -50,10 +44,8 @@ describe('build', function ()
         });
     });
 
-    it('es6 module pattern', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('es6 module pattern', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.has).to.be.a('function');
@@ -63,10 +55,8 @@ describe('build', function ()
         });
     });
 
-    it('ignore files', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('ignore files', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.stripCmt).to.be.an('undefined');
@@ -75,10 +65,8 @@ describe('build', function ()
         });
     });
 
-    it('include module', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('include module', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.stripColor).to.be.a('function');
@@ -87,10 +75,8 @@ describe('build', function ()
         });
     });
 
-    it('exclude module', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('exclude module', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.endWith).to.be.an('undefined');
@@ -99,10 +85,8 @@ describe('build', function ()
         });
     });
 
-    it('custom module', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('custom module', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.logEustia).to.be.a('function');
@@ -111,10 +95,8 @@ describe('build', function ()
         });
     });
 
-    it('library path', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('library path', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.logEruda).to.be.a('function');
@@ -123,10 +105,8 @@ describe('build', function ()
         });
     });
 
-    it('dependency resolve', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('dependency resolve', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.trim).to.be.a('function');
@@ -137,10 +117,8 @@ describe('build', function ()
         });
     });
 
-    it('transpiler', function (done)
-    {
-        buildBasic(function (err, util)
-        {
+    it('transpiler', function(done) {
+        buildBasic(function(err, util) {
             if (err) return done(err);
 
             expect(util.eustiaStr).to.equal('eustia');
@@ -150,36 +128,29 @@ describe('build', function ()
     });
 });
 
-function buildFactory(options)
-{
+function buildFactory(options) {
     var done = false,
         building = false,
         callbacks = [],
         error,
         util;
 
-    return function (cb)
-    {
-        if (done)
-        {
-            return process.nextTick(function ()
-            {
+    return function(cb) {
+        if (done) {
+            return process.nextTick(function() {
                 cb(error, util);
             });
         }
         callbacks.push(cb);
         building = true;
 
-        eustia.build(options, function (err)
-        {
+        eustia.build(options, function(err) {
             done = true;
             error = err;
             util = require('./build/eustia.js');
-            callbacks.forEach(function (cb)
-            {
+            callbacks.forEach(function(cb) {
                 cb(err, util);
             });
         });
     };
 }
-

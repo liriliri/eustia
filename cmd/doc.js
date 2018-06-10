@@ -6,42 +6,40 @@ var extractCmt = require('./doc/extractCmt'),
     readTpl = require('./share/readTpl'),
     output = require('./doc/output');
 
-function exports(options, cb)
-{
-    var template, ast = {};
+function exports(options, cb) {
+    var template,
+        ast = {};
 
     options.output = path.resolve(options.cwd, options.output);
-    if (options.description) options.description = path.resolve(options.cwd, options.description);
+    if (options.description)
+        options.description = path.resolve(options.cwd, options.description);
 
     var docTpl = 'doc';
     if (options.format === 'md') docTpl = 'docMd';
 
-    async.waterfall([
-        function (cb)
-        {
-            readTpl([docTpl], cb);
-        },
-        function (tpl, cb)
-        {
-            template = tpl[docTpl];
-            cb();
-        },
-        function (cb)
-        {
-            extractCmt(ast, options, cb);
-        },
-        function (cb)
-        {
-            readDesc(ast, options, cb);
-        },
-        function (cb)
-        {
-            output(ast, template, options, cb);
+    async.waterfall(
+        [
+            function(cb) {
+                readTpl([docTpl], cb);
+            },
+            function(tpl, cb) {
+                template = tpl[docTpl];
+                cb();
+            },
+            function(cb) {
+                extractCmt(ast, options, cb);
+            },
+            function(cb) {
+                readDesc(ast, options, cb);
+            },
+            function(cb) {
+                output(ast, template, options, cb);
+            }
+        ],
+        function(err) {
+            cb(err);
         }
-    ], function (err)
-    {
-        cb(err);
-    });
+    );
 }
 
 exports.defOpts = {

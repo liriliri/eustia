@@ -1,4 +1,3 @@
-function exports()
-{
+function exports() {
     console.log('eruda');
 }

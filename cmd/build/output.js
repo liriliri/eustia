@@ -3,8 +3,7 @@ var fs = require('fs');
 var util = require('../../lib/util'),
     logger = require('../../lib/logger');
 
-module.exports = function (codes, codesTpl, formatTpl, options, cb)
-{
+module.exports = function(codes, codesTpl, formatTpl, options, cb) {
     var code = '',
         dependencyGraph = [],
         allDependencies = [],
@@ -12,26 +11,23 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
 
     // Sort codes first so that the generated file stays the same
     // when no method is added or removed.
-    codes = codes.sort(function (a, b)
-    {
+    codes = codes.sort(function(a, b) {
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;
 
         return 0;
     });
 
-    util.each(codes, function (code)
-    {
+    util.each(codes, function(code) {
         var dependencies = code.dependencies;
 
         dependencyGraph.push(['', code.name]);
-        util.each(dependencies, function (dependency)
-        {
+        util.each(dependencies, function(dependency) {
             dependencyGraph.push([dependency, code.name]);
             allDependencies.push(dependency);
         });
 
-        codesMap[code.name] = code.code
+        codesMap[code.name] = code.code;
     });
 
     allDependencies = util.unique(allDependencies);
@@ -40,19 +36,24 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
         var codesOrder = util.topoSort(dependencyGraph);
         // The first one is just a empty string, need to exclude it.
         codesOrder.shift();
-    } catch(e)
-    {
+    } catch (e) {
         return cb(e);
     }
 
-    for (var i = 0, len = codesOrder.length; i < len; i++)
-    {
+    for (var i = 0, len = codesOrder.length; i < len; i++) {
         var name = codesOrder[i],
             c = codesMap[name];
 
-        if (!util.contain(allDependencies, name) && options.format !== 'es')
-        {
-            c = util.trim(c.replace(new RegExp('^\\s*var ' + util.escapeRegExp(name) + ' = ', 'm'), ''));
+        if (!util.contain(allDependencies, name) && options.format !== 'es') {
+            c = util.trim(
+                c.replace(
+                    new RegExp(
+                        '^\\s*var ' + util.escapeRegExp(name) + ' = ',
+                        'm'
+                    ),
+                    ''
+                )
+            );
         }
 
         code += c;
@@ -69,8 +70,7 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
     };
 
     var excludeRef = options.data.excludeRef;
-    if (excludeRef.length > 0)
-    {
+    if (excludeRef.length > 0) {
         excludeRef = excludeRef.sort();
         codesData.excludeRef = util.unique(excludeRef);
     }
@@ -89,16 +89,21 @@ module.exports = function (codes, codesTpl, formatTpl, options, cb)
 
     result = options.magicNum + '\n' + result;
 
-    logger.tpl({
-        data: codesOrder.sort().join(' ')
-    }, 'MODULES GENERATED\n{{#cyan}}{{{data}}}{{/cyan}}');
+    logger.tpl(
+        {
+            data: codesOrder.sort().join(' ')
+        },
+        'MODULES GENERATED\n{{#cyan}}{{{data}}}{{/cyan}}'
+    );
 
-    logger.tpl({
-        output: options.output
-    }, 'OUTPUT FILE {{#cyan}}{{{output}}}{{/cyan}}');
+    logger.tpl(
+        {
+            output: options.output
+        },
+        'OUTPUT FILE {{#cyan}}{{{output}}}{{/cyan}}'
+    );
 
-    fs.writeFile(options.output, result, options.encoding, function (err)
-    {
+    fs.writeFile(options.output, result, options.encoding, function(err) {
         if (err) return cb(err);
         cb();
     });

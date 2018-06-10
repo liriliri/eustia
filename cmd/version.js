@@ -1,7 +1,6 @@
 var logger = require('../lib/logger');
 
-function exports(options, cb)
-{
+function exports(options, cb) {
     logger.log('eustia ' + options.packInfo.version);
 
     cb();
