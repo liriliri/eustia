@@ -1,0 +1,4 @@
+tprettierest/
+.gitignore
+.prettierignore
+prettier.config.js
