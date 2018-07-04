@@ -2,10 +2,10 @@
   "name": "eustia",
   "version": "1.0.0",
   "description": "Bundler designed for utilities.",
-  "main": "index.js",
+  "main": "es/index.js",
   "scripts": {
-    "format": "prettier --write *.js src/**/*.js",
-    "lint": "eslint *.js src/**/*.js"
+    "build": "gulp build",
+    "format": "prettier --write src/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/liriliri/eustia#readme",
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "prettier": "^1.13.5"
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^5.0.0-alpha.3",
+    "prettier": "^1.13.5",
+    "typescript": "^2.9.2"
   },
   "bin": {
     "eustia": "./bin/eustia.js"

@@ -1,4 +1,6 @@
-tprettierest/
+es/
+src/
 .gitignore
 .prettierignore
+gulpfile.js
 prettier.config.js
