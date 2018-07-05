@@ -5,7 +5,7 @@
   "main": "es/index.js",
   "scripts": {
     "build": "gulp build",
-    "format": "prettier --write src/**/*.ts"
+    "format": "prettier --write src/**/*.ts bin/*.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/liriliri/eustia#readme",
   "devDependencies": {
+    "@types/node": "^10.5.1",
     "gulp": "^3.9.1",
     "gulp-typescript": "^5.0.0-alpha.3",
     "prettier": "^1.13.5",
@@ -39,5 +40,9 @@
     ],
     "output": "src/lib/util.js",
     "format": "commonjs"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.16.0"
   }
 }
