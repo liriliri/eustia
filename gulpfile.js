@@ -9,4 +9,8 @@ gulp.task('build', () => {
     .pipe(gulp.dest('lib'))
 })
 
+gulp.task('dev', () => {
+  gulp.watch(['src/**/*.ts'], ['build'])
+})
+
 gulp.task('default', ['build'])

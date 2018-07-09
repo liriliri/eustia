@@ -5,6 +5,7 @@
   "main": "es/index.js",
   "scripts": {
     "build": "gulp build",
+    "dev": "gulp dev",
     "format": "prettier --write src/**/*.ts bin/*.js"
   },
   "repository": {
