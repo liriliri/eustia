@@ -1,4 +1,5 @@
 import * as program from 'commander'
+import Bundler, { Options } from './Bundler'
 import chalk from 'chalk'
 
 const { version } = require('../package')
@@ -8,6 +9,7 @@ program.version(version)
 program
   .command('build [input...]')
   .description('build utility libraries')
+  .option('-o, --output <path>', 'set the output path. defaults to "util.js"')
   .action(build)
 
 program
@@ -26,4 +28,6 @@ program.on('--help', () => {
 const args = process.argv
 program.parse(args)
 
-function build() {}
+function build(files: string[], command: Options) {
+  const bundler = new Bundler(files, command)
+}

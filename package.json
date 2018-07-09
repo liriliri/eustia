@@ -24,9 +24,12 @@
   },
   "homepage": "https://github.com/liriliri/eustia#readme",
   "devDependencies": {
+    "@types/glob": "^5.0.35",
+    "@types/lodash": "^4.14.110",
     "@types/node": "^10.5.1",
     "gulp": "^3.9.1",
     "gulp-typescript": "^5.0.0-alpha.3",
+    "lodash": "^4.17.10",
     "prettier": "^1.13.5",
     "typescript": "^2.9.2"
   },
@@ -43,6 +46,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
-    "commander": "^2.16.0"
+    "commander": "^2.16.0",
+    "glob": "^7.1.2"
   }
 }
