@@ -1,6 +1,7 @@
 import * as glob from 'glob'
 import { resolve, dirname } from 'path'
 import * as fs from 'fs-extra'
+import Scanner from './Scanner'
 import isArray = require('lodash/isArray')
 
 export interface Options {
@@ -11,9 +12,11 @@ export interface Options {
 export default class Bundler {
   private entryFiles: string[]
   private options: Options
+  private scanner: Scanner
   constructor(entryFiles: string[], options: Options) {
     this.entryFiles = this.normalizeEntries(entryFiles)
     this.options = this.normalizeOptions(options)
+    this.scanner = new Scanner(this.options)
   }
   normalizeEntries(entryFiles: string[]) {
     if (entryFiles && !isArray(entryFiles)) {
