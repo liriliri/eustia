@@ -3,6 +3,10 @@
     "module": "commonjs",
     "noImplicitAny": true,
     "removeComments": true,
-    "declaration": true
+    "declaration": true,
+    "lib": [
+      "es5",
+      "es2015.promise"
+    ]
   }
 }

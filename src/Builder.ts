@@ -1,9 +1,11 @@
 import * as glob from 'glob'
-import { resolve } from 'path'
+import { resolve, dirname } from 'path'
+import * as fs from 'fs-extra'
 import isArray = require('lodash/isArray')
 
 export interface Options {
   output: string
+  libraries: string[]
 }
 
 export default class Bundler {
@@ -39,7 +41,22 @@ export default class Bundler {
 
     return entryFiles
   }
-  normalizeOptions(options: Options) {
-    return options
+  normalizeOptions(options: Options): Options {
+    return {
+      libraries: this.normalizeLibraries(options.libraries),
+      output: resolve(options.output || 'util.js')
+    }
+  }
+  normalizeLibraries(libraries: string[] = []) {
+    libraries.unshift('eustia')
+
+    return libraries.map(library => resolve(library))
+  }
+  async build() {
+    const { output } = this.options
+
+    try {
+      await fs.mkdirp(dirname(output))
+    } catch (e) {}
   }
 }

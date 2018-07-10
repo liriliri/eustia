@@ -6,7 +6,7 @@ const tsconfig = require('./tsconfig')
 gulp.task('build', () => {
   gulp.src(['src/**/*.ts'])
     .pipe(ts(tsconfig.compilerOptions))
-    .pipe(gulp.dest('lib'))
+    .pipe(gulp.dest('out'))
 })
 
 gulp.task('dev', () => {
