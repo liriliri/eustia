@@ -10,6 +10,7 @@ gulp.task('build', () => {
 })
 
 gulp.task('dev', () => {
+  gulp.start('build')
   gulp.watch(['src/**/*.ts'], ['build'])
 })
 

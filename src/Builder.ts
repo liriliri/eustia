@@ -60,6 +60,9 @@ export default class Bundler {
 
     try {
       await fs.mkdirp(dirname(output))
+
+      const modules = await this.scanner.run(this.entryFiles)
+      console.log('done')
     } catch (e) {}
   }
 }

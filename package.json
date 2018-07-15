@@ -50,6 +50,7 @@
     "chalk": "^2.4.1",
     "commander": "^2.16.0",
     "fs-extra": "^6.0.1",
-    "glob": "^7.1.2"
+    "glob": "^7.1.2",
+    "parse-es6-imports": "^1.0.1"
   }
 }
