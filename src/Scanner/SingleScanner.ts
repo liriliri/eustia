@@ -1,29 +1,48 @@
 import * as fs from 'fs-extra'
 import { Options } from '../Builder'
 
-const IMPORT_RE = /\b(?:import\b|export\b|require\s*\()/
-
 export default class SingleScanner {
   private path: string
   private options: Options
-  private data: string
+  private code: string
   constructor(path: string, options: Options) {
     this.path = path
     this.options = options
-    this.data = ''
+    this.code = ''
   }
   async run() {
-    this.data = await fs.readFile(this.path, 'utf8')
-    if (this.mightHaveDependencies()) {
-      return this.collectDependencies()
+    this.code = await fs.readFile(this.path, 'utf8')
+
+    return this.collectModules()
+  }
+  collectModules() {
+    let modules: string[] = []
+
+    if (regRequire.test(this.code)) {
+      modules = modules.concat(this.collectCommonjsModules())
+    }
+    if (regImport.test(this.code)) {
+      modules = modules.concat(this.collectEsModules())
     }
 
-    return []
+    return modules
   }
-  mightHaveDependencies() {
-    return IMPORT_RE.test(this.data)
+  collectCommonjsModules() {
+    let modules: string[] = []
+
+    return modules
   }
-  collectDependencies(): string[] {
-    return []
+  collectEsModules() {
+    let modules: string[] = []
+    
+    return modules
+  }
+  collectGlobalModules() {
+    let modules: string[] = []
+
+    return modules
   }
 }
+
+const regRequire = /require\(.*\)/
+const regImport = /\bimport\b/
