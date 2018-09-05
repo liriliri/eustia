@@ -1,6 +1,7 @@
-/.idea/
-/node_modules/
-/coverage/
-/test/build/eustia.js
-/cache/*.js
+.idea/
+node_modules/
+coverage/
+test/build/eustia.js
+cache/*.js
+out/
 package-lock.json

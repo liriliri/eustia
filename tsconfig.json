@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "out",
+    "removeComments": true,
+    "declaration": true,
+    "lib": [
+      "es5",
+      "es2015",
+      "es2015.promise"
+    ]
+  }
+}

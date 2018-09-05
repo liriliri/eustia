@@ -1,3 +1,3 @@
 function exports() {
-    console.log('eruda');
+  console.log('eruda');
 }
