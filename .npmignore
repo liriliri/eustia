@@ -1,8 +1,9 @@
-/.idea/
-/test/
-/doc/
-/coverage/
-/cache/*.js
+.idea/
+test/
+doc/
+coverage/
+eustia/
+cache/*.js
 prettier.config.js
 .prettierignore
 .gitignore

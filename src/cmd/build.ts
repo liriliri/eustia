@@ -155,18 +155,23 @@ function handleEmptyFiles(options) {
 }
 
 function resolvePaths(options) {
-  options.files = options.files.map(function(val) {
-    return path.resolve(options.cwd, val)
-  })
+  options.files = options.files.map(val => path.resolve(options.cwd, val))
 
   options.output = path.resolve(options.cwd, options.output)
 
   const libPaths = []
   libPaths.push(path.resolve(options.cwd, 'eustia'))
   options.library.forEach(function(library) {
-    libPaths.push(path.resolve(library))
+    if (util.isStr(library)) {
+      libPaths.push(path.resolve(library))
+    } else if (util.isFn(library)) {
+      libPaths.push(library)
+    }
   })
-  libPaths.push(path.resolve(__dirname, '../../cache'))
+  libPaths.push(options.cacheDir)
+  const DOWNLOAD_URL_PREFIX =
+    'https://raw.githubusercontent.com/liriliri/licia/master/'
+  libPaths.push(modName => DOWNLOAD_URL_PREFIX + modName[0].toLowerCase() + '/')
 
   options.libPaths = libPaths
 

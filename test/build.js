@@ -1,7 +1,6 @@
-var chai = require('chai'),
-  path = require('path')
-
-var eustia = require('../')
+const chai = require('chai')
+const path = require('path')
+const eustia = require('../')
 
 var expect = chai.expect
 

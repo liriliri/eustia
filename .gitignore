@@ -1,6 +1,8 @@
 .idea/
 node_modules/
 coverage/
+eustia/cache
+test/eustia/cache
 test/build/eustia.js
 cache/*.js
 out/

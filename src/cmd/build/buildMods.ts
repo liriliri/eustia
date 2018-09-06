@@ -20,42 +20,44 @@ export default function(modList, codeTpl, options, cb) {
 
   const excludeRef = (options.data.excludeRef = [])
 
-  const walker = async.queue(function(modName, walkerCb) {
-    buildMod(modName, codeTpl, options, function(err, result) {
-      if (err) {
-        return cb(err)
+  const walker = async.queue(async function(modName, walkerCb) {
+    let result
+
+    try {
+      result = await buildMod(modName, codeTpl, options)
+    } catch (e) {
+      return cb(e)
+    }
+
+    const dependencies = result.dependencies
+    const newDependencies = []
+    let dependency
+    let i
+    let len
+
+    for (i = 0, len = dependencies.length; i < len; i++) {
+      dependency = dependencies[i]
+
+      if (util.contain(options.exclude, dependency)) {
+        excludeRef.push(dependency)
+        continue
       }
 
-      const dependencies = result.dependencies
-      const newDependencies = []
-      let dependency
-      let i
-      let len
+      newDependencies.push(dependency)
 
-      for (i = 0, len = dependencies.length; i < len; i++) {
-        dependency = dependencies[i]
-
-        if (util.contain(options.exclude, dependency)) {
-          excludeRef.push(dependency)
-          continue
-        }
-
-        newDependencies.push(dependency)
-
-        if (modMark.hasOwnProperty(dependency)) {
-          continue
-        }
-
-        modMark[dependency] = true
-
-        walker.push(dependency)
+      if (modMark.hasOwnProperty(dependency)) {
+        continue
       }
 
-      result.dependencies = newDependencies
+      modMark[dependency] = true
 
-      codes.push(result)
-      walkerCb()
-    })
+      walker.push(dependency)
+    }
+
+    result.dependencies = newDependencies
+
+    codes.push(result)
+    walkerCb()
   }, 50)
 
   for (i = 0, len = modList.length; i < len; i++) {

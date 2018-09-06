@@ -1,7 +1,6 @@
-import * as async from 'async'
-import * as fs from 'fs'
-import * as path from 'path'
-import downloadMod from '../../lib/downloadMod'
+import * as fs from 'fs-extra'
+import { resolve } from 'path'
+import * as request from 'request-promise'
 import logger from '../../lib/logger'
 import * as util from '../../lib/util'
 
@@ -9,7 +8,7 @@ const regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m
 const regExports = /\bexports\b/
 const regFnExports = /function\s+exports\s*\(/
 
-export default function(modName, codeTpl, options, cb) {
+export default async function(modName, codeTpl, options) {
   const fnPercentage = options.data.fnPercentage
   let percentage
 
@@ -20,80 +19,100 @@ export default function(modName, codeTpl, options, cb) {
   percentage = percentage ? ' (' + percentage + ')' : ''
 
   const result: any = {}
-  const paths = []
+  const paths: string[] = []
 
   util.each(options.libPaths, function(libPath) {
+    if (util.isFn(libPath)) {
+      libPath = libPath(modName)
+    }
     util.each(options.extension, function(extension) {
-      paths.push(path.resolve(libPath, modName + '.' + extension))
+      let path
+      if (util.isUrl(libPath)) {
+        path = libPath + modName + '.' + extension
+      } else {
+        path = resolve(libPath, modName + '.' + extension)
+      }
+      paths.push(path)
     })
   })
 
-  function detectAndGenCode() {
-    async.detect(
-      paths,
-      function(filePath, callback) {
-        fs.access(filePath, function(err) {
-          callback(null, !err)
-        })
-      },
-      function(err, filePath) {
-        if (util.isUndef(filePath)) {
-          const dest = path.resolve(options.dirname, 'cache', modName + '.js')
+  let data: any
+  let path
 
-          return downloadMod(modName, dest, options, function(err) {
-            if (err) {
-              return cb(err)
-            }
-
-            detectAndGenCode()
-          })
+  for (let i = 0, len = paths.length; i < len; i++) {
+    path = paths[i]
+    if (util.isUrl(path)) {
+      logger.tpl(
+        {
+          modName,
+          path
+        },
+        'DOWNLOAD {{#cyan}}{{{modName}}}{{/cyan}} FROM {{{path}}}'
+      )
+      try {
+        const reqOpts: any = {}
+        if (options.proxy) {
+          reqOpts.proxy = options.proxy
         }
-
-        fs.readFile(filePath, options.encoding, function(err, data: string) {
-          if (err) {
-            return cb(err)
-          }
-
-          data = transData(filePath, data, modName, options)
-
-          let dependencies = regDependency.exec(data)
-          dependencies = dependencies
-            ? util.trim(dependencies[1]).split(/\s+/)
-            : []
-
-          data = util.indent(
-            data.replace(regDependency, '\n\n/* dependencies\n * $1 \n */')
-          )
-          data = codeTpl({
-            name: modName,
-            code: util.trim(data),
-            es: options.format === 'es',
-            noFnExports: !regFnExports.test(data),
-            hasExports: regExports.test(data)
-          })
-
-          result.dependencies = dependencies
-          result.name = modName
-          result.code = data
-
-          logger.tpl(
-            {
-              modName,
-              percentage,
-              dependencies: util.isEmpty(dependencies)
-                ? ''
-                : ' <= ' + dependencies.join(' ')
-            },
-            'BUILD MODULE {{#cyan}}{{{modName}}}{{/cyan}}{{{dependencies}}}{{{percentage}}}'
-          )
-
-          cb(null, result)
-        })
+        data = await request.get(path, reqOpts)
+        await fs.mkdirp(options.cacheDir)
+        await fs.writeFile(
+          resolve(options.cacheDir, path.split('/').pop()),
+          data,
+          'utf8'
+        )
+        break
+      } catch (e) {
+        logger.tpl(
+          {
+            modName,
+            path
+          },
+          'DOWNLOAD {{#cyan}}{{{modName}}}{{/cyan}} FROM {{{path}}} FAILED!'
+        )
       }
-    )
+    } else if (await fs.pathExists(path)) {
+      data = await fs.readFile(path, options.encoding)
+      break
+    }
   }
 
-  detectAndGenCode()
+  if (!data) {
+    throw new Error('There is no module named "' + modName + '"')
+  }
+
+  data = transData(path, data, modName, options)
+
+  let dependencies = regDependency.exec(data)
+  dependencies = dependencies ? util.trim(dependencies[1]).split(/\s+/) : []
+
+  data = util.indent(
+    data.replace(regDependency, '\n\n/* dependencies\n * $1 \n */')
+  )
+  data = codeTpl({
+    name: modName,
+    code: util.trim(data),
+    es: options.format === 'es',
+    noFnExports: !regFnExports.test(data),
+    hasExports: regExports.test(data)
+  })
+
+  result.dependencies = dependencies
+  result.name = modName
+  result.code = data
+
+  logger.tpl(
+    {
+      modName,
+      percentage,
+      dependencies: util.isEmpty(dependencies)
+        ? ''
+        : ' <= ' + dependencies.join(' ')
+    },
+    'BUILD MODULE {{#cyan}}{{{modName}}}{{/cyan}}{{{dependencies}}}{{{percentage}}}'
+  )
+
+  return result
 }
 
 function transData(filePath, src, modName, options) {
