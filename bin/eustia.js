@@ -4,6 +4,7 @@ const nopt = require('nopt')
 const path = require('path')
 const fs = require('fs')
 const chokidar = require('chokidar')
+const async = require('async')
 
 const eustia = require('../out/index')
 const logger = require('../out/lib/logger').default
@@ -85,39 +86,56 @@ function useCfg() {
   let cfgPath = path.resolve(process.cwd(), options.config || '.eustia')
   let configs
 
-  fs.exists(cfgPath, function(exists) {
-    if (exists) {
-      logger.tpl(
-        { data: cfgPath },
-        'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}'
-      )
+  let cfgPaths = [
+    options.config || '.eustia',
+    '.eustia.js',
+    '.eustia.json',
+    '.eustiarc',
+    '.eustiarc.js',
+    '.eustiarc.json'
+  ].map(val => path.resolve(process.cwd(), val))
 
-      return fs.readFile(cfgPath, 'utf8', function(err, data) {
-        try {
-          configs = JSON.parse(data)
-        } catch (e) {
-          configs = require(cfgPath)
-        }
-
-        build(configs)
+  async.detect(
+    cfgPaths,
+    function(filePath, cb) {
+      fs.access(filePath, function(err) {
+        cb(null, !err)
       })
-    }
-
-    try {
-      let pkgInfo = require(path.resolve(process.cwd(), 'package.json'))
-      if (pkgInfo.eustia) {
+    },
+    function(err, cfgPath) {
+      if (cfgPath) {
         logger.tpl(
-          { data: 'package.json' },
+          { data: cfgPath },
           'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}'
         )
-        build(pkgInfo.eustia)
-      } else {
+
+        return fs.readFile(cfgPath, 'utf8', function(err, data) {
+          try {
+            configs = JSON.parse(data)
+          } catch (e) {
+            configs = require(cfgPath)
+          }
+
+          build(configs)
+        })
+      }
+
+      try {
+        let pkgInfo = require(path.resolve(process.cwd(), 'package.json'))
+        if (pkgInfo.eustia) {
+          logger.tpl(
+            { data: 'package.json' },
+            'CONFIGURATION FILE {{#cyan}}{{{data}}}{{/cyan}}'
+          )
+          build(pkgInfo.eustia)
+        } else {
+          eustia.help(options)
+        }
+      } catch (e) {
         eustia.help(options)
       }
-    } catch (e) {
-      eustia.help(options)
     }
-  })
+  )
 }
 
 function useCmdLine() {

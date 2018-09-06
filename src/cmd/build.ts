@@ -159,16 +159,18 @@ function resolvePaths(options) {
 
   options.output = path.resolve(options.cwd, options.output)
 
-  const libPaths = []
+  const libPaths = [options.cacheDir]
   libPaths.push(path.resolve(options.cwd, 'eustia'))
   options.library.forEach(function(library) {
     if (util.isStr(library)) {
-      libPaths.push(path.resolve(library))
+      if (!util.isUrl(library)) {
+        library = path.resolve(library)
+      }
+      libPaths.push(library)
     } else if (util.isFn(library)) {
       libPaths.push(library)
     }
   })
-  libPaths.push(options.cacheDir)
   const DOWNLOAD_URL_PREFIX =
     'https://raw.githubusercontent.com/liriliri/licia/master/'
   libPaths.push(modName => DOWNLOAD_URL_PREFIX + modName[0].toLowerCase() + '/')
