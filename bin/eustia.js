@@ -30,7 +30,8 @@ let knowOpts = {
   strict: Boolean,
   version: Boolean,
   description: String,
-  proxy: String
+  proxy: String,
+  ts: Boolean
 }
 let shortHands = {
   o: '--output',

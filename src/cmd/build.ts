@@ -66,8 +66,19 @@ export default function build(options, cb) {
         function(fnList, cb) {
           buildMods(fnList, templates.code, options, cb)
         },
-        function(codes, cb) {
-          output(codes, templates.codes, templates[options.format], options, cb)
+        async function(codes, cb) {
+          try {
+            await output(
+              codes,
+              templates.codes,
+              templates[options.format],
+              options
+            )
+          } catch (e) {
+            cb(e)
+          }
+
+          cb()
         }
       ],
       function(err) {
@@ -92,6 +103,7 @@ export default function build(options, cb) {
   output: './util' + '.js', // Split it to avoid being scanned.
   extension: 'js',
   strict: true,
+  ts: false,
   transpiler: [],
   files: [],
   ignore: [],

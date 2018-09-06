@@ -1,9 +1,10 @@
-import * as fs from 'fs'
+import * as fs from 'fs-extra'
 import logger from '../../lib/logger'
 import * as util from '../../lib/util'
 
-export default function(codes, codesTpl, formatTpl, options, cb) {
+export default async function(codes, codesTpl, formatTpl, options) {
   let code = ''
+  let tsResult = ''
   const dependencyGraph = []
   let allDependencies = []
   const codesMap = {}
@@ -36,17 +37,20 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
 
   allDependencies = util.unique(allDependencies)
 
-  try {
-    codesOrder = util.topoSort(dependencyGraph)
-    // The first one is just a empty string, need to exclude it.
-    codesOrder.shift()
-  } catch (e) {
-    return cb(e)
-  }
+  codesOrder = util.topoSort(dependencyGraph)
+  // The first one is just a empty string, need to exclude it.
+  codesOrder.shift()
 
   for (let i = 0, len = codesOrder.length; i < len; i++) {
     const name = codesOrder[i]
     let c = codesMap[name]
+
+    if (options.ts) {
+      const ts = extractTs(c)
+      if (ts) {
+        tsResult += extractTs(c) + '\n\n'
+      }
+    }
 
     if (!util.contain(allDependencies, name) && options.format !== 'es') {
       c = util.trim(
@@ -106,10 +110,31 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
     'OUTPUT FILE {{#cyan}}{{{output}}}{{/cyan}}'
   )
 
-  fs.writeFile(options.output, result, options.encoding, function(err) {
-    if (err) {
-      return cb(err)
+  await fs.writeFile(options.output, result, options.encoding)
+  if (options.ts) {
+    let output = options.output
+    const lastDotPos = output.lastIndexOf('.')
+    if (lastDotPos > -1) {
+      output = output.slice(0, lastDotPos)
     }
-    cb()
+    output += '.d.ts'
+    await fs.writeFile(output, tsResult, options.encoding)
+  }
+}
+
+function extractTs(code: string) {
+  let ret = ''
+
+  const comments = util.extractBlockCmts(code)
+
+  util.each(comments, function(comment) {
+    const lines = util.trim(comment).split('\n')
+    if (util.trim(lines[0]) !== 'typescript') {
+      return
+    }
+    lines.shift()
+    ret = util.trim(lines.join('\n'))
   })
+
+  return ret
 }
