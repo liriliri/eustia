@@ -7,7 +7,9 @@ export default function(ast, options, cb) {
   }
 
   fs.readFile(options.description, options.encoding, function(err, data) {
-    if (err) return cb(err)
+    if (err) {
+      return cb(err)
+    }
 
     ast.description = data
 

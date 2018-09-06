@@ -1,6 +1,6 @@
 import * as async from 'async'
-import * as util from '../../lib/util'
 import logger from '../../lib/logger'
+import * as util from '../../lib/util'
 import buildMod from './buildMod'
 
 export default function(modList, codeTpl, options, cb) {
@@ -13,19 +13,21 @@ export default function(modList, codeTpl, options, cb) {
 
   logger.singleLine = true
 
-  let codes = []
-  let modMark = {}
+  const codes = []
+  const modMark = {}
   let i
   let len
 
-  let excludeRef = (options.data.excludeRef = [])
+  const excludeRef = (options.data.excludeRef = [])
 
-  let walker = async.queue(function(modName, walkerCb) {
+  const walker = async.queue(function(modName, walkerCb) {
     buildMod(modName, codeTpl, options, function(err, result) {
-      if (err) return cb(err)
+      if (err) {
+        return cb(err)
+      }
 
-      let dependencies = result.dependencies
-      let newDependencies = []
+      const dependencies = result.dependencies
+      const newDependencies = []
       let dependency
       let i
       let len
@@ -40,7 +42,9 @@ export default function(modList, codeTpl, options, cb) {
 
         newDependencies.push(dependency)
 
-        if (modMark.hasOwnProperty(dependency)) continue
+        if (modMark.hasOwnProperty(dependency)) {
+          continue
+        }
 
         modMark[dependency] = true
 
@@ -59,7 +63,9 @@ export default function(modList, codeTpl, options, cb) {
     walker.push(modList[i])
   }
 
-  if (len === 0) cb(null, codes)
+  if (len === 0) {
+    cb(null, codes)
+  }
 
   walker.drain = function() {
     cb(null, codes)

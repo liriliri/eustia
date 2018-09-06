@@ -2,23 +2,25 @@ import * as async from 'async'
 import * as fs from 'fs'
 import * as path from 'path'
 import downloadMod from '../../lib/downloadMod'
-import * as util from '../../lib/util'
 import logger from '../../lib/logger'
+import * as util from '../../lib/util'
 
 const regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m
 const regExports = /\bexports\b/
 const regFnExports = /function\s+exports\s*\(/
 
 export default function(modName, codeTpl, options, cb) {
-  let fnPercentage = options.data.fnPercentage
+  const fnPercentage = options.data.fnPercentage
   let percentage
 
-  if (util.has(fnPercentage, modName)) percentage = fnPercentage[modName]
+  if (util.has(fnPercentage, modName)) {
+    percentage = fnPercentage[modName]
+  }
 
   percentage = percentage ? ' (' + percentage + ')' : ''
 
-  let result: any = {}
-  let paths = []
+  const result: any = {}
+  const paths = []
 
   util.each(options.libPaths, function(libPath) {
     util.each(options.extension, function(extension) {
@@ -36,17 +38,21 @@ export default function(modName, codeTpl, options, cb) {
       },
       function(err, filePath) {
         if (util.isUndef(filePath)) {
-          let dest = path.resolve(options.dirname, 'cache', modName + '.js')
+          const dest = path.resolve(options.dirname, 'cache', modName + '.js')
 
           return downloadMod(modName, dest, options, function(err) {
-            if (err) return cb(err)
+            if (err) {
+              return cb(err)
+            }
 
             detectAndGenCode()
           })
         }
 
         fs.readFile(filePath, options.encoding, function(err, data: string) {
-          if (err) return cb(err)
+          if (err) {
+            return cb(err)
+          }
 
           data = transData(filePath, data, modName, options)
 
@@ -72,8 +78,8 @@ export default function(modName, codeTpl, options, cb) {
 
           logger.tpl(
             {
-              modName: modName,
-              percentage: percentage,
+              modName,
+              percentage,
               dependencies: util.isEmpty(dependencies)
                 ? ''
                 : ' <= ' + dependencies.join(' ')
@@ -91,10 +97,12 @@ export default function(modName, codeTpl, options, cb) {
 }
 
 function transData(filePath, src, modName, options) {
-  let transpiler = options.transpiler
+  const transpiler = options.transpiler
 
   util.each(transpiler, function(item) {
-    if (item.exclude && item.exclude.test(filePath)) return
+    if (item.exclude && item.exclude.test(filePath)) {
+      return
+    }
 
     if (item.test.test(filePath)) {
       util.each(item.handler, function(handler) {

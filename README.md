@@ -8,15 +8,12 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build status][travis-image]][travis-url]
-[![Test coverage][codecov-image]][codecov-url]
 [![License][license-image]][npm-url]
 
 [npm-image]: https://img.shields.io/npm/v/eustia.svg
 [npm-url]: https://npmjs.org/package/eustia
 [travis-image]: https://img.shields.io/travis/liriliri/eustia.svg
 [travis-url]: https://travis-ci.org/liriliri/eustia
-[codecov-image]: https://codecov.io/github/liriliri/eustia/coverage.svg?branch=master
-[codecov-url]: https://codecov.io/github/liriliri/eustia?branch=master
 [license-image]: https://img.shields.io/npm/l/eustia.svg
 
 Eustia is a tool for generating JavaScript utility libraries. It scans your code 

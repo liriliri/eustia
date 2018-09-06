@@ -3,12 +3,16 @@ import * as util from '../../lib/util'
 
 export default function(ast, options, cb) {
   fs.exists(options.input, function(result) {
-    if (!result) return cb('Not found: ' + options.input)
+    if (!result) {
+      return cb('Not found: ' + options.input)
+    }
 
     fs.readFile(options.input, options.encoding, function(err, data) {
-      if (err) return cb(err)
+      if (err) {
+        return cb(err)
+      }
 
-      ast['docs'] = process(data)
+      ast.docs = process(data)
 
       cb()
     })
@@ -16,7 +20,7 @@ export default function(ast, options, cb) {
 }
 
 function process(data) {
-  let ret = {}
+  const ret = {}
 
   data = breakApart(data)
 
@@ -44,19 +48,22 @@ function process(data) {
       if (
         util.startWith(comment, 'module') ||
         util.startWith(comment, 'dependencies')
-      )
+      ) {
         return false
+      }
 
       return true
     })
 
-    if (!util.isEmpty(comments)) ret[name] = indentOneSpace(comments[0])
+    if (!util.isEmpty(comments)) {
+      ret[name] = indentOneSpace(comments[0])
+    }
   })
 
   return sortKeys(ret)
 }
 
-let regSeparator = /\/\* -{30} [$\w]+ -{30} \*\//
+const regSeparator = /\/\* -{30} [$\w]+ -{30} \*\//
 
 function breakApart(data) {
   return data.split(regSeparator).slice(1)
@@ -69,19 +76,23 @@ function indentOneSpace(data) {
 }
 
 function sortKeys(data) {
-  let arr = []
-  let ret = {}
+  const arr = []
+  const ret = {}
 
   util.each(data, function(val, key) {
     arr.push({
-      key: key,
-      val: val
+      key,
+      val
     })
   })
 
   arr.sort(function(a, b) {
-    if (a.key === b.key) return 0
-    if (a.key > b.key) return 1
+    if (a.key === b.key) {
+      return 0
+    }
+    if (a.key > b.key) {
+      return 1
+    }
     return -1
   })
 

@@ -1,25 +1,29 @@
 import * as fs from 'fs'
-import * as util from '../../lib/util'
 import logger from '../../lib/logger'
+import * as util from '../../lib/util'
 
 export default function(codes, codesTpl, formatTpl, options, cb) {
   let code = ''
-  let dependencyGraph = []
+  const dependencyGraph = []
   let allDependencies = []
-  let codesMap = {}
+  const codesMap = {}
   let codesOrder
 
   // Sort codes first so that the generated file stays the same
   // when no method is added or removed.
   codes = codes.sort(function(a, b) {
-    if (a.name < b.name) return -1
-    if (a.name > b.name) return 1
+    if (a.name < b.name) {
+      return -1
+    }
+    if (a.name > b.name) {
+      return 1
+    }
 
     return 0
   })
 
   util.each(codes, function(code) {
-    let dependencies = code.dependencies
+    const dependencies = code.dependencies
 
     dependencyGraph.push(['', code.name])
     util.each(dependencies, function(dependency) {
@@ -41,7 +45,7 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
   }
 
   for (let i = 0, len = codesOrder.length; i < len; i++) {
-    let name = codesOrder[i]
+    const name = codesOrder[i]
     let c = codesMap[name]
 
     if (!util.contain(allDependencies, name) && options.format !== 'es') {
@@ -54,11 +58,13 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
     }
 
     code += c
-    if (i !== len - 1) code += '\n\n'
+    if (i !== len - 1) {
+      code += '\n\n'
+    }
   }
 
-  let codesData: any = {
-    code: code,
+  const codesData: any = {
+    code,
     namespace: options.namespace,
     strict: options.strict,
     commonjs: options.format === 'commonjs',
@@ -101,7 +107,9 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
   )
 
   fs.writeFile(options.output, result, options.encoding, function(err) {
-    if (err) return cb(err)
+    if (err) {
+      return cb(err)
+    }
     cb()
   })
 }

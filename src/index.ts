@@ -1,16 +1,16 @@
-import * as path from 'path'
 import * as fs from 'fs'
-import * as util from './lib/util'
-import logger from './lib/logger'
+import * as path from 'path'
 import build from './cmd/build'
-import doc from './cmd/doc'
 import cache from './cmd/cache'
+import doc from './cmd/doc'
 import help from './cmd/help'
 import version from './cmd/version'
+import logger from './lib/logger'
+import * as util from './lib/util'
 
-let cwd = process.cwd()
-let defOpts = {
-  cwd: cwd,
+const cwd = process.cwd()
+const defOpts = {
+  cwd,
   dirname: path.resolve(__dirname, '../'),
   // Prepend to generated file to prevent being scanned again.
   magicNum: '// Built by eustia.',
@@ -21,7 +21,7 @@ let defOpts = {
   errLog: false,
   packInfo: require('../package.json')
 }
-let errLogPath = path.resolve(cwd, './eustia-debug.log')
+const errLogPath = path.resolve(cwd, './eustia-debug.log')
 
 module.exports = {
   build: cmdFactory(build),
@@ -36,8 +36,12 @@ function cmdFactory(cmd) {
     cb = cb || util.noop
     options = util.defaults(options, defOpts, cmd.defOpts || {})
 
-    if (options.enableLog) logger.enable()
-    if (options.verbose) logger.isDebug = true
+    if (options.enableLog) {
+      logger.enable()
+    }
+    if (options.verbose) {
+      logger.isDebug = true
+    }
 
     logger.debug('Options', options)
 
@@ -53,7 +57,9 @@ function cmdFactory(cmd) {
 
       if (options.errLog) {
         fs.exists(errLogPath, function(result) {
-          if (result) fs.unlink(errLogPath, () => {})
+          if (result) {
+            fs.unlink(errLogPath, util.noop)
+          }
         })
       }
 

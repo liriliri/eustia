@@ -1,7 +1,7 @@
-import * as request from 'request'
 import * as fs from 'fs'
-import * as util from './util'
+import * as request from 'request'
 import logger from './logger'
+import * as util from './util'
 
 const DOWNLOAD_URL_PREFIX =
   'https://raw.githubusercontent.com/liriliri/licia/master/'
@@ -11,24 +11,27 @@ export default function(modName, dest, options, cb) {
 
   logger.tpl(
     {
-      modName: modName,
-      src: src
+      modName,
+      src
     },
     'DOWNLOAD {{#cyan}}{{{modName}}}{{/cyan}} FROM {{{src}}}'
   )
 
-  let reqOpts: any = {
+  const reqOpts: any = {
     url: src,
     method: 'GET'
   }
   if (options.proxy) {
     reqOpts.proxy = options.proxy
-    if (util.startWith(options.proxy, 'http:'))
+    if (util.startWith(options.proxy, 'http:')) {
       src = src.replace('https:', 'http:')
+    }
   }
 
   request(reqOpts, function(err, res, body) {
-    if (err) return cb(err)
+    if (err) {
+      return cb(err)
+    }
 
     switch (res.statusCode) {
       case 200:

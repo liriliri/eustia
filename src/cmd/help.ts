@@ -10,8 +10,8 @@ export default function(options, cb) {
       },
       function(tpl, cb) {
         options.command
-          ? output(options.command, tpl['helpCmd'], cb)
-          : outputAll(tpl['help'], cb)
+          ? output(options.command, tpl.helpCmd, cb)
+          : outputAll(tpl.help, cb)
       }
     ],
     function(err) {

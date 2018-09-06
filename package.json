@@ -12,8 +12,12 @@
   },
   "scripts": {
     "dev": "copyfiles -u 1 src/**/*.js out && tsc -w --inlineSourceMap",
+    "build": "copyfiles -u 1 src/**/*.js out && tsc",
+    "lint": "tslint src/**/*.ts",
+    "lint:fix": "tslint src/**/*.ts --fix",
     "test": "mocha",
-    "format": "prettier src/**/*.ts bin/*.js test/**/*.js --write"
+    "ci": "npm run lint && npm test",
+    "format": "prettier src/**/*.ts bin/*.js test/**/*.js *.json --write"
   },
   "eustia": {
     "output": "src/lib/util.js",
@@ -69,6 +73,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^4.1.0",
     "prettier": "^1.13.5",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.0.3"
   }
 }

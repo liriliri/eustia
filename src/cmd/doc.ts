@@ -1,20 +1,23 @@
 import * as async from 'async'
 import * as path from 'path'
 import extractCmt from './doc/extractCmt'
+import output from './doc/output'
 import readDesc from './doc/readDesc'
 import readTpl from './share/readTpl'
-import output from './doc/output'
 
 export default function doc(options, cb) {
   let template
-  let ast = {}
+  const ast = {}
 
   options.output = path.resolve(options.cwd, options.output)
-  if (options.description)
+  if (options.description) {
     options.description = path.resolve(options.cwd, options.description)
+  }
 
   let docTpl = 'doc'
-  if (options.format === 'md') docTpl = 'docMd'
+  if (options.format === 'md') {
+    docTpl = 'docMd'
+  }
 
   async.waterfall(
     [

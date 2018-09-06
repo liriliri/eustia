@@ -1,13 +1,13 @@
-import * as path from 'path'
 import * as async from 'async'
 import * as chokidar from 'chokidar'
+import * as path from 'path'
 import * as qs from 'qs'
-import scanSrc from './build/scanSrc'
-import readTpl from './share/readTpl'
-import * as util from '../lib/util'
 import logger from '../lib/logger'
+import * as util from '../lib/util'
 import buildMods from './build/buildMods'
 import output from './build/output'
+import scanSrc from './build/scanSrc'
+import readTpl from './share/readTpl'
 
 export default function build(options, cb) {
   transArrOpts(options)
@@ -20,7 +20,7 @@ export default function build(options, cb) {
   build(options.watch)
 
   if (options.watch) {
-    let watchPaths = options.files.concat(options.libPaths)
+    const watchPaths = options.files.concat(options.libPaths)
 
     chokidar
       .watch(watchPaths, {
@@ -42,15 +42,17 @@ export default function build(options, cb) {
   function build(isWatching) {
     options.data = {}
 
-    let startTime = util.now()
+    const startTime = util.now()
 
     async.waterfall(
       [
         function(cb) {
-          let tplList = ['code', 'codes']
+          const tplList = ['code', 'codes']
 
-          let format = options.format
-          if (format !== 'commonjs' && format !== 'es') tplList.push(format)
+          const format = options.format
+          if (format !== 'commonjs' && format !== 'es') {
+            tplList.push(format)
+          }
 
           readTpl(tplList, cb)
         },
@@ -62,21 +64,17 @@ export default function build(options, cb) {
           scanSrc(options, cb)
         },
         function(fnList, cb) {
-          buildMods(fnList, templates['code'], options, cb)
+          buildMods(fnList, templates.code, options, cb)
         },
         function(codes, cb) {
-          output(
-            codes,
-            templates['codes'],
-            templates[options.format],
-            options,
-            cb
-          )
+          output(codes, templates.codes, templates[options.format], options, cb)
         }
       ],
       function(err) {
         if (err) {
-          if (isWatching) return logger.error(err)
+          if (isWatching) {
+            return logger.error(err)
+          }
           return cb(err)
         }
 
@@ -104,7 +102,7 @@ export default function build(options, cb) {
 }
 
 function transArrOpts(options) {
-  let ARR_OPTIONS = [
+  const ARR_OPTIONS = [
     'library',
     'include',
     'exclude',
@@ -119,22 +117,24 @@ function transArrOpts(options) {
 }
 
 function transTranspilerOpt(options, cb) {
-  let cwd = options.cwd
+  const cwd = options.cwd
 
   options.transpiler.forEach(function(transpiler) {
     transpiler.handler = util.toArr(transpiler.handler)
 
-    let handlers = transpiler.handler
+    const handlers = transpiler.handler
 
     util.each(handlers, function(handler, idx) {
       if (util.isStr(handler)) {
         handler = handler.split('?')
-        let handlerName = handler[0],
-          options = {}
+        const handlerName = handler[0]
+        let options = {}
 
-        if (handler[1]) options = qs.parse(handler[1])
+        if (handler[1]) {
+          options = qs.parse(handler[1])
+        }
         try {
-          let requirePath = path.resolve(
+          const requirePath = path.resolve(
             cwd,
             'node_modules/eustia-' + handlerName
           )
@@ -161,7 +161,7 @@ function resolvePaths(options) {
 
   options.output = path.resolve(options.cwd, options.output)
 
-  let libPaths = []
+  const libPaths = []
   libPaths.push(path.resolve(options.cwd, 'eustia'))
   options.library.forEach(function(library) {
     libPaths.push(path.resolve(library))

@@ -1,58 +1,62 @@
-import * as handlebars from 'handlebars'
 import chalk from 'chalk'
-import * as util from './util'
+import * as handlebars from 'handlebars'
 import { format } from 'util'
+import * as util from './util'
 
-let Logger = util.Class({
-  initialize: function() {
+const Logger = util.Class({
+  initialize() {
     this.isDebug = false
     this._isEnabled = false
     this._msgs = []
 
     this._initHandlebars()
   },
-  info: function(msg) {
+  info(msg) {
     this.color(msg, 'green')
   },
-  error: function(err) {
+  error(err) {
     this.color(err, 'red', err)
   },
-  log: function(msg) {
+  log(msg) {
     this.color(msg, 'white')
   },
-  debug: function() {
-    if (!this.isDebug) return
+  debug() {
+    if (!this.isDebug) {
+      return
+    }
 
     this.tpl(
       { data: format.apply(null, util.toArr(arguments)) },
       '{{#red}}DEBUG{{/red}} {{{data}}}'
     )
   },
-  warn: function(msg) {
+  warn(msg) {
     this.color(msg, 'yellow')
   },
-  color: function(msg, color, err) {
-    this.tpl({ msg: msg }, '{{#' + color + '}}{{{msg}}}{{/' + color + '}}', err)
+  color(msg, color, err) {
+    this.tpl({ msg }, '{{#' + color + '}}{{{msg}}}{{/' + color + '}}', err)
   },
-  history: function() {
+  history() {
     return util.stripColor(this._msgs.join('\n'))
   },
-  enable: function() {
+  enable() {
     this._isEnabled = true
   },
-  tpl: function(msg, tpl, err) {
+  tpl(msg, tpl, err) {
     msg = handlebars.compile(tpl)(msg)
 
     this._log(msg, err)
   },
-  _log: function(msg, err) {
-    if (!this._isEnabled) return
+  _log(msg, err) {
+    if (!this._isEnabled) {
+      return
+    }
 
     this._msgs.push(err ? err.stack : msg)
 
     process.stdout.write(msg + '\n')
   },
-  _initHandlebars: function() {
+  _initHandlebars() {
     handlebars.registerHelper('rapd', function(len, ctx) {
       return util.rpad(ctx.fn(this), +len, ' ')
     })

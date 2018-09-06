@@ -6,7 +6,7 @@ import logger from './logger'
 function expandPaths(paths, options, cb) {
   let files = []
 
-  let walker = async.queue(function(path: string, cb) {
+  const walker = async.queue(function(path: string, cb) {
     glob(
       path,
       {
@@ -15,7 +15,9 @@ function expandPaths(paths, options, cb) {
       function(err, result) {
         logger.debug('Expand path', path, 'to', result)
 
-        if (err) return cb(err)
+        if (err) {
+          return cb(err)
+        }
 
         files = files.concat(result)
 
@@ -35,22 +37,28 @@ function expandPaths(paths, options, cb) {
 
 export default function(paths, options, cb) {
   expandPaths(paths, options, function(err, files) {
-    if (err) return cb(err)
+    if (err) {
+      return cb(err)
+    }
 
     async.map(
       files,
       function(file: string, cb) {
         fs.readFile(file, options.encoding, function(err, data) {
-          if (err) return cb(err)
+          if (err) {
+            return cb(err)
+          }
 
           cb(null, {
             path: file,
-            data: data
+            data
           })
         })
       },
       function(err, results) {
-        if (err) return cb(err)
+        if (err) {
+          return cb(err)
+        }
 
         cb(null, results)
       }
