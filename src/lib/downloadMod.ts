@@ -1,8 +1,7 @@
 import * as request from 'request'
 import * as fs from 'fs'
-
-const util = require('./util')
-const logger = require('./logger')
+import * as util from './util'
+import logger from './logger'
 
 const DOWNLOAD_URL_PREFIX =
   'https://raw.githubusercontent.com/liriliri/licia/master/'

@@ -1,10 +1,9 @@
-var async = require('async')
+import * as async from 'async'
+import * as util from '../../lib/util'
+import logger from '../../lib/logger'
+import buildMod from './buildMod'
 
-var util = require('../../lib/util'),
-  buildMod = require('./buildMod'),
-  logger = require('../../lib/logger')
-
-module.exports = function(modList, codeTpl, options, cb) {
+export default function(modList, codeTpl, options, cb) {
   logger.tpl(
     {
       data: modList.join(' ')

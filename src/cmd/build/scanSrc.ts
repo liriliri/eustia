@@ -1,8 +1,7 @@
-var path = require('path')
-
-var util = require('../../lib/util'),
-  readPaths = require('../../lib/readPaths'),
-  logger = require('../../lib/logger')
+import * as path from 'path'
+import * as util from '../../lib/util'
+import logger from '../../lib/logger'
+import readPaths from '../../lib/readPaths'
 
 export default function(options, cb) {
   if (util.isEmpty(options.files)) {
@@ -117,6 +116,7 @@ function relativePath(from, to) {
 function extractEs6(options, file) {
   var ret = []
 
+  // import util from './util'
   var requirePath = relativePath(file.path, options.output),
     regImport = new RegExp(
       'import\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'
@@ -128,6 +128,19 @@ function extractEs6(options, file) {
     ret = ret.concat(extractGlobal(namespace, file))
   }
 
+  // import * as util from './util'
+  var requirePath = relativePath(file.path, options.output),
+    regImport = new RegExp(
+      'import\\s+(\\*\\s+as)\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'
+    ),
+    namespace = file.data.match(regImport)
+
+  if (namespace) {
+    namespace = namespace[2]
+    ret = ret.concat(extractGlobal(namespace, file))
+  }
+
+  // import {xxx, xx} from '.util'
   var regImportMembers = new RegExp(
       'import\\s*{([\\w,\\$\\s]+)}\\s*from\\s*[\'"]' + requirePath + '[\'"]'
     ),

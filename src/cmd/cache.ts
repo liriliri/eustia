@@ -1,9 +1,8 @@
 import * as async from 'async'
+import logger from '../lib/logger'
+import clear from './cache/clear'
 
-const logger = require('../lib/logger')
-const clear = require('./cache/clear')
-
-module.exports = function(options, cb) {
+export default function cache(options, cb) {
   async.waterfall(
     [
       function(cb) {
@@ -23,6 +22,6 @@ module.exports = function(options, cb) {
   )
 }
 
-module.exports.defOpts = {
+;(cache as any).defOpts = {
   subCmd: ''
 }

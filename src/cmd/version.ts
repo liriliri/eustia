@@ -1,9 +1,7 @@
-var logger = require('../lib/logger')
+import logger from '../lib/logger'
 
-module.exports = function(options, cb) {
+export default function(options, cb) {
   logger.log('eustia ' + options.packInfo.version)
 
   cb()
 }
-
-module.exports.defOpts = {}

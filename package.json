@@ -16,12 +16,17 @@
     "format": "prettier src/**/*.ts bin/*.js test/**/*.js --write"
   },
   "eustia": {
-    "output": "lib/util.js",
+    "output": "src/lib/util.js",
     "files": [
-      "index.js",
-      "bin/eustia.js",
-      "cmd/**/*.js",
-      "lib/*.js"
+      "src/**/*.ts"
+    ],
+    "include": [
+      "each",
+      "extend",
+      "has",
+      "isEmpty",
+      "isPlainObj",
+      "some"
     ],
     "format": "commonjs"
   },
@@ -51,7 +56,13 @@
   },
   "devDependencies": {
     "@types/async": "^2.0.49",
+    "@types/chalk": "^2.2.0",
+    "@types/chokidar": "^1.7.5",
+    "@types/glob": "^5.0.35",
+    "@types/handlebars": "^4.0.39",
+    "@types/marked": "^0.4.1",
     "@types/node": "^10.9.4",
+    "@types/qs": "^6.5.1",
     "@types/request": "^2.47.1",
     "chai": "^4.1.2",
     "copyfiles": "^2.1.0",

@@ -1,9 +1,8 @@
-var fs = require('fs')
+import * as fs from 'fs'
+import * as util from '../../lib/util'
+import logger from '../../lib/logger'
 
-var util = require('../../lib/util'),
-  logger = require('../../lib/logger')
-
-module.exports = function(codes, codesTpl, formatTpl, options, cb) {
+export default function(codes, codesTpl, formatTpl, options, cb) {
   var code = '',
     dependencyGraph = [],
     allDependencies = [],

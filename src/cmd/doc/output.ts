@@ -1,15 +1,14 @@
-var fs = require('fs'),
-  marked = require('marked')
-
-var util = require('../../lib/util'),
-  logger = require('../../lib/logger')
+import * as fs from 'fs'
+import * as marked from 'marked'
+import * as util from '../../lib/util'
+import logger from '../../lib/logger'
 
 marked.setOptions({
   renderer: new marked.Renderer(),
   langPrefix: 'language-'
 })
 
-module.exports = function(ast, template, options, cb) {
+export default function(ast, template, options, cb) {
   logger.tpl(
     {
       output: options.output

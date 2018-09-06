@@ -1,8 +1,7 @@
-var handlebars = require('handlebars'),
-  chalk = require('chalk')
-
-var util = require('./util'),
-  format = require('util').format
+import * as handlebars from 'handlebars'
+import chalk from 'chalk'
+import * as util from './util'
+import { format } from 'util'
 
 var Logger = util.Class({
   initialize: function() {
@@ -67,4 +66,4 @@ var Logger = util.Class({
   }
 })
 
-module.exports = new Logger()
+export default new Logger()

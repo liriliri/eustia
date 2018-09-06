@@ -1,12 +1,11 @@
 import * as async from 'async'
 import * as path from 'path'
 import extractCmt from './doc/extractCmt'
+import readDesc from './doc/readDesc'
+import readTpl from './share/readTpl'
+import output from './doc/output'
 
-var readDesc = require('./doc/readDesc'),
-  readTpl = require('./share/readTpl'),
-  output = require('./doc/output')
-
-module.exports = function(options, cb) {
+export default function doc(options, cb) {
   var template,
     ast = {}
 
@@ -42,7 +41,7 @@ module.exports = function(options, cb) {
   )
 }
 
-module.exports.defOpts = {
+;(doc as any).defOpts = {
   input: 'util' + '.js',
   output: 'doc.html',
   title: 'Eustia Documentation',

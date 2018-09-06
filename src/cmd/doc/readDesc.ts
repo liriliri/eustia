@@ -1,6 +1,6 @@
-var fs = require('fs')
+import * as fs from 'fs'
 
-module.exports = function(ast, options, cb) {
+export default function(ast, options, cb) {
   if (!options.description) {
     ast.description = ''
     return cb()

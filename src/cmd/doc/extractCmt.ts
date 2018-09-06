@@ -1,6 +1,5 @@
-var fs = require('fs')
-
-var util = require('../../lib/util')
+import * as fs from 'fs'
+import * as util from '../../lib/util'
 
 export default function(ast, options, cb) {
   fs.exists(options.input, function(result) {

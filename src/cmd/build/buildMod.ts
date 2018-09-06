@@ -2,15 +2,14 @@ import * as async from 'async'
 import * as fs from 'fs'
 import * as path from 'path'
 import downloadMod from '../../lib/downloadMod'
-
-const logger = require('../../lib/logger')
-const util = require('../../lib/util')
+import * as util from '../../lib/util'
+import logger from '../../lib/logger'
 
 var regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m,
   regExports = /\bexports\b/,
   regFnExports = /function\s+exports\s*\(/
 
-module.exports = function(modName, codeTpl, options, cb) {
+export default function(modName, codeTpl, options, cb) {
   var fnPercentage = options.data.fnPercentage,
     percentage
 

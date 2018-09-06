@@ -1,8 +1,7 @@
-var async = require('async'),
-  fs = require('fs'),
-  glob = require('glob')
-
-var logger = require('./logger')
+import * as async from 'async'
+import * as fs from 'fs'
+import * as glob from 'glob'
+import logger from './logger'
 
 function expandPaths(paths, options, cb) {
   var files = []
@@ -34,7 +33,7 @@ function expandPaths(paths, options, cb) {
   }
 }
 
-module.exports = function(paths, options, cb) {
+export default function(paths, options, cb) {
   expandPaths(paths, options, function(err, files) {
     if (err) return cb(err)
 

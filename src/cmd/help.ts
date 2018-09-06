@@ -1,10 +1,8 @@
-var readTpl = require('./share/readTpl')
+import * as async from 'async'
+import logger from '../lib/logger'
+import readTpl from './share/readTpl'
 
-var async = require('async')
-
-var logger = require('../lib/logger')
-
-module.exports = function(options, cb) {
+export default function(options, cb) {
   async.waterfall(
     [
       function(cb) {

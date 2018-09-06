@@ -6,7 +6,7 @@ const fs = require('fs')
 const chokidar = require('chokidar')
 
 const eustia = require('../out/index')
-const logger = require('../out/lib/logger')
+const logger = require('../out/lib/logger').default
 const util = require('../out/lib/util')
 
 let knowOpts = {

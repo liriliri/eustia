@@ -1,9 +1,8 @@
-var handlebars = require('handlebars'),
-  async = require('async'),
-  path = require('path'),
-  fs = require('fs')
-
-var logger = require('../../lib/logger')
+import * as handlebars from 'handlebars'
+import * as async from 'async'
+import * as path from 'path'
+import * as fs from 'fs'
+import logger from '../../lib/logger'
 
 var tpl = {}
 

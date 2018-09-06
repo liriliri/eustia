@@ -1,8 +1,12 @@
 import * as path from 'path'
 import * as fs from 'fs'
-
-var util = require('./lib/util'),
-  logger = require('./lib/logger')
+import * as util from './lib/util'
+import logger from './lib/logger'
+import build from './cmd/build'
+import doc from './cmd/doc'
+import cache from './cmd/cache'
+import help from './cmd/help'
+import version from './cmd/version'
 
 var cwd = process.cwd(),
   defOpts = {
@@ -20,16 +24,14 @@ var cwd = process.cwd(),
   errLogPath = path.resolve(cwd, './eustia-debug.log')
 
 module.exports = {
-  build: cmdFactory('build'),
-  doc: cmdFactory('doc'),
-  cache: cmdFactory('cache'),
-  help: cmdFactory('help'),
-  version: cmdFactory('version')
+  build: cmdFactory(build),
+  doc: cmdFactory(doc),
+  cache: cmdFactory(cache),
+  help: cmdFactory(help),
+  version: cmdFactory(version)
 }
 
-function cmdFactory(cmdName) {
-  var cmd = require('./cmd/' + cmdName)
-
+function cmdFactory(cmd) {
   return function(options, cb) {
     cb = cb || util.noop
     options = util.defaults(options, defOpts, cmd.defOpts || {})

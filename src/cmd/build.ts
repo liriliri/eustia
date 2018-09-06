@@ -1,17 +1,15 @@
+import * as path from 'path'
+import * as async from 'async'
+import * as chokidar from 'chokidar'
+import * as qs from 'qs'
 import scanSrc from './build/scanSrc'
 import readTpl from './share/readTpl'
+import * as util from '../lib/util'
+import logger from '../lib/logger'
+import buildMods from './build/buildMods'
+import output from './build/output'
 
-var path = require('path'),
-  async = require('async'),
-  chokidar = require('chokidar'),
-  qs = require('qs')
-
-var buildMods = require('./build/buildMods'),
-  output = require('./build/output'),
-  logger = require('../lib/logger'),
-  util = require('../lib/util')
-
-module.exports = function(options, cb) {
+export default function build(options, cb) {
   transArrOpts(options)
   transTranspilerOpt(options, cb)
   handleEmptyFiles(options)
@@ -90,7 +88,7 @@ module.exports = function(options, cb) {
   }
 }
 
-module.exports.defOpts = {
+;(build as any).defOpts = {
   namespace: '_',
   format: 'umd',
   output: './util' + '.js', // Split it to avoid being scanned.

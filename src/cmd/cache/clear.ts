@@ -1,12 +1,14 @@
-var glob = require('glob'),
-  fs = require('fs'),
-  async = require('async'),
-  path = require('path')
+import * as glob from 'glob'
+import * as fs from 'fs'
+import * as async from 'async'
+import * as path from 'path'
+import logger from '../../lib/logger'
 
-var logger = require('../../lib/logger')
-
-module.exports = function(cb) {
-  glob(path.resolve(__dirname, '../../../cache/*.js'), {}, function(err, files) {
+export default function(cb) {
+  glob(path.resolve(__dirname, '../../../cache/*.js'), {}, function(
+    err,
+    files
+  ) {
     if (err) return cb(err)
 
     async.eachSeries(
