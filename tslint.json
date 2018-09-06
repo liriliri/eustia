@@ -5,7 +5,8 @@
   "rules": {
     "object-literal-sort-keys": false,
     "only-arrow-functions": false,
-    "no-shadowed-variable": false
+    "no-shadowed-variable": false,
+    "member-access": false
   },
   "rulesDirectory": []
 }

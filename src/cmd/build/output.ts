@@ -133,8 +133,14 @@ function extractTs(code: string) {
       return
     }
     lines.shift()
-    ret = util.trim(lines.join('\n'))
+    ret = indentOneSpace(lines.join('\n'))
   })
 
   return ret
+}
+
+const regStartOneSpace = /^ /gm
+
+function indentOneSpace(data) {
+  return data.replace(regStartOneSpace, '')
 }

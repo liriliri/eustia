@@ -83,7 +83,7 @@ export default async function(modName, codeTpl, options) {
 
   data = transData(path, data, modName, options)
 
-  let dependencies = regDependency.exec(data)
+  let dependencies: any[] = regDependency.exec(data)
   dependencies = dependencies ? util.trim(dependencies[1]).split(/\s+/) : []
 
   data = util.indent(

@@ -11,8 +11,6 @@ export default function(modList, codeTpl, options, cb) {
     'MODULES FOUND\n{{#cyan}}{{{data}}}{{/cyan}}'
   )
 
-  logger.singleLine = true
-
   const codes = []
   const modMark = {}
   let i

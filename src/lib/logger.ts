@@ -3,24 +3,23 @@ import * as handlebars from 'handlebars'
 import { format } from 'util'
 import * as util from './util'
 
-const Logger = util.Class({
-  initialize() {
-    this.isDebug = false
-    this._isEnabled = false
-    this._msgs = []
-
-    this._initHandlebars()
-  },
+class Logger {
+  public isDebug: boolean = false
+  private isEnabled: boolean = false
+  private msgs: any[] = []
+  constructor() {
+    this.initHandlebars()
+  }
   info(msg) {
     this.color(msg, 'green')
-  },
+  }
   error(err) {
     this.color(err, 'red', err)
-  },
+  }
   log(msg) {
     this.color(msg, 'white')
-  },
-  debug() {
+  }
+  debug(...args: any[]) {
     if (!this.isDebug) {
       return
     }
@@ -29,34 +28,34 @@ const Logger = util.Class({
       { data: format.apply(null, util.toArr(arguments)) },
       '{{#red}}DEBUG{{/red}} {{{data}}}'
     )
-  },
+  }
   warn(msg) {
     this.color(msg, 'yellow')
-  },
-  color(msg, color, err) {
+  }
+  color(msg, color, err?) {
     this.tpl({ msg }, '{{#' + color + '}}{{{msg}}}{{/' + color + '}}', err)
-  },
+  }
   history() {
-    return util.stripColor(this._msgs.join('\n'))
-  },
+    return util.stripColor(this.msgs.join('\n'))
+  }
   enable() {
-    this._isEnabled = true
-  },
-  tpl(msg, tpl, err) {
+    this.isEnabled = true
+  }
+  tpl(msg, tpl, err?) {
     msg = handlebars.compile(tpl)(msg)
 
     this._log(msg, err)
-  },
-  _log(msg, err) {
-    if (!this._isEnabled) {
+  }
+  private _log(msg, err) {
+    if (!this.isEnabled) {
       return
     }
 
-    this._msgs.push(err ? err.stack : msg)
+    this.msgs.push(err ? err.stack : msg)
 
     process.stdout.write(msg + '\n')
-  },
-  _initHandlebars() {
+  }
+  private initHandlebars() {
     handlebars.registerHelper('rapd', function(len, ctx) {
       return util.rpad(ctx.fn(this), +len, ' ')
     })
@@ -75,6 +74,6 @@ const Logger = util.Class({
       })
     })
   }
-})
+}
 
 export default new Logger()
