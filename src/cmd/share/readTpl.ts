@@ -4,10 +4,10 @@ import * as path from 'path'
 import * as fs from 'fs'
 import logger from '../../lib/logger'
 
-var tpl = {}
+let tpl = {}
 
 function readTpl(tplName) {
-  var tplPath = path.resolve(__dirname, '../../../tpl/' + tplName + '.hbs')
+  let tplPath = path.resolve(__dirname, '../../../tpl/' + tplName + '.hbs')
 
   return function(cb) {
     logger.debug('Read tpl', tplPath)
@@ -23,7 +23,7 @@ function readTpl(tplName) {
 }
 
 export default function(templates, cb) {
-  var callbacks = templates.map(function(val) {
+  let callbacks = templates.map(function(val) {
     return readTpl(val)
   })
 

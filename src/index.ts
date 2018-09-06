@@ -8,20 +8,20 @@ import cache from './cmd/cache'
 import help from './cmd/help'
 import version from './cmd/version'
 
-var cwd = process.cwd(),
-  defOpts = {
-    cwd: cwd,
-    dirname: path.resolve(__dirname, '../'),
-    // Prepend to generated file to prevent being scanned again.
-    magicNum: '// Built by eustia.',
-    data: {},
-    enableLog: false,
-    debug: false,
-    encoding: 'utf8',
-    errLog: false,
-    packInfo: require('../package.json')
-  },
-  errLogPath = path.resolve(cwd, './eustia-debug.log')
+let cwd = process.cwd()
+let defOpts = {
+  cwd: cwd,
+  dirname: path.resolve(__dirname, '../'),
+  // Prepend to generated file to prevent being scanned again.
+  magicNum: '// Built by eustia.',
+  data: {},
+  enableLog: false,
+  debug: false,
+  encoding: 'utf8',
+  errLog: false,
+  packInfo: require('../package.json')
+}
+let errLogPath = path.resolve(cwd, './eustia-debug.log')
 
 module.exports = {
   build: cmdFactory(build),

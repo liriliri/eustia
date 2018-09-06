@@ -27,7 +27,7 @@ export default function(ast, template, options, cb) {
     })
   }
 
-  var data =
+  let data =
     options.format === 'json' ? JSON.stringify(ast, null, 4) : template(ast)
 
   fs.writeFile(options.output, data, options.encoding, function(err) {

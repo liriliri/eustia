@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import * as util from './util'
 import { format } from 'util'
 
-var Logger = util.Class({
+let Logger = util.Class({
   initialize: function() {
     this.isDebug = false
     this._isEnabled = false
@@ -57,7 +57,14 @@ var Logger = util.Class({
       return util.rpad(ctx.fn(this), +len, ' ')
     })
 
-    var SUPPORT_COLORS = ['yellow', 'green', 'cyan', 'red', 'white', 'magenta']
+    const SUPPORT_COLORS = [
+      'yellow',
+      'green',
+      'cyan',
+      'red',
+      'white',
+      'magenta'
+    ]
     SUPPORT_COLORS.forEach(function(color) {
       handlebars.registerHelper(color, function(ctx) {
         return chalk[color](ctx.fn(this))

@@ -27,8 +27,9 @@ function outputAll(tpl, cb) {
 }
 
 function output(name, tpl, cb) {
+  let data
   try {
-    var data = require('./help/' + name)
+    data = require('./help/' + name)
   } catch (e) {
     return cb(new Error('Command not found: ' + name))
   }

@@ -13,22 +13,22 @@ export default function(modList, codeTpl, options, cb) {
 
   logger.singleLine = true
 
-  var codes = [],
-    modMark = {},
-    i,
-    len
+  let codes = []
+  let modMark = {}
+  let i
+  let len
 
-  var excludeRef = (options.data.excludeRef = [])
+  let excludeRef = (options.data.excludeRef = [])
 
-  var walker = async.queue(function(modName, walkerCb) {
+  let walker = async.queue(function(modName, walkerCb) {
     buildMod(modName, codeTpl, options, function(err, result) {
       if (err) return cb(err)
 
-      var dependencies = result.dependencies,
-        newDependencies = [],
-        dependency,
-        i,
-        len
+      let dependencies = result.dependencies
+      let newDependencies = []
+      let dependency
+      let i
+      let len
 
       for (i = 0, len = dependencies.length; i < len; i++) {
         dependency = dependencies[i]

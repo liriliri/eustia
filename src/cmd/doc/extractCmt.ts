@@ -16,12 +16,12 @@ export default function(ast, options, cb) {
 }
 
 function process(data) {
-  var ret = {}
+  let ret = {}
 
   data = breakApart(data)
 
   util.each(data, function(val) {
-    var name
+    let name
 
     val = util.trim(val)
 
@@ -35,7 +35,7 @@ function process(data) {
       return
     }
 
-    var comments = util.extractBlockCmts(
+    let comments = util.extractBlockCmts(
       val.slice(val.indexOf('{') + 1, val.lastIndexOf('}'))
     )
 
@@ -56,21 +56,21 @@ function process(data) {
   return sortKeys(ret)
 }
 
-var regSeparator = /\/\* -{30} [$\w]+ -{30} \*\//
+let regSeparator = /\/\* -{30} [$\w]+ -{30} \*\//
 
 function breakApart(data) {
   return data.split(regSeparator).slice(1)
 }
 
-var regStartOneSpace = /^ /gm
+const regStartOneSpace = /^ /gm
 
 function indentOneSpace(data) {
   return data.replace(regStartOneSpace, '')
 }
 
 function sortKeys(data) {
-  var arr = [],
-    ret = {}
+  let arr = []
+  let ret = {}
 
   util.each(data, function(val, key) {
     arr.push({

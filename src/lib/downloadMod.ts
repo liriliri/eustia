@@ -7,7 +7,7 @@ const DOWNLOAD_URL_PREFIX =
   'https://raw.githubusercontent.com/liriliri/licia/master/'
 
 export default function(modName, dest, options, cb) {
-  var src = getSrc(modName)
+  let src = getSrc(modName)
 
   logger.tpl(
     {
@@ -17,7 +17,7 @@ export default function(modName, dest, options, cb) {
     'DOWNLOAD {{#cyan}}{{{modName}}}{{/cyan}} FROM {{{src}}}'
   )
 
-  var reqOpts: any = {
+  let reqOpts: any = {
     url: src,
     method: 'GET'
   }

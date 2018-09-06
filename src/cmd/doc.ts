@@ -6,14 +6,14 @@ import readTpl from './share/readTpl'
 import output from './doc/output'
 
 export default function doc(options, cb) {
-  var template,
-    ast = {}
+  let template
+  let ast = {}
 
   options.output = path.resolve(options.cwd, options.output)
   if (options.description)
     options.description = path.resolve(options.cwd, options.description)
 
-  var docTpl = 'doc'
+  let docTpl = 'doc'
   if (options.format === 'md') docTpl = 'docMd'
 
   async.waterfall(

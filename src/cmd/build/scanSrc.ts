@@ -12,8 +12,8 @@ export default function(options, cb) {
   logger.log('SCAN FILES')
   logger.color(options.files.join('\n'), 'cyan')
 
-  var files = options.files,
-    modList = options.include
+  let files = options.files
+  let modList = options.include
 
   readPaths(files, options, function(err, files) {
     if (err) return cb(err)
@@ -23,7 +23,7 @@ export default function(options, cb) {
 
       file.data = util.stripCmt(file.data)
 
-      var modules = extractModule(file, options)
+      let modules = extractModule(file, options)
 
       if (modules.length !== 0) logger.debug('File', file.path, 'has', modules)
 
@@ -44,11 +44,11 @@ export default function(options, cb) {
   })
 }
 
-var regCommonjs = /require\(.*\)/,
-  regEs6 = /\bimport\b/
+const regCommonjs = /require\(.*\)/
+const regEs6 = /\bimport\b/
 
 function extractModule(file, options) {
-  var ret = []
+  let ret = []
 
   // Mixed use of commonjs and es6 module pattern is possible.
   if (regCommonjs.test(file.data))
@@ -59,10 +59,10 @@ function extractModule(file, options) {
   return util.unique(ret)
 }
 
-var regModules = {
+let regModules = {
   _cache: {},
   get: function(namespace) {
-    var ret
+    let ret
 
     ret = this._cache[namespace]
     if (ret) return ret
@@ -77,7 +77,7 @@ var regModules = {
 }
 
 function extractGlobal(namespace, file) {
-  var modules = file.data.match(regModules.get(namespace))
+  let modules = file.data.match(regModules.get(namespace))
 
   return modules
     ? util.map(modules, function(val) {
@@ -90,11 +90,11 @@ function extractGlobal(namespace, file) {
 }
 
 function extractCommonjs(options, file) {
-  var requirePath = relativePath(file.path, options.output),
-    regRequire = new RegExp(
-      '(\\w+)\\s*=\\s*require\\([\'"]' + requirePath + '(?:\\.js)?[\'"]\\)'
-    ),
-    namespace = file.data.match(regRequire)
+  let requirePath = relativePath(file.path, options.output)
+  let regRequire = new RegExp(
+    '(\\w+)\\s*=\\s*require\\([\'"]' + requirePath + '(?:\\.js)?[\'"]\\)'
+  )
+  let namespace = file.data.match(regRequire)
 
   if (namespace) namespace = namespace[1]
 
@@ -102,7 +102,7 @@ function extractCommonjs(options, file) {
 }
 
 function relativePath(from, to) {
-  var ret = path
+  let ret = path
     .relative(path.dirname(from), to)
     .replace(/\\/g, '/')
     .replace(/\.js$/, '')
@@ -114,14 +114,14 @@ function relativePath(from, to) {
 }
 
 function extractEs6(options, file) {
-  var ret = []
+  let ret = []
 
   // import util from './util'
-  var requirePath = relativePath(file.path, options.output),
-    regImport = new RegExp(
-      'import\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'
-    ),
-    namespace = file.data.match(regImport)
+  let requirePath = relativePath(file.path, options.output)
+  let regImport = new RegExp(
+    'import\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'
+  )
+  let namespace = file.data.match(regImport)
 
   if (namespace) {
     namespace = namespace[1]
@@ -129,11 +129,11 @@ function extractEs6(options, file) {
   }
 
   // import * as util from './util'
-  var requirePath = relativePath(file.path, options.output),
-    regImport = new RegExp(
-      'import\\s+(\\*\\s+as)\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'
-    ),
-    namespace = file.data.match(regImport)
+  requirePath = relativePath(file.path, options.output)
+  regImport = new RegExp(
+    'import\\s+(\\*\\s+as)\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'
+  )
+  namespace = file.data.match(regImport)
 
   if (namespace) {
     namespace = namespace[2]
@@ -141,10 +141,10 @@ function extractEs6(options, file) {
   }
 
   // import {xxx, xx} from '.util'
-  var regImportMembers = new RegExp(
-      'import\\s*{([\\w,\\$\\s]+)}\\s*from\\s*[\'"]' + requirePath + '[\'"]'
-    ),
-    methods = file.data.match(regImportMembers)
+  let regImportMembers = new RegExp(
+    'import\\s*{([\\w,\\$\\s]+)}\\s*from\\s*[\'"]' + requirePath + '[\'"]'
+  )
+  let methods = file.data.match(regImportMembers)
 
   if (methods) ret = ret.concat(methods[1].split(','))
 
@@ -152,7 +152,7 @@ function extractEs6(options, file) {
 }
 
 function getFnPercentage(fnList, filesNum) {
-  var ret = {}
+  let ret = {}
 
   fnList.forEach(function(fnName) {
     ret[fnName] = ret[fnName] !== undefined ? ret[fnName] + 1 : 1

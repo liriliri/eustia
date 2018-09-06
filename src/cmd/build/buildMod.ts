@@ -5,20 +5,20 @@ import downloadMod from '../../lib/downloadMod'
 import * as util from '../../lib/util'
 import logger from '../../lib/logger'
 
-var regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m,
-  regExports = /\bexports\b/,
-  regFnExports = /function\s+exports\s*\(/
+const regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m
+const regExports = /\bexports\b/
+const regFnExports = /function\s+exports\s*\(/
 
 export default function(modName, codeTpl, options, cb) {
-  var fnPercentage = options.data.fnPercentage,
-    percentage
+  let fnPercentage = options.data.fnPercentage
+  let percentage
 
   if (util.has(fnPercentage, modName)) percentage = fnPercentage[modName]
 
   percentage = percentage ? ' (' + percentage + ')' : ''
 
-  var result: any = {},
-    paths = []
+  let result: any = {}
+  let paths = []
 
   util.each(options.libPaths, function(libPath) {
     util.each(options.extension, function(extension) {
@@ -36,7 +36,7 @@ export default function(modName, codeTpl, options, cb) {
       },
       function(err, filePath) {
         if (util.isUndef(filePath)) {
-          var dest = path.resolve(options.dirname, 'cache', modName + '.js')
+          let dest = path.resolve(options.dirname, 'cache', modName + '.js')
 
           return downloadMod(modName, dest, options, function(err) {
             if (err) return cb(err)
@@ -45,12 +45,12 @@ export default function(modName, codeTpl, options, cb) {
           })
         }
 
-        fs.readFile(filePath, options.encoding, function(err, data) {
+        fs.readFile(filePath, options.encoding, function(err, data: string) {
           if (err) return cb(err)
 
           data = transData(filePath, data, modName, options)
 
-          var dependencies = regDependency.exec(data)
+          let dependencies = regDependency.exec(data)
           dependencies = dependencies
             ? util.trim(dependencies[1]).split(/\s+/)
             : []
@@ -91,7 +91,7 @@ export default function(modName, codeTpl, options, cb) {
 }
 
 function transData(filePath, src, modName, options) {
-  var transpiler = options.transpiler
+  let transpiler = options.transpiler
 
   util.each(transpiler, function(item) {
     if (item.exclude && item.exclude.test(filePath)) return

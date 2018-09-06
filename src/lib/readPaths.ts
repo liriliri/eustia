@@ -4,9 +4,9 @@ import * as glob from 'glob'
 import logger from './logger'
 
 function expandPaths(paths, options, cb) {
-  var files = []
+  let files = []
 
-  var walker = async.queue(function(path, cb) {
+  let walker = async.queue(function(path: string, cb) {
     glob(
       path,
       {
@@ -39,7 +39,7 @@ export default function(paths, options, cb) {
 
     async.map(
       files,
-      function(file, cb) {
+      function(file: string, cb) {
         fs.readFile(file, options.encoding, function(err, data) {
           if (err) return cb(err)
 

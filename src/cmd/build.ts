@@ -15,12 +15,12 @@ export default function build(options, cb) {
   handleEmptyFiles(options)
   resolvePaths(options)
 
-  var templates
+  let templates
 
   build(options.watch)
 
   if (options.watch) {
-    var watchPaths = options.files.concat(options.libPaths)
+    let watchPaths = options.files.concat(options.libPaths)
 
     chokidar
       .watch(watchPaths, {
@@ -42,14 +42,14 @@ export default function build(options, cb) {
   function build(isWatching) {
     options.data = {}
 
-    var startTime = util.now()
+    let startTime = util.now()
 
     async.waterfall(
       [
         function(cb) {
-          var tplList = ['code', 'codes']
+          let tplList = ['code', 'codes']
 
-          var format = options.format
+          let format = options.format
           if (format !== 'commonjs' && format !== 'es') tplList.push(format)
 
           readTpl(tplList, cb)
@@ -104,7 +104,7 @@ export default function build(options, cb) {
 }
 
 function transArrOpts(options) {
-  var ARR_OPTIONS = [
+  let ARR_OPTIONS = [
     'library',
     'include',
     'exclude',
@@ -119,22 +119,22 @@ function transArrOpts(options) {
 }
 
 function transTranspilerOpt(options, cb) {
-  var cwd = options.cwd
+  let cwd = options.cwd
 
   options.transpiler.forEach(function(transpiler) {
     transpiler.handler = util.toArr(transpiler.handler)
 
-    var handlers = transpiler.handler
+    let handlers = transpiler.handler
 
     util.each(handlers, function(handler, idx) {
       if (util.isStr(handler)) {
         handler = handler.split('?')
-        var handlerName = handler[0],
+        let handlerName = handler[0],
           options = {}
 
         if (handler[1]) options = qs.parse(handler[1])
         try {
-          var requirePath = path.resolve(
+          let requirePath = path.resolve(
             cwd,
             'node_modules/eustia-' + handlerName
           )
@@ -161,7 +161,7 @@ function resolvePaths(options) {
 
   options.output = path.resolve(options.cwd, options.output)
 
-  var libPaths = []
+  let libPaths = []
   libPaths.push(path.resolve(options.cwd, 'eustia'))
   options.library.forEach(function(library) {
     libPaths.push(path.resolve(library))

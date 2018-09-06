@@ -3,10 +3,11 @@ import * as util from '../../lib/util'
 import logger from '../../lib/logger'
 
 export default function(codes, codesTpl, formatTpl, options, cb) {
-  var code = '',
-    dependencyGraph = [],
-    allDependencies = [],
-    codesMap = {}
+  let code = ''
+  let dependencyGraph = []
+  let allDependencies = []
+  let codesMap = {}
+  let codesOrder
 
   // Sort codes first so that the generated file stays the same
   // when no method is added or removed.
@@ -18,7 +19,7 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
   })
 
   util.each(codes, function(code) {
-    var dependencies = code.dependencies
+    let dependencies = code.dependencies
 
     dependencyGraph.push(['', code.name])
     util.each(dependencies, function(dependency) {
@@ -32,16 +33,16 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
   allDependencies = util.unique(allDependencies)
 
   try {
-    var codesOrder = util.topoSort(dependencyGraph)
+    codesOrder = util.topoSort(dependencyGraph)
     // The first one is just a empty string, need to exclude it.
     codesOrder.shift()
   } catch (e) {
     return cb(e)
   }
 
-  for (var i = 0, len = codesOrder.length; i < len; i++) {
-    var name = codesOrder[i],
-      c = codesMap[name]
+  for (let i = 0, len = codesOrder.length; i < len; i++) {
+    let name = codesOrder[i]
+    let c = codesMap[name]
 
     if (!util.contain(allDependencies, name) && options.format !== 'es') {
       c = util.trim(
@@ -56,7 +57,7 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
     if (i !== len - 1) code += '\n\n'
   }
 
-  var codesData: any = {
+  let codesData: any = {
     code: code,
     namespace: options.namespace,
     strict: options.strict,
@@ -65,13 +66,13 @@ export default function(codes, codesTpl, formatTpl, options, cb) {
     inBrowser: options.format === 'umd' || options.format === 'global'
   }
 
-  var excludeRef = options.data.excludeRef
+  let excludeRef = options.data.excludeRef
   if (excludeRef.length > 0) {
     excludeRef = excludeRef.sort()
     codesData.excludeRef = util.unique(excludeRef)
   }
 
-  var result = codesTpl(codesData)
+  let result = codesTpl(codesData)
 
   result = result.replace(/\n\s*\n/g, '\n\n')
 
