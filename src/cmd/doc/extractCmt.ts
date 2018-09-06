@@ -1,94 +1,94 @@
-var fs = require('fs');
+var fs = require('fs')
 
-var util = require('../../lib/util');
+var util = require('../../lib/util')
 
 export default function(ast, options, cb) {
   fs.exists(options.input, function(result) {
-    if (!result) return cb('Not found: ' + options.input);
+    if (!result) return cb('Not found: ' + options.input)
 
     fs.readFile(options.input, options.encoding, function(err, data) {
-      if (err) return cb(err);
+      if (err) return cb(err)
 
-      ast['docs'] = process(data);
+      ast['docs'] = process(data)
 
-      cb();
-    });
-  });
-};
+      cb()
+    })
+  })
+}
 
 function process(data) {
-  var ret = {};
+  var ret = {}
 
-  data = breakApart(data);
+  data = breakApart(data)
 
   util.each(data, function(val) {
-    var name;
+    var name
 
-    val = util.trim(val);
+    val = util.trim(val)
 
     if (util.startWith(val, 'var')) {
-      name = val.slice(4, val.indexOf('='));
+      name = val.slice(4, val.indexOf('='))
     } else if (util.startWith(val, '_.')) {
-      name = val.slice(2, val.indexOf('='));
+      name = val.slice(2, val.indexOf('='))
     } else if (util.startWith(val, 'export')) {
-      name = val.slice(11, val.indexOf('='));
+      name = val.slice(11, val.indexOf('='))
     } else {
-      return;
+      return
     }
 
     var comments = util.extractBlockCmts(
       val.slice(val.indexOf('{') + 1, val.lastIndexOf('}'))
-    );
+    )
 
-    ret[name] = 'No documentation.';
+    ret[name] = 'No documentation.'
     comments = util.filter(comments, function(comment) {
       if (
         util.startWith(comment, 'module') ||
         util.startWith(comment, 'dependencies')
       )
-        return false;
+        return false
 
-      return true;
-    });
+      return true
+    })
 
-    if (!util.isEmpty(comments)) ret[name] = indentOneSpace(comments[0]);
-  });
+    if (!util.isEmpty(comments)) ret[name] = indentOneSpace(comments[0])
+  })
 
-  return sortKeys(ret);
+  return sortKeys(ret)
 }
 
-var regSeparator = /\/\* -{30} [$\w]+ -{30} \*\//;
+var regSeparator = /\/\* -{30} [$\w]+ -{30} \*\//
 
 function breakApart(data) {
-  return data.split(regSeparator).slice(1);
+  return data.split(regSeparator).slice(1)
 }
 
-var regStartOneSpace = /^ /gm;
+var regStartOneSpace = /^ /gm
 
 function indentOneSpace(data) {
-  return data.replace(regStartOneSpace, '');
+  return data.replace(regStartOneSpace, '')
 }
 
 function sortKeys(data) {
   var arr = [],
-    ret = {};
+    ret = {}
 
   util.each(data, function(val, key) {
     arr.push({
       key: key,
       val: val
-    });
-  });
+    })
+  })
 
   arr.sort(function(a, b) {
-    if (a.key === b.key) return 0;
-    if (a.key > b.key) return 1;
-    return -1;
-  });
+    if (a.key === b.key) return 0
+    if (a.key > b.key) return 1
+    return -1
+  })
 
   arr.forEach(function(val) {
-    ret[val.key] = val.val;
-  });
+    ret[val.key] = val.val
+  })
 
-  return ret;
+  return ret
 }

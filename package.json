@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "copyfiles -u 1 src/**/*.js out && tsc -w --inlineSourceMap",
     "test": "mocha",
-    "format": "prettier src/**/*.ts bin/*.js test/**/*.js --write",
+    "format": "prettier src/**/*.ts bin/*.js test/**/*.js --write"
   },
   "eustia": {
     "output": "lib/util.js",

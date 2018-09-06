@@ -1,28 +1,28 @@
-var async = require('async');
+import * as async from 'async'
 
-var logger = require('../lib/logger'),
-  clear = require('./cache/clear');
+const logger = require('../lib/logger')
+const clear = require('./cache/clear')
 
-module.exports = function (options, cb) {
+module.exports = function(options, cb) {
   async.waterfall(
     [
       function(cb) {
         switch (options.subCmd) {
           case 'clear':
-            clear(cb);
-            break;
+            clear(cb)
+            break
           default:
-            logger.warn('No sub command is specified');
-            cb();
+            logger.warn('No sub command is specified')
+            cb()
         }
       }
     ],
     function(err) {
-      cb(err);
+      cb(err)
     }
-  );
+  )
 }
 
 module.exports.defOpts = {
   subCmd: ''
-};
+}

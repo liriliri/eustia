@@ -1,3 +1,3 @@
-var util = require('./eustia.js');
+var util = require('./eustia.js')
 
-util.stripCmt('');
+util.stripCmt('')

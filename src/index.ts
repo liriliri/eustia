@@ -1,8 +1,8 @@
-import * as path from 'path';
-import * as fs from 'fs';
+import * as path from 'path'
+import * as fs from 'fs'
 
 var util = require('./lib/util'),
-  logger = require('./lib/logger');
+  logger = require('./lib/logger')
 
 var cwd = process.cwd(),
   defOpts = {
@@ -17,7 +17,7 @@ var cwd = process.cwd(),
     errLog: false,
     packInfo: require('../package.json')
   },
-  errLogPath = path.resolve(cwd, './eustia-debug.log');
+  errLogPath = path.resolve(cwd, './eustia-debug.log')
 
 module.exports = {
   build: cmdFactory('build'),
@@ -25,37 +25,37 @@ module.exports = {
   cache: cmdFactory('cache'),
   help: cmdFactory('help'),
   version: cmdFactory('version')
-};
+}
 
 function cmdFactory(cmdName) {
-  var cmd = require('./cmd/' + cmdName);
+  var cmd = require('./cmd/' + cmdName)
 
   return function(options, cb) {
-    cb = cb || util.noop;
-    options = util.defaults(options, defOpts, cmd.defOpts || {});
+    cb = cb || util.noop
+    options = util.defaults(options, defOpts, cmd.defOpts || {})
 
-    if (options.enableLog) logger.enable();
-    if (options.verbose) logger.isDebug = true;
+    if (options.enableLog) logger.enable()
+    if (options.verbose) logger.isDebug = true
 
-    logger.debug('Options', options);
+    logger.debug('Options', options)
 
     cmd(options, function(err) {
       if (err) {
-        logger.error(err);
+        logger.error(err)
         if (options.errLog) {
           // Need to exit immediately, so async fs is not used.
-          fs.writeFileSync(errLogPath, logger.history(), 'utf-8');
-          process.exit();
+          fs.writeFileSync(errLogPath, logger.history(), 'utf-8')
+          process.exit()
         }
       }
 
       if (options.errLog) {
         fs.exists(errLogPath, function(result) {
-          if (result) fs.unlink(errLogPath, () => {});
-        });
+          if (result) fs.unlink(errLogPath, () => {})
+        })
       }
 
-      cb(err);
-    });
-  };
+      cb(err)
+    })
+  }
 }

@@ -1,42 +1,41 @@
 var readTpl = require('./share/readTpl')
 
-var async = require('async');
+var async = require('async')
 
 var logger = require('../lib/logger')
 
-module.exports = function (options, cb) {
+module.exports = function(options, cb) {
   async.waterfall(
     [
       function(cb) {
-        readTpl(['help', 'helpCmd'], cb);
+        readTpl(['help', 'helpCmd'], cb)
       },
       function(tpl, cb) {
         options.command
           ? output(options.command, tpl['helpCmd'], cb)
-          : outputAll(tpl['help'], cb);
+          : outputAll(tpl['help'], cb)
       }
     ],
     function(err) {
-      cb(err);
+      cb(err)
     }
-  );
+  )
 }
 
 function outputAll(tpl, cb) {
-  logger.log(tpl(require('./help/all')));
+  logger.log(tpl(require('./help/all')))
 
-  cb();
+  cb()
 }
 
 function output(name, tpl, cb) {
   try {
-    var data = require('./help/' + name);
+    var data = require('./help/' + name)
   } catch (e) {
-    return cb(new Error('Command not found: ' + name));
+    return cb(new Error('Command not found: ' + name))
   }
 
-  logger.log(tpl(data));
+  logger.log(tpl(data))
 
-  cb();
+  cb()
 }
-

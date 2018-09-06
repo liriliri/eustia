@@ -24,4 +24,4 @@ module.exports = {
       desc: 'Output format, html, json or markdown, defaults to html'
     }
   ]
-};
+}

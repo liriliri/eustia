@@ -7,4 +7,4 @@ module.exports = {
     help: 'Display help information',
     version: 'Display version info'
   }
-};
+}

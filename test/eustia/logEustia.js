@@ -1,5 +1,5 @@
-_('eustiaStr');
+_('eustiaStr')
 
 function exports() {
-  console.log(eustiaStr);
+  console.log(eustiaStr)
 }

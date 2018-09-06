@@ -1,36 +1,36 @@
 var handlebars = require('handlebars'),
   async = require('async'),
   path = require('path'),
-  fs = require('fs');
+  fs = require('fs')
 
-var logger = require('../../lib/logger');
+var logger = require('../../lib/logger')
 
-var tpl = {};
+var tpl = {}
 
 function readTpl(tplName) {
-  var tplPath = path.resolve(__dirname, '../../../tpl/' + tplName + '.hbs');
+  var tplPath = path.resolve(__dirname, '../../../tpl/' + tplName + '.hbs')
 
   return function(cb) {
-    logger.debug('Read tpl', tplPath);
+    logger.debug('Read tpl', tplPath)
 
     fs.readFile(tplPath, 'utf8', function(err, data) {
-      if (err) return cb(err);
+      if (err) return cb(err)
 
-      tpl[tplName] = handlebars.compile(data, { noEscape: true });
+      tpl[tplName] = handlebars.compile(data, { noEscape: true })
 
-      cb();
-    });
-  };
+      cb()
+    })
+  }
 }
 
 export default function(templates, cb) {
   var callbacks = templates.map(function(val) {
-    return readTpl(val);
-  });
+    return readTpl(val)
+  })
 
   async.parallel(callbacks, function(err) {
-    if (err) return cb(err);
+    if (err) return cb(err)
 
-    cb(null, tpl);
-  });
-};
+    cb(null, tpl)
+  })
+}

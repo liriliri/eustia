@@ -1,13 +1,13 @@
 var glob = require('glob'),
   fs = require('fs'),
   async = require('async'),
-  path = require('path');
+  path = require('path')
 
-var logger = require('../../lib/logger');
+var logger = require('../../lib/logger')
 
 module.exports = function(cb) {
-  glob(path.resolve(__dirname, '../../cache/*.js'), {}, function(err, files) {
-    if (err) return cb(err);
+  glob(path.resolve(__dirname, '../../../cache/*.js'), {}, function(err, files) {
+    if (err) return cb(err)
 
     async.eachSeries(
       files,
@@ -19,14 +19,14 @@ module.exports = function(cb) {
                 file: file
               },
               'DELETE CACHE {{#cyan}}{{{file}}}{{/cyan}}'
-            );
+            )
 
-          cb(err);
-        });
+          cb(err)
+        })
       },
       function(err) {
-        cb(err);
+        cb(err)
       }
-    );
-  });
-};
+    )
+  })
+}
