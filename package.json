@@ -16,7 +16,7 @@
     "lint": "tslint src/**/*.ts",
     "lint:fix": "tslint src/**/*.ts --fix",
     "test": "mocha",
-    "ci": "npm run lint && npm test",
+    "ci": "npm run lint && npm run build && npm test",
     "format": "prettier src/**/*.ts bin/*.js test/**/*.js *.json --write"
   },
   "eustia": {
