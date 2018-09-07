@@ -63,6 +63,10 @@ module.exports = {
     {
       flag: '--proxy',
       desc: 'Request proxy'
+    },
+    {
+      flag: '--ts',
+      desc: 'Output typescript definition file'
     }
   ]
 }
