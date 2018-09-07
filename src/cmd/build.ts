@@ -3,11 +3,11 @@ import * as chokidar from 'chokidar'
 import * as path from 'path'
 import * as qs from 'qs'
 import logger from '../lib/logger'
+import readTpl from '../lib/readTpl'
 import * as util from '../lib/util'
 import buildMods from './build/buildMods'
 import output from './build/output'
 import scanSrc from './build/scanSrc'
-import readTpl from './share/readTpl'
 
 export default function build(options, cb) {
   transArrOpts(options)

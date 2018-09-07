@@ -3,10 +3,13 @@ test/
 doc/
 coverage/
 eustia/
+src/
 cache/*.js
 prettier.config.js
 .prettierignore
 .gitignore
 .npmignore
-.eslintrc
+tsconfig.json
+tslint.json
+.eustia.js
 .travis.yml

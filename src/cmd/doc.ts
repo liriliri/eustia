@@ -1,9 +1,9 @@
 import * as async from 'async'
 import * as path from 'path'
+import readTpl from '../lib/readTpl'
 import extractCmt from './doc/extractCmt'
 import output from './doc/output'
 import readDesc from './doc/readDesc'
-import readTpl from './share/readTpl'
 
 export default function doc(options, cb) {
   let template

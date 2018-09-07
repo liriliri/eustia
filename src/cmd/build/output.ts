@@ -118,6 +118,12 @@ export default async function(codes, codesTpl, formatTpl, options) {
       output = output.slice(0, lastDotPos)
     }
     output += '.d.ts'
+    logger.tpl(
+      {
+        output
+      },
+      'OUTPUT d.ts {{#cyan}}{{{output}}}{{/cyan}}'
+    )
     await fs.writeFile(output, tsResult, options.encoding)
   }
 }

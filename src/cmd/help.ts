@@ -1,6 +1,6 @@
 import * as async from 'async'
 import logger from '../lib/logger'
-import readTpl from './share/readTpl'
+import readTpl from '../lib/readTpl'
 
 export default function(options, cb) {
   async.waterfall(

@@ -2,12 +2,12 @@ import * as async from 'async'
 import * as fs from 'fs'
 import * as handlebars from 'handlebars'
 import * as path from 'path'
-import logger from '../../lib/logger'
+import logger from './logger'
 
 const tpl = {}
 
 function readTpl(tplName) {
-  const tplPath = path.resolve(__dirname, '../../../tpl/' + tplName + '.hbs')
+  const tplPath = path.resolve(__dirname, '../../tpl/' + tplName + '.hbs')
 
   return function(cb) {
     logger.debug('Read tpl', tplPath)
