@@ -88,6 +88,10 @@ var isUndef = _.isUndef = (function () {
      * test: all
      */
 
+    /* typescript
+     * export declare function isUndef(val: any): boolean
+     */
+
     function exports(val) {
         return val === void 0;
     }
@@ -136,8 +140,7 @@ var optimizeCb = _.optimizeCb = (function () {
     return exports;
 })();
 
-/* ------------------------------ escapeRegExp ------------------------------ */
-_.escapeRegExp = (function () {
+/* ------------------------------ escapeRegExp ------------------------------ */_.escapeRegExp = (function () {
     /* Escape special chars to be used as literals in RegExp constructors.
      *
      * |Name  |Type  |Desc            |
@@ -362,8 +365,7 @@ var isNum = _.isNum = (function () {
     return exports;
 })();
 
-/* ------------------------------ indent ------------------------------ */
-_.indent = (function () {
+/* ------------------------------ indent ------------------------------ */_.indent = (function () {
     /* Indent each line in a string.
      *
      * |Name  |Type  |Desc                |
@@ -428,6 +430,10 @@ var isArr = _.isArr = (function (exports) {
     /* module
      * env: all
      * test: all
+     */
+
+    /* typescript
+     * export declare function isArr(val: any): boolean
      */
 
     /* dependencies
@@ -738,8 +744,7 @@ var createAssigner = _.createAssigner = (function () {
     return exports;
 })();
 
-/* ------------------------------ defaults ------------------------------ */
-_.defaults = (function (exports) {
+/* ------------------------------ defaults ------------------------------ */_.defaults = (function (exports) {
     /* Fill in undefined properties in object with the first value present in the following list of defaults objects.
      *
      * |Name  |Type  |Desc              |
@@ -771,8 +776,7 @@ _.defaults = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ extend ------------------------------ */
-_.extend = (function (exports) {
+/* ------------------------------ extend ------------------------------ */_.extend = (function (exports) {
     /* Copy all of the properties in the source objects over to the destination object.
      *
      * |Name  |Type  |Desc              |
@@ -837,8 +841,7 @@ var values = _.values = (function () {
     return exports;
 })();
 
-/* ------------------------------ contain ------------------------------ */
-_.contain = (function () {
+/* ------------------------------ contain ------------------------------ */_.contain = (function () {
     /* Check if the value is present in the list.
      *
      * |Name  |Type        |Desc                                |
@@ -940,8 +943,7 @@ var isStr = _.isStr = (function () {
     return exports;
 })();
 
-/* ------------------------------ isEmpty ------------------------------ */
-_.isEmpty = (function () {
+/* ------------------------------ isEmpty ------------------------------ */_.isEmpty = (function () {
     /* Check if value is an empty object or array.
      *
      * |Name  |Type   |Desc                  |
@@ -1049,6 +1051,10 @@ var isObj = _.isObj = (function () {
      * test: all
      */
 
+    /* typescript
+     * export declare function isObj(val: any): boolean
+     */
+
     function exports(val) {
         var type = typeof val;
 
@@ -1058,8 +1064,7 @@ var isObj = _.isObj = (function () {
     return exports;
 })();
 
-/* ------------------------------ isPlainObj ------------------------------ */
-_.isPlainObj = (function () {
+/* ------------------------------ isPlainObj ------------------------------ */_.isPlainObj = (function () {
     /* Check if value is an object created by Object constructor.
      *
      * |Name  |Type   |Desc                           |
@@ -1096,8 +1101,7 @@ _.isPlainObj = (function () {
     return exports;
 })();
 
-/* ------------------------------ isUrl ------------------------------ */
-_.isUrl = (function () {
+/* ------------------------------ isUrl ------------------------------ */_.isUrl = (function () {
     /* Loosely validate an url.
      * 
      * |Name  |Type   |Desc                               |
@@ -1358,8 +1362,7 @@ var map = _.map = (function () {
     return exports;
 })();
 
-/* ------------------------------ noop ------------------------------ */
-_.noop = (function () {
+/* ------------------------------ noop ------------------------------ */_.noop = (function () {
     /* A no-operation function.
      *
      * ```javascript
@@ -1381,8 +1384,7 @@ _.noop = (function () {
     return exports;
 })();
 
-/* ------------------------------ now ------------------------------ */
-_.now = (function (exports) {
+/* ------------------------------ now ------------------------------ */_.now = (function (exports) {
     /* Gets the number of milliseconds that have elapsed since the Unix epoch.
      *
      * ```javascript
@@ -1438,8 +1440,7 @@ var toStr = _.toStr = (function () {
     return exports;
 })();
 
-/* ------------------------------ rpad ------------------------------ */
-_.rpad = (function () {
+/* ------------------------------ rpad ------------------------------ */_.rpad = (function () {
     /* Pad string on the right side if it's shorter than length.
      *
      * |Name  |Type  |Desc                  |
@@ -1581,8 +1582,7 @@ var trim = _.trim = (function () {
     return exports;
 })();
 
-/* ------------------------------ extractBlockCmts ------------------------------ */
-_.extractBlockCmts = (function () {
+/* ------------------------------ extractBlockCmts ------------------------------ */_.extractBlockCmts = (function () {
     /* Extract block comments from source code.
      *
      * |Name  |Type  |Desc             |
@@ -1629,8 +1629,7 @@ _.extractBlockCmts = (function () {
     return exports;
 })();
 
-/* ------------------------------ some ------------------------------ */
-_.some = (function () {
+/* ------------------------------ some ------------------------------ */_.some = (function () {
     /* Check if predicate return truthy for any element.
      *
      * |Name     |Type        |Desc                                          |
@@ -1674,8 +1673,7 @@ _.some = (function () {
     return exports;
 })();
 
-/* ------------------------------ startWith ------------------------------ */
-_.startWith = (function () {
+/* ------------------------------ startWith ------------------------------ */_.startWith = (function () {
     /* Check if string starts with the given target string.
      *
      * |Name  |Type   |Desc                             |
@@ -1705,8 +1703,7 @@ _.startWith = (function () {
     return exports;
 })();
 
-/* ------------------------------ stripCmt ------------------------------ */
-_.stripCmt = (function () {
+/* ------------------------------ stripCmt ------------------------------ */_.stripCmt = (function () {
     /* Strip comments from source code.
      *
      * |Name  |Type  |Desc                 |
@@ -1792,8 +1789,7 @@ _.stripCmt = (function () {
     return exports;
 })();
 
-/* ------------------------------ stripColor ------------------------------ */
-_.stripColor = (function () {
+/* ------------------------------ stripColor ------------------------------ */_.stripColor = (function () {
     /* Strip ansi color codes from a string.
      *
      * |Name  |Type  |Desc           |
@@ -1825,8 +1821,7 @@ _.stripColor = (function () {
     return exports;
 })();
 
-/* ------------------------------ toArr ------------------------------ */
-_.toArr = (function () {
+/* ------------------------------ toArr ------------------------------ */_.toArr = (function () {
     /* Convert value to an array.
      *
      * |Name  |Type |Desc            |
@@ -1868,8 +1863,7 @@ _.toArr = (function () {
     return exports;
 })();
 
-/* ------------------------------ topoSort ------------------------------ */
-_.topoSort = (function () {
+/* ------------------------------ topoSort ------------------------------ */_.topoSort = (function () {
     /* Topological sorting algorithm.
      *
      * |Name  |Type |Desc        |
@@ -1947,8 +1941,7 @@ _.topoSort = (function () {
     return exports;
 })();
 
-/* ------------------------------ unique ------------------------------ */
-_.unique = (function () {
+/* ------------------------------ unique ------------------------------ */_.unique = (function () {
     /* Create duplicate-free version of an array.
      *
      * |Name     |Type    |Desc                         |

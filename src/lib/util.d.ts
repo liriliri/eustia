@@ -1,8 +1,12 @@
+export declare function isUndef(val: any): boolean
+
 export declare function escapeRegExp(str: string): string
 
 export declare function has(obj: {}, key: string): boolean
 
 export declare function indent(str: string, char?: string, len?: number): string
+
+export declare function isArr(val: any): boolean
 
 export declare function isFn(val: any): boolean
 
@@ -19,6 +23,8 @@ export declare function contain(arr: any[], val: any): boolean
 export declare function isStr(val: any): boolean
 
 export declare function isEmpty(val: any): boolean
+
+export declare function isObj(val: any): boolean
 
 export declare function isUrl(val: string): boolean
 
