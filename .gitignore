@@ -4,6 +4,5 @@ coverage/
 eustia/cache
 test/eustia/cache
 test/build/eustia.js
-cache/*.js
 out/
 package-lock.json

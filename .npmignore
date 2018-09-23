@@ -4,7 +4,6 @@ doc/
 coverage/
 eustia/
 src/
-cache/*.js
 prettier.config.js
 .prettierignore
 .gitignore
