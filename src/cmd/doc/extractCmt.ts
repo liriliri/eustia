@@ -39,25 +39,22 @@ function process(data) {
       return
     }
 
-    let comments = util.extractBlockCmts(
+    const comments = util.extractBlockCmts(
       val.slice(val.indexOf('{') + 1, val.lastIndexOf('}'))
     )
 
     ret[name] = 'No documentation.'
-    comments = util.filter(comments, function(comment) {
-      if (
-        util.startWith(comment, 'module') ||
-        util.startWith(comment, 'dependencies')
-      ) {
-        return false
-      }
-
-      return true
-    })
 
     if (!util.isEmpty(comments)) {
       ret[name] = indentOneSpace(comments[0])
     }
+
+    util.each(comments, comment => {
+      if (util.startWith(comment, 'example')) {
+        comment = comment.replace(/^example/, '')
+        ret[name] += '\n\n```javascript' + indentOneSpace(comment) + '\n```'
+      }
+    })
   })
 
   return sortKeys(ret)
