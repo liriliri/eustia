@@ -67,6 +67,10 @@ module.exports = {
     {
       flag: '--ts',
       desc: 'Output typescript definition file'
+    },
+    {
+      flag: '--removeComments',
+      desc: 'Remove comments'
     }
   ]
 }

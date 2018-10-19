@@ -32,7 +32,7 @@ export default async function(codes, codesTpl, formatTpl, options) {
       allDependencies.push(dependency)
     })
 
-    codesMap[code.name] = code.code
+    codesMap[code.name] = code
   })
 
   allDependencies = util.unique(allDependencies)
@@ -43,12 +43,12 @@ export default async function(codes, codesTpl, formatTpl, options) {
 
   for (let i = 0, len = codesOrder.length; i < len; i++) {
     const name = codesOrder[i]
-    let c = codesMap[name]
+    const ts = codesMap[name].ts
+    let c = codesMap[name].code
 
     if (options.ts) {
-      const ts = extractTs(c)
       if (ts) {
-        tsResult += extractTs(c) + '\n\n'
+        tsResult += ts + '\n\n'
       }
     }
 
@@ -126,27 +126,4 @@ export default async function(codes, codesTpl, formatTpl, options) {
     )
     await fs.writeFile(output, tsResult, options.encoding)
   }
-}
-
-function extractTs(code: string) {
-  let ret = ''
-
-  const comments = util.extractBlockCmts(code)
-
-  util.each(comments, function(comment) {
-    const lines = util.trim(comment).split('\n')
-    if (util.trim(lines[0]) !== 'typescript') {
-      return
-    }
-    lines.shift()
-    ret = indentOneSpace(lines.join('\n'))
-  })
-
-  return ret
-}
-
-const regStartOneSpace = /^ /gm
-
-function indentOneSpace(data) {
-  return data.replace(regStartOneSpace, '')
 }

@@ -110,7 +110,8 @@ export default function build(options, cb) {
   library: [],
   include: [],
   exclude: [],
-  watch: false
+  watch: false,
+  removeComments: false
 }
 
 function transArrOpts(options) {

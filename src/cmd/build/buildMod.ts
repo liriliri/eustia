@@ -89,6 +89,12 @@ export default async function(modName, codeTpl, options) {
   data = util.indent(
     data.replace(regDependency, '\n\n/* dependencies\n * $1 \n */')
   )
+  if (options.ts) {
+    result.ts = extractTs(data)
+  }
+  if (options.removeComments) {
+    data = util.stripCmt(data)
+  }
   data = codeTpl({
     name: modName,
     code: util.trim(data),
@@ -131,4 +137,27 @@ function transData(filePath, src, modName, options) {
   })
 
   return src
+}
+
+function extractTs(code: string) {
+  let ret = ''
+
+  const comments = util.extractBlockCmts(code)
+
+  util.each(comments, function(comment) {
+    const lines = util.trim(comment).split('\n')
+    if (util.trim(lines[0]) !== 'typescript') {
+      return
+    }
+    lines.shift()
+    ret = indentOneSpace(lines.join('\n'))
+  })
+
+  return ret
+}
+
+const regStartOneSpace = /^ /gm
+
+function indentOneSpace(data) {
+  return data.replace(regStartOneSpace, '')
 }
