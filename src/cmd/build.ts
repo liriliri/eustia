@@ -184,9 +184,8 @@ function resolvePaths(options) {
       libPaths.push(library)
     }
   })
-  const DOWNLOAD_URL_PREFIX =
-    'https://raw.githubusercontent.com/liriliri/licia/master/'
-  libPaths.push(modName => DOWNLOAD_URL_PREFIX + modName[0].toLowerCase() + '/')
+  const DOWNLOAD_URL_PREFIX = 'https://cdn.jsdelivr.net/npm/eustia-module/'
+  libPaths.push('https://cdn.jsdelivr.net/npm/eustia-module/')
 
   options.libPaths = libPaths
 
