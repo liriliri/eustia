@@ -6,7 +6,6 @@ import * as util from '../../lib/util'
 
 const regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m
 const regExports = /\bexports\b/
-const regFnExports = /function\s+exports\s*\(/
 
 export default async function(modName, codeTpl, options) {
   const fnPercentage = options.data.fnPercentage
@@ -99,7 +98,6 @@ export default async function(modName, codeTpl, options) {
     name: modName,
     code: util.trim(data),
     es: options.format === 'es',
-    noFnExports: !regFnExports.test(data),
     hasExports: regExports.test(data)
   })
 
