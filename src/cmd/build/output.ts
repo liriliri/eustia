@@ -4,7 +4,7 @@ import * as util from '../../lib/util'
 
 export default async function(codes, codesTpl, formatTpl, options) {
   let code = ''
-  let tsResult = ''
+  let tsResult = '/* tslint:disable */\n\n'
   const dependencyGraph = []
   let allDependencies = []
   const codesMap = {}
