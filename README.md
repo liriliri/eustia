@@ -19,7 +19,7 @@
 Eustia is a tool for generating JavaScript utility libraries. It scans your code 
 to generate libraries containing only methods needed on the fly.
 
-![screen shot](http://7xn2zy.com1.z0.glb.clouddn.com/eustia_screenshot.gif)
+![screen shot](https://eustia.liriliri.io/static/img/eustia-screenshot.gif)
 
 ## Installation
 

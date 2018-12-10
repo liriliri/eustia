@@ -18,7 +18,7 @@ Eustia 是一个用于生成 JavaScript 函数库的工具。它能够扫描代�
 
 目前默认函数库除了 underscore 中使用较多的 each 、template 等函数外，还包含类创建、cookie 操作、Dom 操作、日期格式化等实用的小库，共150+个模块，日常不断更新中，详细列表可 [点此](http://eustia.liriliri.io/module.html) 查看。
 
-![screen shot](http://7xn2zy.com1.z0.glb.clouddn.com/eustia_screenshot.gif)
+![screen shot](https://eustia.liriliri.io/static/img/eustia-screenshot.gif)
 
 ## 安装
 
