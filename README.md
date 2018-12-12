@@ -1,5 +1,5 @@
 <a href="https://eustia.liriliri.io/" target="_blank">
-    <img src="http://7xn2zy.com1.z0.glb.clouddn.com/github_eustia.jpg">
+    <img src="./doc/banner.jpg">
 </a>
 
 [中文](doc/README_CN.md)
