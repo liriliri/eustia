@@ -2,13 +2,18 @@ import * as fs from 'fs-extra'
 import logger from '../../lib/logger'
 import * as util from '../../lib/util'
 
-export default async function(codes, codesTpl, formatTpl, options) {
+export default async function(
+  codes: any[],
+  codesTpl: any,
+  formatTpl: any,
+  options: any
+) {
   let code = ''
   let tsResult = '/* tslint:disable */\n\n'
-  const dependencyGraph = []
-  let allDependencies = []
-  const codesMap = {}
-  let codesOrder
+  const dependencyGraph: any[] = []
+  let allDependencies: any[] = []
+  const codesMap: any = {}
+  let codesOrder: string[]
 
   // Sort codes first so that the generated file stays the same
   // when no method is added or removed.

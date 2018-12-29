@@ -6,7 +6,8 @@
     "object-literal-sort-keys": false,
     "only-arrow-functions": false,
     "no-shadowed-variable": false,
-    "member-access": false
+    "member-access": false,
+    "ban-types": false
   },
   "rulesDirectory": []
 }

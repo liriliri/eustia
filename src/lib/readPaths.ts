@@ -3,8 +3,8 @@ import * as fs from 'fs'
 import * as glob from 'glob'
 import logger from './logger'
 
-function expandPaths(paths, options, cb) {
-  let files = []
+function expandPaths(paths: string[], options: any, cb: Function) {
+  let files: string[] = []
 
   const walker = async.queue(function(path: string, cb) {
     glob(
@@ -26,7 +26,7 @@ function expandPaths(paths, options, cb) {
     )
   }, 50)
 
-  paths.forEach(function(val) {
+  paths.forEach(function(val: string) {
     walker.push(val)
   })
 
@@ -35,15 +35,15 @@ function expandPaths(paths, options, cb) {
   }
 }
 
-export default function(paths, options, cb) {
-  expandPaths(paths, options, function(err, files) {
+export default function(paths: string[], options: any, cb: Function) {
+  expandPaths(paths, options, function(err: null | Error, files: string[]) {
     if (err) {
       return cb(err)
     }
 
     async.map(
       files,
-      function(file: string, cb) {
+      function(file: string, cb: Function) {
         fs.readFile(file, options.encoding, function(err, data) {
           if (err) {
             return cb(err)

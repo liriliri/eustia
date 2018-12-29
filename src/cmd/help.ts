@@ -2,13 +2,13 @@ import * as async from 'async'
 import logger from '../lib/logger'
 import readTpl from '../lib/readTpl'
 
-export default function(options, cb) {
+export default function(options: any, cb: Function) {
   async.waterfall(
     [
-      function(cb) {
+      function(cb: Function) {
         readTpl(['help', 'helpCmd'], cb)
       },
-      function(tpl, cb) {
+      function(tpl: any, cb: Function) {
         options.command
           ? output(options.command, tpl.helpCmd, cb)
           : outputAll(tpl.help, cb)
@@ -20,13 +20,13 @@ export default function(options, cb) {
   )
 }
 
-function outputAll(tpl, cb) {
+function outputAll(tpl: any, cb: Function) {
   logger.log(tpl(require('./help/all')))
 
   cb()
 }
 
-function output(name, tpl, cb) {
+function output(name: string, tpl: any, cb: Function) {
   let data
   try {
     data = require('./help/' + name)

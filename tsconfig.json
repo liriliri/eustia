@@ -2,6 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "outDir": "out",
+    "strict": true,
+    "noImplicitThis": false,
     "removeComments": true,
     "declaration": true,
     "lib": ["es5", "es2015", "es2015.promise"]

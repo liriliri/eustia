@@ -4,12 +4,12 @@ import * as handlebars from 'handlebars'
 import * as path from 'path'
 import logger from './logger'
 
-const tpl = {}
+const tpl: any = {}
 
-function readTpl(tplName) {
+function readTpl(tplName: string) {
   const tplPath = path.resolve(__dirname, '../../tpl/' + tplName + '.hbs')
 
-  return function(cb) {
+  return function(cb: Function) {
     logger.debug('Read tpl', tplPath)
 
     fs.readFile(tplPath, 'utf8', function(err, data) {
@@ -24,7 +24,7 @@ function readTpl(tplName) {
   }
 }
 
-export default function(templates, cb) {
+export default function(templates: string[], cb: Function) {
   const callbacks = templates.map(function(val) {
     return readTpl(val)
   })

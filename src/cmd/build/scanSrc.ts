@@ -3,7 +3,7 @@ import logger from '../../lib/logger'
 import readPaths from '../../lib/readPaths'
 import * as util from '../../lib/util'
 
-export default function(options, cb) {
+export default function(options: any, cb: Function) {
   if (util.isEmpty(options.files)) {
     options.data.fnPercentage = {}
     return cb(null, options.include.sort())
@@ -15,7 +15,7 @@ export default function(options, cb) {
   const files = options.files
   let modList = options.include
 
-  readPaths(files, options, function(err, files) {
+  readPaths(files, options, function(err: Error | null, files: any[]) {
     if (err) {
       return cb(err)
     }
@@ -36,7 +36,7 @@ export default function(options, cb) {
       modList = modList.concat(modules)
     })
 
-    modList = modList.map(function(fnName) {
+    modList = modList.map(function(fnName: string) {
       return util.trim(fnName)
     })
 
@@ -53,8 +53,8 @@ export default function(options, cb) {
 const regCommonjs = /require\(.*\)/
 const regEs6 = /\bimport\b/
 
-function extractModule(file, options) {
-  let ret = []
+function extractModule(file: any, options: any) {
+  let ret: string[] = []
 
   // Mixed use of commonjs and es6 module pattern is possible.
   if (regCommonjs.test(file.data)) {
@@ -70,7 +70,7 @@ function extractModule(file, options) {
 
 const regModules = {
   _cache: {},
-  get(namespace) {
+  get(namespace: string) {
     let ret
 
     ret = this._cache[namespace]
@@ -87,11 +87,11 @@ const regModules = {
   }
 }
 
-function extractGlobal(namespace, file) {
+function extractGlobal(namespace: string, file: any) {
   const modules = file.data.match(regModules.get(namespace))
 
   return modules
-    ? util.map(modules, function(val) {
+    ? util.map(modules, function(val: string) {
         val = val.substr(namespace.length)
         val = val[0] === '[' ? val.slice(2, -2) : val.slice(1)
 
@@ -100,7 +100,7 @@ function extractGlobal(namespace, file) {
     : []
 }
 
-function extractCommonjs(options, file) {
+function extractCommonjs(options: any, file: any) {
   const requirePath = relativePath(file.path, options.output)
   const regRequire = new RegExp(
     '(\\w+)\\s*=\\s*require\\([\'"]' + requirePath + '(?:\\.js)?[\'"]\\)'
@@ -114,7 +114,7 @@ function extractCommonjs(options, file) {
   return extractGlobal(namespace ? namespace : options.namespace, file)
 }
 
-function relativePath(from, to) {
+function relativePath(from: string, to: string) {
   let ret = path
     .relative(path.dirname(from), to)
     .replace(/\\/g, '/')
@@ -128,8 +128,8 @@ function relativePath(from, to) {
   return ret
 }
 
-function extractEs6(options, file) {
-  let ret = []
+function extractEs6(options: any, file: any) {
+  let ret: string[] = []
 
   // import util from './util'
   let requirePath = relativePath(file.path, options.output)
@@ -168,14 +168,14 @@ function extractEs6(options, file) {
   return ret
 }
 
-function getFnPercentage(fnList, filesNum) {
-  const ret = {}
+function getFnPercentage(fnList: string[], filesNum: number) {
+  const ret: any = {}
 
   fnList.forEach(function(fnName) {
     ret[fnName] = ret[fnName] !== undefined ? ret[fnName] + 1 : 1
   })
 
-  util.each(ret, function(val, key) {
+  util.each(ret, function(val: number, key) {
     ret[key] = ((val / filesNum) * 100).toFixed(2) + '%'
   })
 

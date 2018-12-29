@@ -9,13 +9,13 @@ import buildMods from './build/buildMods'
 import output from './build/output'
 import scanSrc from './build/scanSrc'
 
-export default function build(options, cb) {
+export default function build(options: any, cb: Function) {
   transArrOpts(options)
   transTranspilerOpt(options, cb)
   handleEmptyFiles(options)
   resolvePaths(options)
 
-  let templates
+  let templates: any
 
   build(options.watch)
 
@@ -39,14 +39,14 @@ export default function build(options, cb) {
       })
   }
 
-  function build(isWatching) {
+  function build(isWatching: boolean) {
     options.data = {}
 
     const startTime = util.now()
 
     async.waterfall(
       [
-        function(cb) {
+        function(cb: Function) {
           const tplList = ['code', 'codes']
 
           const format = options.format
@@ -56,17 +56,17 @@ export default function build(options, cb) {
 
           readTpl(tplList, cb)
         },
-        function(tpl, cb) {
+        function(tpl: any, cb: Function) {
           templates = tpl
           cb()
         },
-        function(cb) {
+        function(cb: Function) {
           scanSrc(options, cb)
         },
-        function(fnList, cb) {
+        function(fnList: string[], cb: Function) {
           buildMods(fnList, templates.code, options, cb)
         },
-        async function(codes, cb) {
+        async function(codes: any[], cb: Function) {
           try {
             await output(
               codes,
@@ -81,7 +81,7 @@ export default function build(options, cb) {
           cb()
         }
       ],
-      function(err) {
+      function(err?: Error) {
         if (err) {
           if (isWatching) {
             return logger.error(err)
@@ -114,7 +114,7 @@ export default function build(options, cb) {
   removeComments: false
 }
 
-function transArrOpts(options) {
+function transArrOpts(options: any) {
   const ARR_OPTIONS = [
     'library',
     'include',
@@ -129,15 +129,15 @@ function transArrOpts(options) {
   })
 }
 
-function transTranspilerOpt(options, cb) {
+function transTranspilerOpt(options: any, cb: Function) {
   const cwd = options.cwd
 
-  options.transpiler.forEach(function(transpiler) {
+  options.transpiler.forEach(function(transpiler: any) {
     transpiler.handler = util.toArr(transpiler.handler)
 
     const handlers = transpiler.handler
 
-    util.each(handlers, function(handler, idx) {
+    util.each(handlers, function(handler: any, idx) {
       if (util.isStr(handler)) {
         handler = handler.split('?')
         const handlerName = handler[0]
@@ -160,21 +160,23 @@ function transTranspilerOpt(options, cb) {
   })
 }
 
-function handleEmptyFiles(options) {
+function handleEmptyFiles(options: any) {
   // If files are empty, scan html and js files in current working directory.
   if (util.isEmpty(options.files) && util.isEmpty(options.include)) {
     options.files = ['./*.html', './*.js']
   }
 }
 
-function resolvePaths(options) {
-  options.files = options.files.map(val => path.resolve(options.cwd, val))
+function resolvePaths(options: any) {
+  options.files = options.files.map((val: string) =>
+    path.resolve(options.cwd, val)
+  )
 
   options.output = path.resolve(options.cwd, options.output)
 
   const libPaths = [options.cacheDir]
   libPaths.push(path.resolve(options.cwd, 'eustia'))
-  options.library.forEach(function(library) {
+  options.library.forEach(function(library: any) {
     if (util.isStr(library)) {
       if (!util.isUrl(library)) {
         library = path.resolve(library)

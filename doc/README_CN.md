@@ -1,5 +1,5 @@
 <a href="https://eustia.github.io/" target="_blank">
-    <img src="../doc/banner.jpg">
+    <img src="./banner.jpg">
 </a>
 
 # Eustia

@@ -8,7 +8,7 @@ marked.setOptions({
   langPrefix: 'language-'
 })
 
-export default function(ast, template, options, cb) {
+export default function(ast: any, template: any, options: any, cb: Function) {
   logger.tpl(
     {
       output: options.output
@@ -24,7 +24,7 @@ export default function(ast, template, options, cb) {
       ast.description = marked(ast.description)
     }
 
-    util.each(ast.docs, function(val, key) {
+    util.each(ast.docs, function(val: string, key) {
       ast.docs[key] = marked(val)
     })
   }

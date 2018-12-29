@@ -1,13 +1,13 @@
 import * as fs from 'fs'
 import * as util from '../../lib/util'
 
-export default function(ast, options, cb) {
+export default function(ast: any, options: any, cb: Function) {
   fs.exists(options.input, function(result) {
     if (!result) {
       return cb('Not found: ' + options.input)
     }
 
-    fs.readFile(options.input, options.encoding, function(err, data) {
+    fs.readFile(options.input, options.encoding, function(err, data: string) {
       if (err) {
         return cb(err)
       }
@@ -19,13 +19,13 @@ export default function(ast, options, cb) {
   })
 }
 
-function process(data) {
-  const ret = {}
+function process(data: any) {
+  const ret: any = {}
 
   data = breakApart(data)
 
-  util.each(data, function(val) {
-    let name
+  util.each(data, function(val: string) {
+    let name: string
 
     val = util.trim(val)
 
@@ -62,19 +62,19 @@ function process(data) {
 
 const regSeparator = /\/\* -{30} [$\w]+ -{30} \*\//
 
-function breakApart(data) {
+function breakApart(data: string) {
   return data.split(regSeparator).slice(1)
 }
 
 const regStartOneSpace = /^ /gm
 
-function indentOneSpace(data) {
+function indentOneSpace(data: string) {
   return data.replace(regStartOneSpace, '')
 }
 
-function sortKeys(data) {
-  const arr = []
-  const ret = {}
+function sortKeys(data: any) {
+  const arr: any[] = []
+  const ret: any = {}
 
   util.each(data, function(val, key) {
     arr.push({

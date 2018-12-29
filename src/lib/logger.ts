@@ -10,13 +10,13 @@ class Logger {
   constructor() {
     this.initHandlebars()
   }
-  info(msg) {
+  info(msg: string) {
     this.color(msg, 'green')
   }
-  error(err) {
-    this.color(err, 'red', err)
+  error(err: Error) {
+    this.color(err.message, 'red', err)
   }
-  log(msg) {
+  log(msg: string) {
     this.color(msg, 'white')
   }
   debug(...args: any[]) {
@@ -25,14 +25,14 @@ class Logger {
     }
 
     this.tpl(
-      { data: format.apply(null, util.toArr(arguments)) },
+      { data: format.apply(null, args as any) },
       '{{#red}}DEBUG{{/red}} {{{data}}}'
     )
   }
-  warn(msg) {
+  warn(msg: string) {
     this.color(msg, 'yellow')
   }
-  color(msg, color, err?) {
+  color(msg: string, color: string, err?: Error) {
     this.tpl({ msg }, '{{#' + color + '}}{{{msg}}}{{/' + color + '}}', err)
   }
   history() {
@@ -41,12 +41,12 @@ class Logger {
   enable() {
     this.isEnabled = true
   }
-  tpl(msg, tpl, err?) {
+  tpl(msg: any, tpl: string, err?: Error) {
     msg = handlebars.compile(tpl)(msg)
 
     this._log(msg, err)
   }
-  private _log(msg, err) {
+  private _log(msg: any, err?: Error) {
     if (!this.isEnabled) {
       return
     }
@@ -70,7 +70,7 @@ class Logger {
     ]
     SUPPORT_COLORS.forEach(function(color) {
       handlebars.registerHelper(color, function(ctx) {
-        return chalk[color](ctx.fn(this))
+        return (chalk as any)[color](ctx.fn(this))
       })
     })
   }

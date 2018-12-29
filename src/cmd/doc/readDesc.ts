@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 
-export default function(ast, options, cb) {
+export default function(ast: any, options: any, cb: Function) {
   if (!options.description) {
     ast.description = ''
     return cb()

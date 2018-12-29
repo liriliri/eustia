@@ -29,8 +29,8 @@ module.exports = {
   version: cmdFactory(version)
 }
 
-function cmdFactory(cmd) {
-  return function(options, cb) {
+function cmdFactory(cmd: any) {
+  return function(options: any, cb: Function) {
     cb = cb || util.noop
     options = util.defaults(options, defOpts, cmd.defOpts || {})
     options.cacheDir = path.resolve(options.cwd, 'eustia/cache')
@@ -44,7 +44,7 @@ function cmdFactory(cmd) {
 
     logger.debug('Options', options)
 
-    cmd(options, function(err) {
+    cmd(options, function(err: Error | null) {
       if (err) {
         logger.error(err)
         if (options.errLog) {

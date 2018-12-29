@@ -7,7 +7,7 @@ import * as util from '../../lib/util'
 const regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m
 const regExports = /\bexports\b/
 
-export default async function(modName, codeTpl, options) {
+export default async function(modName: string, codeTpl: any, options: any) {
   const fnPercentage = options.data.fnPercentage
   let percentage
 
@@ -20,7 +20,7 @@ export default async function(modName, codeTpl, options) {
   const result: any = {}
   const paths: string[] = []
 
-  util.each(options.libPaths, function(libPath) {
+  util.each(options.libPaths, function(libPath: any) {
     if (util.isFn(libPath)) {
       libPath = libPath(modName)
     }
@@ -36,7 +36,7 @@ export default async function(modName, codeTpl, options) {
   })
 
   let data: any
-  let path
+  let path: any
 
   for (let i = 0, len = paths.length; i < len; i++) {
     path = paths[i]
@@ -82,7 +82,7 @@ export default async function(modName, codeTpl, options) {
 
   data = transData(path, data, modName, options)
 
-  let dependencies: any[] = regDependency.exec(data)
+  let dependencies: any[] | null = regDependency.exec(data)
   dependencies = dependencies ? util.trim(dependencies[1]).split(/\s+/) : []
 
   data = util.indent(
@@ -119,16 +119,21 @@ export default async function(modName, codeTpl, options) {
   return result
 }
 
-function transData(filePath, src, modName, options) {
+function transData(
+  filePath: string,
+  src: string,
+  modName: string,
+  options: any
+) {
   const transpiler = options.transpiler
 
-  util.each(transpiler, function(item) {
+  util.each(transpiler, function(item: any) {
     if (item.exclude && item.exclude.test(filePath)) {
       return
     }
 
     if (item.test.test(filePath)) {
-      util.each(item.handler, function(handler) {
+      util.each(item.handler, function(handler: Function) {
         src = handler.call(item, src, modName)
       })
     }
@@ -156,6 +161,6 @@ function extractTs(code: string) {
 
 const regStartOneSpace = /^ /gm
 
-function indentOneSpace(data) {
+function indentOneSpace(data: string) {
   return data.replace(regStartOneSpace, '')
 }
