@@ -81,7 +81,7 @@ export default function build(options: any, cb: Function) {
           cb()
         }
       ],
-      function(err?: Error) {
+      function(err: any) {
         if (err) {
           if (isWatching) {
             return logger.error(err)
