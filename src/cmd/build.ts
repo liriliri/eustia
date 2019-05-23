@@ -186,8 +186,7 @@ function resolvePaths(options: any) {
       libPaths.push(library)
     }
   })
-  const DOWNLOAD_URL_PREFIX = 'https://cdn.jsdelivr.net/npm/eustia-module/'
-  libPaths.push('https://cdn.jsdelivr.net/npm/eustia-module/')
+  libPaths.push('https://cdn.jsdelivr.net/npm/eustia-module@latest/')
 
   options.libPaths = libPaths
 
