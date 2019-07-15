@@ -65,6 +65,9 @@ function extractModule(file: any, options: any) {
   }
   ret = ret.concat(extractGlobal(options.namespace, file))
 
+  ret = util.map(ret, module => util.trim(module))
+  ret = util.filter(ret, module => module !== '')
+  
   return util.unique(ret)
 }
 
