@@ -1,11 +1,11 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import fs from 'fs'
+import path from 'path'
 import build from './cmd/build'
 import doc from './cmd/doc'
 import help from './cmd/help'
 import version from './cmd/version'
 import logger from './lib/logger'
-import * as util from './lib/util'
+import util from './lib/util'
 
 const cwd = process.cwd()
 const defOpts = {

@@ -1,7 +1,7 @@
-import * as path from 'path'
+import path from 'path'
 import logger from '../../lib/logger'
 import readPaths from '../../lib/readPaths'
-import * as util from '../../lib/util'
+import util from '../../lib/util'
 
 export default function(options: any, cb: Function) {
   if (util.isEmpty(options.files)) {
@@ -67,7 +67,7 @@ function extractModule(file: any, options: any) {
 
   ret = util.map(ret, module => util.trim(module))
   ret = util.filter(ret, module => module !== '')
-  
+
   return util.unique(ret)
 }
 

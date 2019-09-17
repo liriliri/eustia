@@ -1,7 +1,7 @@
 import chalk from 'chalk'
-import * as handlebars from 'handlebars'
+import handlebars from 'handlebars'
 import { format } from 'util'
-import * as util from './util'
+import util from './util'
 
 class Logger {
   public isDebug: boolean = false

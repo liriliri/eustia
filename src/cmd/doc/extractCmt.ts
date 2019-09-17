@@ -1,5 +1,5 @@
-import * as fs from 'fs'
-import * as util from '../../lib/util'
+import fs from 'fs'
+import util from '../../lib/util'
 
 export default function(ast: any, options: any, cb: Function) {
   fs.exists(options.input, function(result) {

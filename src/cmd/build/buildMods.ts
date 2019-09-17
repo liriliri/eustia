@@ -1,6 +1,6 @@
-import * as async from 'async'
+import async from 'async'
 import logger from '../../lib/logger'
-import * as util from '../../lib/util'
+import util from '../../lib/util'
 import buildMod from './buildMod'
 
 export default function(

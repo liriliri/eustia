@@ -1,4 +1,4 @@
-import * as async from 'async'
+import async from 'async'
 import logger from '../lib/logger'
 import readTpl from '../lib/readTpl'
 

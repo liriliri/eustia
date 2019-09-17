@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import fs from 'fs'
 
 export default function(ast: any, options: any, cb: Function) {
   if (!options.description) {

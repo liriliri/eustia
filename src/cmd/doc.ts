@@ -1,5 +1,5 @@
-import * as async from 'async'
-import * as path from 'path'
+import async from 'async'
+import path from 'path'
 import readTpl from '../lib/readTpl'
 import extractCmt from './doc/extractCmt'
 import output from './doc/output'

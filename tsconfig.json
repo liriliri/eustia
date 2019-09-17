@@ -7,6 +7,7 @@
     "removeComments": true,
     "declaration": true,
     "noUnusedLocals": true,
+    "esModuleInterop": true,
     "lib": ["es5", "es2015", "es2015.promise"]
   }
 }

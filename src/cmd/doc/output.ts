@@ -1,7 +1,7 @@
-import * as fs from 'fs'
-import * as marked from 'marked'
+import fs from 'fs'
+import marked from 'marked'
 import logger from '../../lib/logger'
-import * as util from '../../lib/util'
+import util from '../../lib/util'
 
 marked.setOptions({
   renderer: new marked.Renderer(),

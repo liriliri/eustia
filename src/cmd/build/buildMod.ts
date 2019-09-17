@@ -1,8 +1,8 @@
-import * as fs from 'fs-extra'
+import fs from 'fs-extra'
 import { resolve } from 'path'
-import * as request from 'request-promise'
+import request from 'request-promise'
 import logger from '../../lib/logger'
-import * as util from '../../lib/util'
+import util from '../../lib/util'
 
 const regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m
 const regExports = /\bexports\b/

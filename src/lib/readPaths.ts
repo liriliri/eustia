@@ -1,6 +1,6 @@
-import * as async from 'async'
-import * as fs from 'fs'
-import * as glob from 'glob'
+import async from 'async'
+import fs from 'fs'
+import glob from 'glob'
 import logger from './logger'
 
 function expandPaths(paths: string[], options: any, cb: Function) {

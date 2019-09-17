@@ -1,6 +1,6 @@
-import * as fs from 'fs-extra'
+import fs from 'fs-extra'
 import logger from '../../lib/logger'
-import * as util from '../../lib/util'
+import util from '../../lib/util'
 
 export default async function(
   codes: any[],

@@ -1,7 +1,7 @@
-import * as async from 'async'
-import * as fs from 'fs'
-import * as handlebars from 'handlebars'
-import * as path from 'path'
+import async from 'async'
+import fs from 'fs'
+import handlebars from 'handlebars'
+import path from 'path'
 import logger from './logger'
 
 const tpl: any = {}
