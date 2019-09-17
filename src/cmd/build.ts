@@ -102,7 +102,7 @@ export default function build(options: any, cb: Function) {
   format: 'umd',
   output: './util' + '.js', // Split it to avoid being scanned.
   extension: 'js',
-  strict: true,
+  strict: false,
   ts: false,
   transpiler: [],
   files: [],
