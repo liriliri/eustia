@@ -34,6 +34,7 @@
   "homepage": "https://github.com/liriliri/eustia#readme",
   "dependencies": {
     "async": "^2.6.0",
+    "axios": "^0.19.0",
     "chokidar": "^2.0.0",
     "fs-extra": "^7.0.0",
     "glob": "^7.1.2",
@@ -42,7 +43,7 @@
     "nopt": "^4.0.1",
     "qs": "^6.5.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.4"
   },
   "devDependencies": {
     "@types/async": "^2.0.49",

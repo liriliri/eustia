@@ -2,6 +2,7 @@ import fs from 'fs-extra'
 import { resolve } from 'path'
 import request from 'request-promise'
 import logger from '../../lib/logger'
+import axios from 'axios'
 import util from '../../lib/util'
 
 const regDependency = /\s*\b_\(\s*['"]([\w\s$]+)['"]\s*\);?/m
@@ -49,11 +50,12 @@ export default async function(modName: string, codeTpl: any, options: any) {
         'DOWNLOAD {{#cyan}}{{{modName}}}{{/cyan}} FROM {{{path}}}'
       )
       try {
-        const reqOpts: any = {}
-        if (options.proxy) {
-          reqOpts.proxy = options.proxy
+        let { proxy } = options
+        if (proxy) {
+          data = await request.get(path, { proxy })
+        } else {
+          data = (await axios.get(path)).data
         }
-        data = await request.get(path, reqOpts)
         await fs.mkdirp(options.cacheDir)
         await fs.writeFile(
           resolve(options.cacheDir, path.split('/').pop()),
