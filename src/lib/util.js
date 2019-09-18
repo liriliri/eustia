@@ -1,22 +1,53 @@
 // Built by eustia.
 /* eslint-disable */
-"use strict";
 
 var _ = {};
 
-/* ------------------------------ allKeys ------------------------------ */
-
-var allKeys = _.allKeys = (function (exports) {
-    exports = function exports(obj) {
-        var ret = [],
-            key;
-
-        for (key in obj) {
-            ret.push(key);
-        }
-
-        return ret;
+/* ------------------------------ ansiColor ------------------------------ */
+_.ansiColor = (function (exports) {
+    exports = {
+        black: genColor([0, 0]),
+        red: genColor([31, 39]),
+        green: genColor([32, 39]),
+        yellow: genColor([33, 39]),
+        blue: genColor([34, 39]),
+        magenta: genColor([35, 39]),
+        cyan: genColor([36, 39]),
+        white: genColor([37, 39]),
+        gray: genColor([90, 39]),
+        grey: genColor([90, 39]),
+        bgBlack: genColor([40, 49]),
+        bgRed: genColor([41, 49]),
+        bgGreen: genColor([42, 49]),
+        bgYellow: genColor([43, 49]),
+        bgBlue: genColor([44, 49]),
+        bgMagenta: genColor([45, 49]),
+        bgCyan: genColor([46, 49]),
+        bgWhite: genColor([47, 49]),
+        blackBright: genColor([90, 39]),
+        redBright: genColor([91, 39]),
+        greenBright: genColor([92, 39]),
+        yellowBright: genColor([93, 39]),
+        blueBright: genColor([94, 39]),
+        magentaBright: genColor([95, 39]),
+        cyanBright: genColor([96, 39]),
+        whiteBright: genColor([97, 39]),
+        bgBlackBright: genColor([100, 49]),
+        bgRedBright: genColor([101, 49]),
+        bgGreenBright: genColor([102, 49]),
+        bgYellowBright: genColor([103, 49]),
+        bgBlueBright: genColor([104, 49]),
+        bgMagentaBright: genColor([105, 49]),
+        bgCyanBright: genColor([106, 49]),
+        bgWhiteBright: genColor([107, 49])
     };
+
+    function genColor(codes) {
+        const open = `\u001b[${codes[0]}m`;
+        const close = `\u001b[${codes[1]}m`;
+
+        return input => open + input + close;
+    }
 
     return exports;
 })({});
@@ -24,7 +55,7 @@ var allKeys = _.allKeys = (function (exports) {
 /* ------------------------------ idxOf ------------------------------ */
 
 var idxOf = _.idxOf = (function (exports) {
-    exports = function exports(arr, val, fromIdx) {
+    exports = function(arr, val, fromIdx) {
         return Array.prototype.indexOf.call(arr, val, fromIdx);
     };
 
@@ -34,7 +65,7 @@ var idxOf = _.idxOf = (function (exports) {
 /* ------------------------------ isUndef ------------------------------ */
 
 var isUndef = _.isUndef = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         return val === void 0;
     };
 
@@ -44,7 +75,7 @@ var isUndef = _.isUndef = (function (exports) {
 /* ------------------------------ optimizeCb ------------------------------ */
 
 var optimizeCb = _.optimizeCb = (function (exports) {
-    exports = function exports(fn, ctx, argCount) {
+    exports = function(fn, ctx, argCount) {
         if (isUndef(ctx)) return fn;
 
         switch (argCount == null ? 3 : argCount) {
@@ -82,8 +113,19 @@ var types = _.types = (function (exports) {
 
 /* ------------------------------ escapeRegExp ------------------------------ */
 _.escapeRegExp = (function (exports) {
-    exports = function exports(str) {
+    exports = function(str) {
         return str.replace(/\W/g, '\\$&');
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ isObj ------------------------------ */
+
+var isObj = _.isObj = (function (exports) {
+    exports = function(val) {
+        var type = typeof val;
+        return !!val && (type === 'function' || type === 'object');
     };
 
     return exports;
@@ -94,7 +136,7 @@ _.escapeRegExp = (function (exports) {
 var has = _.has = (function (exports) {
     var hasOwnProp = Object.prototype.hasOwnProperty;
 
-    exports = function exports(obj, key) {
+    exports = function(obj, key) {
         return hasOwnProp.call(obj, key);
     };
 
@@ -104,7 +146,7 @@ var has = _.has = (function (exports) {
 /* ------------------------------ identity ------------------------------ */
 
 var identity = _.identity = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         return val;
     };
 
@@ -114,7 +156,7 @@ var identity = _.identity = (function (exports) {
 /* ------------------------------ repeat ------------------------------ */
 
 var repeat = _.repeat = (function (exports) {
-    exports = function exports(str, n) {
+    exports = function(str, n) {
         var ret = '';
         if (n < 1) return '';
 
@@ -135,7 +177,7 @@ var repeat = _.repeat = (function (exports) {
 var objToStr = _.objToStr = (function (exports) {
     var ObjToStr = Object.prototype.toString;
 
-    exports = function exports(val) {
+    exports = function(val) {
         return ObjToStr.call(val);
     };
 
@@ -145,8 +187,42 @@ var objToStr = _.objToStr = (function (exports) {
 /* ------------------------------ isArgs ------------------------------ */
 
 var isArgs = _.isArgs = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         return objToStr(val) === '[object Arguments]';
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ isFn ------------------------------ */
+
+var isFn = _.isFn = (function (exports) {
+    exports = function(val) {
+        var objStr = objToStr(val);
+        return (
+            objStr === '[object Function]' ||
+            objStr === '[object GeneratorFunction]' ||
+            objStr === '[object AsyncFunction]'
+        );
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ getProto ------------------------------ */
+
+var getProto = _.getProto = (function (exports) {
+    var getPrototypeOf = Object.getPrototypeOf;
+    var ObjectCtr = {}.constructor;
+
+    exports = function(obj) {
+        if (!isObj(obj)) return null;
+        if (getPrototypeOf) return getPrototypeOf(obj);
+        var proto = obj.__proto__;
+        if (proto || proto === null) return proto;
+        if (isFn(obj.constructor)) return obj.constructor.prototype;
+        if (obj instanceof ObjectCtr) return ObjectCtr.prototype;
+        return null;
     };
 
     return exports;
@@ -155,7 +231,7 @@ var isArgs = _.isArgs = (function (exports) {
 /* ------------------------------ isNum ------------------------------ */
 
 var isNum = _.isNum = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         return objToStr(val) === '[object Number]';
     };
 
@@ -166,7 +242,7 @@ var isNum = _.isNum = (function (exports) {
 _.indent = (function (exports) {
     var regLineBegin = /^(?!\s*$)/gm;
 
-    exports = function exports(str, char, len) {
+    exports = function(str, char, len) {
         if (isNum(char)) {
             len = char;
             char = ' ';
@@ -176,6 +252,30 @@ _.indent = (function (exports) {
         if (isUndef(char)) char = ' ';
         char = repeat(char, len);
         return str.replace(regLineBegin, char);
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ isArrLike ------------------------------ */
+
+var isArrLike = _.isArrLike = (function (exports) {
+    var MAX_ARR_IDX = Math.pow(2, 53) - 1;
+
+    exports = function(val) {
+        if (!val) return false;
+        var len = val.length;
+        return isNum(len) && len >= 0 && len <= MAX_ARR_IDX && !isFn(val);
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ isStr ------------------------------ */
+
+var isStr = _.isStr = (function (exports) {
+    exports = function(val) {
+        return objToStr(val) === '[object String]';
     };
 
     return exports;
@@ -193,60 +293,12 @@ var isArr = _.isArr = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ isFn ------------------------------ */
-
-var isFn = _.isFn = (function (exports) {
-    exports = function exports(val) {
-        var objStr = objToStr(val);
-        return (
-            objStr === '[object Function]' ||
-            objStr === '[object GeneratorFunction]'
-        );
-    };
-
-    return exports;
-})({});
-
-/* ------------------------------ isArrLike ------------------------------ */
-
-var isArrLike = _.isArrLike = (function (exports) {
-    var MAX_ARR_IDX = Math.pow(2, 53) - 1;
-
-    exports = function exports(val) {
-        if (!val) return false;
-        var len = val.length;
-        return isNum(len) && len >= 0 && len <= MAX_ARR_IDX && !isFn(val);
-    };
-
-    return exports;
-})({});
-
 /* ------------------------------ isBrowser ------------------------------ */
 
 var isBrowser = _.isBrowser = (function (exports) {
-    function _typeof(obj) {
-        if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
-            _typeof = function _typeof(obj) {
-                return typeof obj;
-            };
-        } else {
-            _typeof = function _typeof(obj) {
-                return obj &&
-                    typeof Symbol === 'function' &&
-                    obj.constructor === Symbol &&
-                    obj !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof obj;
-            };
-        }
-        return _typeof(obj);
-    }
-
     exports =
-        (typeof window === 'undefined' ? 'undefined' : _typeof(window)) ===
-            'object' &&
-        (typeof document === 'undefined' ? 'undefined' : _typeof(document)) ===
-            'object' &&
+        typeof window === 'object' &&
+        typeof document === 'object' &&
         document.nodeType === 9;
 
     return exports;
@@ -263,7 +315,7 @@ var root = _.root = (function (exports) {
 /* ------------------------------ detectMocha ------------------------------ */
 
 var detectMocha = _.detectMocha = (function (exports) {
-    exports = function exports() {
+    exports = function() {
         for (var i = 0, len = methods.length; i < len; i++) {
             var method = methods[i];
             if (typeof root[method] !== 'function') return false;
@@ -283,11 +335,10 @@ var keys = _.keys = (function (exports) {
     if (Object.keys && !detectMocha()) {
         exports = Object.keys;
     } else {
-        exports = function exports(obj) {
-            var ret = [],
-                key;
+        exports = function(obj) {
+            var ret = [];
 
-            for (key in obj) {
+            for (var key in obj) {
                 if (has(obj, key)) ret.push(key);
             }
 
@@ -301,7 +352,7 @@ var keys = _.keys = (function (exports) {
 /* ------------------------------ each ------------------------------ */
 
 var each = _.each = (function (exports) {
-    exports = function exports(obj, iterator, ctx) {
+    exports = function(obj, iterator, ctx) {
         iterator = optimizeCb(iterator, ctx);
         var i, len;
 
@@ -326,7 +377,7 @@ var each = _.each = (function (exports) {
 /* ------------------------------ createAssigner ------------------------------ */
 
 var createAssigner = _.createAssigner = (function (exports) {
-    exports = function exports(keysFn, defaults) {
+    exports = function(keysFn, defaults) {
         return function(obj) {
             each(arguments, function(src, idx) {
                 if (idx === 0) return;
@@ -342,24 +393,10 @@ var createAssigner = _.createAssigner = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ defaults ------------------------------ */
-_.defaults = (function (exports) {
-    exports = createAssigner(allKeys, true);
-
-    return exports;
-})({});
-
-/* ------------------------------ extend ------------------------------ */
-_.extend = (function (exports) {
-    exports = createAssigner(allKeys);
-
-    return exports;
-})({});
-
 /* ------------------------------ values ------------------------------ */
 
 var values = _.values = (function (exports) {
-    exports = function exports(obj) {
+    exports = function(obj) {
         var ret = [];
         each(obj, function(val) {
             ret.push(val);
@@ -372,7 +409,8 @@ var values = _.values = (function (exports) {
 
 /* ------------------------------ contain ------------------------------ */
 _.contain = (function (exports) {
-    exports = function exports(arr, val) {
+    exports = function(arr, val) {
+        if (isStr(arr)) return arr.indexOf(val) > -1;
         if (!isArrLike(arr)) arr = values(arr);
         return idxOf(arr, val) >= 0;
     };
@@ -388,19 +426,9 @@ var extendOwn = _.extendOwn = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ isStr ------------------------------ */
-
-var isStr = _.isStr = (function (exports) {
-    exports = function exports(val) {
-        return objToStr(val) === '[object String]';
-    };
-
-    return exports;
-})({});
-
 /* ------------------------------ isEmpty ------------------------------ */
 _.isEmpty = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         if (val == null) return true;
 
         if (isArrLike(val) && (isArr(val) || isStr(val) || isArgs(val))) {
@@ -416,10 +444,10 @@ _.isEmpty = (function (exports) {
 /* ------------------------------ isMatch ------------------------------ */
 
 var isMatch = _.isMatch = (function (exports) {
-    exports = function exports(obj, src) {
-        var _keys = keys(src),
-            len = _keys.length;
+    exports = function(obj, src) {
+        var _keys = keys(src);
 
+        var len = _keys.length;
         if (obj == null) return !len;
         obj = Object(obj);
 
@@ -434,39 +462,9 @@ var isMatch = _.isMatch = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ isObj ------------------------------ */
-
-var isObj = _.isObj = (function (exports) {
-    function _typeof(obj) {
-        if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
-            _typeof = function _typeof(obj) {
-                return typeof obj;
-            };
-        } else {
-            _typeof = function _typeof(obj) {
-                return obj &&
-                    typeof Symbol === 'function' &&
-                    obj.constructor === Symbol &&
-                    obj !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof obj;
-            };
-        }
-        return _typeof(obj);
-    }
-
-    exports = function exports(val) {
-        var type = _typeof(val);
-
-        return !!val && (type === 'function' || type === 'object');
-    };
-
-    return exports;
-})({});
-
 /* ------------------------------ isPlainObj ------------------------------ */
 _.isPlainObj = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         if (!isObj(val)) return false;
         var ctor = val.constructor;
         if (!isFn(ctor)) return false;
@@ -479,7 +477,7 @@ _.isPlainObj = (function (exports) {
 
 /* ------------------------------ isUrl ------------------------------ */
 _.isUrl = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         return regUrl.test(val);
     };
 
@@ -493,14 +491,14 @@ _.isUrl = (function (exports) {
 var ltrim = _.ltrim = (function (exports) {
     var regSpace = /^\s+/;
 
-    exports = function exports(str, chars) {
+    exports = function(str, chars) {
         if (chars == null) return str.replace(regSpace, '');
-        var start = 0,
-            len = str.length,
-            charLen = chars.length,
-            found = true,
-            i,
-            c;
+        var start = 0;
+        var len = str.length;
+        var charLen = chars.length;
+        var found = true;
+        var i;
+        var c;
 
         while (found && start < len) {
             found = false;
@@ -525,7 +523,7 @@ var ltrim = _.ltrim = (function (exports) {
 /* ------------------------------ matcher ------------------------------ */
 
 var matcher = _.matcher = (function (exports) {
-    exports = function exports(attrs) {
+    exports = function(attrs) {
         attrs = extendOwn({}, attrs);
         return function(obj) {
             return isMatch(obj, attrs);
@@ -538,7 +536,7 @@ var matcher = _.matcher = (function (exports) {
 /* ------------------------------ safeCb ------------------------------ */
 
 var safeCb = _.safeCb = (function (exports) {
-    exports = function exports(val, ctx, argCount) {
+    exports = function(val, ctx, argCount) {
         if (val == null) return identity;
         if (isFn(val)) return optimizeCb(val, ctx, argCount);
         if (isObj(val)) return matcher(val);
@@ -555,7 +553,7 @@ var safeCb = _.safeCb = (function (exports) {
 /* ------------------------------ filter ------------------------------ */
 
 var filter = _.filter = (function (exports) {
-    exports = function exports(obj, predicate, ctx) {
+    exports = function(obj, predicate, ctx) {
         var ret = [];
         predicate = safeCb(predicate, ctx);
         each(obj, function(val, idx, list) {
@@ -567,15 +565,106 @@ var filter = _.filter = (function (exports) {
     return exports;
 })({});
 
+/* ------------------------------ unique ------------------------------ */
+
+var unique = _.unique = (function (exports) {
+    exports = function(arr, compare) {
+        compare = compare || isEqual;
+        return filter(arr, function(item, idx, arr) {
+            var len = arr.length;
+
+            while (++idx < len) {
+                if (compare(item, arr[idx])) return false;
+            }
+
+            return true;
+        });
+    };
+
+    function isEqual(a, b) {
+        return a === b;
+    }
+
+    return exports;
+})({});
+
+/* ------------------------------ allKeys ------------------------------ */
+
+var allKeys = _.allKeys = (function (exports) {
+    var getOwnPropertyNames = Object.getOwnPropertyNames;
+    var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+
+    exports = function(obj) {
+        var _ref =
+                arguments.length > 1 && arguments[1] !== undefined
+                    ? arguments[1]
+                    : {},
+            _ref$prototype = _ref.prototype,
+            prototype = _ref$prototype === void 0 ? true : _ref$prototype,
+            _ref$unenumerable = _ref.unenumerable,
+            unenumerable = _ref$unenumerable === void 0 ? false : _ref$unenumerable,
+            _ref$symbol = _ref.symbol,
+            symbol = _ref$symbol === void 0 ? false : _ref$symbol;
+
+        var ret = [];
+
+        if ((unenumerable || symbol) && getOwnPropertyNames) {
+            var getKeys = keys;
+            if (unenumerable && getOwnPropertyNames) getKeys = getOwnPropertyNames;
+
+            do {
+                ret = ret.concat(getKeys(obj));
+
+                if (symbol && getOwnPropertySymbols) {
+                    ret = ret.concat(getOwnPropertySymbols(obj));
+                }
+            } while (
+                prototype &&
+                (obj = getProto(obj)) &&
+                obj !== Object.prototype
+            );
+
+            ret = unique(ret);
+        } else {
+            if (prototype) {
+                for (var key in obj) {
+                    ret.push(key);
+                }
+            } else {
+                ret = keys(obj);
+            }
+        }
+
+        return ret;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ defaults ------------------------------ */
+_.defaults = (function (exports) {
+    exports = createAssigner(allKeys, true);
+
+    return exports;
+})({});
+
+/* ------------------------------ extend ------------------------------ */
+_.extend = (function (exports) {
+    exports = createAssigner(allKeys);
+
+    return exports;
+})({});
+
 /* ------------------------------ map ------------------------------ */
 
 var map = _.map = (function (exports) {
-    exports = function exports(obj, iterator, ctx) {
+    exports = function(obj, iterator, ctx) {
         iterator = safeCb(iterator, ctx);
 
-        var _keys = !isArrLike(obj) && keys(obj),
-            len = (_keys || obj).length,
-            results = Array(len);
+        var _keys = !isArrLike(obj) && keys(obj);
+
+        var len = (_keys || obj).length;
+        var results = Array(len);
 
         for (var i = 0; i < len; i++) {
             var curKey = _keys ? _keys[i] : i;
@@ -590,7 +679,7 @@ var map = _.map = (function (exports) {
 
 /* ------------------------------ noop ------------------------------ */
 _.noop = (function (exports) {
-    exports = function exports() {};
+    exports = function() {};
 
     return exports;
 })({});
@@ -609,7 +698,7 @@ _.now = (function (exports) {
 /* ------------------------------ toStr ------------------------------ */
 
 var toStr = _.toStr = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         return val == null ? '' : val.toString();
     };
 
@@ -618,7 +707,7 @@ var toStr = _.toStr = (function (exports) {
 
 /* ------------------------------ rpad ------------------------------ */
 _.rpad = (function (exports) {
-    exports = function exports(str, len, chars) {
+    exports = function(str, len, chars) {
         str = toStr(str);
         var strLen = str.length;
         chars = chars || ' ';
@@ -634,13 +723,13 @@ _.rpad = (function (exports) {
 var rtrim = _.rtrim = (function (exports) {
     var regSpace = /\s+$/;
 
-    exports = function exports(str, chars) {
+    exports = function(str, chars) {
         if (chars == null) return str.replace(regSpace, '');
-        var end = str.length - 1,
-            charLen = chars.length,
-            found = true,
-            i,
-            c;
+        var end = str.length - 1;
+        var charLen = chars.length;
+        var found = true;
+        var i;
+        var c;
 
         while (found && end >= 0) {
             found = false;
@@ -667,7 +756,7 @@ var rtrim = _.rtrim = (function (exports) {
 var trim = _.trim = (function (exports) {
     var regSpace = /^\s+|\s+$/g;
 
-    exports = function exports(str, chars) {
+    exports = function(str, chars) {
         if (chars == null) return str.replace(regSpace, '');
         return ltrim(rtrim(str, chars), chars);
     };
@@ -679,7 +768,7 @@ var trim = _.trim = (function (exports) {
 _.extractBlockCmts = (function (exports) {
     var regBlockCmt = /(\/\*[\s\S]*?\*\/)/gm;
 
-    exports = function exports(str) {
+    exports = function(str) {
         var ret = str.match(regBlockCmt);
         if (!ret) return [];
         ret = map(ret, function(comment) {
@@ -697,11 +786,12 @@ _.extractBlockCmts = (function (exports) {
 
 /* ------------------------------ some ------------------------------ */
 _.some = (function (exports) {
-    exports = function exports(obj, predicate, ctx) {
+    exports = function(obj, predicate, ctx) {
         predicate = safeCb(predicate, ctx);
 
-        var _keys = !isArrLike(obj) && keys(obj),
-            len = (_keys || obj).length;
+        var _keys = !isArrLike(obj) && keys(obj);
+
+        var len = (_keys || obj).length;
 
         for (var i = 0; i < len; i++) {
             var key = _keys ? _keys[i] : i;
@@ -716,7 +806,7 @@ _.some = (function (exports) {
 
 /* ------------------------------ startWith ------------------------------ */
 _.startWith = (function (exports) {
-    exports = function exports(str, prefix) {
+    exports = function(str, prefix) {
         return str.indexOf(prefix) === 0;
     };
 
@@ -725,7 +815,7 @@ _.startWith = (function (exports) {
 
 /* ------------------------------ stripCmt ------------------------------ */
 _.stripCmt = (function (exports) {
-    exports = function exports(str) {
+    exports = function(str) {
         str = ('__' + str + '__').split('');
         var mode = {
             singleQuote: false,
@@ -798,7 +888,7 @@ _.stripCmt = (function (exports) {
 _.stripColor = (function (exports) {
     var regColor = /\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/g;
 
-    exports = function exports(str) {
+    exports = function(str) {
         return str.replace(regColor, '');
     };
 
@@ -807,7 +897,7 @@ _.stripColor = (function (exports) {
 
 /* ------------------------------ toArr ------------------------------ */
 _.toArr = (function (exports) {
-    exports = function exports(val) {
+    exports = function(val) {
         if (!val) return [];
         if (isArr(val)) return val;
         if (isArrLike(val) && !isStr(val)) return map(val);
@@ -819,7 +909,7 @@ _.toArr = (function (exports) {
 
 /* ------------------------------ topoSort ------------------------------ */
 _.topoSort = (function (exports) {
-    exports = function exports(edges) {
+    exports = function(edges) {
         return sort(uniqueNodes(edges), edges);
     };
 
@@ -836,10 +926,10 @@ _.topoSort = (function (exports) {
     }
 
     function sort(nodes, edges) {
-        var cursor = nodes.length,
-            sorted = new Array(cursor),
-            visited = {},
-            i = cursor;
+        var cursor = nodes.length;
+        var sorted = new Array(cursor);
+        var visited = {};
+        var i = cursor;
 
         while (i--) {
             if (!visited[i]) visit(nodes[i], i, []);
@@ -869,28 +959,6 @@ _.topoSort = (function (exports) {
         }
 
         return sorted;
-    }
-
-    return exports;
-})({});
-
-/* ------------------------------ unique ------------------------------ */
-_.unique = (function (exports) {
-    exports = function exports(arr, compare) {
-        compare = compare || isEqual;
-        return filter(arr, function(item, idx, arr) {
-            var len = arr.length;
-
-            while (++idx < len) {
-                if (compare(item, arr[idx])) return false;
-            }
-
-            return true;
-        });
-    };
-
-    function isEqual(a, b) {
-        return a === b;
     }
 
     return exports;

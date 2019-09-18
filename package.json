@@ -34,7 +34,6 @@
   "homepage": "https://github.com/liriliri/eustia#readme",
   "dependencies": {
     "async": "^2.6.0",
-    "chalk": "^2.3.0",
     "chokidar": "^2.0.0",
     "fs-extra": "^7.0.0",
     "glob": "^7.1.2",

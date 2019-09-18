@@ -1,6 +1,46 @@
 /* tslint:disable */
 
-export declare function allKeys(obj: any): string[];
+export declare namespace ansiColor {
+    interface IFn {
+        (str: string): string;
+    }
+}
+export declare const ansiColor: {
+    black: ansiColor.IFn;
+    red: ansiColor.IFn;
+    green: ansiColor.IFn;
+    yellow: ansiColor.IFn;
+    blue: ansiColor.IFn;
+    magenta: ansiColor.IFn;
+    cyan: ansiColor.IFn;
+    white: ansiColor.IFn;
+    gray: ansiColor.IFn;
+    grey: ansiColor.IFn;
+    bgBlack: ansiColor.IFn;
+    bgRed: ansiColor.IFn;
+    bgGreen: ansiColor.IFn;
+    bgYellow: ansiColor.IFn;
+    bgBlue: ansiColor.IFn;
+    bgMagenta: ansiColor.IFn;
+    bgCyan: ansiColor.IFn;
+    bgWhite: ansiColor.IFn;
+    blackBright: ansiColor.IFn;
+    redBright: ansiColor.IFn;
+    greenBright: ansiColor.IFn;
+    yellowBright: ansiColor.IFn;
+    blueBright: ansiColor.IFn;
+    magentaBright: ansiColor.IFn;
+    cyanBright: ansiColor.IFn;
+    whiteBright: ansiColor.IFn;
+    bgBlackBright: ansiColor.IFn;
+    bgRedBright: ansiColor.IFn;
+    bgGreenBright: ansiColor.IFn;
+    bgYellowBright: ansiColor.IFn;
+    bgBlueBright: ansiColor.IFn;
+    bgMagentaBright: ansiColor.IFn;
+    bgCyanBright: ansiColor.IFn;
+    bgWhiteBright: ansiColor.IFn;
+}
 
 export declare function idxOf(arr: any[], val: any, fromIdx?: number): number;
 
@@ -34,6 +74,8 @@ export declare const types: {}
 
 export declare function escapeRegExp(str: string): string;
 
+export declare function isObj(val: any): boolean;
+
 export declare function has(obj: {}, key: string): boolean;
 
 export declare function identity<T>(val: T): T;
@@ -44,15 +86,19 @@ export declare function objToStr(val: any): string;
 
 export declare function isArgs(val: any): boolean;
 
+export declare function isFn(val: any): boolean;
+
+export declare function getProto(obj: any): any;
+
 export declare function isNum(val: any): boolean;
 
 export declare function indent(str: string, char?: string, len?: number): string;
 
-export declare function isArr(val: any): boolean;
-
-export declare function isFn(val: any): boolean;
-
 export declare function isArrLike(val: any): boolean;
+
+export declare function isStr(val: any): boolean;
+
+export declare function isArr(val: any): boolean;
 
 export declare const isBrowser: boolean;
 
@@ -75,23 +121,18 @@ export declare function each<T>(
 
 export declare function createAssigner(keysFn: Function, defaults: boolean): Function;
 
-export declare function defaults(obj: any, ...src: any[]): any;
-
-export declare function extend(destination: any, ...sources: any[]): any;
-
 export declare function values(obj: any): any[];
 
-export declare function contain(arr: any[] | {}, val: any): boolean;
+export declare function contain(
+    arr: any[] | {} | string,
+    val: any
+): boolean;
 
 export declare function extendOwn(destination: any, ...sources: any[]): any;
-
-export declare function isStr(val: any): boolean;
 
 export declare function isEmpty(val: any): boolean;
 
 export declare function isMatch(obj: any, src: any): boolean;
-
-export declare function isObj(val: any): boolean;
 
 export declare function isPlainObj(val: any): boolean;
 
@@ -113,6 +154,30 @@ export declare function filter<T>(
     iterator: types.ObjectIterator<T, boolean>,
     context?: any
 ): T[];
+
+export declare function unique(
+    arr: any[],
+    compare?: (a: any, b: any) => boolean | number
+): any[];
+
+export declare namespace allKeys {
+    interface IOptions {
+        prototype?: boolean;
+        unenumerable?: boolean;
+    }
+}
+export declare function allKeys(
+    obj: any,
+    options: { symbol: true } & allKeys.IOptions
+): Array<string | Symbol>;
+export declare function allKeys(
+    obj: any,
+    options?: ({ symbol: false } & allKeys.IOptions) | allKeys.IOptions
+): string[];
+
+export declare function defaults(obj: any, ...src: any[]): any;
+
+export declare function extend(destination: any, ...sources: any[]): any;
 
 export declare function map<T, TResult>(
     list: types.List<T>,
@@ -159,9 +224,4 @@ export declare function stripColor(str: string): string;
 export declare function toArr(val: any): any[];
 
 export declare function topoSort(edges: any[]): any[];
-
-export declare function unique(
-    arr: any[],
-    compare?: (a: any, b: any) => boolean | number
-): any[];
 

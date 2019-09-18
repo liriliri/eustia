@@ -1,4 +1,3 @@
-import chalk from 'chalk'
 import handlebars from 'handlebars'
 import { format } from 'util'
 import util from './util'
@@ -70,7 +69,7 @@ class Logger {
     ]
     SUPPORT_COLORS.forEach(function(color) {
       handlebars.registerHelper(color, function(ctx) {
-        return (chalk as any)[color](ctx.fn(this))
+        return (util.ansiColor as any)[color](ctx.fn(this))
       })
     })
   }
