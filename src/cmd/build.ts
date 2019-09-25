@@ -174,8 +174,9 @@ function resolvePaths(options: any) {
 
   options.output = path.resolve(options.cwd, options.output)
 
-  const libPaths = [options.cacheDir]
+  const libPaths = []
   libPaths.push(path.resolve(options.cwd, 'eustia'))
+  libPaths.push(options.cacheDir)
   options.library.forEach(function(library: any) {
     if (util.isStr(library)) {
       if (!util.isUrl(library)) {
