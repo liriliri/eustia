@@ -174,7 +174,7 @@ function resolvePaths(options: any) {
 
   options.output = path.resolve(options.cwd, options.output)
 
-  const libPaths = []
+  const libPaths: any[] = []
   libPaths.push(path.resolve(options.cwd, 'eustia'))
   libPaths.push(options.cacheDir)
   options.library.forEach(function(library: any) {
