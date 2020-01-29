@@ -52,6 +52,7 @@ export default async function(modName: string, codeTpl: any, options: any) {
       try {
         if (util.isBrowser) {
           data = (await axios.get(path)).data
+          break
         } else {
           const { proxy } = options
           if (proxy) {
@@ -76,6 +77,7 @@ export default async function(modName: string, codeTpl: any, options: any) {
           },
           'DOWNLOAD {{#cyan}}{{{modName}}}{{/cyan}} FROM {{{path}}} FAILED!'
         )
+        throw e
       }
     } else if (await fs.pathExists(path)) {
       data = await fs.readFile(path, options.encoding)

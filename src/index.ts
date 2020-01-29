@@ -44,9 +44,10 @@ function cmdFactory(cmd: any) {
 
     logger.debug('Options', options)
 
-    cmd(options, function(err: Error | null) {
+    cmd(options, function(err: Error | null, result?: any) {
       if (err) {
         logger.error(err)
+        cb(err)
         if (options.errLog) {
           // Need to exit immediately, so async fs is not used.
           fs.writeFileSync(errLogPath, logger.history(), 'utf-8')
@@ -62,7 +63,7 @@ function cmdFactory(cmd: any) {
         })
       }
 
-      cb(err)
+      cb(null, result)
     })
   }
 }

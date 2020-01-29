@@ -568,13 +568,13 @@ var filter = _.filter = (function (exports) {
 /* ------------------------------ unique ------------------------------ */
 
 var unique = _.unique = (function (exports) {
-    exports = function(arr, compare) {
-        compare = compare || isEqual;
+    exports = function(arr, cmp) {
+        cmp = cmp || isEqual;
         return filter(arr, function(item, idx, arr) {
             var len = arr.length;
 
             while (++idx < len) {
-                if (compare(item, arr[idx])) return false;
+                if (cmp(item, arr[idx])) return false;
             }
 
             return true;
@@ -672,6 +672,23 @@ var map = _.map = (function (exports) {
         }
 
         return results;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ min ------------------------------ */
+
+var min = _.min = (function (exports) {
+    exports = function() {
+        var arr = arguments;
+        var ret = arr[0];
+
+        for (var i = 1, len = arr.length; i < len; i++) {
+            if (arr[i] < ret) ret = arr[i];
+        }
+
+        return ret;
     };
 
     return exports;
@@ -896,13 +913,59 @@ _.stripColor = (function (exports) {
 })({});
 
 /* ------------------------------ toArr ------------------------------ */
-_.toArr = (function (exports) {
+
+var toArr = _.toArr = (function (exports) {
     exports = function(val) {
         if (!val) return [];
         if (isArr(val)) return val;
         if (isArrLike(val) && !isStr(val)) return map(val);
         return [val];
     };
+
+    return exports;
+})({});
+
+/* ------------------------------ stripIndent ------------------------------ */
+_.stripIndent = (function (exports) {
+    exports = function(literals) {
+        if (isStr(literals)) literals = toArr(literals);
+        var str = '';
+
+        for (var i = 0, len = literals.length; i < len; i++) {
+            str += literals[i];
+            if (
+                i + 1 < 1 || arguments.length <= i + 1
+                    ? undefined
+                    : arguments[i + 1]
+            )
+                str +=
+                    i + 1 < 1 || arguments.length <= i + 1
+                        ? undefined
+                        : arguments[i + 1];
+        }
+
+        var lines = str.split('\n');
+        var indentLens = [];
+
+        for (var _i = 0, _len = lines.length; _i < _len; _i++) {
+            var line = lines[_i];
+
+            var _indent = line.match(regStartSpaces);
+
+            if (_indent) {
+                indentLens.push(_indent[1].length);
+            }
+        }
+
+        var indent = indentLens.length > 0 ? min.apply(null, indentLens) : 0;
+        return trim(
+            map(lines, function(line) {
+                return line[0] === ' ' ? line.slice(indent) : line;
+            }).join('\n')
+        );
+    };
+
+    var regStartSpaces = /^(\s+)\S+/;
 
     return exports;
 })({});

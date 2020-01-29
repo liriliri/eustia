@@ -67,21 +67,22 @@ export default function build(options: any, cb: Function) {
           buildMods(fnList, templates.code, options, cb)
         },
         async function(codes: any[], cb: Function) {
+          let result = ''
           try {
-            await output(
+            result = await output(
               codes,
               templates.codes,
               templates[options.format],
               options
             )
           } catch (e) {
-            cb(e)
+            return cb(e)
           }
 
-          cb()
+          cb(null, result)
         }
       ],
-      function(err: any) {
+      function(err: any, result?: string) {
         if (err) {
           if (isWatching) {
             return logger.error(err)
@@ -91,7 +92,7 @@ export default function build(options: any, cb: Function) {
 
         logger.info('TIME COST ' + (util.now() - startTime) + 'ms.')
 
-        cb()
+        cb(null, result)
       }
     )
   }
@@ -175,8 +176,10 @@ function resolvePaths(options: any) {
   options.output = path.resolve(options.cwd, options.output)
 
   const libPaths: any[] = []
-  libPaths.push(path.resolve(options.cwd, 'eustia'))
-  libPaths.push(options.cacheDir)
+  if (!util.isBrowser) {
+    libPaths.push(path.resolve(options.cwd, 'eustia'))
+    libPaths.push(options.cacheDir)
+  }
   options.library.forEach(function(library: any) {
     if (util.isStr(library)) {
       if (!util.isUrl(library)) {

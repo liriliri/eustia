@@ -157,7 +157,7 @@ export declare function filter<T>(
 
 export declare function unique(
     arr: any[],
-    compare?: (a: any, b: any) => boolean | number
+    cmp?: (a: any, b: any) => boolean | number
 ): any[];
 
 export declare namespace allKeys {
@@ -189,6 +189,8 @@ export declare function map<T, TResult>(
     iterator: types.ObjectIterator<T, TResult>,
     context?: any
 ): TResult[];
+
+export declare function min(...num: number[]): number;
 
 export declare function noop(): void;
 
@@ -222,6 +224,12 @@ export declare function stripCmt(str: string): string;
 export declare function stripColor(str: string): string;
 
 export declare function toArr(val: any): any[];
+
+export declare function stripIndent(str: string): string;
+export declare function stripIndent(
+    literals: TemplateStringsArray,
+    ...placeholders: any[]
+): string;
 
 export declare function topoSort(edges: any[]): any[];
 

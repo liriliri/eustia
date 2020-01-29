@@ -115,6 +115,8 @@ export default async function(
     'OUTPUT FILE {{#cyan}}{{{output}}}{{/cyan}}'
   )
 
+  if (util.isBrowser) return result
+
   await fs.writeFile(options.output, result, options.encoding)
   if (options.ts) {
     let output = options.output
@@ -131,4 +133,6 @@ export default async function(
     )
     await fs.writeFile(output, tsResult, options.encoding)
   }
+
+  return result
 }
