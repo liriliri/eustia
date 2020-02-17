@@ -1,6 +1,8 @@
 import fs from 'fs-extra'
+import path from 'path'
 import logger from '../../lib/logger'
 import util from '../../lib/util'
+import { SourceMapGenerator } from 'source-map'
 
 export default async function(
   codes: any[],
@@ -14,6 +16,9 @@ export default async function(
   let allDependencies: any[] = []
   const codesMap: any = {}
   let codesOrder: string[]
+  const map = new SourceMapGenerator({
+    file: `eustia:///eustia/${path.basename(options.output)}`
+  })
 
   // Sort codes first so that the generated file stays the same
   // when no method is added or removed.
@@ -115,9 +120,17 @@ export default async function(
     'OUTPUT FILE {{#cyan}}{{{output}}}{{/cyan}}'
   )
 
+  if (options.sourcemap) {
+    genSourceMap(map, result, codesMap, codesOrder)
+    result += `\n//# sourceMappingURL=${path.basename(options.output)}.map`
+  }
+
   if (util.isBrowser) return result
 
   await fs.writeFile(options.output, result, options.encoding)
+  if (options.sourcemap) {
+    await fs.writeFile(options.output + '.map', map.toString(), 'utf8')
+  }
   if (options.ts) {
     let output = options.output
     const lastDotPos = output.lastIndexOf('.')
@@ -135,4 +148,59 @@ export default async function(
   }
 
   return result
+}
+
+function genSourceMap(
+  map: SourceMapGenerator,
+  result: string,
+  codesMap: any,
+  codesOrder: string[]
+) {
+  const resultMap: any = {}
+  const lines: string[] = result.split(/\n/)
+  let curName = 'unknown'
+  for (let i = 0, len = lines.length; i < len; i++) {
+    let line = lines[i]
+    const match = line.match(/\/\* -{30} ([$\w]+) -{30} \*\//)
+    if (match) {
+      curName = match[1]
+    }
+    const originalLen = line.length
+    line = util.ltrim(line)
+    const column = originalLen - line.length
+    line = util.rtrim(line)
+    if (line) {
+      const name = line + ` ${curName}`
+      if (!resultMap[name]) resultMap[name] = []
+      resultMap[name].push({
+        column,
+        line: i + 1
+      })
+    }
+  }
+  for (let i = 0, len = codesOrder.length; i < len; i++) {
+    const name = codesOrder[i]
+    const source = `eustia:///${name}.js`
+    const data = codesMap[name].source
+    map.setSourceContent(source, data)
+    const lines = data.split(/\n/)
+    for (let i = 0, len = lines.length; i < len; i++) {
+      let line = lines[i]
+      const originalLen = line.length
+      line = util.ltrim(line)
+      const column = originalLen - line.length
+      line = util.rtrim(line)
+      if (line) {
+        let result = resultMap[line + ` ${name}`]
+        if (result) result = result.shift()
+        if (result) {
+          map.addMapping({
+            source,
+            generated: { line: result.line, column: result.column },
+            original: { line: i + 1, column }
+          })
+        }
+      }
+    }
+  }
 }

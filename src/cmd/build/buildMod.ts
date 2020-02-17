@@ -89,6 +89,8 @@ export default async function(modName: string, codeTpl: any, options: any) {
     throw new Error('There is no module named "' + modName + '"')
   }
 
+  result.source = data
+
   data = transData(path, data, modName, options)
 
   let dependencies: any[] | null = regDependency.exec(data)

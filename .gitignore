@@ -5,4 +5,5 @@ eustia/cache
 test/eustia/cache
 test/build/eustia.js
 out/
+src/lib/util.js.map
 package-lock.json

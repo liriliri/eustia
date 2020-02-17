@@ -111,6 +111,7 @@ export default function build(options: any, cb: Function) {
   library: [],
   include: [],
   exclude: [],
+  sourcemap: false,
   watch: false,
   removeComments: false
 }
