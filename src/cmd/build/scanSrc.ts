@@ -137,7 +137,7 @@ function extractEs6(options: any, file: any) {
   // import util from './util'
   let requirePath = relativePath(file.path, options.output)
   let regImport = new RegExp(
-    'import\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'
+    'import\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '(?:\\.js)?[\'"]'
   )
   let namespace = file.data.match(regImport)
 
@@ -149,7 +149,7 @@ function extractEs6(options: any, file: any) {
   // import * as util from './util'
   requirePath = relativePath(file.path, options.output)
   regImport = new RegExp(
-    'import\\s+(\\*\\s+as)\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '[\'"]'
+    'import\\s+(\\*\\s+as)\\s+(\\w+)\\s+from\\s*[\'"]' + requirePath + '(?:\\.js)?[\'"]'
   )
   namespace = file.data.match(regImport)
 
@@ -160,7 +160,7 @@ function extractEs6(options: any, file: any) {
 
   // import {xxx, xx} from '.util'
   const regImportMembers = new RegExp(
-    'import\\s*{([\\w,\\$\\s]+)}\\s*from\\s*[\'"]' + requirePath + '[\'"]'
+    'import\\s*{([\\w,\\$\\s]+)}\\s*from\\s*[\'"]' + requirePath + '(?:\\.js)?[\'"]'
   )
   const methods = file.data.match(regImportMembers)
 
