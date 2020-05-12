@@ -7,7 +7,9 @@
     "only-arrow-functions": false,
     "no-shadowed-variable": false,
     "member-access": false,
-    "ban-types": false
+    "ban-types": false,
+    "ordered-imports": false,
+    "curly": false
   },
   "rulesDirectory": []
 }

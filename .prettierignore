@@ -1,3 +1,4 @@
 src/lib/util.js
 src/lib/util.d.ts
 test/build/eustia.js
+test/eustia/cache
