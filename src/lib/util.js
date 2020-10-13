@@ -4,7 +4,8 @@
 var _ = {};
 
 /* ------------------------------ ansiColor ------------------------------ */
-_.ansiColor = (function (exports) {
+
+var ansiColor = _.ansiColor = (function (exports) {
     exports = {
         black: genColor([0, 0]),
         red: genColor([31, 39]),
@@ -52,6 +53,66 @@ _.ansiColor = (function (exports) {
     return exports;
 })({});
 
+/* ------------------------------ has ------------------------------ */
+
+var has = _.has = (function (exports) {
+    var hasOwnProp = Object.prototype.hasOwnProperty;
+
+    exports = function(obj, key) {
+        return hasOwnProp.call(obj, key);
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ keys ------------------------------ */
+
+var keys = _.keys = (function (exports) {
+    if (Object.keys && !false) {
+        exports = Object.keys;
+    } else {
+        exports = function(obj) {
+            var ret = [];
+
+            for (var key in obj) {
+                if (has(obj, key)) ret.push(key);
+            }
+
+            return ret;
+        };
+    }
+
+    return exports;
+})({});
+
+/* ------------------------------ max ------------------------------ */
+
+var max = _.max = (function (exports) {
+    exports = function() {
+        var arr = arguments;
+        var ret = arr[0];
+
+        for (var i = 1, len = arr.length; i < len; i++) {
+            if (arr[i] > ret) ret = arr[i];
+        }
+
+        return ret;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ isObj ------------------------------ */
+
+var isObj = _.isObj = (function (exports) {
+    exports = function(val) {
+        var type = typeof val;
+        return !!val && (type === 'function' || type === 'object');
+    };
+
+    return exports;
+})({});
+
 /* ------------------------------ idxOf ------------------------------ */
 
 var idxOf = _.idxOf = (function (exports) {
@@ -68,6 +129,14 @@ var isUndef = _.isUndef = (function (exports) {
     exports = function(val) {
         return val === void 0;
     };
+
+    return exports;
+})({});
+
+/* ------------------------------ types ------------------------------ */
+
+var types = _.types = (function (exports) {
+    exports = {};
 
     return exports;
 })({});
@@ -103,10 +172,71 @@ var optimizeCb = _.optimizeCb = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ types ------------------------------ */
+/* ------------------------------ escape ------------------------------ */
 
-var types = _.types = (function (exports) {
-    exports = {};
+var escape = _.escape = (function (exports) {
+    exports = function(str) {
+        return regTest.test(str) ? str.replace(regReplace, replaceFn) : str;
+    };
+
+    var map = (exports.map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        '`': '&#x60;'
+    });
+    var regSrc = '(?:' + keys(map).join('|') + ')';
+    var regTest = new RegExp(regSrc);
+    var regReplace = new RegExp(regSrc, 'g');
+
+    var replaceFn = function(match) {
+        return map[match];
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ toStr ------------------------------ */
+
+var toStr = _.toStr = (function (exports) {
+    exports = function(val) {
+        return val == null ? '' : val.toString();
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ escapeJsStr ------------------------------ */
+
+var escapeJsStr = _.escapeJsStr = (function (exports) {
+    exports = function(str) {
+        return toStr(str).replace(regEscapeChars, function(char) {
+            switch (char) {
+                case '"':
+                case "'":
+                case '\\':
+                    return '\\' + char;
+
+                case '\n':
+                    return '\\n';
+
+                case '\r':
+                    return '\\r';
+                // Line separator
+
+                case '\u2028':
+                    return '\\u2028';
+                // Paragraph separator
+
+                case '\u2029':
+                    return '\\u2029';
+            }
+        });
+    };
+
+    var regEscapeChars = /["'\\\n\r\u2028\u2029]/g;
 
     return exports;
 })({});
@@ -115,29 +245,6 @@ var types = _.types = (function (exports) {
 _.escapeRegExp = (function (exports) {
     exports = function(str) {
         return str.replace(/\W/g, '\\$&');
-    };
-
-    return exports;
-})({});
-
-/* ------------------------------ isObj ------------------------------ */
-
-var isObj = _.isObj = (function (exports) {
-    exports = function(val) {
-        var type = typeof val;
-        return !!val && (type === 'function' || type === 'object');
-    };
-
-    return exports;
-})({});
-
-/* ------------------------------ has ------------------------------ */
-
-var has = _.has = (function (exports) {
-    var hasOwnProp = Object.prototype.hasOwnProperty;
-
-    exports = function(obj, key) {
-        return hasOwnProp.call(obj, key);
     };
 
     return exports;
@@ -172,6 +279,20 @@ var repeat = _.repeat = (function (exports) {
     return exports;
 })({});
 
+/* ------------------------------ rpad ------------------------------ */
+
+var rpad = _.rpad = (function (exports) {
+    exports = function(str, len, chars) {
+        str = toStr(str);
+        var strLen = str.length;
+        chars = chars || ' ';
+        if (strLen < len) str = (str + repeat(chars, len - strLen)).slice(0, len);
+        return str;
+    };
+
+    return exports;
+})({});
+
 /* ------------------------------ objToStr ------------------------------ */
 
 var objToStr = _.objToStr = (function (exports) {
@@ -190,6 +311,39 @@ var isArgs = _.isArgs = (function (exports) {
     exports = function(val) {
         return objToStr(val) === '[object Arguments]';
     };
+
+    return exports;
+})({});
+
+/* ------------------------------ isArr ------------------------------ */
+
+var isArr = _.isArr = (function (exports) {
+    if (Array.isArray && !false) {
+        exports = Array.isArray;
+    } else {
+        exports = function(val) {
+            return objToStr(val) === '[object Array]';
+        };
+    }
+
+    return exports;
+})({});
+
+/* ------------------------------ castPath ------------------------------ */
+
+var castPath = _.castPath = (function (exports) {
+    exports = function(str, obj) {
+        if (isArr(str)) return str;
+        if (obj && has(obj, str)) return [str];
+        var ret = [];
+        str.replace(regPropName, function(match, number, quote, str) {
+            ret.push(quote ? str.replace(regEscapeChar, '$1') : number || match);
+        });
+        return ret;
+    }; 
+
+    var regPropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+    var regEscapeChar = /\\(\\)?/g;
 
     return exports;
 })({});
@@ -216,13 +370,12 @@ var getProto = _.getProto = (function (exports) {
     var ObjectCtr = {}.constructor;
 
     exports = function(obj) {
-        if (!isObj(obj)) return null;
-        if (getPrototypeOf) return getPrototypeOf(obj);
+        if (!isObj(obj)) return;
+        if (getPrototypeOf && !false) return getPrototypeOf(obj);
         var proto = obj.__proto__;
         if (proto || proto === null) return proto;
         if (isFn(obj.constructor)) return obj.constructor.prototype;
         if (obj instanceof ObjectCtr) return ObjectCtr.prototype;
-        return null;
     };
 
     return exports;
@@ -271,84 +424,6 @@ var isArrLike = _.isArrLike = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ isStr ------------------------------ */
-
-var isStr = _.isStr = (function (exports) {
-    exports = function(val) {
-        return objToStr(val) === '[object String]';
-    };
-
-    return exports;
-})({});
-
-/* ------------------------------ isArr ------------------------------ */
-
-var isArr = _.isArr = (function (exports) {
-    exports =
-        Array.isArray ||
-        function(val) {
-            return objToStr(val) === '[object Array]';
-        };
-
-    return exports;
-})({});
-
-/* ------------------------------ isBrowser ------------------------------ */
-
-var isBrowser = _.isBrowser = (function (exports) {
-    exports =
-        typeof window === 'object' &&
-        typeof document === 'object' &&
-        document.nodeType === 9;
-
-    return exports;
-})({});
-
-/* ------------------------------ root ------------------------------ */
-
-var root = _.root = (function (exports) {
-    exports = isBrowser ? window : global;
-
-    return exports;
-})({});
-
-/* ------------------------------ detectMocha ------------------------------ */
-
-var detectMocha = _.detectMocha = (function (exports) {
-    exports = function() {
-        for (var i = 0, len = methods.length; i < len; i++) {
-            var method = methods[i];
-            if (typeof root[method] !== 'function') return false;
-        }
-
-        return true;
-    };
-
-    var methods = ['afterEach', 'after', 'beforeEach', 'before', 'describe', 'it'];
-
-    return exports;
-})({});
-
-/* ------------------------------ keys ------------------------------ */
-
-var keys = _.keys = (function (exports) {
-    if (Object.keys && !detectMocha()) {
-        exports = Object.keys;
-    } else {
-        exports = function(obj) {
-            var ret = [];
-
-            for (var key in obj) {
-                if (has(obj, key)) ret.push(key);
-            }
-
-            return ret;
-        };
-    }
-
-    return exports;
-})({});
-
 /* ------------------------------ each ------------------------------ */
 
 var each = _.each = (function (exports) {
@@ -393,6 +468,14 @@ var createAssigner = _.createAssigner = (function (exports) {
     return exports;
 })({});
 
+/* ------------------------------ extendOwn ------------------------------ */
+
+var extendOwn = _.extendOwn = (function (exports) {
+    exports = createAssigner(keys);
+
+    return exports;
+})({});
+
 /* ------------------------------ values ------------------------------ */
 
 var values = _.values = (function (exports) {
@@ -402,6 +485,16 @@ var values = _.values = (function (exports) {
             ret.push(val);
         });
         return ret;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ isStr ------------------------------ */
+
+var isStr = _.isStr = (function (exports) {
+    exports = function(val) {
+        return objToStr(val) === '[object String]';
     };
 
     return exports;
@@ -418,10 +511,12 @@ _.contain = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ extendOwn ------------------------------ */
-
-var extendOwn = _.extendOwn = (function (exports) {
-    exports = createAssigner(keys);
+/* ------------------------------ isBrowser ------------------------------ */
+_.isBrowser = (function (exports) {
+    exports =
+        typeof window === 'object' &&
+        typeof document === 'object' &&
+        document.nodeType === 9;
 
     return exports;
 })({});
@@ -436,6 +531,48 @@ _.isEmpty = (function (exports) {
         }
 
         return keys(val).length === 0;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ isInt ------------------------------ */
+
+var isInt = _.isInt = (function (exports) {
+    exports = function(val) {
+        return isNum(val) && val % 1 === 0;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ isFullWidth ------------------------------ */
+
+var isFullWidth = _.isFullWidth = (function (exports) {
+    exports = function isFullWidth(c) {
+        if (!isInt(c)) {
+            return false;
+        }
+
+        return (
+            c >= 0x1100 &&
+            (c <= 0x115f ||
+                c === 0x2329 ||
+                c === 0x232a ||
+                (0x2e80 <= c && c <= 0x3247 && c !== 0x303f) ||
+                (0x3250 <= c && c <= 0x4dbf) ||
+                (0x4e00 <= c && c <= 0xa4c6) ||
+                (0xa960 <= c && c <= 0xa97c) ||
+                (0xac00 <= c && c <= 0xd7a3) ||
+                (0xf900 <= c && c <= 0xfaff) ||
+                (0xfe10 <= c && c <= 0xfe19) ||
+                (0xfe30 <= c && c <= 0xfe6b) ||
+                (0xff01 <= c && c <= 0xff60) ||
+                (0xffe0 <= c && c <= 0xffe6) ||
+                (0x1b000 <= c && c <= 0x1b001) ||
+                (0x1f200 <= c && c <= 0x1f251) ||
+                (0x20000 <= c && c <= 0x3fffd))
+        );
     };
 
     return exports;
@@ -533,18 +670,90 @@ var matcher = _.matcher = (function (exports) {
     return exports;
 })({});
 
+/* ------------------------------ min ------------------------------ */
+
+var min = _.min = (function (exports) {
+    exports = function() {
+        var arr = arguments;
+        var ret = arr[0];
+
+        for (var i = 1, len = arr.length; i < len; i++) {
+            if (arr[i] < ret) ret = arr[i];
+        }
+
+        return ret;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ noop ------------------------------ */
+_.noop = (function (exports) {
+    exports = function() {};
+
+    return exports;
+})({});
+
+/* ------------------------------ now ------------------------------ */
+_.now = (function (exports) {
+    if (Date.now && !false) {
+        exports = Date.now;
+    } else {
+        exports = function() {
+            return new Date().getTime();
+        };
+    }
+
+    return exports;
+})({});
+
+/* ------------------------------ safeGet ------------------------------ */
+
+var safeGet = _.safeGet = (function (exports) {
+    exports = function(obj, path) {
+        path = castPath(path, obj);
+        var prop;
+        prop = path.shift();
+
+        while (!isUndef(prop)) {
+            obj = obj[prop];
+            if (obj == null) return;
+            prop = path.shift();
+        }
+
+        return obj;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ property ------------------------------ */
+
+var property = _.property = (function (exports) {
+    exports = function(path) {
+        if (!isArr(path)) return shallowProperty(path);
+        return function(obj) {
+            return safeGet(obj, path);
+        };
+    };
+
+    function shallowProperty(key) {
+        return function(obj) {
+            return obj == null ? void 0 : obj[key];
+        };
+    }
+
+    return exports;
+})({});
+
 /* ------------------------------ safeCb ------------------------------ */
 
 var safeCb = _.safeCb = (function (exports) {
     exports = function(val, ctx, argCount) {
         if (val == null) return identity;
         if (isFn(val)) return optimizeCb(val, ctx, argCount);
-        if (isObj(val)) return matcher(val);
-        return function(key) {
-            return function(obj) {
-                return obj == null ? undefined : obj[key];
-            };
-        };
+        if (isObj(val) && !isArr(val)) return matcher(val);
+        return property(val);
     };
 
     return exports;
@@ -642,8 +851,68 @@ var allKeys = _.allKeys = (function (exports) {
 })({});
 
 /* ------------------------------ defaults ------------------------------ */
-_.defaults = (function (exports) {
+
+var defaults = _.defaults = (function (exports) {
     exports = createAssigner(allKeys, true);
+
+    return exports;
+})({});
+
+/* ------------------------------ template ------------------------------ */
+
+var template = _.template = (function (exports) {
+    var regMatcher = /<%-([\s\S]+?)%>|<%=([\s\S]+?)%>|<%([\s\S]+?)%>|$/g;
+
+    exports = function(str, util) {
+        if (!util) {
+            util =
+                typeof _ === 'object'
+                    ? _
+                    : {
+                          escape: escape
+                      };
+        } else {
+            defaults(util, {
+                escape: escape
+            });
+        }
+
+        var index = 0;
+        var src = "__p+='";
+        str.replace(regMatcher, function(
+            match,
+            escape,
+            interpolate,
+            evaluate,
+            offset
+        ) {
+            src += escapeJsStr(str.slice(index, offset));
+            index = offset + match.length;
+
+            if (escape) {
+                src += "'+\n((__t=(".concat(
+                    escape,
+                    "))==null?'':util.escape(__t))+\n'"
+                );
+            } else if (interpolate) {
+                src += "'+\n((__t=(".concat(interpolate, "))==null?'':__t)+\n'");
+            } else if (evaluate) {
+                src += "';\n".concat(evaluate, "\n__p+='");
+            }
+
+            return match;
+        });
+        src += "';\n";
+        src = 'with(obj||{}){\n'.concat(src, '}\n');
+        src = "var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};\n".concat(
+            src,
+            'return __p;\n'
+        );
+        var render = new Function('obj', 'util', src);
+        return function(data) {
+            return render.call(null, data, util);
+        };
+    };
 
     return exports;
 })({});
@@ -677,15 +946,33 @@ var map = _.map = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ min ------------------------------ */
+/* ------------------------------ toArr ------------------------------ */
 
-var min = _.min = (function (exports) {
-    exports = function() {
-        var arr = arguments;
-        var ret = arr[0];
+var toArr = _.toArr = (function (exports) {
+    exports = function(val) {
+        if (!val) return [];
+        if (isArr(val)) return val;
+        if (isArrLike(val) && !isStr(val)) return map(val);
+        return [val];
+    };
 
-        for (var i = 1, len = arr.length; i < len; i++) {
-            if (arr[i] < ret) ret = arr[i];
+    return exports;
+})({});
+
+/* ------------------------------ mapObj ------------------------------ */
+
+var mapObj = _.mapObj = (function (exports) {
+    exports = function(obj, iterator, ctx) {
+        iterator = safeCb(iterator, ctx);
+
+        var _keys = keys(obj);
+
+        var len = _keys.length;
+        var ret = {};
+
+        for (var i = 0; i < len; i++) {
+            var curKey = _keys[i];
+            ret[curKey] = iterator(obj[curKey], curKey, obj);
         }
 
         return ret;
@@ -694,42 +981,23 @@ var min = _.min = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ noop ------------------------------ */
-_.noop = (function (exports) {
-    exports = function() {};
+/* ------------------------------ cloneDeep ------------------------------ */
 
-    return exports;
-})({});
+var cloneDeep = _.cloneDeep = (function (exports) {
+    exports = function(obj) {
+        if (isArr(obj)) {
+            return obj.map(function(val) {
+                return exports(val);
+            });
+        }
 
-/* ------------------------------ now ------------------------------ */
-_.now = (function (exports) {
-    exports =
-        Date.now ||
-        function() {
-            return new Date().getTime();
-        };
+        if (isObj(obj) && !isFn(obj)) {
+            return mapObj(obj, function(val) {
+                return exports(val);
+            });
+        }
 
-    return exports;
-})({});
-
-/* ------------------------------ toStr ------------------------------ */
-
-var toStr = _.toStr = (function (exports) {
-    exports = function(val) {
-        return val == null ? '' : val.toString();
-    };
-
-    return exports;
-})({});
-
-/* ------------------------------ rpad ------------------------------ */
-_.rpad = (function (exports) {
-    exports = function(str, len, chars) {
-        str = toStr(str);
-        var strLen = str.length;
-        chars = chars || ' ';
-        if (strLen < len) str = (str + repeat(chars, len - strLen)).slice(0, len);
-        return str;
+        return obj;
     };
 
     return exports;
@@ -830,6 +1098,111 @@ _.startWith = (function (exports) {
     return exports;
 })({});
 
+/* ------------------------------ stripAnsi ------------------------------ */
+
+var stripAnsi = _.stripAnsi = (function (exports) {
+    var regAnsi = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+
+    exports = function(str) {
+        return str.replace(regAnsi, '');
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ strWidth ------------------------------ */
+
+var strWidth = _.strWidth = (function (exports) {
+    exports = function(str) {
+        str = stripAnsi(str);
+        var width = 0;
+
+        for (var i = 0, len = str.length; i < len; i++) {
+            var c = str.codePointAt(i); 
+
+            if (c <= 31 || c === 127) {
+                continue;
+            }
+
+            width += isFullWidth(c) ? 2 : 1;
+        }
+
+        return width;
+    };
+
+    return exports;
+})({});
+
+/* ------------------------------ cliHelp ------------------------------ */
+_.cliHelp = (function (exports) {
+    exports = function(data) {
+        data = cloneDeep(data);
+        data.usage = toArr(data.usage);
+
+        if (data.commands) {
+            var cmdNameWidths = map(data.commands, function(command) {
+                return strWidth(command.name);
+            });
+            data.maxNameWidth = max.apply(null, cmdNameWidths);
+            return helpTpl(data);
+        }
+
+        each(data.options, function(option) {
+            option.name =
+                (option.shorthand ? '-' + option.shorthand + ', ' : '    ') +
+                '--' +
+                option.name;
+        });
+        var optNameWidths = map(data.options, function(option) {
+            return strWidth(option.name);
+        });
+        data.maxNameWidth = max.apply(null, optNameWidths);
+        return cmdTpl(data);
+    };
+
+    var tplUtil = {
+        each: each
+    };
+
+    tplUtil.rpad = function(text, len) {
+        return rpad(text, len, ' ');
+    };
+
+    each(['yellow', 'green', 'cyan', 'red', 'white', 'magenta'], function(color) {
+        tplUtil[color] = function(text) {
+            return ansiColor[color](text);
+        };
+    });
+    var cmdTpl = template(
+        [
+            'Usage:',
+            '',
+            "<% util.each(usage, function (value) { %>  <%=util.cyan(name)%> <%=value%><%='\\n'%><% }); %>",
+            '<% if (options) { %>Options:',
+            '',
+            "<%     util.each(options, function (option) { %>  <%=util.yellow(util.rpad(option.name, maxNameWidth))%> <%=option.desc%><%='\\n'%><% }); %>",
+            '<% } %>Description:',
+            '',
+            '  <%=desc%>'
+        ].join('\n'),
+        tplUtil
+    );
+    var helpTpl = template(
+        [
+            'Usage:',
+            '',
+            "<% util.each(usage, function (value) { %>  <%=util.cyan(name)%> <%=value%><%='\\n'%><% }); %>",
+            'Commands:',
+            '',
+            "<% util.each(commands, function (command) { %>  <%=util.yellow(util.rpad(command.name, maxNameWidth))%> <%=command.desc%><%='\\n'%><% }); %>",
+            "Run '<%=util.cyan(name + ' help <command>')%>' for more information on a specific command"
+        ].join('\n'),
+        tplUtil
+    );
+
+    return exports;
+})({});
+
 /* ------------------------------ stripCmt ------------------------------ */
 _.stripCmt = (function (exports) {
     exports = function(str) {
@@ -912,42 +1285,31 @@ _.stripColor = (function (exports) {
     return exports;
 })({});
 
-/* ------------------------------ toArr ------------------------------ */
-
-var toArr = _.toArr = (function (exports) {
-    exports = function(val) {
-        if (!val) return [];
-        if (isArr(val)) return val;
-        if (isArrLike(val) && !isStr(val)) return map(val);
-        return [val];
-    };
-
-    return exports;
-})({});
-
 /* ------------------------------ stripIndent ------------------------------ */
 _.stripIndent = (function (exports) {
     exports = function(literals) {
         if (isStr(literals)) literals = toArr(literals);
         var str = '';
 
+        for (
+            var _len = arguments.length,
+                placeholders = new Array(_len > 1 ? _len - 1 : 0),
+                _key = 1;
+            _key < _len;
+            _key++
+        ) {
+            placeholders[_key - 1] = arguments[_key];
+        }
+
         for (var i = 0, len = literals.length; i < len; i++) {
             str += literals[i];
-            if (
-                i + 1 < 1 || arguments.length <= i + 1
-                    ? undefined
-                    : arguments[i + 1]
-            )
-                str +=
-                    i + 1 < 1 || arguments.length <= i + 1
-                        ? undefined
-                        : arguments[i + 1];
+            if (placeholders[i]) str += placeholders[i];
         }
 
         var lines = str.split('\n');
         var indentLens = [];
 
-        for (var _i = 0, _len = lines.length; _i < _len; _i++) {
+        for (var _i = 0, _len2 = lines.length; _i < _len2; _i++) {
             var line = lines[_i];
 
             var _indent = line.match(regStartSpaces);

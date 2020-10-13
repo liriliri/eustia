@@ -1,9 +1,7 @@
 /* tslint:disable */
 
 export declare namespace ansiColor {
-    interface IFn {
-        (str: string): string;
-    }
+    type IFn = (str: string) => string;
 }
 export declare const ansiColor: {
     black: ansiColor.IFn;
@@ -40,13 +38,19 @@ export declare const ansiColor: {
     bgMagentaBright: ansiColor.IFn;
     bgCyanBright: ansiColor.IFn;
     bgWhiteBright: ansiColor.IFn;
-}
+};
+
+export declare function has(obj: {}, key: string): boolean;
+
+export declare function keys(obj: any): string[];
+
+export declare function max(...num: number[]): number;
+
+export declare function isObj(val: any): boolean;
 
 export declare function idxOf(arr: any[], val: any, fromIdx?: number): number;
 
 export declare function isUndef(val: any): boolean;
-
-export declare function optimizeCb(fn: Function, ctx: any, argCount?: number): Function;
 
 export declare namespace types {
     interface Collection<T> {}
@@ -69,22 +73,39 @@ export declare namespace types {
     interface MemoObjectIterator<T, TResult> {
         (prev: TResult, curr: T, key: string, list: Dictionary<T>): TResult;
     }
+    type Fn<T> = (...args: any[]) => T;
+    type AnyFn = Fn<any>;
+    type PlainObj<T> = { [name: string]: T };
 }
-export declare const types: {}
+export declare const types: {};
+
+export declare function optimizeCb(
+    fn: types.AnyFn,
+    ctx: any,
+    argCount?: number
+): types.AnyFn;
+
+export declare function escape(str: string): string;
+
+export declare function toStr(val: any): string;
+
+export declare function escapeJsStr(str: string): string;
 
 export declare function escapeRegExp(str: string): string;
-
-export declare function isObj(val: any): boolean;
-
-export declare function has(obj: {}, key: string): boolean;
 
 export declare function identity<T>(val: T): T;
 
 export declare function repeat(str: string, n: number): string;
 
+export declare function rpad(str: string, len: number, chars?: string): string;
+
 export declare function objToStr(val: any): string;
 
 export declare function isArgs(val: any): boolean;
+
+export declare function isArr(val: any): boolean;
+
+export declare function castPath(path: string | string[], obj?: any): string[];
 
 export declare function isFn(val: any): boolean;
 
@@ -92,21 +113,13 @@ export declare function getProto(obj: any): any;
 
 export declare function isNum(val: any): boolean;
 
-export declare function indent(str: string, char?: string, len?: number): string;
+export declare function indent(
+    str: string,
+    char?: string,
+    len?: number
+): string;
 
 export declare function isArrLike(val: any): boolean;
-
-export declare function isStr(val: any): boolean;
-
-export declare function isArr(val: any): boolean;
-
-export declare const isBrowser: boolean;
-
-export declare const root: any;
-
-export declare function detectMocha(): boolean;
-
-export declare function keys(obj: any): string[];
 
 export declare function each<T>(
     list: types.List<T>,
@@ -119,18 +132,26 @@ export declare function each<T>(
     ctx?: any
 ): types.Collection<T>;
 
-export declare function createAssigner(keysFn: Function, defaults: boolean): Function;
-
-export declare function values(obj: any): any[];
-
-export declare function contain(
-    arr: any[] | {} | string,
-    val: any
-): boolean;
+export declare function createAssigner(
+    keysFn: types.AnyFn,
+    defaults: boolean
+): types.AnyFn;
 
 export declare function extendOwn(destination: any, ...sources: any[]): any;
 
+export declare function values(obj: any): any[];
+
+export declare function isStr(val: any): boolean;
+
+export declare function contain(arr: any[] | {} | string, val: any): boolean;
+
+export declare const isBrowser: boolean;
+
 export declare function isEmpty(val: any): boolean;
+
+export declare function isInt(val: any): boolean;
+
+export declare function isFullWidth(codePoint: number): boolean;
 
 export declare function isMatch(obj: any, src: any): boolean;
 
@@ -140,9 +161,23 @@ export declare function isUrl(val: string): boolean;
 
 export declare function ltrim(str: string, chars?: string | string[]): string;
 
-export declare function matcher(attrs: any): Function;
+export declare function matcher(attrs: any): types.AnyFn;
 
-export declare function safeCb(val?: any, ctx?: any, argCount?: number): Function;
+export declare function min(...num: number[]): number;
+
+export declare function noop(): void;
+
+export declare function now(): number;
+
+export declare function safeGet(obj: any, path: string | string[]): any;
+
+export declare function property(path: string | string[]): types.AnyFn;
+
+export declare function safeCb(
+    val?: any,
+    ctx?: any,
+    argCount?: number
+): types.AnyFn;
 
 export declare function filter<T>(
     list: types.List<T>,
@@ -177,6 +212,8 @@ export declare function allKeys(
 
 export declare function defaults(obj: any, ...src: any[]): any;
 
+export declare function template(str: string, util?: any): types.AnyFn;
+
 export declare function extend(destination: any, ...sources: any[]): any;
 
 export declare function map<T, TResult>(
@@ -190,15 +227,15 @@ export declare function map<T, TResult>(
     context?: any
 ): TResult[];
 
-export declare function min(...num: number[]): number;
+export declare function toArr(val: any): any[];
 
-export declare function noop(): void;
+export declare function mapObj<T, TResult>(
+    object: types.Dictionary<T>,
+    iterator: types.ObjectIterator<T, TResult>,
+    context?: any
+): types.Dictionary<TResult>;
 
-export declare function now(): number;
-
-export declare function toStr(val: any): string;
-
-export declare function rpad(str: string, len: number, chars?: string): string;
+export declare function cloneDeep<T>(val: T): T;
 
 export declare function rtrim(str: string, chars?: string | string[]): string;
 
@@ -219,11 +256,33 @@ export declare function some<T>(
 
 export declare function startWith(str: string, prefix: string): boolean;
 
+export declare function stripAnsi(str: string): string;
+
+export declare function strWidth(str: string): number;
+
+export declare namespace cliHelp {
+    interface IOption {
+        name: string;
+        shorthand?: string;
+        desc: string;
+    }
+    interface ICommand {
+        name: string;
+        desc: string;
+        usage: string | string[];
+        options?: IOption[];
+    }
+    interface IData {
+        name: string;
+        usage: string | string[];
+        commands: ICommand[];
+    }
+}
+export declare function cliHelp(data: cliHelp.IData | cliHelp.ICommand): string;
+
 export declare function stripCmt(str: string): string;
 
 export declare function stripColor(str: string): string;
-
-export declare function toArr(val: any): any[];
 
 export declare function stripIndent(str: string): string;
 export declare function stripIndent(
