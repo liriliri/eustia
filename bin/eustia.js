@@ -85,7 +85,6 @@ function getCmd() {
 }
 
 function useCfg() {
-  let cfgPath = path.resolve(process.cwd(), options.config || '.eustia')
   let configs
 
   let cfgPaths = [
