@@ -8,6 +8,7 @@ eustia/
 src/
 prettier.config.js
 .prettierignore
+nyc.config.js
 .gitignore
 .npmignore
 tsconfig.json
