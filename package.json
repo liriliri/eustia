@@ -15,7 +15,7 @@
     "build": "copyfiles -u 1 src/**/*.js out && tsc",
     "lint": "tslint src/**/*.ts",
     "lint:fix": "tslint src/**/*.ts --fix",
-    "test": "nyc mocha",
+    "test": "tsc --inlineSourceMap && nyc mocha",
     "ci": "npm run lint && npm run build && npm test",
     "format": "prettier \"src/**/*.ts\" \"bin/*.js\" \"test/**/*.js\" \"*.{json,js}\" --write"
   },
