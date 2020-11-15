@@ -1,6 +1,6 @@
 {
   "name": "eustia",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "Tool for generating utility libraries",
   "main": "out/index.js",
   "repository": {
