@@ -54,6 +54,7 @@
     "@types/glob": "^5.0.35",
     "@types/marked": "^0.4.1",
     "@types/node": "^10.9.4",
+    "@types/nopt": "^3.0.29",
     "@types/qs": "^6.5.1",
     "@types/request-promise": "^4.1.42",
     "chai": "^4.1.2",
