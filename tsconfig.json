@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node"],
     "module": "commonjs",
     "outDir": "out",
     "strict": true,
