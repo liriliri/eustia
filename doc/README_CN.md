@@ -5,13 +5,13 @@
 # Eustia
 
 [![NPM version][npm-image]][npm-url]
-[![Build status][travis-image]][travis-url]
+[![Build status][ci-image]][ci-url]
 [![License][license-image]][npm-url]
 
 [npm-image]: https://img.shields.io/npm/v/eustia.svg
 [npm-url]: https://npmjs.org/package/eustia
-[travis-image]: https://img.shields.io/travis/liriliri/eustia.svg
-[travis-url]: https://travis-ci.org/liriliri/eustia
+[ci-image]: https://img.shields.io/github/actions/workflow/status/liriliri/eustia/ci.yml?branch=master
+[ci-url]: https://github.com/liriliri/eustia/actions/workflows/ci.yml
 [license-image]: https://img.shields.io/npm/l/eustia.svg
 
 Eustia 是一个用于生成 JavaScript 函数库的工具。它能够扫描代码实时生成只包含所需方法的函数库。

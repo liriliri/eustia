@@ -7,14 +7,14 @@
 # Eustia
 
 [![NPM version][npm-image]][npm-url]
-[![Build status][travis-image]][travis-url]
+[![Build status][ci-image]][ci-url]
 [![Test coverage][codecov-image]][codecov-url]
 [![License][license-image]][npm-url]
 
-[npm-image]: https://img.shields.io/npm/v/eustia?style=flat-square 
+[npm-image]: https://img.shields.io/npm/v/eustia?style=flat-square
 [npm-url]: https://npmjs.org/package/eustia
-[travis-image]: https://img.shields.io/travis/liriliri/eustia?style=flat-square
-[travis-url]: https://travis-ci.org/liriliri/eustia
+[ci-image]: https://img.shields.io/github/actions/workflow/status/liriliri/eustia/ci.yml?branch=master&style=flat-square
+[ci-url]: https://github.com/liriliri/eustia/actions/workflows/ci.yml
 [codecov-image]: https://img.shields.io/codecov/c/github/liriliri/eustia?style=flat-square
 [codecov-url]: https://codecov.io/github/liriliri/eustia?branch=master
 [license-image]: https://img.shields.io/npm/l/eustia?style=flat-square
